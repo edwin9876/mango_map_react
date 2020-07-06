@@ -5,7 +5,15 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      filename: './dev.sqlite3'
+      database: 'mango_map',
+      user: 'postgres',
+      password: 'postgres'
+    },
+    migrations:{
+      directory:`${__dirname}/src/database/migrations`
+    },
+    seeds:{
+      directory:`${__dirname}/src/database/seeds`
     }
   },
 
@@ -23,6 +31,7 @@ module.exports = {
     migrations: {
       tableName: 'knex_migrations'
     }
+
   },
 
   production: {
