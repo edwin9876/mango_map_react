@@ -1,0 +1,97 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Colours */
+.white100{color:rgb(255, 255, 255)}
+.gray70{color:#81806f;}
+.gray50{color:#C3C1A6;}
+.highlight{color: #78F2A6;}
+.active{filter: brightness(0.7);}
+/* Positions */
+.sticky {position: fixed; bottom: 0;}
+.row{ display: flex; flex-direction: row;}
+.d-flex{display: flex;}
+.justify-content-center{justify-content: center;}
+.justify-content-between{justify-content: space-between;}
+.align-content-center {align-content:center}
+.hidden{display: none;}
+.position-absolute{position: absolute;}
+
+/* Sizes */
+/* .icons15{width: 15%;} */
+.icons15{width: 15vw; height: 15vw;}
+
+
+
+/* home */
+
+.container-fluid{
+    padding: 0;
+}
+
+#welcomeMsg{
+    margin-top: 20%;
+}
+#searchbar{
+    margin: 1rem;
+    padding: 2.5vw;
+    width: 65vw;
+    height: 10vw;
+    background-color: transparent;
+    border: #E1D100 solid 1.5px;
+    border-radius: 50px;
+}  
+#searchbar:hover{
+    border: #78F2A6 solid 1.5px;
+    border-radius: 50px;
+}
+#searchIC{
+    margin: 1.2rem 0;
+}
+
+#filterTab{
+    background-color: #e1d2001a;
+    padding: 1vh;
+}
+.filter_Btns{
+    margin: 0.25rem;
+    padding: 0.25rem;
+    background-color: transparent;
+    border: #E1D100 solid thin;
+    border-radius: 5px;
+}
+
+#mapScreen{
+    filter: brightness(0.4);
+    width: 100vw;
+    height: 50vh;
+}
+
+#indicationMsg{
+    z-index: 100;
+    top: 65%;
+}
+
+/* Toolbar for mobile device */
+#toolbar {
+    padding: 1vh 0;
+    background-color: #E1D100;
+    width: 100%;
+    height: 10vh;
+    margin-top: 12vh;
+    z-index: 100;
+}
+.toolbar_icons {
+    padding: 1vh;
+}
