@@ -23,7 +23,7 @@ export default class Map extends Component {
        
         return (
             <div>
-                <h5 className="welcomeMsg gray50 d-flex justify-content-center">YOU ARE AT SAI KUNG!</h5>
+                <h5 className="welcomeMsg gray50 d-flex justify-content-center bold">YOU ARE AT SAI KUNG!</h5>
                 <PopularSpots />
                 {isClicked 
                 ?<MapPreview/> 
