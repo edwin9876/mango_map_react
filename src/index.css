@@ -1,40 +1,38 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
 }
 
 /* Colours */
 /* #8b8859 ,  #E1D100*/
 .white100{color:rgb(255, 255, 255)}
 .gray70{color:#81806f;}
-.gray50{color:#cace8c;}
+.gray50{color:#ccd637;}
 .highlight{color: #ec9791;}
 /* #d5d827 */
 .transparent{color: transparent;}
 .transparent-bg{background-color: transparent;}
 .active{filter: opacity(0.5);}
+.blur{filter: opacity(0.4);}
+
 /* Positions */
 .sticky {position: fixed;}
 .d-flex{display: flex;}
 .justify-content-center{justify-content: center;}
+.centerH{display:flex; justify-content: center; flex-direction: column;}
 .justify-content-between{justify-content: space-between;}
 .align-content-center {align-content:center}
 .hidden{display: none;}
 .position-absolute{position: absolute;}
+.margin1 {margin:1rem}
 .margin5 {margin:5%}
 
 /* sizing */
 .icons15{width: 15vw; height: 13vw;padding: 1vw;}
 .icons20{width: 20vw; height: 18vw;padding: 1vw;}
+.micons15{font-size: 4rem;}
 
 /* font */
 .bold {font-weight: bold;}
@@ -73,24 +71,26 @@ code {
 #filterTab{
     width: 100vw;
     max-height: fit-content;
-    background-image: url(./Icons/marble.jpg); 
+    /* background-image: url(./Icons/pearly.jpg);  */
+    /* filter: opacity(0.5); */
     /* background-size: cover; */
-    /* background-repeat: no-repeat;
-  
-    /* background-image: linear-gradient(rgb(235, 195, 144),#939e60bb); */
+    background-image: url(./Icons/marble.jpg);
+    background-repeat: no-repeat;
     padding: 1vh;
 }
 .filter_Btns{
-    color: rgba(80, 75, 3, 0.685);
+    /* color: rgb(0, 0, 0); */
+    /* background-color: rgb(255, 255, 255); */
+    /* border: 1px solid #fffffe; */
+
+    color: rgba(8, 54, 26, 0.767);
     margin: 0.5rem;
     padding: 0.25rem;
     height: 3rem;
-    background-color: rgba(255, 255, 255, 0.644);
-    border: 1px solid rgba(255, 255, 255, 0);
+    background-color: rgba(255, 255, 255, 0);
+    border: 1px solid #ccd637;
     border-radius: 5px;
- 
 }
-
 #mapScreen{
     filter: brightness(0.4);
     width: 100vw;
@@ -135,7 +135,8 @@ code {
     padding: 20% 5% 5% 5%;
     width: 100vw;
     max-height: fit-content;
-    background-color: #C3C1A6;
+    /* background-color: #C3C1A6; */
+    background-image: url(./Icons/marble.jpg);
 }
 
 .form-container{
@@ -144,15 +145,45 @@ code {
     flex-direction: column;
     justify-content: center;
 }
-/* 
-.transparent_btn :hover{
-    box-shadow: #C3C1A6;
-} */
+
+.login_icons{
+    width: fit-content;
+    border: transparent;
+    border-radius: 50px;
+    margin: 0.5rem;
+    /* background-color: rgba(140, 153, 63, 0.274); */
+    background-image: url(./Icons/marble.jpg);
+    background-size: cover;
+    /* box-shadow: 2px 5px 5px 5px #eedd7c48; */
+}
+
+.transparent_btn {
+    background: transparent;
+    border: transparent;
+}
+
+button:focus {
+    background-color:transparent
+}
+
+#login_btn{
+    width: 8rem;
+    height: 3rem
+}
+
+/* Profile page */
+.panels {
+    width: 8rem;
+    height: fit-content;
+}
+
 
 /* Toolbar for mobile device */
 #toolbar {
     padding: 2vh 0;
-    background-color: #cedb82;
+    background-color: #ffffff;
+    /* background-image: url(./Icons/pearly.jpg); */
+    /* background-size: cover; */
     width: 100%;
     height: 10vh;
     margin-top: 12vh;
@@ -161,6 +192,15 @@ code {
     bottom: 0;  
 }
 .toolbar_icons {
+filter: drop-shadow(16px 16px 20px #ffffff) invert(45%);
     padding: 0vh 2vh 3vh 2vh ;
     ;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]){
+  border-bottom: solid 2px #ccd637;
+  box-shadow: none;
 }

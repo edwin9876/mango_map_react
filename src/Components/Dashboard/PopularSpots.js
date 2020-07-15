@@ -18,15 +18,16 @@ class PopularSpots extends Component {
             (locations.map(location => {
                 return (
                     <div className="col s4" key={location.id}>
-                        <a href="/map/id" className="transparent-bg"><button className="filter_Btns gray70">{location.name}</button></a>
+                        <a href="/map/id" className="transparent-bg"><button className="filter_Btns">{location.name}</button></a>
+                        {/* <a href="/map/id" className="transparent-bg"><div className="card center filter_Btns ">{location.name}</div></a> */}
                     </div>
                 )
             }))
             :
             (<div className="d-flex justify-content-center">No posts yet</div>)
         return (
-            <div id="filterTab" className="container-fluid gray70 ">
-                <p className="d-flex justify-content-center bold">popular spots</p>
+            <div id="filterTab">
+                <p className="center bold gray70">popular spots</p>
                 <div className="row"> {locationList}</div>
             </div>
         )

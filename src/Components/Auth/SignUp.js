@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Toplogobox from '../Layout/Toplogobox'
 
 export class SignUp extends Component {
 
@@ -22,11 +23,21 @@ export class SignUp extends Component {
 
 
     render() {
+        
+    
+            const changeBG = (e)=>{
+             e.target.style.border = 'solid grey 1px';
+             e.target.style.borderRadius = '50px';
+          }
+          const backBG = (e)=>{
+             e.target.style.border = 'none';
+          }
         return (
-            <div className="container">
-                <form onSubmit={this.handleSubmit} className="white" >
-                    <h5 className="greay-text text-darken-3">Sign Up</h5>
-
+            
+            <div>
+                <Toplogobox />
+                <form onSubmit={this.handleSubmit} className="form-container white" >
+                    
                     <div className="input-field">
                         <label htmlFor="email">Email</label>
                         <input type="email" id="email" onChange={this.handleChange} />
@@ -46,8 +57,12 @@ export class SignUp extends Component {
                         <input type="text" id="lastName" onChange={this.handleChange} />
                     </div>
 
-                    <div className="input-field">
-                        <button className="btn pink lighten-1 z-depth-0">Sign Up</button>
+                    <div className="justify-content-center d-flex input-field">
+                    <button className="transparent_btn grey-text " id="login_btn"
+                           onMouseOver={changeBG}
+                           onMouseLeave={backBG}> Sign Up
+                           
+                        </button>
                     </div>
                 </form>
             </div>

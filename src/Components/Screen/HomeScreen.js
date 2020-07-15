@@ -9,7 +9,7 @@ export default class HomeScreen extends Component {
     render() {
         return (
             <div>
-                <h4 className="welcomeMsg gray50 d-flex justify-content-center">WELCOME USER!</h4>
+                <h4 className="welcomeMsg gray50 d-flex justify-content-center bold">WELCOME USER!</h4>
             <SearchBar />
             <PopularSpots />
             <div id="mapTab" class="d-flex justify-content-center">
