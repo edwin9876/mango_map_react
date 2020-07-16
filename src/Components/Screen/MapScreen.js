@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import PopularSpots from '../Dashboard/PopularSpots'
-import CurrentMap from '../../Icons/mapSample.JPG'
+// import CurrentMap from '../../Icons/mapSample.JPG'
 import MapPreview from '../Map/MapPreview'
+import SearchBar from '../Layout/SearchBar'
+import MapContainer from '../../Containers/Map/Map'
 
 
 export default class Map extends Component {
@@ -10,25 +11,25 @@ export default class Map extends Component {
         this.state = { isClicked: false };
     }
 
-    handleLocationClick =()=> {
-        this.setState({isClicked: true})
-    }
+    // handleLocationClick =()=> {
+    //     this.setState({isClicked: true})
+    // }
 
-    handleLocationUnclick =()=>{
-        this.setState({isClicked:false})
-    }
+    // handleLocationUnclick =()=>{
+    //     this.setState({isClicked:false})
+    // }
 
     render() {
         const isClicked = this.state.isClicked;
        
         return (
             <div>
-                <h5 className="welcomeMsg gray50 d-flex justify-content-center bold">YOU ARE AT SAI KUNG!</h5>
-                <PopularSpots />
                 {isClicked 
                 ?<MapPreview/> 
                 : null}
-                <img onClick={this.handleLocationClick} id="googleMap" src={CurrentMap} alt="this is placeholder for googlemap embed" />
+                {/* <img onClick={this.handleLocationClick} id="googleMap" src={CurrentMap} alt="this is placeholder for googlemap embed" /> */}
+                <SearchBar/>
+                <MapContainer />
             </div >
                )
     }

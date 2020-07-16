@@ -16,16 +16,14 @@ class App extends Component {
       <BrowserRouter>
         <div className='App'>
           <Navbar />
-          <MapContainer />
-
-          {/* <Switch>
+          <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/map' component={Map} />
             <Route exact path='/map/:id' component={MapDetails} />
             <Route exact path='/profile' component={Profile} />
             <Route exact path='/signin' component={SignIn} />
             <Route exact path='/signup' component={SignUp} />
-          </Switch> */}
+          </Switch>
         </div>
       </BrowserRouter>
     );

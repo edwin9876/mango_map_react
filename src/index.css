@@ -48,7 +48,7 @@ body {
 }
 
 .welcomeMsg{
-    margin-top: 15%;
+    margin-top: 10%;
     margin-bottom: 5%;
 }
 #searchbar{
@@ -56,14 +56,11 @@ body {
     padding: 2.5vw;
     width: 65vw;
     height: 10vw;
-    background-color: transparent;
-    border: #8b8859 solid 1.5px;
-    border-radius: 50px;
+    position: fixed;
+    z-index: 100;
 }  
-#searchbar:hover{
-    border: #d5d827 solid 1.5px;
-    border-radius: 50px;
-}
+
+
 #searchIC{
     margin: 1.2rem 0;
 }
@@ -204,3 +201,5 @@ textarea.materialize-textarea:focus:not([readonly]){
   border-bottom: solid 2px #ccd637;
   box-shadow: none;
 }
+
+
