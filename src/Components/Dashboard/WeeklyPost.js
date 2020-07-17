@@ -4,9 +4,9 @@ import React from 'react'
 const Weekly = () => {
     return (
         <div>
-           <p className="center bold gray70">This week's best post</p>
+            <p className="center bold gray70">This week's best post</p>
             <div className="row">
-                <div className="col s12 m6">
+                <div className="col s12 m12">
                     <div className="card darken-1">
                         <div className="card-content grey-text">
                             <h4 className="card-title">My best picture</h4>
