@@ -9,7 +9,7 @@ const ProfileDetails = (props) => {
 
     return (
         <div>
-            <h3 className="gray50 bold center">PROFILE</h3>
+            <h3 className="gray50 bold center">Mango Map</h3>
             <i class="material-icons justify-content-center d-flex micons15 blur">account_circle</i>
             <h5 className=" bold center">Pullip Lee</h5>
             <p className="center">Sai Kung, Hong Kong</p>
