@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
 
 export default class ChatList extends Component {
     state = {
@@ -14,14 +15,14 @@ export default class ChatList extends Component {
             (chatrooms.map(chatroom => {
                 return (
                     <div>
-                        <li className="collection-item avatar ">
+                        <Link to="/chat/:id"><li className="collection-item avatar gray70">
                             <i className="material-icons circle grey blur">star</i>
                             <span className="title bold">{chatroom.name}</span>
                             <p>
                                {chatroom.preview}
                     </p>
                             <a href="#!" className="secondary-content"><i className="material-icons blur">grade</i></a>
-                        </li>
+                        </li></Link>
                     </div>)
             }))
             :
