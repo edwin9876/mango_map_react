@@ -10,7 +10,7 @@ export default class HomeScreen extends Component {
         return (
             <div>
                 <br /><br /><br />
-                <h4 className="welcomeMsg gray50 center bold" >WELCOME USER!</h4>
+                {/* <h4 className="welcomeMsg gray50 center bold" >WELCOME USER!</h4> */}
                 <SearchBar />
                 <PopularSpots />
                 <Weekly />
