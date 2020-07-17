@@ -92,21 +92,13 @@ export default [
       },
     ],
   },
-<<<<<<< HEAD
-=======
 
-
->>>>>>> ec83c521d9eae51b69bb4d641c284aa20f77c204
   {
     featureType: 'landscape',
     elementType: 'all',
     stylers: [
       {
-<<<<<<< HEAD
-        color: '#f2f2f2',
-=======
         color: '#ccd637',
->>>>>>> ec83c521d9eae51b69bb4d641c284aa20f77c204
       },
     ],
   },
@@ -142,22 +134,14 @@ export default [
     elementType: 'all',
     stylers: [
       {
-<<<<<<< HEAD
-        saturation: -100,
-      },
-      {
-        lightness: 45,
-      },
-=======
         saturation: 100,
       },
       {
         lightness: 5,
       },
       {
-        color: '#f1f18f'
-      }
->>>>>>> ec83c521d9eae51b69bb4d641c284aa20f77c204
+        color: '#f1f18f',
+      },
     ],
   },
   {
@@ -192,19 +176,11 @@ export default [
     elementType: 'all',
     stylers: [
       {
-<<<<<<< HEAD
-        color: '#6da8c0',
-=======
         color: 'rgb(220, 232, 241)',
->>>>>>> ec83c521d9eae51b69bb4d641c284aa20f77c204
       },
       {
         visibility: 'on',
       },
     ],
   },
-<<<<<<< HEAD
 ];
-=======
-];
->>>>>>> ec83c521d9eae51b69bb4d641c284aa20f77c204
