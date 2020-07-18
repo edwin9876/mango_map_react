@@ -93,7 +93,6 @@ export default [
     ],
   },
 
-
   {
     featureType: 'landscape',
     elementType: 'all',
@@ -141,8 +140,8 @@ export default [
         lightness: 5,
       },
       {
-        color: '#f1f18f'
-      }
+        color: '#f1f18f',
+      },
     ],
   },
   {
