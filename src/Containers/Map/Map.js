@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Map, InfoWindow, GoogleApiWrapper, Marker } from 'google-maps-react';
 
+import icon from '../../assets/icons/adventure.png';
+
+import photo1 from '../../assets/photos/1.jpg';
+
 import predefinedLocations from './PredefinedLocations/LocationStorage';
 import CurrentLocationTesting from './CurrentLocation';
 
@@ -70,7 +74,7 @@ export class MapContainer extends Component {
       return (
         <Marker
           icon={{
-            url: './assets/icons/adventure.png',
+            url: './assets/icons/user.png',
             anchor: new window.google.maps.Point(25, 25),
             scaledSize: new window.google.maps.Size(50, 50),
           }}
