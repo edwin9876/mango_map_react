@@ -74,7 +74,7 @@ export class MapContainer extends Component {
       return (
         <Marker
           icon={{
-            url: './assets/icons/user.png',
+            url: './assets/icons/adventure.png',
             anchor: new window.google.maps.Point(25, 25),
             scaledSize: new window.google.maps.Size(50, 50),
           }}
