@@ -5,6 +5,7 @@ import Home from './Components/Screen/HomeScreen'
 import Map from './Components/Screen/MapScreen'
 import MapDetails from './Components/Map/MapDetails'
 import Blog from './Components/Screen/BlogScreen'
+import BlogDetails from './Components/Blog/BlogDetails'
 import Chat from './Components/Screen/ChatScreen'
 import Profile from './Components/Screen/ProfileScreen'
 import SignIn from './Components/Auth/SignIn'
@@ -23,6 +24,7 @@ class App extends Component {
             <Route exact path='/map' component={Map} />
             <Route exact path='/map/:id' component={MapDetails} />
             <Route exact path='/blog' component={Blog} />
+            <Route exact path='/blog/:id' component={BlogDetails} />
             <Route exact path='/chat' component={Chat}/>
             <Route exact path='/profile' component={Profile} />
             <Route exact path='/signin' component={SignIn} />
