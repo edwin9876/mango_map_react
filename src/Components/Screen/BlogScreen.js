@@ -13,7 +13,7 @@ export default class BlogScreen extends Component {
         return (
             <div>
                 <SearchBar />
-                <WeeklyPic/>
+                <WeeklyPic />
 
                 <div className="card-tabs">
                     <ul className="tabs tabs-fixed-width">
@@ -21,8 +21,8 @@ export default class BlogScreen extends Component {
                         <li className="tab"><a href="#test4" className="bold black-text">Top users</a></li>
                     </ul>
                 </div>
-<TopPics/>
-{/* <TopUsers/> */}
+                <TopPics />
+                {/* <TopUsers/> */}
             </div>
         )
     }
