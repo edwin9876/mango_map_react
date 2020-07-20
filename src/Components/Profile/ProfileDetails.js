@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 // import ProfilePanel from './ProfilePanel'
 
-import TripSummary from '../Dashboard/TripSummary'
-import GroupSummary from '../Dashboard/GroupSummary'
-import PostSummary from '../Dashboard/PostSummary'
+import TripSummary from '../UI/Dashboard/TripSummary'
+import GroupSummary from '../UI/Dashboard/GroupSummary'
+import PostSummary from '../UI/Dashboard/PostSummary'
 
 
 const ProfileDetails = () => {

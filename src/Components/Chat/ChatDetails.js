@@ -1,5 +1,5 @@
 import React from 'react'
-import SearchBar from '../Layout/SearchBar'
+import SearchBar from '../UI/Layout/SearchBar'
 
 
 const ChatDetails = () => {
