@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from '../../../axios';
+// import axios from '../../../axios';
 import { Redirect } from 'react-router-dom';
 import SearchBar from '../../../Components/Layout/SearchBar'
 
@@ -83,12 +83,10 @@ class NewPost extends Component {
             </div>
           </div>
 
-
-
           <button className="btn waves-effect waves-light"
             onClick={this.postDataHandler}
             type="submit" name="action">Add Post
-    <i className="material-icons right"></i>
+    
           </button>
           </div>
         </form>

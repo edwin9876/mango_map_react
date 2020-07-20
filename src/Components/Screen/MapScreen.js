@@ -8,7 +8,7 @@ import MapContainer from '../../Containers/Map/Map'
 export default class Map extends Component {
     constructor(props) {
         super(props);
-        this.state = { isClicked: false };
+        this.state = { isClicked: true };
     }
 
     // handleLocationClick =()=> {
@@ -24,10 +24,10 @@ export default class Map extends Component {
        
         return (
             <div>
-                {isClicked 
+                {/* {isClicked 
                 ?<MapPreview/> 
-                : null}
-                {/* <img onClick={this.handleLocationClick} id="googleMap" src={CurrentMap} alt="this is placeholder for googlemap embed" /> */}
+                : null} */}
+            <MapPreview/>
                 <SearchBar/>
                 <MapContainer />
             </div >

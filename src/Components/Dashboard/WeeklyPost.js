@@ -25,7 +25,7 @@ const Weekly = () => {
 
                     </div>
                 </div>
-                <div className="col s12 m12 center-align"><a href='/blog/new'class=" waves-effect waves-light btn">add new blog</a></div>
+          
 
             </div>
 
