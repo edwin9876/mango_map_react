@@ -10,6 +10,9 @@ import predefinedLocations from './PredefinedLocations/LocationStorage';
 import CurrentLocationTesting from './CurrentLocation';
 
 import mapStyle from './mapStyle';
+// import M from "materialize-css";
+
+
 
 const mapStyles = {
   width: '100%',
@@ -116,23 +119,22 @@ export class MapContainer extends Component {
           visible={this.state.showingInfoWindow}
           onClose={this.onClose}
         >
-          <div>
+          <div className="center">
             <p>{this.state.selectedPlace.name}</p>
-            <img alt='A demo photo' src='./assets/photos/1.jpg' width='100px' />
-            <img alt='A demo photo' src='./assets/photos/2.jpg' width='100px' />
-            <img alt='A demo photo' src='./assets/photos/3.jpg' width='100px' />
-            <img alt='A demo photo' src='./assets/photos/4.jpg' width='100px' />
-            <img alt='A demo photo' src='./assets/photos/5.jpg' width='100px' />
-            <img alt='A demo photo' src='./assets/photos/6.jpg' width='100px' />
-            {/* <img alt='A demo photo' src='./assets/photos/7.jpg' width='100px' />
-            <img alt='A demo photo' src='./assets/photos/8.jpg' width='100px' />
-            <img alt='A demo photo' src='./assets/photos/9.jpg' width='100px' /> */}
+           
+            <img className="center icons30" alt='A demo photo' src='./assets/photos/1.jpg'/>
+            <img className="center icons30" alt='A demo photo' src='./assets/photos/5.jpg' />
+            <img className="center icons30" alt='A demo photo' src='./assets/photos/4.jpg' />
+            <img className="center icons30" alt='A demo photo' src='./assets/photos/2.jpg' /> 
+          {/* <img className="center" alt='A demo photo' src='./assets/photos/5.jpg' width='100px' />
+          {/* <img className="center margin1" alt='A demo photo' src='./assets/photos/6.jpg' width='100px' /> */}
           </div>
         </InfoWindow>
-      </Map>
+      </Map >
     );
   }
 }
+
 
 export default GoogleApiWrapper({
   apiKey: 'AIzaSyAg-zxdwaWHeCd5QnJ-yBcy1_lvDttzCKk',

@@ -21,7 +21,7 @@ export default class ProfileScreen extends Component {
         const isLoggedIn = this.state.isLoggedIn;
         const id = this.state.id
         return (
-            <div>
+            <div className="mb10vh">
                 {isLoggedIn
                     ? <ProfileDetails />
                     : <SignIn />

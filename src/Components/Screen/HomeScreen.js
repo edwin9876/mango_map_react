@@ -9,12 +9,12 @@ import WeeklyPic from '../Dashboard/WeeklyPic'
 export default class HomeScreen extends Component {
     render() {
         return (
-            <div>
+            <div className="mb10vh">
                 <SearchBar />
-                {/* <h4 className="welcomeMsg gray50 center bold" >WELCOME USER!</h4> */}
                 <PopularSpots />
-                <WeeklyPost />
                 <WeeklyPic />
+                <div className="col s12 m12 center margin1"><a href='/blog/new' class=" waves-effect waves-light btn">add new post</a></div>
+                <WeeklyPost />
             </div>
         )
     }

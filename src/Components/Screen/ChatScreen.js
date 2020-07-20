@@ -8,7 +8,7 @@ export default class BlogScreen extends Component {
     render() {
         return (
 
-            <div>
+            <div className="mb10vh">
                 <ChatToolbar />
                 <SearchBar/>
                 <ChatList />

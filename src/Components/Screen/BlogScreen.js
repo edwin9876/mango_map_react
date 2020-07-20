@@ -11,9 +11,10 @@ import WeeklyPic from '../Dashboard/WeeklyPic'
 export default class BlogScreen extends Component {
     render() {
         return (
-            <div>
+            <div className="mb10vh">
                 <SearchBar />
                 <WeeklyPic />
+                <div className="col s12 m12 center margin1"><a href='/blog/new'class=" waves-effect waves-light btn">add new post</a></div>
 
                 <div className="card-tabs">
                     <ul className="tabs tabs-fixed-width">
