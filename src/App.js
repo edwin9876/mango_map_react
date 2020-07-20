@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Navbar from './Components/Layout/Navbar';
-import Home from './Components/Screen/HomeScreen';
-import Map from './Components/Screen/MapScreen';
+
+import Navbar from './Components/UI/Layout/Navbar';
+import Home from './Containers/Map/MapScreen';
+import Blog from './Containers/Blog/BlogScreen';
+import Chat from './Containers/Chat/ChatScreen';
+import Profile from './Containers/Profile/ProfileScreen';
+
 import MapDetails from './Components/Map/MapDetails';
-import Blog from './Components/Screen/BlogScreen';
-import BlogDetails from './Components/Blog/BlogDetails';
 import BlogNew from './Containers/Blog/NewPost/NewPost';
-import Chat from './Components/Screen/ChatScreen';
+import BlogDetails from './Components/Blog/BlogDetails';
 import ChatDetails from './Components/Chat/ChatDetails';
-import Profile from './Components/Screen/ProfileScreen';
 import SignIn from './Components/Auth/SignIn';
 import SignUp from './Components/Auth/SignUp';
 
@@ -21,8 +22,7 @@ class App extends Component {
           <Navbar />
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route exact path='/map' component={Map} />
-            <Route exact path='/map/:id' component={MapDetails} />
+            <Route exact path='/location/:id' component={MapDetails} />
             <Route exact path='/blog' component={Blog} />
             <Route exact path='/blog/new' component={BlogNew} />
             <Route exact path='/blog/:id' component={BlogDetails} />
