@@ -25,7 +25,7 @@ export default [
         visibility: 'simplified',
       },
       {
-        hue: '#ff0000',
+        hue: 'grey',
       },
     ],
   },
@@ -34,7 +34,7 @@ export default [
     elementType: 'labels.text',
     stylers: [
       {
-        visibility: 'on',
+        visibility: 'off',
       },
     ],
   },
@@ -70,7 +70,7 @@ export default [
     elementType: 'labels.text.fill',
     stylers: [
       {
-        color: '#444444',
+        color: 'white',
       },
     ],
   },
@@ -98,7 +98,7 @@ export default [
     elementType: 'all',
     stylers: [
       {
-        color: '#ccd637',
+        color: '#FFFFFF',
       },
     ],
   },
@@ -140,7 +140,7 @@ export default [
         lightness: 5,
       },
       {
-        color: '#f1f18f',
+        color: 'white',
       },
     ],
   },

@@ -24,16 +24,10 @@ class App extends Component {
             <Route exact path='/map' component={Map} />
             <Route exact path='/map/:id' component={MapDetails} />
             <Route exact path='/blog' component={Blog} />
-<<<<<<< HEAD
-            <Route exact path='/blog/:id' component={BlogDetails} />
-            <Route exact path='/chat' component={Chat}/>
-            <Route exact path='/chat/:id' component={ChatDetails}/>
-=======
             <Route exact path='/blog/new' component={BlogNew} />
             <Route exact path='/blog/:id' component={BlogDetails} />
             <Route exact path='/chat' component={Chat} />
             <Route exact path='/chat/:id' component={ChatDetails} />
->>>>>>> 879796a4c93acbe3cbc7442c8c658c69bd52f7c6
             <Route exact path='/profile' component={Profile} />
             <Route exact path='/signin' component={SignIn} />
             <Route exact path='/signup' component={SignUp} />
