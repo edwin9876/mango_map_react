@@ -1,12 +1,7 @@
 import React from 'react'
-import SearchIC from '../../Icons/searchIC.png'
 
 const SearchBar = () => {
     return (
-        // <div id="searchTab" classNameName="d-flex justify-content-center">
-        //     <input id="searchbar" type="text" placeholder="SEARCH" />
-        //     <img id="searchIC" classNameName="icons15 hidden" src={SearchIC} alt="searchicon" />
-        // </div>
 
         <div className="nav-wrapper">
             <form>

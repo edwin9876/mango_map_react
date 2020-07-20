@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import { Map, InfoWindow, GoogleApiWrapper, Marker } from 'google-maps-react';
 
 import icon from '../../assets/icons/adventure.png';
-
 import photo1 from '../../assets/photos/1.jpg';
+import SearchBar from '../../Components/UI/Layout/SearchBar'
 
 import predefinedLocations from './PredefinedLocations/LocationStorage';
 import CurrentLocationTesting from './CurrentLocation';
 
 import mapStyle from './mapStyle';
-// import M from "materialize-css";
+import M from "materialize-css";
 
 
 
@@ -36,6 +36,11 @@ export class MapContainer extends Component {
   };
 
   componentDidMount() {
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.carousel');
+      var instances = M.Carousel.init(elems);
+    });
+
     if (navigator && navigator.geolocation) {
       // console.log(this.props.google.maps.Map().panT);
       navigator.geolocation.getCurrentPosition((pos) => {
@@ -89,6 +94,7 @@ export class MapContainer extends Component {
     });
 
     return (
+
       <Map
         centerAroundCurrentLocation
         google={this.props.google}
@@ -119,16 +125,25 @@ export class MapContainer extends Component {
           visible={this.state.showingInfoWindow}
           onClose={this.onClose}
         >
-          <div className="center">
+          {/* <div className="center">
             <p>{this.state.selectedPlace.name}</p>
            
             <img className="center icons30" alt='A demo photo' src='./assets/photos/1.jpg'/>
             <img className="center icons30" alt='A demo photo' src='./assets/photos/5.jpg' />
             <img className="center icons30" alt='A demo photo' src='./assets/photos/4.jpg' />
             <img className="center icons30" alt='A demo photo' src='./assets/photos/2.jpg' /> 
-          {/* <img className="center" alt='A demo photo' src='./assets/photos/5.jpg' width='100px' />
-          {/* <img className="center margin1" alt='A demo photo' src='./assets/photos/6.jpg' width='100px' /> */}
-          </div>
+    
+
+          </div> */}
+
+<div className="carousel">
+    <a className="carousel-item" href="#one!"> <img className="center icons30" alt='A demo photo' src='./assets/photos/1.jpg'/></a>
+    <a className="carousel-item" href="#one!"> <img className="center icons30" alt='A demo photo' src='./assets/photos/1.jpg'/></a>
+    <a className="carousel-item" href="#one!"> <img className="center icons30" alt='A demo photo' src='./assets/photos/1.jpg'/></a>
+    <a className="carousel-item" href="#one!"> <img className="center icons30" alt='A demo photo' src='./assets/photos/1.jpg'/></a>
+    
+  </div>
+
         </InfoWindow>
       </Map >
     );
