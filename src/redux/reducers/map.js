@@ -8,23 +8,27 @@ import {
 
 const initialMapState =
 {
-    districts:[],
-    district:[]
+    districts: [],
+    district: []
 }
 
-const mapReducer = (state=initialMapState,action)=>{
-    switch (action.type){
+const mapReducer = (state = initialMapState, action) => {
+    switch (action.type) {
         case FETCH_ALLDISTRICT:
             return {
                 ...state,
-                districts:[...action.payload]
+                districts: [...action.payload]
             }
         case FETCH_DISTRICT:
             return {
                 ...state,
-                district:[...action.payload]
+                district: [...action.payload]
             }
         case CREATE_DISTRICT:
+            return {
+                ...state,
+            }
+        default:
             return {
                 ...state,
             }

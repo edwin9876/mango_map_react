@@ -14,21 +14,21 @@ import {
 } from '../constants/action-types'
 
 const initialUserState = {
-    users:[],
-    user:[]
+    users: [],
+    user: []
 }
 
-const userReducer = (state=initialUserState,action) =>{
-    switch (action.type){
+const userReducer = (state = initialUserState, action) => {
+    switch (action.type) {
         case FETCH_ALLUSER:
             return {
                 ...state,
-                users:[...action.payload]
+                users: [...action.payload]
             }
         case FETCH_USER:
             return {
                 ...state,
-                user:[...action.payload]
+                user: [...action.payload]
             }
         case CREATE_USER:
             return {
@@ -50,7 +50,10 @@ const userReducer = (state=initialUserState,action) =>{
             return {
                 ...state
             }
-
+        default:
+            return {
+                ...state,
+            }
     }
 }
 
