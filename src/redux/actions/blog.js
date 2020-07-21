@@ -1,5 +1,6 @@
 import {
     CREATE_NEWCATEGORY,
+    FETCH_ALLCATEGORY,
     CREATE_BLOG,
     CREATE_COMMENT,
     REMOVE_COMMENT,
@@ -18,31 +19,54 @@ import axios from 'axios'
 export function fetchAllBlog() {
     return (dispatch) => {
         return axios("http://localhost:8000/blog/all")
-            .then(res => res.json())
-            .then(json => {
-                dispatch({ type: FETCH_ALLBLOG, payload: json })
+            .then(res => {
+                dispatch({ type: FETCH_ALLBLOG, payload: res.data })
             })
 
     }
 }
-export function fetchBlog(blog_id) {
+export function fetchBlog(payload) {
     return dispatch => {
-        return axios(`http://localhost:8000/blog/${blog_id}`)
-            .then(res => res.json())
-            .then(json => {
-                dispatch({ type: FETCH_BLOG, payload: json })
+        return axios(`http://localhost:8000/blog/${payload.blog_id}`)
+            .then(res => {
+                dispatch({ type: FETCH_BLOG, payload: res.data })
             })
     }
 }
+export function fetchAllCategory() {
+    return (dispatch) => {
+        return axios("http://localhost:8000/blog/categories/")
+            .then(res => {
+                dispatch({ type: FETCH_ALLCATEGORY, payload: res.data })
+            })
+
+    }
+}
 export function createNewCategory(payload) {
-    return { type: CREATE_NEWCATEGORY, payload }
+    return dispatch => {
+        return axios.post(`http://localhost:8000/blog/categories/`, payload)
+            .then(res => {
+                dispatch({ type: CREATE_NEWCATEGORY, payload: res.data })
+            })
+    }
 }
 export function createComment(payload) {
-    return { type: CREATE_COMMENT, payload }
+    return dispatch => {
+        return axios.post(`http://localhost:8000/blog/comment/${payload.blog_id}`, payload.comment)
+            .then(res => {
+                dispatch({ type: CREATE_COMMENT, payload:res.data })
+            })
+    }
 }
 export function createBlog(payload) {
-    return { type: CREATE_BLOG, payload }
+    return dispatch => {
+        return axios.post(`http://localhost:8000/blog`, payload)
+            .then(res => {
+                dispatch({ type: CREATE_BLOG, payload:res.data })
+            })
+    }
 }
+
 export function updateBlog(payload) {
     return { type: UPDATE_BLOG, payload }
 }

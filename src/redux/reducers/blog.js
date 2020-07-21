@@ -1,5 +1,6 @@
 import {
     CREATE_NEWCATEGORY,
+    FETCH_ALLCATEGORY,
     CREATE_BLOG,
     CREATE_COMMENT,
     REMOVE_COMMENT,
@@ -15,20 +16,43 @@ import {
 
 const initialBlogState =
 {
-    blogs: []
+    blogs: [],
+    blog:[],
+    categories:[]
 }
 
 function blogReducer(state = initialBlogState, action) {
     switch (action.type) {
         case FETCH_ALLBLOG:
             return {
+                ...state,
                 blogs: [...action.payload]
             }
         case FETCH_BLOG:
             return {
-                
+                ...state,
+                blog: [...action.payload]
+            }
+        case FETCH_ALLCATEGORY:
+            return {
+                ...state,
+                categories: [...action.payload]
+            }
+        case CREATE_NEWCATEGORY:
+            return {
+                ...state
+            }
+        case CREATE_COMMENT:
+            return {
+                ...state
+            }
+        case CREATE_BLOG:
+            return {
+                ...state
             }
         default:
             return state.blogs
     }
 }
+
+export default blogReducer

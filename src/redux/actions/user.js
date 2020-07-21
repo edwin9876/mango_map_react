@@ -1,5 +1,6 @@
 import {
     CREATE_USER,
+    FETCH_ALLUSER,
     FETCH_USER,
     UPDATE_USER,
     REMOVE_USER,
@@ -12,36 +13,78 @@ import {
     CREATE_USERCHATRECORD
 } from '../constants/action-types'
 
-export function createUser(payload){
-    return { type:CREATE_USER,payload}
-}
-export function updateUser(payload){
-    return { type:UPDATE_USER,payload}
-}
-export function removeUser(payload){
-    return { type:REMOVE_USER,payload}
+import axios from 'axios'
+
+export function fetchAllUser() {
+    return async (dispatch) => {
+        let res = await axios('http://localhost:8000/user/all')
+        dispatch({ type: FETCH_ALLUSER, payload: res.data })
+    }
 }
 
-export function createFavBlog(payload){
-    return { type:CREATE_FAVBLOG,payload}
+export function fetchUser(payload) {
+    return async (dispatch) => {
+        let res = await axios(`http://localhost:8000/user/one/${payload.user_id}`)
+        dispatch({ type: FETCH_USER, payload: res.data })
+    }
 }
 
-export function removeFavBlog(payload){
-    return { type:REMOVE_FAVBLOG,payload}
+export function createUser(payload) {
+    return async (dispatch) => {
+        let res = await axios.post(`http://localhost:8000/user/`, payload.user)
+        dispatch({ type: CREATE_USER, payload: res.data })
+    }
 }
 
-export function createUserDistrict(payload){
-    return { type:CREATE_USERDISTRICT,payload}
+export function createFavBlog(payload) {
+    return async (dispatch) => {
+        let res = await axios.post(`/authorized/${payload.user_id}/blog/${payload.blog_id}`)
+        dispatch({ type: CREATE_FAVBLOG, payload: res.data })
+    }
+
+}
+export function createUserDistrict(payload) {
+    return async (dispatch) => {
+        let res = await axios.post(`/authorized/${payload.user_id}/district/${payload.district_id}`)
+        dispatch({ type: CREATE_USERDISTRICT, payload: res.data })
+    }
+
+}
+export function createUserToUserChat(payload) {
+    return async (dispatch) => {
+        let res = await axios.post(`/authorized/${payload.user_id1}/userchat/${payload.user_id2}`)
+        dispatch({ type: CREATE_USERCHAT, payload: res.data })
+    }
+
 }
 
-export function removeUserDistrict(payload){
-    return { type:REMOVE_USERDISTRICT,payload}
+export function createUserToUserChatRecord(payload) {
+    return async (dispatch) => {
+        let res = await axios.post(`/authorized/${payload.publisher_id}/userchatRecord/${payload.userChat_id}`,payload.chatRecord)
+        dispatch({ type: CREATE_USERCHATRECORD, payload:res.data })
+    } 
 }
 
-export function createUserChat(payload){
-    return { type:CREATE_USERCHAT,payload}
+
+export function updateUser(payload) {
+    return { type: UPDATE_USER, payload }
 }
 
-export function removeUserChat(payload){
-    return { type:REMOVE_USERCHAT,payload}
+export function removeUser(payload) {
+    return { type: REMOVE_USER, payload }
+}
+
+
+export function removeFavBlog(payload) {
+    return { type: REMOVE_FAVBLOG, payload }
+}
+
+
+export function removeUserDistrict(payload) {
+    return { type: REMOVE_USERDISTRICT, payload }
+}
+
+
+export function removeUserChat(payload) {
+    return { type: REMOVE_USERCHAT, payload }
 }
