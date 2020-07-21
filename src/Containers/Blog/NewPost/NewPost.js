@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import axios from '../../../axios';
 import { Redirect } from 'react-router-dom';
 import SearchBar from '../../../Components/UI/Layout/SearchBar'
+import '../../../index.css'
 
 // import './NewPost.css';
 
@@ -38,7 +39,7 @@ class NewPost extends Component {
     }
 
     return (
-      <div className="row">
+      <div className="row center">
         <SearchBar />
 
         <form className="col s12">
@@ -83,7 +84,7 @@ class NewPost extends Component {
             </div>
           </div>
 
-          <button className="btn waves-effect waves-light"
+          <button className="btn waves-effect waves-light center"
             onClick={this.postDataHandler}
             type="submit" name="action">Add Post
     
