@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchBar from '../UI/Layout/SearchBar';
 
-import Messages from '../../Containers/Chat/Chat/Messages'
+import Messages from '../../Containers/Chatroom/Chat/Messages/Messages';
 
 const ChatDetails = () => {
   return (
@@ -22,10 +22,7 @@ const ChatDetails = () => {
           </li>
         </ul>
       </div>
-      <div className='container'>
-          
-      </div>
-
+      <div className='container'></div>
       <div>
         <input id='typebox' type='text' />
       </div>
