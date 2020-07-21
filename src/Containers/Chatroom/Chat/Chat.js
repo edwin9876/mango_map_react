@@ -82,13 +82,8 @@ class Chat extends Component {
   ];
 
   changeRoomId = (id) => {
-    console.log('[Chat] changeRoomId method was clicked');
-    const newState = { ...this.state };
-    newState.currentRoomId = id;
-    this.setState({ newState });
-    console.log(id);
-    console.log(this.state);
-    console.log(newState);
+    // Change to immutable setState
+    this.setState({ ...this.state, currentRoomId: id });
   };
 
   render() {
