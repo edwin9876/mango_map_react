@@ -15,9 +15,9 @@ import {
 } from '../constants/action-types'
 
 const initialBlogState =
-{
+{   
     blogs: [],
-    blog:[],
+    blog:[{id: '1', title: 'My mini trip', content: 'such a good journey', imgURL: 'https://media.timeout.com/images/105292288/630/472/image.jpg'}],
     categories:[]
 }
 
