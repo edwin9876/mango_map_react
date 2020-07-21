@@ -26,7 +26,6 @@ export const REMOVE_DISTRICT = 'REMOVE_DISTRICT'
 export const CREATE_USER = 'CREATE_USER'
 export const FETCH_ALLUSER = 'FETCH_ALLUSER'
 export const FETCH_USER = 'FETCH_USER'
-export const FETCH_ALLUSER = 'FETCH_ALLUSER'
 export const UPDATE_USER = 'UPDATE_USER'
 export const REMOVE_USER = 'REMOVE_USER'
 
