@@ -6,12 +6,33 @@ import {
     FETCH_ALLDISTRICT
 } from '../constants/action-types'
 
-export function createDistrict(payload){
-    return { type:CREATE_DISTRICT,payload}
+const initialMapState =
+{
+    districts: [],
+    district: []
 }
-export function updateDistrict(payload){
-    return { type:UPDATE_DISTRICT,payload}
+
+const mapReducer = (state = initialMapState, action) => {
+    switch (action.type) {
+        case FETCH_ALLDISTRICT:
+            return {
+                ...state,
+                districts: [...action.payload]
+            }
+        case FETCH_DISTRICT:
+            return {
+                ...state,
+                district: [...action.payload]
+            }
+        case CREATE_DISTRICT:
+            return {
+                ...state,
+            }
+        default:
+            return {
+                ...state,
+            }
+    }
 }
-export function removeDistrict(payload){
-    return { type:REMOVE_DISTRICT,payload}
-}
+
+export default mapReducer
