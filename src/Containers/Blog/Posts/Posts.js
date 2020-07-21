@@ -1,68 +1,49 @@
 import React, { Component } from 'react';
-import axios from '../../../axios';
 import { Route } from 'react-router-dom';
-import Post from '../../../Components/Post/Post';
-import './Posts.css';
+import Post from '../../../Components/Blog/Post';
+import '../../../Components/Blog/Post.css';
 import FullPost from '../FullPost/FullPost';
+import { connect } from 'react-redux'
 
 class Posts extends Component {
-  state = {
-    posts: [],
-  };
-
-  postSelectedHandler = (id) => {
-    this.props.history.push({ pathname: '/posts/' + id });
-  };
-
-  componentDidMount() {
-    console.log(this.props);
-    axios
-      .get('/posts')
-      .then((response) => {
-        const posts = response.data.slice(0, 4);
-        const updatedPosts = posts.map((post) => {
-          return {
-            ...post,
-            author: 'Max',
-          };
-        });
-        this.setState({ posts: updatedPosts });
-        console.log(updatedPosts);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
+  
   render() {
-    // Error handling
-    let posts = (
-      <p style={{ textAlign: 'center' }}>Opps, something went wrong!</p>
+    console.log(this.state)
+
+    const post = this.props.post ? (
+      <div className="post">
+        <h4 className="center">{this.props.post.title}</h4>
+        <p>{this.props.post.body}</p>
+      </div>
+    ) : (
+      <div className="center">Loading post...</div>
     );
-    if (!this.state.error) {
-      posts = this.state.posts.map((post) => {
-        return (
-          <Post
-            key={post.id}
-            title={post.title}
-            author={post.author}
-            clicked={() => this.postSelectedHandler(post.id)}
-          />
-        );
-      });
-    }
 
     return (
       <div>
-        <section className='Posts'>{posts}</section>;
-        <Route
-          path={this.props.match.url + '/:id'}
-          exact
-          component={FullPost}
-        />
+       {post}
       </div>
     );
   }
 }
+const mapStateToProps = (state, ownProps) => {
+  let id = ownProps.match.params.post_id;
+  return {
+    post: state.posts.find(post => post.id === id)
+  }
+}
 
-export default Posts;
+export default connect(mapStateToProps)(Posts)
+
+
+
+
+// posts = this.state.posts.map((post) => {
+//         return (
+//           <Post
+//             key={post.id}
+//             title={post.title}
+//             author={post.author}
+//             clicked={() => this.postSelectedHandler(post.id)}
+//           />
+//         )})

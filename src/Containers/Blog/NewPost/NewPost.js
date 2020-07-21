@@ -39,7 +39,7 @@ class NewPost extends Component {
     }
 
     return (
-      <div className="row margin5" id="Post_container">
+      <div className="row margin1" id="Post_container">
         <SearchBar />
 
         <form className="col s12">
