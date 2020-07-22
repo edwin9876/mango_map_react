@@ -50,7 +50,7 @@ function blogReducer(state = initialBlogState, action) {
                 ...state
             }
         default:
-            return state.posts
+            return state
     }
 }
 
