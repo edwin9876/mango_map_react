@@ -16,7 +16,10 @@ import {
 
 const initialBlogState =
 {   
+    post:[],
+
     posts:[{id:'1', title:'My First Trip', author: 'Pullip', content: 'Very nice first trip I had in Hong Kong'},{id:'2', title:'My Second Trip', author: 'Jacky',content: 'Very nice second trip I had in Hong Kong'},{id:'3', title:'My Third Trip', author: 'Edwin',content: 'Very nice third trip I had in Hong Kong'}],
+    
     categories:[]
 }
 
