@@ -1,14 +1,14 @@
 import React from 'react';
 import BlogSummary from './BlogSummary'
 
-const BlogList = ({ blogs }) => {
+const BlogList = ({ posts }) => {
 
   return (
     <div className="blog-list section">
-      {/* in case there's no blogs */}
-      {blogs && blogs.map(blog => {
+      {/* in case there's no posts */}
+      {posts && posts.map(post => {
         return (
-          <BlogSummary blog={blog} key={blog.id} />
+          <BlogSummary post={post} key={post.id} />
         )
       })}
     </div>

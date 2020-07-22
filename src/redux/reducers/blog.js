@@ -1,31 +1,28 @@
 import {
     CREATE_NEWCATEGORY,
     FETCH_ALLCATEGORY,
-    CREATE_BLOG,
+    CREATE_POST,
     CREATE_COMMENT,
     REMOVE_COMMENT,
-    UPDATE_BLOG,
-    UPDATE_BLOGCATEGORY,
-    UPDATE_BLOGIMAGE,
-    REMOVE_BLOG,
-    REMOVE_BLOGCATEGORY,
-    REMOVE_BLOGIMAGE,
-    FETCH_ALLBLOG,
-    FETCH_BLOG,
+    UPDATE_POST,
+    UPDATE_POSTCATEGORY,
+    UPDATE_POSTIMAGE,
+    REMOVE_POST,
+    REMOVE_POSTCATEGORY,
+    REMOVE_POSTIMAGE,
+    FETCH_ALLPOST,
+    FETCH_POST,
 } from '../constants/action-types'
 
 const initialBlogState =
 {   
-    blogs:[{id: '1', title: 'My mini trip', content: 'such a good journey'},
-    {id: '2', title: 'My second trip', content: 'Same everyday'}
-
-],
+    posts:[{id:'1', title:'My First Trip', author: 'Pullip', content: 'Very nice first trip I had in Hong Kong'},{id:'2', title:'My Second Trip', author: 'Jacky',content: 'Very nice second trip I had in Hong Kong'},{id:'3', title:'My Third Trip', author: 'Edwin',content: 'Very nice third trip I had in Hong Kong'}],
     categories:[]
 }
 
 function blogReducer(state = initialBlogState, action) {
     switch (action.type) {
-        case FETCH_ALLBLOG:
+        case FETCH_ALLPOST:
             return {
                 ...state,
                 posts: [...action.payload]

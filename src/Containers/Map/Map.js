@@ -53,21 +53,22 @@ export class MapContainer extends Component {
   }
 
   _mapLoaded(mapProps, map) {
+    // console.log(map)
     map.setOptions({
       styles: simple,
     });
   }
 
-  // changeTheme(mapProps, map) {
-  //   (map.setOptions.styles === simple) ?
-  //     map.setOptions({
-  //       styles: mapStyles,
-  //     })
-  //     :
-  //     map.setOptions({
-  //       styles: simple,
-  //     })
-  // }
+  changeTheme(mapProps, map) {
+    (map.setOptions.styles === simple) ?
+      map.setOptions({
+        styles: mapStyles,
+      })
+      :
+      map.setOptions({
+        styles: simple,
+      })
+  }
 
   onMarkerClick = (props, marker, e) =>
     this.setState({
