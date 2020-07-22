@@ -9,8 +9,9 @@ import SearchBar from '../../Components/UI/Layout/SearchBar'
 import predefinedLocations from './PredefinedLocations/LocationStorage';
 import CurrentLocationTesting from './CurrentLocation';
 
-import mapStyle from './mapStyle';
-import M from "materialize-css";
+// import mapStyle from './mapStyle';
+import simple from './mapStyle_simple'
+
 
 
 
@@ -36,10 +37,6 @@ export class MapContainer extends Component {
   };
 
   componentDidMount() {
-    document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('.carousel');
-      var instances = M.Carousel.init(elems);
-    });
 
     if (navigator && navigator.geolocation) {
       // console.log(this.props.google.maps.Map().panT);
@@ -57,9 +54,20 @@ export class MapContainer extends Component {
 
   _mapLoaded(mapProps, map) {
     map.setOptions({
-      styles: mapStyle,
+      styles: simple,
     });
   }
+
+  // changeTheme(mapProps, map) {
+  //   (map.setOptions.styles === simple) ?
+  //     map.setOptions({
+  //       styles: mapStyles,
+  //     })
+  //     :
+  //     map.setOptions({
+  //       styles: simple,
+  //     })
+  // }
 
   onMarkerClick = (props, marker, e) =>
     this.setState({
@@ -93,8 +101,9 @@ export class MapContainer extends Component {
       );
     });
 
+ 
     return (
-
+<div>
       <Map
         centerAroundCurrentLocation
         google={this.props.google}
@@ -125,27 +134,24 @@ export class MapContainer extends Component {
           visible={this.state.showingInfoWindow}
           onClose={this.onClose}
         >
-          {/* <div className="center">
-            <p>{this.state.selectedPlace.name}</p>
-           
-            <img className="center icons30" alt='A demo photo' src='./assets/photos/1.jpg'/>
-            <img className="center icons30" alt='A demo photo' src='./assets/photos/5.jpg' />
-            <img className="center icons30" alt='A demo photo' src='./assets/photos/4.jpg' />
-            <img className="center icons30" alt='A demo photo' src='./assets/photos/2.jpg' /> 
-    
-
-          </div> */}
-
-<div className="carousel">
-    <a className="carousel-item" href="#one!"> <img className="center icons30" alt='A demo photo' src='./assets/photos/1.jpg'/></a>
-    <a className="carousel-item" href="#one!"> <img className="center icons30" alt='A demo photo' src='./assets/photos/1.jpg'/></a>
-    <a className="carousel-item" href="#one!"> <img className="center icons30" alt='A demo photo' src='./assets/photos/1.jpg'/></a>
-    <a className="carousel-item" href="#one!"> <img className="center icons30" alt='A demo photo' src='./assets/photos/1.jpg'/></a>
-    
-  </div>
-
+          <div className="center">
+            <h5 className="bold gray70">{this.state.selectedPlace.name}</h5>
+            <div className="row d-flex">
+              <img className="center icons30 sm-col-5" alt='A demo photo' src='./assets/photos/1.jpg' />
+              <img className="center icons30 sm-col-5" alt='A demo photo' src='./assets/photos/5.jpg' />
+            </div>
+            <div className="row d-flex">
+              <img className="center icons30" alt='A demo photo' src='./assets/photos/2.jpg' />
+              <img className="center icons30" alt='A demo photo' src='./assets/photos/4.jpg' />
+            </div>
+          </div>
         </InfoWindow>
+ 
       </Map >
+      {/* <div>
+          <i class="material-icons" onClick={() => { this.changeTheme }}>add</i>
+        </div> */}
+</div>
     );
   }
 }
