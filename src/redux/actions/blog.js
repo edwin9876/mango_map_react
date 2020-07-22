@@ -1,35 +1,35 @@
 import {
     CREATE_NEWCATEGORY,
     FETCH_ALLCATEGORY,
-    CREATE_BLOG,
+    CREATE_POST,
     CREATE_COMMENT,
     REMOVE_COMMENT,
-    UPDATE_BLOG,
-    UPDATE_BLOGCATEGORY,
-    UPDATE_BLOGIMAGE,
-    REMOVE_BLOG,
-    REMOVE_BLOGCATEGORY,
-    REMOVE_BLOGIMAGE,
-    FETCH_ALLBLOG,
-    FETCH_BLOG,
+    UPDATE_POST,
+    UPDATE_POSTCATEGORY,
+    UPDATE_POSTIMAGE,
+    REMOVE_POST,
+    REMOVE_POSTCATEGORY,
+    REMOVE_POSTIMAGE,
+    FETCH_ALLPOST,
+    FETCH_POST,
 } from '../constants/action-types'
 
 import axios from 'axios'
 
-export function fetchAllBlog() {
+export function fetchAllPost() {
     return (dispatch) => {
         return axios("http://localhost:8000/blog/all")
             .then(res => {
-                dispatch({ type: FETCH_ALLBLOG, payload: res.data })
+                dispatch({ type: FETCH_ALLPOST, payload: res.data })
             })
 
     }
 }
-export function fetchBlog(payload) {
+export function fetchPost(payload) {
     return dispatch => {
         return axios(`http://localhost:8000/blog/${payload.blog_id}`)
             .then(res => {
-                dispatch({ type: FETCH_BLOG, payload: res.data })
+                dispatch({ type: FETCH_POST, payload: res.data })
             })
     }
 }
@@ -58,33 +58,33 @@ export function createComment(payload) {
             })
     }
 }
-export function createBlog(payload) {
+export function createPost(payload) {
     return dispatch => {
         return axios.post(`http://localhost:8000/blog`, payload)
             .then(res => {
-                dispatch({ type: CREATE_BLOG, payload:res.data })
+                dispatch({ type: CREATE_POST, payload:res.data })
             })
     }
 }
 
-export function updateBlog(payload) {
-    return { type: UPDATE_BLOG, payload }
+export function updatePost(payload) {
+    return { type: UPDATE_POST, payload }
 }
-export function updateBlogCategory(payload) {
-    return { type: UPDATE_BLOGCATEGORY, payload }
+export function updatePostCategory(payload) {
+    return { type: UPDATE_POSTCATEGORY, payload }
 }
-export function updateBlogImage(payload) {
-    return { type: UPDATE_BLOGIMAGE, payload }
+export function updatePostImage(payload) {
+    return { type: UPDATE_POSTIMAGE, payload }
 }
-export function removeBlog(payload) {
-    return { type: REMOVE_BLOG, payload }
+export function removePost(payload) {
+    return { type: REMOVE_POST, payload }
 }
 export function removeComment(payload) {
     return { type: REMOVE_COMMENT, payload }
 }
-export function removeBlogCategory(payload) {
-    return { type: REMOVE_BLOGCATEGORY, payload }
+export function removePostCategory(payload) {
+    return { type: REMOVE_POSTCATEGORY, payload }
 }
-export function removeBlogImage(payload) {
-    return { type: REMOVE_BLOGIMAGE, payload }
+export function removePostImage(payload) {
+    return { type: REMOVE_POSTIMAGE, payload }
 }
