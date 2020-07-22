@@ -42,8 +42,8 @@ class NewPost extends Component {
       <div className="row margin1" id="Post_container">
         <SearchBar />
 
-        <form className="col s12">
-  
+        <form className="col s12" enctype="multipart/form-data" method="post">
+
 
           <div>
             {redirect}
@@ -64,32 +64,41 @@ class NewPost extends Component {
                 <label className="bold">Categories</label>
               </div>
             </div>
-            
-          <select className="browser-default">
-            <option value="" disabled selected>Choose your option</option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-          </select>
+
+            <select className="browser-default">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
 
 
-          <div className="row margin5">
-            <div className="col s12">
-              <textarea rows="10" cols="10"
-                value={this.state.content}
-                onChange={(event) => this.setState({ content: event.target.value })}
-                id="Content" >
+            <div className="row margin5">
+              <div className="col s12">
+                <textarea rows="10" cols="10"
+                  value={this.state.content}
+                  onChange={(event) => this.setState({ content: event.target.value })}
+                  id="Content" >
                   Write your story here
                 </textarea>
+              </div>
             </div>
-          </div>
 
-<div className="center">
-          <button className="btn margin5"
-            onClick={this.postDataHandler}
-            type="submit" name="action">Add Post
+            <div>
+              <label for="fileToUpload">
+                Upload Picture
+              </label>
+            
+              <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();" accept="image/*" />
+            </div>
+            <br/>
+
+            <div className="center">
+              <button className="btn margin5"
+                onClick={this.postDataHandler}
+                type="submit" name="action">Add Post
           </button>
-</div>
+            </div>
 
           </div>
         </form>
