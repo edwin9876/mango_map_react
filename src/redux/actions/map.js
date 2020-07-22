@@ -11,21 +11,21 @@ import axios from 'axios'
 
 export function fetchAllDistrict(){
     return async(dispatch)=>{
-        let res = await axios('http://localhost:8000/map/districts')
+        let res = await axios('https://localhost:8000/map/districts')
         dispatch({ type:FETCH_ALLDISTRICT,payload:res.data})
     }
 }
 
 export function fetchDistrict(payload){
     return async(dispatch)=>{
-        let res = await axios(`http://localhost:8000/map/district/${payload.district_id}`)
+        let res = await axios(`https://localhost:8000/map/district/${payload.district_id}`)
         dispatch({ type:FETCH_DISTRICT,payload:res.data})
     }
 }
 
 export function createDistrict(payload){
     return async(dispatch)=>{
-        let res = await axios(`http://localhost:8000/map/district/`,payload)
+        let res = await axios(`https://localhost:8000/map/district/`,payload)
         dispatch({ type:CREATE_DISTRICT,payload:res.data})
     }
 }

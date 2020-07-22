@@ -16,28 +16,28 @@ import axios from 'axios'
 
 export function fetchAllChatroom() {
     return dispatch => {
-        let res = await axios('http://localhost:8000/chatroom/all')
+        let res = await axios('https://localhost:8000/chatroom/all')
         dispatch({ type: FETCH_ALLCHATROOM, payload: res.data })
     }
 }
 
 export function fetchChatroom(payload) {
     return dispatch => {
-        let res = await axios(`http://localhost:8000/chatroom/${payload.chatroom_id}`)
+        let res = await axios(`https://localhost:8000/chatroom/${payload.chatroom_id}`)
         dispatch({ type: FETCH_CHATROOM, payload: res.data })
     }
 }
 export function createChatroom(payload) {
     return dispatch => {
 
-        let res = await axios.post(`http://localhost:8000/chatroom/`, payload)
+        let res = await axios.post(`https://localhost:8000/chatroom/`, payload)
         dispatch({ type: CREATE_CHATROOM, payload: res.data })
     }
 }
 export function createChatroomRecord(payload) {
     return dispatch => {
 
-        let res = await axios.post(`http://localhost:8000/chatroom/${payload.chatroom_id}/record`, payload.chatRecord)
+        let res = await axios.post(`https://localhost:8000/chatroom/${payload.chatroom_id}/record`, payload.chatRecord)
         dispatch({ type: CREATE_CHATROOMRECORD, payload: res.data })
     }
 }
