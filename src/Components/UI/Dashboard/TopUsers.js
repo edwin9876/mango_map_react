@@ -1,40 +1,25 @@
 import React from 'react'
 
 
-const TopUsers = () => {
+const IndiUser = ({ user }) => {
+    return (
+        <div className="col s4 m6 margin1vw center">
+            <img src={user.profile_picture_url} alt="profilepic" className="center icons20 "/>
+            <p>{user.user_name}</p>
+        </div>
+    );
+};
+
+
+const TopUsers = ({users}) => {
     return (
 
         <div className="row" id="topUsers_container">
-            <div className="col s4 m6 margin1vw center">
-                <a className=" modal-trigger" href="#modal1">   <i class="material-icons justify-content-center d-flex micons15 blur">account_circle</i>
-                </a>
-                <p>User123</p>
-            </div>
-            <div className="col s4 m6 margin1vw center">
-                <a className=" modal-trigger" href="#modal1">   <i class="material-icons justify-content-center d-flex micons15 blur">account_circle</i>
-                </a>
-                <p>User123</p>
-            </div>
-            <div className="col s4 m6 margin1vw center">
-                <a className=" modal-trigger" href="#modal1">   <i class="material-icons justify-content-center d-flex micons15 blur">account_circle</i>
-                </a>
-                <p>User123</p>
-            </div>
-            <div className="col s4 m6 margin1vw center">
-                <a className=" modal-trigger" href="#modal1">   <i class="material-icons justify-content-center d-flex micons15 blur">account_circle</i>
-                </a>
-                <p>User123</p>
-            </div>
-            <div className="col s4 m6 margin1vw center">
-                <a className=" modal-trigger" href="#modal1">   <i class="material-icons justify-content-center d-flex micons15 blur">account_circle</i>
-                </a>
-                <p>User123</p>
-            </div>
-            <div className="col s4 m6 margin1vw center">
-                <a className=" modal-trigger" href="#modal1">   <i class="material-icons justify-content-center d-flex micons15 blur">account_circle</i>
-                </a>
-                <p>User123</p>
-            </div>
+             {users && users.map(user => {
+                return (
+                    <IndiUser user={user} key={user.id} />
+                )
+            })}
         </div>
 
     )
