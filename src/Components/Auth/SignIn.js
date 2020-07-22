@@ -72,8 +72,6 @@ export class SignIn extends Component {
                 <p className="d-flex justify-content-center">Don't have an account? </p>
                 <Link className="d-flex justify-content-center" to='/signup'>Sign up</Link>
 
-{/* <p className="d-flex justify-content-center">Don't have an account?<Link to='/signup'>　Sign up</Link> </p>
-                */}
                 
 
             </div>
