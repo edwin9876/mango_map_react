@@ -5,7 +5,7 @@ import chatroomReducer from './chatroom'
 import userReducer from './user'
 
 const rootReducer = combineReducers({
-    blogReducer,
+    blog: blogReducer,
     mapReducer,
     chatroomReducer,
     userReducer,
