@@ -5,8 +5,7 @@ import { connect } from 'react-redux'
 
     class BlogDetails extends Component {
         render() {
-            console.log(this.props)
-            const { blog } = this.props;
+ 
             return (
                 <div>
                         <SearchBar />

@@ -53,7 +53,7 @@ export class MapContainer extends Component {
   }
 
   _mapLoaded(mapProps, map) {
-    console.log(map)
+    // console.log(map)
     map.setOptions({
       styles: simple,
     });
