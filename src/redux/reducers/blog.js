@@ -1,37 +1,37 @@
 import {
     CREATE_NEWCATEGORY,
     FETCH_ALLCATEGORY,
-    CREATE_BLOG,
+    CREATE_POST,
     CREATE_COMMENT,
     REMOVE_COMMENT,
-    UPDATE_BLOG,
-    UPDATE_BLOGCATEGORY,
-    UPDATE_BLOGIMAGE,
-    REMOVE_BLOG,
-    REMOVE_BLOGCATEGORY,
-    REMOVE_BLOGIMAGE,
-    FETCH_ALLBLOG,
-    FETCH_BLOG,
+    UPDATE_POST,
+    UPDATE_POSTCATEGORY,
+    UPDATE_POSTIMAGE,
+    REMOVE_POST,
+    REMOVE_POSTCATEGORY,
+    REMOVE_POSTIMAGE,
+    FETCH_ALLPOST,
+    FETCH_POST,
 } from '../constants/action-types'
 
 const initialBlogState =
 {   
-    blogs: [],
-    blog:[{id: '1', title: 'My mini trip', content: 'such a good journey', imgURL: 'https://media.timeout.com/images/105292288/630/472/image.jpg'}],
+    posts: [],
+    post:[{id: '1', title: 'My mini trip', content: 'such a good journey', imgURL: 'https://media.timeout.com/images/105292288/630/472/image.jpg'}],
     categories:[]
 }
 
 function blogReducer(state = initialBlogState, action) {
     switch (action.type) {
-        case FETCH_ALLBLOG:
+        case FETCH_ALLPOST:
             return {
                 ...state,
-                blogs: [...action.payload]
+                posts: [...action.payload]
             }
-        case FETCH_BLOG:
+        case FETCH_POST:
             return {
                 ...state,
-                blog: [...action.payload]
+                post: [...action.payload]
             }
         case FETCH_ALLCATEGORY:
             return {
@@ -46,12 +46,12 @@ function blogReducer(state = initialBlogState, action) {
             return {
                 ...state
             }
-        case CREATE_BLOG:
+        case CREATE_POST:
             return {
                 ...state
             }
         default:
-            return state.blogs
+            return state.posts
     }
 }
 
