@@ -15,30 +15,27 @@ class Chat extends Component {
   }
 
   state = {
-    userID: null,
+    userId: 1,
+    username: 'Jacky',
     currentRoomId: null,
     messages: [],
+    conversation: [
+      { userId: 1, user: 'Jacky', message: 'hi' },
+      { userId: 1, user: 'Jacky', message: "How you doin'?" },
+      { userId: 2, user: 'Edwin', message: 'I am fine, thank you.' },
+      { userId: 3, user: 'Pullip', message: 'I go to school by bus.' },
+    ],
   };
-
-  conversation = [
-    { user: 'Jacky', message: 'hi' },
-    { user: 'Jacky', message: "How you doin'??" },
-    { user: 'Edwin', message: 'I am fine, thank you.' },
-    { user: 'Pullip', message: 'I go to school by bus.' },
-  ];
 
   componentDidMount() {
     this.socket.emit('new-user', { name: 'Jacky' });
     console.log('[componentDidMount] is executed');
-
+    console.log(this.socket);
     this.socket.on('user-connected', (name) => {
       console.log('Welcome to my world ' + name);
     });
 
     this.socket.on('chat-message', (message) => {
-      //   let newState = { ...this.state };
-      //   newState.conversation.push(message)
-      //   this.setState({ newState });
       console.log(message);
       console.log('[chat-message] received');
     });
@@ -50,19 +47,38 @@ class Chat extends Component {
   }
 
   setMessage = (message) => {
+    this.setState(
+      {
+        ...this.state,
+        messages: [message],
+      },
+      () => console.log(this.state.messages)
+    );
+  };
+
+  setConversation = (message) => {
     this.setState({
       ...this.state,
-      messages: [...this.state.messages, message],
+      conversation: [...this.state.conversation, message],
     });
   };
 
   sendMessage = (event) => {
     event.preventDefault();
-
-    this.socket.emit('send-chat-message', { message: 'Hello WOlrd' }, () => {
-      // this.setState({ ...this.state, messages: [''] });
-      console.log('SendMessage callback is invoked');
-    });
+    console.log(this.state.messages);
+    this.socket.emit(
+      'send-chat-message',
+      { message: this.state.messages },
+      () => {
+        console.log('SendMessage callback is invoked');
+        this.setConversation({
+          userId: this.state.userId,
+          user: this.state.username,
+          message: this.state.messages,
+        });
+        this.setState({ ...this.state, messages: [''] });
+      }
+    );
   };
 
   // Fake data
@@ -105,12 +121,16 @@ class Chat extends Component {
           </ul>
         </div>
         <div className='textBox'>
-          <Messages conversation={this.conversation} />
+          <Messages
+            conversation={this.state.conversation}
+            userId={this.state.userId}
+          />
         </div>
         <div>
           <Input
             sendMessage={this.sendMessage}
             messages={this.state.messages}
+            setMessage={this.setMessage}
           />{' '}
         </div>
       </div>
