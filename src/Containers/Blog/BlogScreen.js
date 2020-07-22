@@ -9,12 +9,27 @@ import TopUsers from '../../Components/UI/Dashboard/TopUsers'
 import BlogList from '../../Components/Blog/BlogList'
 
 
-
+const mapStateToProps = (state) => {
+    return {
+        posts:state.blog.posts
+    }
+}
 
 class BlogScreen extends Component {
+    // constructor(props) {
+    //     super(props)
+    //     this.state={
+    //         posts:[],
+    // }
+    // }
+    // componentDidMount() {
+    //     this.setState({
+    //         posts: this.props.posts
+    //     })
+    // }
     render() {
 
-        const { posts } = this.props;
+        console.log(this.props)
 
         return (
             <div className="mb10vh">
@@ -29,7 +44,7 @@ class BlogScreen extends Component {
                         <li className="tab"><a href="#test4" className="bold black-text">Top users</a></li>
                     </ul>
                 </div>
-                <BlogList posts={posts}/>
+                <BlogList posts={this.props.posts} />
                 {/* <TopPics /> */}
                 {/* <TopUsers/> */}
             </div>
@@ -38,10 +53,6 @@ class BlogScreen extends Component {
 }
 
 
-const mapStateToProps = (state) => {
-    return {
-        posts: state.blog.posts
-    }
-}
+
 
 export default connect(mapStateToProps)(BlogScreen)
