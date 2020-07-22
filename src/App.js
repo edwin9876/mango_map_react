@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Navbar from './Components/UI/Layout/Navbar';
 import Home from './Containers/Map/MapScreen';
 import Blog from './Containers/Blog/BlogScreen';
-import Chat from './Containers/Chat/ChatScreen';
+import Chat from './Containers/Chatroom/ChatScreen';
 import Profile from './Containers/Profile/ProfileScreen';
 
 import MapDetails from './Components/Map/MapDetails';
@@ -15,17 +15,14 @@ import SignIn from './Components/Auth/SignIn';
 import SignUp from './Components/Auth/SignUp';
 
 class App extends Component {
-
   constructor() {
     super();
     this.state = {
-      isLoggedIn: false
+      isLoggedIn: false,
     };
   }
 
-
   render() {
-
     return (
       <BrowserRouter>
         <div className='App'>
@@ -33,20 +30,25 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/location/:id' component={MapDetails} />
-            <Route exact path='/blog' component={Blog} />
+            <Route exact path='/blog' component={Blog}/>
             <Route exact path='/blog/new' component={BlogNew} />
             <Route exact path='/blog/:id' component={BlogDetails} />
             <Route exact path='/chat' component={Chat} />
             <Route exact path='/chat/:id' component={ChatDetails} />
 
-            <Route exact path='/profile'
+            <Route
+              exact
+              path='/profile'
               render={() => {
-                return (this.state.isLoggedIn ?
-                  <Redirect to='/profile/:id' /> :
-                  <Redirect to='/signin' />)
-              }}/>
+                return this.state.isLoggedIn ? (
+                  <Redirect to='/profile/:id' />
+                ) : (
+                  <Redirect to='/signin' />
+                );
+              }}
+            />
 
-<Route exact path='/profile/:id' component={Profile} />
+            <Route exact path='/profile/:id' component={Profile} />
 
             <Route exact path='/signin' component={SignIn} />
             <Route exact path='/signup' component={SignUp} />

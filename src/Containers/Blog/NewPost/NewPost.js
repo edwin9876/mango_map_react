@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 // import axios from '../../../axios';
 import { Redirect } from 'react-router-dom';
 import SearchBar from '../../../Components/UI/Layout/SearchBar'
+import '../../../index.css'
 
-// import './NewPost.css';
+import './NewPost.css';
 
 class NewPost extends Component {
   state = {
@@ -38,15 +39,14 @@ class NewPost extends Component {
     }
 
     return (
-      <div className="row">
+      <div className="row margin1" id="Post_container">
         <SearchBar />
 
         <form className="col s12">
-          <div className="row"></div>
+  
 
-          <div >
+          <div>
             {redirect}
-            <h4>Add a Post</h4>
 
             <div className="row">
               <div className="input-field col s12">
@@ -61,11 +61,11 @@ class NewPost extends Component {
             <div className="row">
 
               <div className="col s12">
-                <label>Categories</label>
+                <label className="bold">Categories</label>
               </div>
             </div>
             
-          <select class="browser-default">
+          <select className="browser-default">
             <option value="" disabled selected>Choose your option</option>
             <option value="1">Option 1</option>
             <option value="2">Option 2</option>
@@ -73,21 +73,24 @@ class NewPost extends Component {
           </select>
 
 
-          <div className="row">
-            <div className="input-field col s12">
-              <textarea
+          <div className="row margin5">
+            <div className="col s12">
+              <textarea rows="10" cols="10"
                 value={this.state.content}
                 onChange={(event) => this.setState({ content: event.target.value })}
-                id="Content" className="materialize-textarea"></textarea>
-              <label for="Content">Content</label>
+                id="Content" >
+                  Write your story here
+                </textarea>
             </div>
           </div>
 
-          <button className="btn waves-effect waves-light"
+<div className="center">
+          <button className="btn margin5"
             onClick={this.postDataHandler}
             type="submit" name="action">Add Post
-    
           </button>
+</div>
+
           </div>
         </form>
       </div >
