@@ -2,12 +2,16 @@ import React from 'react';
 
 const BlogSummary = ({ post }) => {
   return (
-    <div className="card z-depth-0 project-summary" onClick={post.clicked}>
-      <div className="card-content grey-text text-darken-3">
-        <span className="card-title">{post.title}</span>
-        <p className='grey-text'>{post.author}</p>
+   
+    <div className="collection z-depth-0 blog-summary center" >
+       <ul>
+      <div className="collection-content grey-text text-darken-2">
+        <span className="bold">{post.title}</span>
+        <p className='grey-text'>{post.author}, 2nd July 2020</p>
       </div>
+      </ul>
     </div>
+
   );
 };
 
