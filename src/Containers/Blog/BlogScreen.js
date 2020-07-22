@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
 import SearchBar from '../../Components/UI/Layout/SearchBar'
-import TopPics from '../../Components/UI/Dashboard/TopPics'
-import TopUsers from '../../Components/UI/Dashboard/TopUsers'
 import WeeklyPic from '../../Components/UI/Dashboard/WeeklyPic'
 import WeeklyPost from '../../Components/UI/Dashboard/WeeklyPost'
-import BlogList from './BlogList/BlogList'
-import { connect } from 'react-redux'
+import TopPics from '../../Components/UI/Dashboard/TopPics'
+import TopUsers from '../../Components/UI/Dashboard/TopUsers'
+import BlogList from '../../Components/Blog/BlogList'
 
 
 
@@ -13,7 +14,7 @@ import { connect } from 'react-redux'
 class BlogScreen extends Component {
     render() {
 
-        const { blogs } = this.props;
+        const { posts } = this.props;
 
         return (
             <div className="mb10vh">
@@ -28,7 +29,7 @@ class BlogScreen extends Component {
                         <li className="tab"><a href="#test4" className="bold black-text">Top users</a></li>
                     </ul>
                 </div>
-                <BlogList blogs={blogs}/>
+                <BlogList posts={posts}/>
                 {/* <TopPics /> */}
                 {/* <TopUsers/> */}
             </div>
@@ -39,7 +40,7 @@ class BlogScreen extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        blogs: state.blog.blogs
+        posts: state.blog.posts
     }
 }
 
