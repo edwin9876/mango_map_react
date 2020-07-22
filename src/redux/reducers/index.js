@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
     blog: blogReducer,
     mapReducer,
     chatroomReducer,
-    userReducer,
+    user:userReducer,
 })
 
 export default rootReducer;
