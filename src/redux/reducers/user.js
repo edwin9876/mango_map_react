@@ -4,8 +4,8 @@ import {
     FETCH_USER,
     UPDATE_USER,
     REMOVE_USER,
-    CREATE_FAVBLOG,
-    REMOVE_FAVBLOG,
+    CREATE_FAVPOST,
+    REMOVE_FAVPOST,
     CREATE_USERDISTRICT,
     REMOVE_USERDISTRICT,
     CREATE_USERCHAT,
@@ -34,7 +34,7 @@ const userReducer = (state = initialUserState, action) => {
             return {
                 ...state
             }
-        case CREATE_FAVBLOG:
+        case CREATE_FAVPOST:
             return {
                 ...state
             }

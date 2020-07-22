@@ -17,42 +17,42 @@ import axios from 'axios'
 
 export function fetchAllUser() {
     return async (dispatch) => {
-        let res = await axios('http://localhost:8000/user/all')
+        let res = await axios('https://localhost:8000/user/all')
         dispatch({ type: FETCH_ALLUSER, payload: res.data })
     }
 }
 
 export function fetchUser(payload) {
     return async (dispatch) => {
-        let res = await axios(`http://localhost:8000/user/one/${payload.user_id}`)
+        let res = await axios(`https://localhost:8000/user/one/${payload.user_id}`)
         dispatch({ type: FETCH_USER, payload: res.data })
     }
 }
 
 export function createUser(payload) {
     return async (dispatch) => {
-        let res = await axios.post(`http://localhost:8000/user/`, payload.user)
+        let res = await axios.post(`https://localhost:8000/user/`, payload.user)
         dispatch({ type: CREATE_USER, payload: res.data })
     }
 }
 
 export function createFavBlog(payload) {
     return async (dispatch) => {
-        let res = await axios.post(`/authorized/${payload.user_id}/blog/${payload.blog_id}`)
+        let res = await axios.post(`https://localhost:8000/authorized/${payload.user_id}/blog/${payload.blog_id}`)
         dispatch({ type: CREATE_FAVBLOG, payload: res.data })
     }
 
 }
 export function createUserDistrict(payload) {
     return async (dispatch) => {
-        let res = await axios.post(`/authorized/${payload.user_id}/district/${payload.district_id}`)
+        let res = await axios.post(`https://localhost:8000/authorized/${payload.user_id}/district/${payload.district_id}`)
         dispatch({ type: CREATE_USERDISTRICT, payload: res.data })
     }
 
 }
 export function createUserToUserChat(payload) {
     return async (dispatch) => {
-        let res = await axios.post(`/authorized/${payload.user_id1}/userchat/${payload.user_id2}`)
+        let res = await axios.post(`https://localhost:8000/authorized/${payload.user_id1}/userchat/${payload.user_id2}`)
         dispatch({ type: CREATE_USERCHAT, payload: res.data })
     }
 
@@ -60,7 +60,7 @@ export function createUserToUserChat(payload) {
 
 export function createUserToUserChatRecord(payload) {
     return async (dispatch) => {
-        let res = await axios.post(`/authorized/${payload.publisher_id}/userchatRecord/${payload.userChat_id}`,payload.chatRecord)
+        let res = await axios.post(`https://localhost:8000/authorized/${payload.publisher_id}/userchatRecord/${payload.userChat_id}`,payload.chatRecord)
         dispatch({ type: CREATE_USERCHATRECORD, payload:res.data })
     } 
 }
