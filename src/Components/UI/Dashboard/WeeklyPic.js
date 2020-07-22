@@ -1,21 +1,23 @@
 import React from 'react'
 
-const WeeklyPic = () => {
+const WeeklyPic = ({image}) => {
     return (
         <div className="row">
             <p className="center bold gray70 ">Most Liked Picture</p>
+
             <div className="col s12 m12" >
                 <div className="card vw100">
                     <div className="card-image">
-                            <img src="https://media.timeout.com/images/105559599/image.jpg" />
-                            <span className="card-title">My first Drone Shot</span>
+                            <img src={image.url} />
+    <span className="card-title">{image.title}</span>
                     </div>
                     <div className="card-content">
-                        <p>At Sai Kung</p>
+    <p>{image.district_id}</p>
                     </div>
 
                 </div>
             </div>
+            
         </div>
 
     )
