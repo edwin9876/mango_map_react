@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import SearchBar from '../../../Components/UI/Layout/SearchBar';
+import ScrollToBottom from 'react-scroll-to-bottom';
 import Input from './Input/Input';
 
 import io from 'socket.io-client';
 
+import { css } from 'glamor';
 import Messages from './Messages/Messages';
 
 import './Chat.css';
@@ -13,6 +15,11 @@ class Chat extends Component {
     super(props);
     this.socket = io('https://localhost:8000');
   }
+
+  ROOT_CSS = css({
+    height: '100%',
+    width: '100%',
+  });
 
   state = {
     userId: 1,
@@ -131,12 +138,12 @@ class Chat extends Component {
             </li>
           </ul>
         </div>
-        <div className='textBox'>
+        <ScrollToBottom className={this.ROOT_CSS + ' textBox'}>
           <Messages
             conversation={this.state.conversation}
             userId={this.state.userId}
           />
-        </div>
+        </ScrollToBottom>
         <div>
           <Input
             sendMessage={this.sendMessage}
