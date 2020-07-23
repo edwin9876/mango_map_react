@@ -9,6 +9,7 @@ const rootReducer = combineReducers({
     mapReducer,
     chatroomReducer,
     userReducer,
+    imageReducer
 })
 
 export default rootReducer;
