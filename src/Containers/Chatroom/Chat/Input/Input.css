@@ -1,10 +1,15 @@
 .form {
   display: flex;
-  border-top: 2px solid #d3d3d3;
+  border: 3px solid #d3d3d3;
+  position: fixed;
+  bottom: 8vh;
+  width: 100%;
+  background-color: white;
+  z-index: 100;
 }
 
 .input {
-  border: none;
+  /* border: none; */
   border-radius: 0;
   padding: 5%;
   width: 80%;
@@ -23,8 +28,9 @@ select:focus {
   text-transform: uppercase;
   text-decoration: none;
   background: #2979ff;
-  padding: 20px;
+  padding: 15px;
   display: inline-block;
   border: none;
-  width: 20%;
+  border-radius: 10px;
+  width: 25%;
 }
