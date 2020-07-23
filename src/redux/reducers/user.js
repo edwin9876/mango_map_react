@@ -14,7 +14,9 @@ import {
 } from '../constants/action-types'
 
 const initialUserState = {
-    users: [],
+    users: [{id:'1',user_name:'pullip123', profile_picture_url:`https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRLWTAHflkoSso-p7fbKv7BecCWNSyYseuhfw&usqp=CAU`},
+    {id:'2',user_name:'jacky123', profile_picture_url:`https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRIMey7cyC1XcqtyFcJlNhz7yP4oT1kAahWPw&usqp=CAU`},
+    {id:'3',user_name:'edwin123', profile_picture_url:`https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSOqBpd6GqriW1DijpLyo7CCISdC_JSiYNXuw&usqp=CAU`}],
     user: []
 }
 

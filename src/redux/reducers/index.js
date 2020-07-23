@@ -8,8 +8,8 @@ const rootReducer = combineReducers({
     blog: blogReducer,
     mapReducer,
     chatroomReducer,
-    userReducer,
-    imageReducer
+    imageReducer,
+    user:userReducer,
 })
 
 export default rootReducer;
