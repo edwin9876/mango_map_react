@@ -8,6 +8,7 @@ const rootReducer = combineReducers({
   blog: blogReducer,
   mapReducer,
   chatroomReducer,
+  imageReducer,
   user: userReducer,
 });
 
