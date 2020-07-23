@@ -17,7 +17,7 @@ class Chat extends Component {
   state = {
     userId: 1,
     username: 'Jacky',
-    currentRoomId: null,
+    currentRoomId: 1,
     messages: [],
     conversation: [
       { userId: 1, user: 'Jacky', message: 'hi' },
@@ -29,12 +29,14 @@ class Chat extends Component {
 
   componentDidMount() {
     this.socket.emit('new-user', { name: 'Jacky' });
+
     console.log('[componentDidMount] is executed');
-    console.log(this.socket);
+
     this.socket.on('user-connected', (name) => {
-      console.log('Welcome to my world ' + name);
+      console.log('Welcome to Mango Map, ' + name);
     });
 
+    // Receive the messages from other users
     this.socket.on('chat-message', (message) => {
       console.log(message);
       console.log('[chat-message] received');
@@ -46,6 +48,7 @@ class Chat extends Component {
     this.socket.off();
   }
 
+  // State.messages is the input value the users type in
   setMessage = (message) => {
     this.setState(
       {
@@ -56,6 +59,8 @@ class Chat extends Component {
     );
   };
 
+  // State.conversation is the complete chat history and new messages
+  // In the current chatroom
   setConversation = (message) => {
     this.setState({
       ...this.state,
@@ -63,6 +68,8 @@ class Chat extends Component {
     });
   };
 
+  // Sending the message to server
+  // Will trigger the chat-message event in componentDidMount
   sendMessage = (event) => {
     event.preventDefault();
     console.log(this.state.messages);
@@ -71,11 +78,14 @@ class Chat extends Component {
       { message: this.state.messages },
       () => {
         console.log('SendMessage callback is invoked');
+        // Adding the new message just sent to the state
         this.setConversation({
           userId: this.state.userId,
           user: this.state.username,
           message: this.state.messages,
         });
+
+        // Clearing the input field
         this.setState({ ...this.state, messages: [''] });
       }
     );
@@ -97,13 +107,14 @@ class Chat extends Component {
     },
   ];
 
+  // This is invoked when user click a room div
   changeRoomId = (id) => {
-    // Change to immutable setState
     this.setState({ ...this.state, currentRoomId: id });
   };
 
   render() {
     let displayedContent = this.state.currentRoomId ? (
+      // This div is in a chatroom
       <div>
         <h5 className='center'>Thomas Burberry</h5>
         <div className='card-tabs margin1'>
@@ -135,6 +146,7 @@ class Chat extends Component {
         </div>
       </div>
     ) : (
+      // Display the list of chatrooms the user has
       this.room.map((room, index) => {
         return (
           <div key={index} onClick={() => this.changeRoomId(index)}>
