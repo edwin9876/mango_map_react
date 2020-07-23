@@ -24,7 +24,8 @@ const initialBlogState =
     ],
 
     post: [{
-        id: '4', title: 'Mini Trip in HK', author: 'Pullip123', content: `Hope. Fear. Excitement. Traveling for the first time produced a wave of emotions.
+        id: '4', title: 'Mini Trip in HK', author: 'Pullip123',
+        content: `Hope. Fear. Excitement. Traveling for the first time produced a wave of emotions.
 
         When I left to travel the world on my first round-the-world trip, I didn’t know what to expect.
         
@@ -37,8 +38,11 @@ const initialBlogState =
         I know what it’s like to just be starting out and have a mind filled with questions, anxieties, and concerns.
         
         So, if you’re new to travel and looking for advice to help you prepare, here are 12 tips that I’d tell a new traveler to help them avoid some of my early mistakes:
-      `, main_picture_url: `https://www.wowabouts.com/z-media/2018/10/Dragon's%20Back%201.jpg`, modified: false,
-        userDistrict_id: ''
+      `,
+        main_picture_url: `https://www.wowabouts.com/z-media/2018/10/Dragon's%20Back%201.jpg`,
+        comments: [{ id: '1', user_id: 'Jacky123', body: 'Quite inspiring!' }, { id: '2', user_id: 'Edwin123', body: 'Quite surprising!' }],
+        modified: false,
+        userDistrict_id: '',
     }],
 
     posts: [{ id: '1', title: 'My First Trip', author: 'Pullip', content: 'Very nice first trip I had in Hong Kong' }, { id: '2', title: 'My Second Trip', author: 'Jacky', content: 'Very nice second trip I had in Hong Kong' }, { id: '3', title: 'My Third Trip', author: 'Edwin', content: 'Very nice third trip I had in Hong Kong' }],

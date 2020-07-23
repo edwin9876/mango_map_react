@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 // import axios from '../../../axios';
 import { Redirect } from 'react-router-dom';
-import SearchBar from '../../../Components/UI/Layout/SearchBar'
-import '../../../index.css'
-
-import './NewPost.css';
+import SearchBar from '../../Components/UI/Layout/SearchBar'
+// Global - index.css , Local - Blog.css
+import '../../index.css'
+import './Blog.css';
 
 class NewPost extends Component {
   state = {
