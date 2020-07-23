@@ -1,7 +1,7 @@
 import React from 'react'
 
 const handleClick = (e) => {
-    let id = {...this.state.id};
+    let id = { ...this.state.id };
     id = e.target.id;
     this.setState({
         id
@@ -10,7 +10,7 @@ const handleClick = (e) => {
 const ProfilePanel = () => {
     return (
         <div>
-            <div className="d-flex justify-content-center margin1">
+           <div className="d-flex justify-content-center margin1 ">
 
                 <div onClick={handleClick} id="TripSummary" className="card margin1 panels center">
                     <h5 className="bold">30</h5>
@@ -24,11 +24,11 @@ const ProfilePanel = () => {
 
                 <div id="PostSummary" className="card margin1 panels center">
                     <h5 className="bold">2</h5>
-                    <p>Postings</p>
-                </div>
-
-            </div>
-        </div>
+                    <p>Postings</p> 
+                </div> 
+    
+        </div >
+        </div >
     )
 }
 
