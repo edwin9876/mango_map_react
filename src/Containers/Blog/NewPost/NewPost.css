@@ -1,0 +1,13 @@
+
+textarea#Content{
+  border: solid 1px hsl(73, 56%, 22%);
+  height: 40vh;
+  box-shadow: none;
+}
+
+select.browser-default:focus{
+    border: transparent;
+    background-color: transparent;
+    box-shadow: none;
+  }
+  

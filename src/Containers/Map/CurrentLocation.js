@@ -62,6 +62,9 @@ class CurrentLocation extends React.Component {
       let { zoom } = this.props;
       const { lat, lng } = this.state.currentLocation;
       const center = new maps.LatLng(lat, lng);
+
+      console.log(this);
+
       const mapConfig = Object.assign(
         {},
         {

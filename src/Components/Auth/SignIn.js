@@ -1,6 +1,6 @@
 import React, { Component} from 'react'
 import {Link} from 'react-router-dom' 
-import Toplogobox from '../Layout/Toplogobox'
+import Toolbox from '../UI/Layout/Toolbox'
 import googleIC from '../../Icons/google_black.png'
 import instagramIC from '../../Icons/instagram_black.png'
 
@@ -36,7 +36,7 @@ export class SignIn extends Component {
  
         return (
             <div>
-                <Toplogobox />
+                <Toolbox />
                 <form className="form-container" onSubmit={this.handleSubmit}  >
                     <div className="input-field">
                         <label htmlFor="email">Email</label>
@@ -72,8 +72,6 @@ export class SignIn extends Component {
                 <p className="d-flex justify-content-center">Don't have an account? </p>
                 <Link className="d-flex justify-content-center" to='/signup'>Sign up</Link>
 
-{/* <p className="d-flex justify-content-center">Don't have an account?<Link to='/signup'>　Sign up</Link> </p>
-                */}
                 
 
             </div>

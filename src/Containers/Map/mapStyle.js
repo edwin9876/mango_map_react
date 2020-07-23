@@ -25,7 +25,7 @@ export default [
         visibility: 'simplified',
       },
       {
-        hue: '#ff0000',
+        hue: 'grey',
       },
     ],
   },
@@ -34,7 +34,7 @@ export default [
     elementType: 'labels.text',
     stylers: [
       {
-        visibility: 'on',
+        visibility: 'off',
       },
     ],
   },
@@ -70,7 +70,7 @@ export default [
     elementType: 'labels.text.fill',
     stylers: [
       {
-        color: '#444444',
+        color: 'white',
       },
     ],
   },
@@ -92,12 +92,13 @@ export default [
       },
     ],
   },
+
   {
     featureType: 'landscape',
     elementType: 'all',
     stylers: [
       {
-        color: '#f2f2f2',
+        color: '#FFFFFF',
       },
     ],
   },
@@ -133,10 +134,13 @@ export default [
     elementType: 'all',
     stylers: [
       {
-        saturation: -100,
+        saturation: 100,
       },
       {
-        lightness: 45,
+        lightness: 5,
+      },
+      {
+        color: 'white',
       },
     ],
   },
@@ -172,7 +176,7 @@ export default [
     elementType: 'all',
     stylers: [
       {
-        color: '#6da8c0',
+        color: 'rgb(220, 232, 241)',
       },
       {
         visibility: 'on',

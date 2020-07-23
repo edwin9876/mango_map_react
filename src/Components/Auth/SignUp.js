@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Toplogobox from '../Layout/Toplogobox'
+import Toolbox from '../UI/Layout/Toolbox'
 
 export class SignUp extends Component {
 
@@ -35,7 +35,7 @@ export class SignUp extends Component {
         return (
             
             <div>
-                <Toplogobox />
+                <Toolbox />
                 <form onSubmit={this.handleSubmit} className="form-container white" >
                     
                     <div className="input-field">
