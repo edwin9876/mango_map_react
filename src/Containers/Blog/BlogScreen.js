@@ -11,47 +11,57 @@ import BlogList from '../../Components/Blog/BlogList'
 
 const mapStateToProps = (state) => {
     return {
-        posts:state.blog.posts
+        post: state.blog.post,
+        posts: state.blog.posts,
+        pictures: state.blog.images,
+        users: state.user.users
     }
 }
 
 class BlogScreen extends Component {
-    // constructor(props) {
-    //     super(props)
-    //     this.state={
-    //         posts:[],
-    // }
-    // }
-    // componentDidMount() {
-    //     this.setState({
-    //         posts: this.props.posts
-    //     })
-    // }
-    render() {
+    // constructior(props) {
+    //     super(props);
+    //     state = {
+    //         currentRendering: <BlogList />
+    //     };
 
-        console.log(this.props)
+    //     toBlogList = () => {
+    //         // Change to immutable setState
+    //         this.setState({ ...this.state, currentRendering: <BlogList /> });
+    //     };
+    //     toPicList = () => {
+    //         // Change to immutable setState
+    //         this.setState({ ...this.state, currentRendering: <TopPics /> });
+    //     };
+    //     toUsers = () => {
+    //         // Change to immutable setState
+    //         this.setState({ ...this.state, currentRendering: <TopUsers /> });
+    //     };
 
-        return (
-            <div className="mb10vh">
-                <SearchBar />
-                <WeeklyPost />
-                <WeeklyPic />
 
-                <div className="card-tabs">
-                    <ul className="tabs tabs-fixed-width">
-                        <li className="tab"><a href="#test4" className="bold black-text">New posts</a></li>
-                        <li className="tab"><a href="#test6" className="bold black-text">Pictures</a></li>
-                        <li className="tab"><a href="#test4" className="bold black-text">Top users</a></li>
-                    </ul>
+        render() {
+            
+            return (
+
+                <div className="mb10vh">
+                    <SearchBar />
+                    <WeeklyPost post={this.props.post} />
+                    {/* <WeeklyPic /> */}
+
+                    <div className="card-tabs">
+                        <ul className="tabs tabs-fixed-width">
+                            <li className="tab"><a href="#"  className="bold grey-text">New posts</a></li>
+                            <li className="tab"><a href="#"  className="bold grey-text">New Pictures</a></li>
+                            <li className="tab"><a href="#" className="bold grey-text">Top users</a></li>
+                        </ul>
+                    </div>
+                    {/* <BlogList posts={this.props.posts} /> */}
+                    {/* <TopPics pictures={this.props.pictures} /> */}
+                    <TopUsers users={this.props.users} />
                 </div>
-                <BlogList posts={this.props.posts} />
-                {/* <TopPics /> */}
-                {/* <TopUsers/> */}
-            </div>
-        )
+            )
+        }
     }
-}
-
 
 
 
