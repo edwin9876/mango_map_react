@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { createPost } from '../../redux/actions/blog';
+import { ThemeContext } from '../../Contexts/Theme'
 // import axios from '../../../axios';
 import SearchBar from '../../Components/UI/Layout/SearchBar'
 // Global - index.css , Local - Blog.css
 import './Blog.css';
-
-import 'materialize-css';
-import { select } from 'react-materialize';
+import { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 class CreatePost extends Component {
+  static contextType = ThemeContext;
+
   state = {
     title: '',
     category: '',
@@ -38,59 +39,59 @@ class CreatePost extends Component {
   //     });
 
   render() {
+    // setting themecontext
+    const {isLightTheme, light, dark} = this.context;
+    const theme = isLightTheme ? light : dark;
+
     let redirect = null;
     if (this.state.submitted) {
       redirect = <Redirect to='/blog' />;
     }
 
     return (
-      <div className="container row" id="Post_container">
+      <div id="Post_container" style={{ background: theme.low, color : theme.high}}>
         <SearchBar />
         {redirect}
 
 
-        <form onSubmit={this.handleSubmit} className="col s12 white" enctype="multipart/form-data">
+        <Form className="margin5" id="createPost" onSubmit={this.handleSubmit}>
+          <FormGroup>
+            <Label for="title">Title</Label>
+            <Input style={{ borderColor: theme.highlight}} onChange={this.handleChange} type="text" name="title" id="title" placeholder="Title" />
+          </FormGroup>
 
+          <FormGroup>
+          <Label for="exampleSelectMulti">Choose Category</Label>
+          <Input style={{ borderColor: theme.highlight}} type="select" name="selectMulti" id="exampleSelectMulti" multiple>
+            <option id="category" >1</option>
+            <option id="category" >2</option>
+            <option id="category" >3</option>
+            <option id="category" >4</option>
+            <option id="category" >5</option>
+          </Input>
+        </FormGroup>
 
-          <div className="input-field col s12">
-            <input type="text" id='title' onChange={this.handleChange} />
-            <label htmlFor="title">Title</label>
+          <FormGroup>
+            <Label for="contents">Contents</Label>
+            <Input style={{ borderColor: theme.highlight}} onChange={this.handleChange} type="textarea" name="contents" id="contents" placeholder="Write here" rows="10" />
+          </FormGroup>
+
+          <FormGroup>
+          <Label for="exampleFile">File</Label>
+          <Input style={{ borderColor: theme.highlight}} type="file" name="file" id="exampleFile" />
+          <FormText color="muted">
+            Upload pictures you want to attach to the post
+          </FormText>
+        </FormGroup>
+
+          <div className="d-flex justify-content-center">
+            <Button style={{ backgroundColor: theme.highlight}} className="btn margin5 noBorder"
+              type="submit" name="action" >Add Post
+          </Button>
           </div>
 
-          <div className="input-field col s12">
-          <label htmlFor="categories">Categories</label>
-          </div>
 
-          <div className="input-field col s12">
-            <select className="browser-default" id="category" onChange={this.handleChange}>
-              <option id="category" value="" disabled selected>Choose your option</option>
-              <option id="category" value="1">Option 1</option>
-              <option id="category" value="2">Option 2</option>
-              <option id="category" value="3">Option 3</option>
-            </select>
-          </div>
-
-          <div className="input-field col s12">
-            <textarea id="content" className="materialize-textarea" onChange={this.handleChange}></textarea>
-            <label htmlFor="content">Content</label>
-          </div>
-
-          {/* <div>
-              <label for="fileToUpload">
-                Upload Picture
-              </label>
-            
-              <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();" accept="image/*" />
-            </div> */}
-          {/* <br /> */}
-
-          <div className="input-field center">
-            <button className="btn margin5"
-              type="submit" name="action">Add Post
-          </button>
-          </div>
-
-        </form>
+        </Form>
       </div >
     );
   }

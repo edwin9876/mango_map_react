@@ -1,6 +1,6 @@
 import React  from "react";
 import { NavLink } from 'react-router-dom'
-
+// import { ThemeContext } from '../../Contexts/Theme'
 
 
 
@@ -10,6 +10,7 @@ const isLoggedin = () => {
 
 
 const Navbar = (props) => {
+  
     return (
         <div className="d-flex sticky justify-content-center align-content-center " id="toolbar">
 

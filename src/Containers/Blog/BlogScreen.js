@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { ThemeContext } from '../../Contexts/Theme'
 
 import SearchBar from '../../Components/UI/Layout/SearchBar'
 import WeeklyPic from '../../Components/UI/Dashboard/WeeklyPic'
@@ -8,6 +9,7 @@ import TopPics from '../../Components/UI/Dashboard/TopPics'
 import TopUsers from '../../Components/UI/Dashboard/TopUsers'
 import BlogList from '../../Components/Blog/BlogList'
 
+import { Button, ButtonGroup } from 'reactstrap';
 
 const mapStateToProps = (state) => {
     return {
@@ -19,6 +21,8 @@ const mapStateToProps = (state) => {
 }
 
 class BlogScreen extends Component {
+    static contextType = ThemeContext;
+
     // constructior(props) {
     //     super(props);
     //     state = {
@@ -40,21 +44,23 @@ class BlogScreen extends Component {
 
 
         render() {
-            
+            const {isLightTheme, light, dark} = this.context;
+            const theme = isLightTheme ? light : dark;
+
             return (
 
-                <div className="mb10vh">
+                <div id="blog_container" style={{ background: theme.low, color : theme.high}}>
                     <SearchBar />
                     <WeeklyPost post={this.props.post} />
                     {/* <WeeklyPic /> */}
 
-                    <div className="card-tabs">
-                        <ul className="tabs tabs-fixed-width">
-                            <li className="tab"><a href="#"  className="bold grey-text">New posts</a></li>
-                            <li className="tab"><a href="#"  className="bold grey-text">New Pictures</a></li>
-                            <li className="tab"><a href="#" className="bold grey-text">Top users</a></li>
-                        </ul>
-                    </div>
+                    <ButtonGroup className="d-flex justify-content-center">
+                    <Button style={{ background: theme.low, color : theme.high, borderColor: theme.low}}>New Posts</Button>
+                    <Button style={{ background: theme.low, color : theme.high,  borderColor: theme.low}}>New Pictures</Button>
+                    <Button style={{ background: theme.low, color : theme.high,  borderColor: theme.low}}>Top Users</Button>
+                  </ButtonGroup>
+
+
                     {/* <BlogList posts={this.props.posts} /> */}
                     {/* <TopPics pictures={this.props.pictures} /> */}
                     <TopUsers users={this.props.users} />
