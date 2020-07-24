@@ -3,6 +3,9 @@ import SearchBar from '../../../Components/UI/Layout/SearchBar';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import Input from './Input/Input';
 
+import { connect } from 'react-redux';
+import * as actionTypes from '../../../redux/constants/actionTypes';
+
 import io from 'socket.io-client';
 
 import { css } from 'glamor';
@@ -176,4 +179,22 @@ class Chat extends Component {
   }
 }
 
-export default Chat;
+const mapStateToProps = (state) => {
+  return {
+    prs: state.persons,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAddedPerson: (name, age) =>
+      dispatch({
+        type: actionTypes.ADD_PERSON,
+        personData: { name: name, age: age },
+      }),
+    onRemovedPerson: (id) =>
+      dispatch({ type: actionTypes.REMOVE_PERSON, personId: id }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);
