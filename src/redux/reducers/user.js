@@ -11,7 +11,7 @@ import {
   CREATE_USERCHAT,
   REMOVE_USERCHAT,
   CREATE_USERCHATRECORD,
-} from '../constants/action-types';
+} from '../constants/actionTypes';
 
 const initialUserState = {
   users: [
