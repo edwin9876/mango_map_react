@@ -1,6 +1,6 @@
 .form {
     display: flex;
-    border: 3px solid #d3d3d3;
+    align-items: flex-start;
     position: fixed;
     bottom: 8vh;
     width: 100%;
@@ -8,10 +8,9 @@
     z-index: 100;
 }
 
-.input {
-    border: none;
+.textInput {
     border-radius: 0;
-    padding: 5%;
+    border: 3px solid #d3d3d3;
     width: 80%;
     font-size: 1.2em;
 }
@@ -19,7 +18,6 @@
 input:focus,
 textarea:focus,
 select:focus {
-    /* outline: none; */
     color: black;
 }
 
@@ -28,8 +26,11 @@ select:focus {
     text-decoration: none;
     background: #97bc62ff !important;
     padding: 15px;
-    display: inline-block;
     border: none;
     border-radius: 10px;
-    width: 25%;
+    width: 20%;
+}
+
+.uploadButton {
+    width: 10%;
 }
