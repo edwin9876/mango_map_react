@@ -10,6 +10,7 @@ const IndiComment = ({ comment }) => {
     );
 };
 
+
 const Comments = ({ comments }) => {
 
     return (

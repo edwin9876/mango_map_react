@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { createPost } from '../../redux/actions/blog';
 // import axios from '../../../axios';
-import { Redirect } from 'react-router-dom';
 import SearchBar from '../../Components/UI/Layout/SearchBar'
 // Global - index.css , Local - Blog.css
 import './Blog.css';
 
+import 'materialize-css';
+import { select } from 'react-materialize';
+
 class CreatePost extends Component {
   state = {
     title: '',
-    category:'',
+    category: '',
     content: '',
     author: 'Max',
     submitted: false,
@@ -41,35 +44,35 @@ class CreatePost extends Component {
     }
 
     return (
-      <div className="row margin1" id="Post_container">
+      <div className="container row" id="Post_container">
         <SearchBar />
         {redirect}
 
+
         <form onSubmit={this.handleSubmit} className="col s12 white" enctype="multipart/form-data">
+
 
           <div className="input-field col s12">
             <input type="text" id='title' onChange={this.handleChange} />
             <label htmlFor="title">Title</label>
           </div>
 
-          <div className="row">
-
-            <div className="col s12">
-              <label className="bold">Categories</label>
-            </div>
+          <div className="input-field col s12">
+          <label htmlFor="categories">Categories</label>
           </div>
 
-          <select className="browser-default" id="category" onChange={this.handleChange}>
-            <option id="category" value="" disabled selected>Choose your option</option>
-            <option id="category" value="1">Option 1</option>
-            <option id="category" value="2">Option 2</option>
-            <option id="category" value="3">Option 3</option>
-          </select>
+          <div className="input-field col s12">
+            <select className="browser-default" id="category" onChange={this.handleChange}>
+              <option id="category" value="" disabled selected>Choose your option</option>
+              <option id="category" value="1">Option 1</option>
+              <option id="category" value="2">Option 2</option>
+              <option id="category" value="3">Option 3</option>
+            </select>
+          </div>
 
-
-          <div className="margin1">
-            <label htmlFor="content">Contents</label>
-            <textarea className="" onChange={this.handleChange} rows="10" cols="10" ></textarea>
+          <div className="input-field col s12">
+            <textarea id="content" className="materialize-textarea" onChange={this.handleChange}></textarea>
+            <label htmlFor="content">Content</label>
           </div>
 
           {/* <div>
@@ -81,11 +84,12 @@ class CreatePost extends Component {
             </div> */}
           {/* <br /> */}
 
-          <div className="center">
+          <div className="input-field center">
             <button className="btn margin5"
               type="submit" name="action">Add Post
           </button>
           </div>
+
         </form>
       </div >
     );
