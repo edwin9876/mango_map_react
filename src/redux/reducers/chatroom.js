@@ -10,7 +10,7 @@ import {
   UPDATE_CHATROOMUSER,
   FETCH_ALLCHATROOM,
   FETCH_CHATROOM,
-} from '../constants/action-types';
+} from '../constants/actionTypes';
 
 const initialChatroomState = {
   chatrooms: [],

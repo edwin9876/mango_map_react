@@ -1,11 +1,13 @@
 import React from 'react';
 
+import UploadPhotos from './UploadPhotos/UploadPhotos';
+
 import './Input.css';
 
-const Input = ({ messages, sendMessage, setMessage }) => (
+const input = ({ messages, sendMessage, setMessage }) => (
   <form className='form'>
     <input
-      className='input'
+      className='textInput'
       type='text'
       placeholder='Type a message...'
       value={messages}
@@ -14,6 +16,7 @@ const Input = ({ messages, sendMessage, setMessage }) => (
         event.key === 'Enter' ? sendMessage(event) : null
       }
     />
+    <UploadPhotos />
     <button
       className='sendButton'
       onClick={(event) => {
@@ -25,4 +28,4 @@ const Input = ({ messages, sendMessage, setMessage }) => (
   </form>
 );
 
-export default Input;
+export default input;

@@ -12,7 +12,7 @@ import {
   REMOVE_POSTIMAGE,
   FETCH_ALLPOST,
   FETCH_POST,
-} from '../constants/action-types';
+} from '../constants/actionTypes';
 
 const initialBlogState = {
   images: [
