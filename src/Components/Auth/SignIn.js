@@ -3,8 +3,12 @@ import {Link} from 'react-router-dom'
 import Toolbox from '../UI/Layout/Toolbox'
 import googleIC from '../../Icons/google_black.png'
 import instagramIC from '../../Icons/instagram_black.png'
+import { ThemeContext } from '../../Contexts/Theme'
+import './Auth.css'
+
 
 export class SignIn extends Component {
+    static contextType = ThemeContext;
 
     state = {
         email: '',
@@ -24,34 +28,27 @@ export class SignIn extends Component {
 
 
     render() {
-    
-       const changeBG = (e)=>{
-        e.target.style.border = 'solid grey 1px';
-        e.target.style.borderRadius = '50px';
-     }
-     const backBG = (e)=>{
-        e.target.style.border = 'none';
-     }
- 
+    // setting themecontext
+    const {isLightTheme, light, dark} = this.context;
+    const theme = isLightTheme ? light : dark;
  
         return (
-            <div>
+            <div style={{ background: theme.low, color : theme.high}}>
                 <Toolbox />
-                <form className="form-container" onSubmit={this.handleSubmit}  >
+                <form className="form-container" onSubmit={this.handleSubmit} >
                     <div className="input-field">
                         <label htmlFor="email">Email</label>
-                        <input type="email" id="email" onChange={this.handleChange} />
+                        <input style={{ borderColor: theme.highlight}} type="email" id="email" onChange={this.handleChange} />
                     </div>
                     <div className="input-field">
                         <label htmlFor="password">Password</label>
-                        <input type="password" id="password" onChange={this.handleChange} />
+                        <input style={{ borderColor: theme.highlight}} type="password" id="password" onChange={this.handleChange} />
                     </div>
 
                     <div className="input-field d-flex justify-content-center">
 
                         <button className="transparent_btn grey-text " id="login_btn"
-                           onMouseOver={changeBG}
-                           onMouseLeave={backBG}> Log In
+                        > Log In
                            
                         </button>
                     </div>
