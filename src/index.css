@@ -212,9 +212,14 @@ button:focus {
 input[type=text]:not(.browser-default):focus:not([readonly]),
 input[type=email]:not(.browser-default):focus:not([readonly]),
 input[type=password]:not(.browser-default):focus:not([readonly]),
+select.browser-default:focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]){
   border-bottom: solid 2px #ccd637;
   box-shadow: none;
+
 }
 
-
+select.browser-default:focus:not([readonly]){
+    background-color: #cbd63754;
+    position: relative;
+}

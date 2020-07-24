@@ -1,4 +1,4 @@
-
+/* 
 textarea#Content{
   border: solid 1px hsl(73, 56%, 22%);
   height: 40vh;
@@ -10,4 +10,16 @@ select.browser-default:focus{
     background-color: transparent;
     box-shadow: none;
   }
+  
+ */
+/* 
+  input[type=text]:not(.browser-default):focus:not([readonly]),
+  input[type=email]:not(.browser-default):focus:not([readonly]),
+  input[type=password]:not(.browser-default):focus:not([readonly]),
+  textarea.materialize-textarea:focus:not([readonly]){
+    border-bottom: solid 2px #ccd637;
+    box-shadow: none;
+  }
+   */
+  
   

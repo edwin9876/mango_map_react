@@ -1,7 +1,7 @@
 // this is the individual blog page, set route to '/blog/:id'
 
 import React, { Component } from 'react'
-import Comments from './Comments'
+import Comments from '../../Components/Blog/Comments'
 import { connect } from 'react-redux'
 
 
