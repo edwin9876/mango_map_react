@@ -1,8 +1,15 @@
 import React, { Component} from 'react'
+import {connect} from 'react-redux'
 import {Link} from 'react-router-dom' 
 import Toolbox from '../UI/Layout/Toolbox'
 import googleIC from '../../Icons/google_black.png'
 import instagramIC from '../../Icons/instagram_black.png'
+import {login} from '../../redux/actions/user'
+
+
+const mapStateToProps = state=>{
+    const users
+}
 
 export class SignIn extends Component {
 
@@ -72,6 +79,9 @@ export class SignIn extends Component {
                 <p className="d-flex justify-content-center">Don't have an account? </p>
                 <Link className="d-flex justify-content-center" to='/signup'>Sign up</Link>
 
+
+                <p>-</p>
+                <p>-</p>
                 
 
             </div>
