@@ -57,12 +57,12 @@ class CreatePost extends Component {
         <Form className="margin5" id="createPost" onSubmit={this.handleSubmit}>
           <FormGroup>
             <Label for="title">Title</Label>
-            <Input style={{ borderColor: theme.highlight}} onChange={this.handleChange} type="text" name="title" id="title" placeholder="Title" />
+            <Input style={{background:theme.low, borderColor: theme.highlight, color:theme.high }}  onChange={this.handleChange} type="text" name="title" id="title" placeholder="Title" />
           </FormGroup>
 
           <FormGroup>
           <Label for="exampleSelectMulti">Choose Category</Label>
-          <Input style={{ borderColor: theme.highlight}} type="select" name="selectMulti" id="exampleSelectMulti" multiple>
+          <Input style={{background:theme.low, borderColor: theme.highlight, color:theme.high }} type="select" name="selectMulti" id="exampleSelectMulti" multiple>
             <option id="category" >1</option>
             <option id="category" >2</option>
             <option id="category" >3</option>
@@ -73,12 +73,12 @@ class CreatePost extends Component {
 
           <FormGroup>
             <Label for="contents">Contents</Label>
-            <Input style={{ borderColor: theme.highlight}} onChange={this.handleChange} type="textarea" name="contents" id="contents" placeholder="Write here" rows="10" />
+            <Input style={{background:theme.low, borderColor: theme.highlight, color:theme.high }}  onChange={this.handleChange} type="textarea" name="contents" id="contents" placeholder="Write here" rows="10" />
           </FormGroup>
 
           <FormGroup>
-          <Label for="exampleFile">File</Label>
-          <Input style={{ borderColor: theme.highlight}} type="file" name="file" id="exampleFile" />
+          <Label for="exampleFile">Pictures</Label>
+          <Input style={{ background: theme.low, color : theme.high}} type="file" name="file" id="exampleFile" />
           <FormText color="muted">
             Upload pictures you want to attach to the post
           </FormText>

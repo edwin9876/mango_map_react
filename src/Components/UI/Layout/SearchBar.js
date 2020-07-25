@@ -9,9 +9,9 @@ const SearchBar = () => {
             const theme = isLightTheme ? light : dark;
 
             return (
-                <div className="">
+                <div >
                     <InputGroup>
-                        <Input />
+                        <Input/>
                         <InputGroupAddon addonType="append">
                             <Button  style={{background: theme.transparent}}>Search</Button>
                         </InputGroupAddon>

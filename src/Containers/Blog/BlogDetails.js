@@ -1,9 +1,13 @@
 // this is the individual blog page, set route to '/blog/:id'
-
 import React, { Component } from 'react'
-import Comments from '../../Components/Blog/Comments'
 import { connect } from 'react-redux'
+import { ThemeContext } from '../../Contexts/Theme'
+import {
+    Card, CardImg, CardText, CardBody,
+    CardTitle, CardSubtitle, Button, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon
+} from 'reactstrap';
 
+import Comments from '../../Components/Blog/Comments'
 
 
 const mapStateToProps = (state) => {
@@ -15,6 +19,7 @@ const mapStateToProps = (state) => {
 
 
 class BlogDetails extends Component {
+    static contextType = ThemeContext;
 
     // post comments on submit form
     handleSubmit = (e) => {
@@ -23,46 +28,49 @@ class BlogDetails extends Component {
     }
 
     render() {
-console.log(this.props.comments)
+        // console.log(this.props.comments)
+        const { isLightTheme, light, dark } = this.context;
+        const theme = isLightTheme ? light : dark;
 
         return (
-            <div>
+            <div id="blog_container" className="padding1" style={{ background: theme.low, borderColor: theme.high }}>
                 <br />
-                <a href="/blog"><i className="material-icons margin1 black-text">arrow_back</i></a>
+                <a href="/blog"><i className="material-icons black-text">arrow_back</i></a>
 
-                <div className="row mb10vh">
-                    <div className="col s12 m12">
-                        <div className="card">
-                            <div className="card-image">
-                                <img src="https://media.timeout.com/images/105559599/image.jpg" />
-                                <span className="card-title">{this.props.post[0].title}</span>
-                            </div>
-                            <div className="card-content">
+                <Card style={{ background: theme.low, borderColor: theme.high }}>
 
-                                <p>by {this.props.post[0].author}</p><br />
+                    <CardImg top width="100%" src="https://media.timeout.com/images/105559599/image.jpg" alt="Card image cap" />
 
-                                <p className="flow-text">{this.props.post[0].content}</p>
-                            </div>
+                    <CardBody>
+                        <CardTitle className="bold">{this.props.post[0].title}</CardTitle>
+                        <CardSubtitle >by {this.props.post[0].author}</CardSubtitle>
+                        <CardText>{this.props.post[0].content}</CardText>
+                        <br />
+                        <a href="/blog/:id"><Button className="noBorder" style={{ background: theme.highlight }}>View more</Button></a>
+                    </CardBody>
+                </Card>
 
-                        </div>
-                    </div>
 
-                    {/* comment */}
+                {/* comment */}
 
-                    <div className="center margin1">
+                <div className="center paddingy1">
 
-                        <form action="post" onSubmit={this.handleSubmit}>
-                            <input type="text" className="validate" placeholder="Please share your comments" />
-                            <button id="ice" name="submit" type="submit" className="btn">Submit</button>
-                        </form>
+                    <Form action="post" onSubmit={this.handleSubmit}>
+                        <InputGroup>
+                            <Input style={{background:theme.low, borderColor: theme.highlight, color:theme.high }} onChange={this.handleChange} type="text" name="contents" id="contents" placeholder="Please comment here" />
 
-                        <Comments comments={this.props.comments}/>
+                            <InputGroupAddon addonType="append">
+                                <button style={{ borderColor: theme.highlight }} id="ice" name="submit" type="submit" className="btn">Submit</button>
+                            </InputGroupAddon>
 
-                    </div>
+                        </InputGroup>
+                    </Form>
+
+                    <Comments comments={this.props.comments} />
+
                 </div>
-
-
-            </div>)
+            </div>
+        )
     }
 }
 

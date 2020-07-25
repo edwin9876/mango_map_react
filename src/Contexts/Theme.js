@@ -1,6 +1,7 @@
 //using context to set colourtheme for lightmode, darkmode
 
 import React, { Component, createContext } from 'react';
+import { Input } from 'reactstrap';
 
 export const ThemeContext = createContext();
 
@@ -20,3 +21,8 @@ class ThemeContextProvider extends Component {
 }
 
 export default ThemeContextProvider;
+
+
+
+// Input
+// style={{background:theme.low, borderColor: theme.highlight, color:theme.high }} 
