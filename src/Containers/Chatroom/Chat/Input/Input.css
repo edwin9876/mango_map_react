@@ -1,30 +1,36 @@
 .form {
-  display: flex;
-  border-top: 2px solid #d3d3d3;
+    display: flex;
+    align-items: flex-start;
+    position: fixed;
+    bottom: 8vh;
+    width: 100%;
+    background-color: white;
+    z-index: 100;
 }
 
-.input {
-  border: none;
-  border-radius: 0;
-  padding: 5%;
-  width: 80%;
-  font-size: 1.2em;
+.textInput {
+    border-radius: 0;
+    border: 3px solid #d3d3d3;
+    width: 80%;
+    font-size: 1.2em;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
-  outline: none;
-  color: black;
+    color: black;
 }
 
 .sendButton {
-  color: #fff !important;
-  text-transform: uppercase;
-  text-decoration: none;
-  background: #2979ff;
-  padding: 20px;
-  display: inline-block;
-  border: none;
-  width: 20%;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: #97bc62ff !important;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    width: 20%;
+}
+
+.uploadButton {
+    width: 10%;
 }
