@@ -5,20 +5,13 @@ const ChatToolbar = () => {
     <div>
 
       <nav>
-        <div className="nav-wrapper green">
-        <ul className="left">
-            <a href="/chat">
-          <i class="material-icons">arrow_back</i></a>
-          </ul>
-          <ul className="right">
-            <li>
-              <a href="#"><i className=" material-icons">add</i></a>
-            </li>
-      
-            <li>
-              <a href="mobile.html"><i className="material-icons">more_vert</i></a>
-            </li>
-          </ul>
+        <div className="d-flex justify-content-between paddingy1">
+
+          <a href="/chat">
+            <i className="material-icons">arrow_back</i></a>
+
+          <a href="#"><i className=" material-icons">add</i></a>
+
         </div>
       </nav>
 

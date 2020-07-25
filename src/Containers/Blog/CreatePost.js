@@ -7,7 +7,7 @@ import { ThemeContext } from '../../Contexts/Theme'
 import SearchBar from '../../Components/UI/Layout/SearchBar'
 // Global - index.css , Local - Blog.css
 import './Blog.css';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, ButtonGroup, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 class CreatePost extends Component {
   static contextType = ThemeContext;
@@ -53,6 +53,10 @@ class CreatePost extends Component {
         <SearchBar />
         {redirect}
 
+        <ButtonGroup className="d-flex justify-content-center paddingy1">
+        <Button style={{ background: theme.low, color: theme.high, borderColor: theme.low }}> <i class="material-icons">create</i></Button>
+        <Button style={{ background: theme.low, color: theme.high, borderColor: theme.low }}> <i class="material-icons">add_a_photo</i></Button>
+    </ButtonGroup>
 
         <Form className="margin5" id="createPost" onSubmit={this.handleSubmit}>
           <FormGroup>
