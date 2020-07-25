@@ -12,7 +12,6 @@ class UploadPhotos extends Component {
 
   fileUploadHandler = (event) => {
     event.preventDefault();
-    console.log(event.target.files[0]);
     this.setState(
       {
         selectedFile: event.target.files[0],
@@ -20,18 +19,29 @@ class UploadPhotos extends Component {
       () => {
         const fd = new FormData();
         fd.append(
-          'image',
+          'image_data',
           this.state.selectedFile,
           this.state.selectedFile.name
         );
         console.log(fd);
         // TODO: connect to redux to get user id and current roomId
         // Parameters should be (image, userId, roomId)
-        axios.post(`https://localhost:8000/image/private`, {
-          img: fd,
-          userId: 1,
-          roomId: 1,
-        });
+        axios.post(
+          `https://localhost:8000/image/private`,
+          {
+            img: fd,
+            userId: 1,
+            roomId: 1,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              Accept: '*/*',
+              'Access-Control-Allow-Origin': '*',
+            },
+          }
+        );
+        console.log('After');
       }
     );
   };
