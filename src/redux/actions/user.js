@@ -16,7 +16,7 @@ import {
     REGISTER_REQUEST,
     REGISTER_FAILURE
 
-} from '../constants/action-types'
+} from '../constants/actionTypes'
 
 import authHeader from '../helpers/authHeader'
 import axios from 'axios'
