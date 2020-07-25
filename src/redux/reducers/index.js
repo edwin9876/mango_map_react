@@ -7,7 +7,6 @@ import userReducer from './user'
 // import imageReducer from './user'
 import authentication from './auth'
 
-
 const rootReducer = combineReducers({
   blog: blogReducer,
   mapReducer,
