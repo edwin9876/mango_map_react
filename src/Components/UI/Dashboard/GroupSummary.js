@@ -1,47 +1,57 @@
 import React from 'react'
+import { ThemeContext } from '../../../Contexts/Theme'
+import { ListGroup, ListGroupItem } from 'reactstrap';
 
 const GroupSummary = () => {
     return (
 
-        <div classNameName="margin5">
-            <ul className="collection">
-                <li className="collection-item avatar">
-                    <i className="material-icons circle green">star</i>
-                    <span className="title">Group1</span>
-                    <p>Created at 23rd April 2020 <br />
-                                5 members
-                    </p>
-                    <a href="#!" className="secondary-content"><i className="material-icons blur">grade</i></a>
-                </li>
-                <li className="collection-item avatar">
-                    <i className="material-icons circle green">star</i>
-                    <span className="title">Group2</span>
-                    <p>Created at 3rd June 2020 <br />
-                                9 members
-                    </p>
-                    <a href="#" className="secondary-content"><i className="material-icons blur">grade</i></a>
-                </li>
-                <li className="collection-item avatar">
-                    <i className="material-icons circle green">star</i>
-                    <span className="title">Group1</span>
-                    <p>Created at 23rd April 2020 <br />
-                                5 members
-                    </p>
-                    <a href="#!" className="secondary-content"><i className="material-icons blur">grade</i></a>
-                </li>
-                <li className="collection-item avatar">
-                    <i className="material-icons circle green">star</i>
-                    <span className="title">Group2</span>
-                    <p>Created at 3rd June 2020 <br />
-                                9 members
-                    </p>
-                    <a href="#" className="secondary-content"><i className="material-icons blur">grade</i></a>
-                </li>
-                
-                
-            </ul>
+      <ThemeContext.Consumer>{(context) => {
+        const { isLightTheme, light, dark } = context;
+        const theme = isLightTheme ? light : dark;
 
-        </div>
+        return(
+        <div classNameName="margin5">
+        <ListGroup>
+        <ListGroupItem color={theme.listcolor} tag="a" href="/chat/:id" className="justify-content-between d-flex">
+        <img className="material-icons roundimg"
+        src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRIMey7cyC1XcqtyFcJlNhz7yP4oT1kAahWPw&usqp=CAU'
+        alt='Avatar'
+      />
+        <h4 className="d-flex align-items-center">Group1</h4>
+        <h6 className="d-flex align-items-center blur">3.07.2020
+        
+        </h6>
+    
+        </ListGroupItem>
+
+        <ListGroupItem color={theme.listcolor}  tag="a" href="/chat/:id" className="justify-content-between d-flex">
+        <img className="material-icons roundimg"
+        src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRIMey7cyC1XcqtyFcJlNhz7yP4oT1kAahWPw&usqp=CAU'
+        alt='Avatar'
+      />
+        <h4 className="d-flex align-items-center">Group2</h4>
+        <h6 className="d-flex align-items-center blur">3.07.2020
+       
+        </h6>
+    
+        </ListGroupItem>
+        <ListGroupItem color={theme.listcolor}  tag="a" href="/chat/:id" className="justify-content-between d-flex">
+        <img className="material-icons roundimg"
+        src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRIMey7cyC1XcqtyFcJlNhz7yP4oT1kAahWPw&usqp=CAU'
+        alt='Avatar'
+      />
+        <h4 className="d-flex align-items-center">Group3</h4>
+        <h6 className="d-flex align-items-center blur">3.07.2020
+
+        </h6>
+    
+        </ListGroupItem>
+        </ListGroup>
+
+           
+
+        </div>) }}
+        </ThemeContext.Consumer>
     )
 }
 

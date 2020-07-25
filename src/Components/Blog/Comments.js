@@ -4,8 +4,8 @@ import React from 'react';
 const IndiComment = ({ comment }) => {
     return (
         <div className="d-flex" >
-            <p className="bold">{comment.user_id}</p>
-            <p className="margin1">{comment.body}</p>
+        <p className="bold ">{comment.user_id}</p>　
+            <p >{comment.body}</p>
         </div>
     );
 };

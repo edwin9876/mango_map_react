@@ -45,17 +45,15 @@ class BlogDetails extends Component {
                         <CardTitle className="bold">{this.props.post[0].title}</CardTitle>
                         <CardSubtitle >by {this.props.post[0].author}</CardSubtitle>
                         <CardText>{this.props.post[0].content}</CardText>
-                        <br />
-                        <a href="/blog/:id"><Button className="noBorder" style={{ background: theme.highlight }}>View more</Button></a>
                     </CardBody>
                 </Card>
 
 
                 {/* comment */}
 
-                <div className="center paddingy1">
+                <div className="center">
 
-                    <Form action="post" onSubmit={this.handleSubmit}>
+                    <Form action="post" onSubmit={this.handleSubmit} className=" paddingy1">
                         <InputGroup>
                             <Input style={{background:theme.low, borderColor: theme.highlight, color:theme.high }} onChange={this.handleChange} type="text" name="contents" id="contents" placeholder="Please comment here" />
 
