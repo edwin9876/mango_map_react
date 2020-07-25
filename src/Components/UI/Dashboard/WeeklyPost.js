@@ -1,37 +1,47 @@
 import React from 'react'
+import { ThemeContext } from '../../../Contexts/Theme'
+import {
+    Card, CardImg,CardBody,
+    CardTitle, CardSubtitle, Button
+} from 'reactstrap';
 
 
 const Weekly = ({ post }) => {
     console.log({ post })
 
-    
     return (
 
-        <div className="col s12 m12">
-            <div className="card darken-1">
-                <div className="card-content grey-text">
-                    <h4 className="card-title">{post[0].title}</h4>
-                    <div className="card-image waves-effect waves-block waves-light">
-                        <img src={post[0].main_picture_url} alt="postimage" className="activator" />
-                    </div>
-                
-                   <br/> <p>by {post[0].author}</p>
-                </div>
-                <div className="card-action center ">
-                    <a href= "/blog/:id" className="bold green-text">View more</a>
-            </div>
+        <ThemeContext.Consumer>{(context) => {
+            const { isLightTheme, light, dark } = context;
+            const theme = isLightTheme ? light : dark;
 
-        </div>
-        </div >
+            return (
+                <div>
+                    <Card style={{background: theme.low, borderColor:theme.high}}>
+                        <CardImg top width="100%" src={post[0].main_picture_url} alt="Card image cap" />
+                        <CardBody>
+                            <CardTitle className="bold">{post[0].title}</CardTitle>
+                            <CardSubtitle >by {post[0].author}</CardSubtitle>
+                            <br />
+                            <a href="/blog/:id"><Button className="noBorder" style={{background:theme.highlight}}>View more</Button></a>
+                        </CardBody>
+                    </Card>
+                </div>) }}
+        </ThemeContext.Consumer>
     )
 }
 
 const WeeklyPost = ({ post }) => {
     return (
-        <div className="row">
-            <p className="center bold gray70">This week's best post</p>
+        <ThemeContext.Consumer>{(context) => {
+            const { isLightTheme, light, dark } = context;
+            const theme = isLightTheme ? light : dark;
+            return(
+        <div className="margin1">
+            <h5 style={{color:theme.high}} className="d-flex justify-content-center">This week's best post</h5>
             <Weekly post={post} key={post.id} />
-        </div>
+        </div>)}}
+        </ThemeContext.Consumer>
     )
 }
 
