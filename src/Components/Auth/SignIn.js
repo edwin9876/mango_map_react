@@ -9,17 +9,27 @@ import { ThemeContext } from '../../Contexts/Theme'
 import {Form, FormGroup, Label, Input } from 'reactstrap';
 
 
-// const mapStateToProps = state=>{
-//     const users
-// }
+const mapStateToProps = state=>{
+    const { loggingIn } = state.authentication;
+    return {
+        loggingIn
+    };
+}
 
-export class SignIn extends Component {
+export class ConnetedSignIn extends Component {
     static contextType = ThemeContext;
 
-    state = {
-        email: '',
-        password: ''
+    constructor(props){
+        super(props)
+        this.props.dispatch(userActions.logout());
+
+        this.state = {
+            email: '',
+            password: '',
+            submitted:false,
+        }
     }
+    
 
     handleChange = (e) => {
         this.setState({
@@ -30,6 +40,12 @@ export class SignIn extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         console.log(this.state)
+        this.setState({submitted:true})
+        const {email,password} = this.state
+        const { dispatch } = this.props;
+        if (email && password) {
+            dispatch(userActions.login(email, password));
+        }
     }
 
 
@@ -82,4 +98,7 @@ export class SignIn extends Component {
     }
 }
 
+const SignIn = connect(mapStateToProps)(ConnetedSignIn)
+
 export default SignIn
+
