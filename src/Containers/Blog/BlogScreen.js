@@ -57,7 +57,7 @@ class BlogScreen extends Component {
                     <ButtonGroup className="d-flex justify-content-center">
                     <Button style={{ background: theme.low, color : theme.high, borderColor: theme.low}}>New Posts</Button>
                     <Button style={{ background: theme.low, color : theme.high,  borderColor: theme.low}}>New Pictures</Button>
-                    <Button className="noBorder" style={{ background: theme.low, color : theme.high,  borderColor: theme.low}}>Top Users</Button>
+                    <Button  style={{ background: theme.low, color : theme.high,  borderColor: theme.low}}>Top Users</Button>
                   </ButtonGroup>
 
 
