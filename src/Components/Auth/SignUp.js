@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Toolbox from '../UI/Layout/Toolbox'
+import Toplogobox from '../UI/Layout/Toplogobox'
 import { ThemeContext } from '../../Contexts/Theme'
 import { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import {connect} from 'react-redux'
@@ -70,7 +70,7 @@ import {signUp} from '../../redux/actions/user'
 
         return (
             <div id= "Post_container" style={{ background: theme.low, color : theme.high}}>
-                <Toolbox />
+                <Toplogobox />
 
                 <Form style={{ background: theme.low, color : theme.high }} onSubmit={this.handleSubmit} className="form-container" >
                     

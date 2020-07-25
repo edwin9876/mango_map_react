@@ -39,7 +39,8 @@ body {
 .paddingy1{padding:1rem 0;}
 
 /* sizing */
-
+.height5{height: 5vh!important;}
+.height6{height: 6vh;}
 .icons15{width: 15vw; height: 13vw;padding: 1vw;}
 .icons20{width: 20vw; height: 18vw;padding: 1vw;}
 .icons30{width: 30vw; padding: 2vw;}
@@ -59,6 +60,7 @@ body {
 .rBorder{border-radius: 50px;}
 .thinBorder{border: 1px, rgb(255, 255, 255), solid}
 .noBorder{ border: transparent !important;}
+.font5{font-size: 5vh;}
 
 button:focus {
     cursor: pointer;
@@ -71,7 +73,7 @@ button:focus {
     padding: 20% 5% 5% 5%;
     width: 100vw;
     max-height: fit-content;
-    background-image: url(./Icons/marble.jpg);
+    /* background-image: url(./Icons/marble.jpg); */
 }
 
 .form-container{
@@ -86,7 +88,6 @@ button:focus {
     border: transparent;
     border-radius: 50px;
     margin: 0.5rem;
-    background-image: url(./Icons/marble.jpg);
     background-size: cover;
 }
 
@@ -112,6 +113,11 @@ button:focus {
 min-height:100vh;
 padding-bottom: 10vh;
 }
+/* chat */
+#chat_container{
+    min-height:100vh;
+    padding-bottom: 10vh;
+    }
 
 /* Profile page */
 #profile_container{

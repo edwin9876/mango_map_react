@@ -1,7 +1,7 @@
 import React, { Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom' 
-import Toolbox from '../UI/Layout/Toolbox'
+import Toplogobox from '../UI/Layout/Toplogobox'
 import googleIC from '../../Icons/google_black.png'
 import instagramIC from '../../Icons/instagram_black.png'
 import {login,logout} from '../../redux/actions/user'
@@ -50,7 +50,7 @@ export class ConnetedSignIn extends Component {
 
         return (
             <div id="Post_container" style={{ background: theme.low, color: theme.high }}>
-                <Toolbox />
+                <Toplogobox/>
 
                 <Form className="margin5" id="createPost" onSubmit={this.handleSubmit}>
 
@@ -74,11 +74,11 @@ export class ConnetedSignIn extends Component {
 
 
                 <div className="justify-content-center d-flex">
-                    <div className="login_icons">
-                        <img className="icons15 active margin1" src={googleIC} alt="googleIC" />
+                    <div style={{backgroundImage: `url(${theme.img})`}} className="login_icons"  >
+                        <img className="icons15 margin1 blur" src={googleIC} alt="googleIC" />
                     </div>
-                    <div className="login_icons">
-                        <img className="icons15 active margin1" src={instagramIC} alt="instagramIC" />
+                    <div style={{backgroundImage: `url(${theme.img})`}} className="login_icons">
+                        <img className="icons15 margin1 blur" src={instagramIC} alt="instagramIC" />
                     </div>
                 </div>
 
