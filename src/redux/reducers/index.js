@@ -4,7 +4,7 @@ import imageReducer from './image'
 import mapReducer from './map'
 import chatroomReducer from './chatroom'
 import userReducer from './user'
-import imageReducer from './user'
+// import imageReducer from './user'
 import authentication from './auth'
 
 const rootReducer = combineReducers({
