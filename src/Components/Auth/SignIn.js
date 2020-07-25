@@ -1,12 +1,16 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { ThemeContext } from '../../Contexts/Theme'
 
+import React, { Component} from 'react'
+import {connect} from 'react-redux'
+import {Link} from 'react-router-dom' 
 import Toolbox from '../UI/Layout/Toolbox'
 import googleIC from '../../Icons/google_black.png'
 import instagramIC from '../../Icons/instagram_black.png'
-import { Form, FormGroup, Label, Input } from 'reactstrap';
+import {login} from '../../redux/actions/user'
 
+
+const mapStateToProps = state=>{
+    const users
+}
 
 export class SignIn extends Component {
     static contextType = ThemeContext;
@@ -70,6 +74,7 @@ export class SignIn extends Component {
                 <i class="material-icons justify-content-center d-flex">remove</i>
                 <p className="d-flex justify-content-center">Don't have an account? </p>
                 <Link className="d-flex justify-content-center" to='/signup'>Sign up</Link>
+
 
             </div>
         )

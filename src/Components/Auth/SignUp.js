@@ -4,6 +4,7 @@ import { ThemeContext } from '../../Contexts/Theme'
 import { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 export class SignUp extends Component {
+
     static contextType = ThemeContext;
 
     state = {
@@ -13,7 +14,21 @@ export class SignUp extends Component {
         lastName: ''
     }
 
+//     constructor(props){
+//  static contextType = ThemeContext;
+//         super(props)
+//             this.state={
+//                 email: '',
+//                 password: '',
+//                 user_name: '',
+//                 description: ''
+//             }
+    
+    
+    
+
     handleChange = (e) => {
+        console.log(this.state)
         this.setState({
             [e.target.id]: e.target.value
         })
@@ -29,8 +44,7 @@ export class SignUp extends Component {
         
         const {isLightTheme, light, dark} = this.context;
     const theme = isLightTheme ? light : dark;
-    
-    
+
         return (
             <div id= "Post_container" style={{ background: theme.low, color : theme.high}}>
                 <Toolbox />
@@ -58,6 +72,7 @@ export class SignUp extends Component {
                         <Input type="text" id="lastName" onChange={this.handleChange} style={{background:theme.low, borderColor: theme.highlight, color:theme.high }} />
                     </FormGroup>
 
+
                     <div className="justify-content-center d-flex Input-field">
                     <button className="transparent_btn grey-text " id="login_btn"
                          > Sign Up
@@ -69,5 +84,6 @@ export class SignUp extends Component {
         )
     }
 }
+
 
 export default SignUp
