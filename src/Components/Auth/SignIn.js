@@ -1,10 +1,11 @@
-import React, { Component} from 'react'
-import {Link} from 'react-router-dom' 
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import { ThemeContext } from '../../Contexts/Theme'
+
 import Toolbox from '../UI/Layout/Toolbox'
 import googleIC from '../../Icons/google_black.png'
 import instagramIC from '../../Icons/instagram_black.png'
-import { ThemeContext } from '../../Contexts/Theme'
-import './Auth.css'
+import { Form, FormGroup, Label, Input } from 'reactstrap';
 
 
 export class SignIn extends Component {
@@ -28,32 +29,34 @@ export class SignIn extends Component {
 
 
     render() {
-    // setting themecontext
-    const {isLightTheme, light, dark} = this.context;
-    const theme = isLightTheme ? light : dark;
- 
+        // setting themecontext
+        const { isLightTheme, light, dark } = this.context;
+        const theme = isLightTheme ? light : dark;
+
         return (
-            <div style={{ background: theme.low, color : theme.high}}>
+            <div id="Post_container" style={{ background: theme.low, color: theme.high }}>
                 <Toolbox />
-                <form className="form-container" onSubmit={this.handleSubmit} >
-                    <div className="input-field">
-                        <label htmlFor="email">Email</label>
-                        <input style={{ borderColor: theme.highlight}} type="email" id="email" onChange={this.handleChange} />
-                    </div>
-                    <div className="input-field">
-                        <label htmlFor="password">Password</label>
-                        <input style={{ borderColor: theme.highlight}} type="password" id="password" onChange={this.handleChange} />
-                    </div>
+
+                <Form className="margin5" id="createPost" onSubmit={this.handleSubmit}>
+
+                    <FormGroup>
+                        <Label htmlFor="email">Email</Label>
+                        <Input style={{background:theme.low, borderColor: theme.highlight, color:theme.high }}  type="email" id="email" onChange={this.handleChange} />
+                    </FormGroup>
+
+                    <FormGroup>
+                        <Label htmlFor="password">Password</Label>
+                        <Input style={{background:theme.low, borderColor: theme.highlight, color:theme.high }}  type="password" id="password" onChange={this.handleChange} />
+                    </FormGroup>
 
                     <div className="input-field d-flex justify-content-center">
-
                         <button className="transparent_btn grey-text " id="login_btn"
                         > Log In
-                           
                         </button>
                     </div>
-                </form>
-      
+
+                </Form>
+
 
                 <div className="justify-content-center d-flex">
                     <div className="login_icons">
@@ -65,11 +68,8 @@ export class SignIn extends Component {
                 </div>
 
                 <i class="material-icons justify-content-center d-flex">remove</i>
-
                 <p className="d-flex justify-content-center">Don't have an account? </p>
                 <Link className="d-flex justify-content-center" to='/signup'>Sign up</Link>
-
-                
 
             </div>
         )

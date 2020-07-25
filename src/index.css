@@ -32,6 +32,8 @@ body {
 .margin1vw{margin:1vw 0}
 .margin5 {margin:5%}
 .mb10vh{margin-bottom: 10vh;}
+.padding1{padding:1rem}
+.paddingy1{padding:1rem 0;}
 
 /* sizing */
 .icons15{width: 15vw; height: 13vw;padding: 1vw;}
