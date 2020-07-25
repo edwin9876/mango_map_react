@@ -21,7 +21,7 @@ export class ConnetedSignIn extends Component {
 
     constructor(props){
         super(props)
-        this.props.dispatch(userActions.logout());
+        // this.props.dispatch(logout());
 
         this.state = {
             email: '',
@@ -44,7 +44,7 @@ export class ConnetedSignIn extends Component {
         const {email,password} = this.state
         const { dispatch } = this.props;
         if (email && password) {
-            dispatch(userActions.login(email, password));
+            // dispatch(login(email, password));
         }
     }
 
