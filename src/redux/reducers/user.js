@@ -8,7 +8,7 @@ import {
   REMOVE_FAVPOST,
   CREATE_USERDISTRICT,
   REMOVE_USERDISTRICT,
-} from '../constants/action-types';
+} from '../constants/actionTypes';
 
 const initialUserState = {
   users: [

@@ -2,7 +2,10 @@ import {
     LOGIN_REQUEST,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
-    LOGOUT
+    LOGOUT,
+    REGISTER_REQUEST,
+    REGISTER_SUCCESS,
+    REGISTER_FAILURE
 } from '../constants/action-types'
 
 
@@ -26,6 +29,16 @@ const initialState = user ? { loggedIn: true, user } : {};
         return {};
     case LOGOUT:
         return {};
+
+    case REGISTER_REQUEST:
+        return {
+        };
+    case REGISTER_SUCCESS:
+        return {
+        };
+    case REGISTER_FAILURE:
+        return {};
+
     default:
         return state
     }
