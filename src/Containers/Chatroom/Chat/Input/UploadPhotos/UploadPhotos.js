@@ -17,25 +17,33 @@ class UploadPhotos extends Component {
         selectedFile: event.target.files[0],
       },
       () => {
-        const fd = new FormData();
-        fd.append(
-          'image_data',
-          this.state.selectedFile,
-          this.state.selectedFile.name
-        );
-        console.log(fd);
+        // FileReader
+        // const fd = new FormData();
+        // fd.append(
+        //   'image_data',
+        //   this.state.selectedFile,
+        //   this.state.selectedFile.name
+        // );
+        // console.log(fd);
+
+        let file = this.state.selectedFile;
+
+        let reader = new FileReader();
+
+        reader.readAsDataURL(file);
+        console.log(reader);
         // TODO: connect to redux to get user id and current roomId
         // Parameters should be (image, userId, roomId)
         axios.post(
           `https://localhost:8000/image/private`,
           {
-            img: fd,
-            userId: 1,
+            ...reader,
             roomId: 1,
+            userId: 1,
           },
           {
             headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
+              'Content-Type': 'application/json',
               Accept: '*/*',
               'Access-Control-Allow-Origin': '*',
             },
