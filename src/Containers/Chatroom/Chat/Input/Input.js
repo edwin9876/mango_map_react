@@ -1,27 +1,33 @@
 import React from 'react';
 
+import UploadPhotos from './UploadPhotos/UploadPhotos';
+import { Button } from 'reactstrap';
+
 import './Input.css';
 
-const Input = ({ message, sendMessage }) => (
+const input = ({ messages, sendMessageHandler, setMessage }) => (
   <form className='form'>
     <input
-      className='input'
+      className='textInput'
       type='text'
       placeholder='Type a message...'
-      value={message}
+      value={messages}
+      onChange={(event) => setMessage(event.target.value)}
       onKeyPress={(event) =>
-        event.key === 'Enter' ? sendMessage(event) : null
+        event.key === 'Enter' ? sendMessageHandler(event) : null
       }
     />
-    <button
-      className='sendButton'
+    <UploadPhotos />
+    <Button
       onClick={(event) => {
-        sendMessage(event);
+        sendMessageHandler(event);
       }}
+      color='primary'
+      size='sm'
     >
-      Send
-    </button>
+      SEND
+    </Button>{' '}
   </form>
 );
 
-export default Input;
+export default input;
