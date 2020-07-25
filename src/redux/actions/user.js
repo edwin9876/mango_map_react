@@ -11,7 +11,10 @@ import {
     LOGIN_REQUEST,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
-    LOGOUT
+    LOGOUT,
+    REGISTER_SUCCESS,
+    REGISTER_REQUEST,
+    REGISTER_FAILURE
 
 } from '../constants/action-types'
 
@@ -21,9 +24,10 @@ export function login(email, password) {
     return async (dispatch) => {
         try {
             dispatch({ type: LOGIN_REQUEST, payload: email })
-            let res = await axios.post('https://localhost:8000/auth/local-login', { email: email, password: password })
+            let res = await axios.post('http://localhost:8000/auth/local-login', { email: email, password: password })
             console.log(res.data)
             localStorage.setItem('user', JSON.stringify(res.data.user))
+
             dispatch({ type: LOGIN_SUCCESS, payload: res.data.user })
         }
         catch (err) {
@@ -34,8 +38,22 @@ export function login(email, password) {
 
 export function logout() {
     localStorage.removeItem('user');
-    return (dispatch) => {
-        dispatch({ type: LOGOUT })
+    return { type: LOGOUT }
+}
+
+export function signUp(userInfo) {
+    return async (dispatch) => {
+        try {
+            dispatch({ type: REGISTER_REQUEST, payload: userInfo })
+            let res = await axios.post('http://localhost:8000/auth/local-signup', { ...userInfo })
+            console.log(res.data)
+            // localStorage.setItem('user', JSON.stringify(res.data.user))
+
+            dispatch({ type: REGISTER_SUCCESS, payload: res.data.user })
+        }
+        catch (err) {
+            dispatch({ type: REGISTER_FAILURE, payload: err })
+        }
     }
 }
 
