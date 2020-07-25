@@ -6,6 +6,9 @@ import Toolbox from '../UI/Layout/Toolbox'
 import googleIC from '../../Icons/google_black.png'
 import instagramIC from '../../Icons/instagram_black.png'
 import {login} from '../../redux/actions/user'
+import { ThemeContext } from '../../Contexts/Theme'
+
+import { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 
 const mapStateToProps = state=>{
@@ -20,7 +23,7 @@ export class ConnetedSignIn extends Component {
 
     constructor(props){
         super(props)
-        this.props.dispatch(userActions.logout());
+        // this.props.dispatch(logout());
 
         this.state = {
             email: '',
@@ -43,7 +46,7 @@ export class ConnetedSignIn extends Component {
         const {email,password} = this.state
         const { dispatch } = this.props;
         if (email && password) {
-            dispatch(userActions.login(email, password));
+            // dispatch(login(email, password));
         }
     }
 
