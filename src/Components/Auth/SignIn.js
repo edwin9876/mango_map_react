@@ -6,11 +6,13 @@ import Toolbox from '../UI/Layout/Toolbox'
 import googleIC from '../../Icons/google_black.png'
 import instagramIC from '../../Icons/instagram_black.png'
 import {login} from '../../redux/actions/user'
+import { ThemeContext } from '../../Contexts/Theme'
+import { Form, FormGroup, Label, Input} from 'reactstrap';
 
 
-const mapStateToProps = state=>{
-    const users
-}
+// const mapStateToProps = state=>{
+//     const users
+// }
 
 export class SignIn extends Component {
     static contextType = ThemeContext;
