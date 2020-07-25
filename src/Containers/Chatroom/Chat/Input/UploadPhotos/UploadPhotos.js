@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import uploadIcon from '../../../../../Icons/upload.png';
-import './UploadPhotos.css';
 
 class UploadPhotos extends Component {
   state = {
@@ -50,7 +48,7 @@ class UploadPhotos extends Component {
     return (
       <>
         <label htmlFor='myInput'>
-          <img style={{ height: '40px' }} src={uploadIcon} alt='upload icon' />
+        <i className="material-icons font5">attach_file</i>
         </label>
         <input
           id='myInput'
