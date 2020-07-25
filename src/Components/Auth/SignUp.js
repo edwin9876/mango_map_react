@@ -1,17 +1,30 @@
 import React, { Component } from 'react'
 import Toolbox from '../UI/Layout/Toolbox'
+import { ThemeContext } from '../../Contexts/Theme'
+import { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 export class SignUp extends Component {
-    constructor(props){
-        super(props)
-            this.state={
-                email: '',
-                password: '',
-                user_name: '',
-                description: ''
-            }
-        
+
+    static contextType = ThemeContext;
+
+    state = {
+        email: '',
+        password: '',
+        firstName: '',
+        lastName: ''
     }
+
+//     constructor(props){
+//  static contextType = ThemeContext;
+//         super(props)
+//             this.state={
+//                 email: '',
+//                 password: '',
+//                 user_name: '',
+//                 description: ''
+//             }
+    
+    
     
 
     handleChange = (e) => {
@@ -29,48 +42,44 @@ export class SignUp extends Component {
 
     render() {
         
-    
-        const changeBG = (e)=>{
-             e.target.style.border = 'solid grey 1px';
-             e.target.style.borderRadius = '50px';
-          }
-        const backBG = (e)=>{
-             e.target.style.border = 'none';
-          }
+        const {isLightTheme, light, dark} = this.context;
+    const theme = isLightTheme ? light : dark;
+
         return (
-            
-            <div>
+            <div id= "Post_container" style={{ background: theme.low, color : theme.high}}>
                 <Toolbox />
-                <form onSubmit={this.handleSubmit} className="form-container white" >
-                    <div className="input-field">
-                        <input type="email" id="email" onChange={this.handleChange} value={this.state.email}/>
-                        <label htmlFor="email">Email</label>
-                    </div>
 
-                    <div className="input-field">
-                        <input type="text" id="user_name" onChange={this.handleChange} value={this.state.user_name} />
-                        <label htmlFor="user_name">User Name</label>
-                    </div>
-
-                    <div className="input-field">
-                        <input type="password" id="password" onChange={this.handleChange} value={this.state.password}/>
-                        <label htmlFor="password">Password</label>
-                    </div>
+                <Form style={{ background: theme.low, color : theme.high }} onSubmit={this.handleSubmit} className="form-container" >
+                    
+                <FormGroup>
+                        <Label htmlFor="email">Email</Label>
+                        <Input type="email" id="email" onChange={this.handleChange} style={{background:theme.low, borderColor: theme.highlight, color:theme.high }}  />
+                </FormGroup>
 
 
-                    <div className="input-field">
-                        <textarea className='materialize-textarea' id="description" onChange={this.handleChange} value={this.state.description}/>
-                        <label htmlFor="description">Description</label>
-                    </div>
+          <FormGroup>
+                        <Label htmlFor="password">Password</Label>
+                        <Input type="password" id="password" onChange={this.handleChange}style={{background:theme.low, borderColor: theme.highlight, color:theme.high }}  />
+                    </FormGroup>
 
-                    <div className="justify-content-center d-flex input-field">
+          <FormGroup>
+                        <Label htmlFor="firstName">First Name</Label>
+                        <Input type="text" id="firstName" onChange={this.handleChange} style={{background:theme.low, borderColor: theme.highlight, color:theme.high }} />
+                    </FormGroup>
+
+          <FormGroup>
+                        <Label htmlFor="lastName">Last Name</Label>
+                        <Input type="text" id="lastName" onChange={this.handleChange} style={{background:theme.low, borderColor: theme.highlight, color:theme.high }} />
+                    </FormGroup>
+
+
+                    <div className="justify-content-center d-flex Input-field">
                     <button className="transparent_btn grey-text " id="login_btn"
-                           onMouseOver={changeBG}
-                           onMouseLeave={backBG}> Sign Up
+                         > Sign Up
                            
                         </button>
                     </div>
-                </form>
+                </Form>
             </div>
         )
     }

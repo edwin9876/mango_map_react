@@ -14,11 +14,14 @@ import ChatDetails from './Components/Chat/ChatDetails';
 import SignIn from './Components/Auth/SignIn';
 import SignUp from './Components/Auth/SignUp';
 
+import ThemeContextProvider from './Contexts/Theme'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      isLoggedIn: false,
+      isLoggedIn: true,
     };
   }
 
@@ -26,33 +29,35 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className='App'>
-          <Navbar />
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/location/:id' component={MapDetails} />
-            <Route exact path='/blog' component={Blog}/>
-            <Route exact path='/createpost' component={CreatePost} />
-            <Route exact path='/blog/:id' component={BlogDetails} />
-            <Route exact path='/chat' component={Chat} />
-            <Route exact path='/chat/:id' component={ChatDetails} />
+          <ThemeContextProvider>
+            <Navbar />
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/location/:id' component={MapDetails} />
+              <Route exact path='/blog' component={Blog} />
+              <Route exact path='/createpost' component={CreatePost} />
+              <Route exact path='/blog/:id' component={BlogDetails} />
+              <Route exact path='/chat' component={Chat} />
+              <Route exact path='/chat/:id' component={ChatDetails} />
 
-            <Route
-              exact
-              path='/profile'
-              render={() => {
-                return this.state.isLoggedIn ? (
-                  <Redirect to='/profile/:id' />
-                ) : (
-                  <Redirect to='/signin' />
-                );
-              }}
-            />
+              <Route
+                exact
+                path='/profile'
+                render={() => {
+                  return this.state.isLoggedIn ? (
+                    <Redirect to='/profile/:id' />
+                  ) : (
+                      <Redirect to='/signin' />
+                    );
+                }}
+              />
 
-            <Route exact path='/profile/:id' component={Profile} />
+              <Route exact path='/profile/:id' component={Profile} />
 
-            <Route exact path='/signin' component={SignIn} />
-            <Route exact path='/signup' component={SignUp} />
-          </Switch>
+              <Route exact path='/signin' component={SignIn} />
+              <Route exact path='/signup' component={SignUp} />
+            </Switch>
+          </ThemeContextProvider>
         </div>
       </BrowserRouter>
     );
