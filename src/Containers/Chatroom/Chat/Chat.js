@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import SearchBar from '../../../Components/UI/Layout/SearchBar';
+import ScrollToBottom from 'react-scroll-to-bottom';
 import Input from './Input/Input';
+
+import { connect } from 'react-redux';
+import * as actionTypes from '../../../redux/constants/actionTypes';
 
 import io from 'socket.io-client';
 
+import { css } from 'glamor';
 import Messages from './Messages/Messages';
 
 import './Chat.css';
@@ -14,31 +19,35 @@ class Chat extends Component {
     this.socket = io('https://localhost:8000');
   }
 
-  state = {
-    userID: null,
-    currentRoomId: null,
-    messages: [],
-  };
+  ROOT_CSS = css({
+    height: '100%',
+    width: '100%',
+  });
 
-  conversation = [
-    { user: 'Jacky', message: 'hi' },
-    { user: 'Jacky', message: "How you doin'??" },
-    { user: 'Edwin', message: 'I am fine, thank you.' },
-    { user: 'Pullip', message: 'I go to school by bus.' },
-  ];
+  state = {
+    userId: 1,
+    username: 'Jacky',
+    currentRoomId: 1,
+    messages: [],
+    conversation: [
+      { userId: 1, user: 'Jacky', message: 'hi' },
+      { userId: 1, user: 'Jacky', message: "How you doin'?" },
+      { userId: 2, user: 'Edwin', message: 'I am fine, thank you.' },
+      { userId: 3, user: 'Pullip', message: 'I go to school by bus.' },
+    ],
+  };
 
   componentDidMount() {
     this.socket.emit('new-user', { name: 'Jacky' });
+
     console.log('[componentDidMount] is executed');
 
     this.socket.on('user-connected', (name) => {
-      console.log('Welcome to my world ' + name);
+      console.log('Welcome to Mango Map, ' + name);
     });
 
+    // Receive the messages from other users
     this.socket.on('chat-message', (message) => {
-      //   let newState = { ...this.state };
-      //   newState.conversation.push(message)
-      //   this.setState({ newState });
       console.log(message);
       console.log('[chat-message] received');
     });
@@ -49,20 +58,47 @@ class Chat extends Component {
     this.socket.off();
   }
 
+  // State.messages is the input value the users type in
   setMessage = (message) => {
+    this.setState(
+      {
+        ...this.state,
+        messages: [message],
+      },
+      () => console.log(this.state.messages)
+    );
+  };
+
+  // State.conversation is the complete chat history and new messages
+  // In the current chatroom
+  setConversationHandler = (message) => {
     this.setState({
       ...this.state,
-      messages: [...this.state.messages, message],
+      conversation: [...this.state.conversation, message],
     });
   };
 
-  sendMessage = (event) => {
+  // Sending the message to server
+  // Will trigger the chat-message event in componentDidMount
+  sendMessageHandler = (event) => {
     event.preventDefault();
+    console.log(this.state.messages);
+    this.socket.emit(
+      'send-chat-message',
+      { message: this.state.messages },
+      () => {
+        console.log('sendMessageHandler callback is invoked');
+        // Adding the new message just sent to the state
+        this.setConversationHandler({
+          userId: this.state.userId,
+          user: this.state.username,
+          message: this.state.messages,
+        });
 
-    this.socket.emit('send-chat-message', { message: 'Hello WOlrd' }, () => {
-      // this.setState({ ...this.state, messages: [''] });
-      console.log('SendMessage callback is invoked');
-    });
+        // Clearing the input field
+        this.setState({ ...this.state, messages: [''] });
+      }
+    );
   };
 
   // Fake data
@@ -81,13 +117,14 @@ class Chat extends Component {
     },
   ];
 
-  changeRoomId = (id) => {
-    // Change to immutable setState
+  // This is invoked when user click a room div
+  changeRoomIdHandler = (id) => {
     this.setState({ ...this.state, currentRoomId: id });
   };
 
   render() {
     let displayedContent = this.state.currentRoomId ? (
+      // This div is in a chatroom
       <div>
         <h5 className='center'>Thomas Burberry</h5>
         <div className='card-tabs margin1'>
@@ -104,20 +141,25 @@ class Chat extends Component {
             </li>
           </ul>
         </div>
-        <div className='textBox'>
-          <Messages conversation={this.conversation} />
-        </div>
+        <ScrollToBottom className={this.ROOT_CSS + ' textBox'}>
+          <Messages
+            conversation={this.state.conversation}
+            userId={this.state.userId}
+          />
+        </ScrollToBottom>
         <div>
           <Input
-            sendMessage={this.sendMessage}
+            sendMessageHandler={this.sendMessageHandler}
             messages={this.state.messages}
+            setMessage={this.setMessage}
           />{' '}
         </div>
       </div>
     ) : (
+      // Display the list of chatrooms the user has
       this.room.map((room, index) => {
         return (
-          <div key={index} onClick={() => this.changeRoomId(index)}>
+          <div key={index} onClick={() => this.changeRoomIdHandler(index)}>
             <ul className='collection'>
               <li className='collection-item avatar gray70'>
                 <i className='material-icons circle grey blur'>star</i>
@@ -137,4 +179,23 @@ class Chat extends Component {
   }
 }
 
+// const mapStateToProps = (state) => {
+//   return {
+//     prs: state.persons,
+//   };
+// };
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     onAddedPerson: (name, age) =>
+//       dispatch({
+//         type: actionTypes.ADD_PERSON,
+//         personData: { name: name, age: age },
+//       }),
+//     onRemovedPerson: (id) =>
+//       dispatch({ type: actionTypes.REMOVE_PERSON, personId: id }),
+//   };
+// };
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Chat);
 export default Chat;
