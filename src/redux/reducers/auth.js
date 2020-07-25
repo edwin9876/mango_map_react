@@ -6,7 +6,7 @@ import {
     REGISTER_REQUEST,
     REGISTER_SUCCESS,
     REGISTER_FAILURE
-} from '../constants/action-types'
+} from '../constants/actionTypes'
 
 
 let user = JSON.parse(localStorage.getItem('user'));
