@@ -8,10 +8,7 @@ import {
   REMOVE_FAVPOST,
   CREATE_USERDISTRICT,
   REMOVE_USERDISTRICT,
-  CREATE_USERCHAT,
-  REMOVE_USERCHAT,
-  CREATE_USERCHATRECORD,
-} from '../constants/actionTypes';
+} from '../constants/action-types';
 
 const initialUserState = {
   users: [
@@ -58,14 +55,7 @@ const userReducer = (state = initialUserState, action) => {
       return {
         ...state,
       };
-    case CREATE_USERCHAT:
-      return {
-        ...state,
-      };
-    case CREATE_USERCHATRECORD:
-      return {
-        ...state,
-      };
+
     default:
       return {
         ...state,

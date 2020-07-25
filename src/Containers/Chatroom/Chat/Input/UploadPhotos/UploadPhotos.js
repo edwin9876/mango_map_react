@@ -1,44 +1,56 @@
 import React, { Component } from 'react';
-
 import axios from 'axios';
+import uploadIcon from '../../../../../Icons/upload.png';
+import './UploadPhotos.css';
 
 class UploadPhotos extends Component {
   state = {
     selectedFile: null,
   };
 
-  fileSelectedHandler = (event) => {
-    this.setState({
-      selectedFile: event.target.files[0],
-    });
-  };
-
   //https://www.npmjs.com/package/imagemin use it to compress
 
   fileUploadHandler = (event) => {
     event.preventDefault();
-    const fd = new FormData();
-    fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
-    axios
-      .post(
-        'https://api.imgur.com/3/image',
-        {
-          //data
-        },
-        { headers: { Authorization: 'Client-ID c193a8bef20fb01' } }
-      )
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    console.log(event.target.files[0]);
+    this.setState(
+      {
+        selectedFile: event.target.files[0],
+      },
+      () => {
+        const fd = new FormData();
+        fd.append(
+          'image',
+          this.state.selectedFile,
+          this.state.selectedFile.name
+        );
+        console.log(fd);
+        // TODO: connect to redux to get user id and current roomId
+        // Parameters should be (image, userId, roomId)
+        axios.post(`https://localhost:8000/image/private`, {
+          img: fd,
+          userId: 1,
+          roomId: 1,
+        });
+      }
+    );
   };
 
   render() {
     return (
       <>
-        <input type='file' onChange={this.fileSelectedHandler} />
-        <button onClick={this.fileUploadHandler}>Upload</button>;
+        <label htmlFor='myInput'>
+          <img style={{ height: '40px' }} src={uploadIcon} alt='upload icon' />
+        </label>
+        <input
+          id='myInput'
+          type='file'
+          accept='image/*'
+          onChange={this.fileUploadHandler}
+          style={{ display: 'none' }}
+        />
       </>
     );
   }
 }
-
 export default UploadPhotos;
