@@ -59,6 +59,12 @@ export function createComment(payload) {
     }
 }
 // creating new blog post
+// export const createPost = (post) => {
+//     return (dispatch, getState) => {
+//         dispatch({type: 'CREATE_POST', post})
+//     }
+// }
+
 export function createPost(payload) {
     return dispatch => {
         return axios.post(`https://localhost:8000/blog`, payload)

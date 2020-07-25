@@ -73,12 +73,14 @@ function blogReducer(state = initialBlogState, action) {
                 ...state
             }
         case CREATE_COMMENT:
+            console.log('created comment')
             return {
                 ...state
             }
         case CREATE_POST:
+            console.log('created post')
             return {
-                ...state
+               ...state
             }
         default:
             return state

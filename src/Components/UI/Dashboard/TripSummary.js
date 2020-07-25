@@ -1,27 +1,32 @@
 import React from 'react'
+import { ThemeContext } from '../../../Contexts/Theme'
+import {
+    Card, CardImg, CardText, CardBody,
+    CardTitle, CardSubtitle, Button
+} from 'reactstrap';
+
 
 const TripSummary = () => {
     return (
+        <ThemeContext.Consumer>{(context) => {
+            const { isLightTheme, light, dark } = context;
+            const theme = isLightTheme ? light : dark;
+            return (
 
-        <div className="col s12 m7 margin5">
-            <div className="card horizontal">
-                <div className="card-image">
-                    <img src="https://lorempixel.com/100/190/nature/6"/>
-      </div>
-                    <div className="card-stacked">
-                        <div className="card-content center">
-                            <h5 id="trip_name">Trip to Sai Kung</h5>
-                            <br/>
-                            <p id="group_name">With Group2</p>
-                            <p id="trip_date">10 March 2020</p>
-                        </div>
-                        <div className="card-action center bold">
-                            <a href="/trip/:id">View more</a>
-                        </div>
-                    </div>
-                </div>
+                <div>
+                    <Card className="card horizontal" style={{ background: theme.low, borderColor: theme.high }}>
+                        <CardImg top width="90vw" src="https://images.unsplash.com/photo-1503435980610-a51f3ddfee50?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"alt="Card image cap" />
+                        <CardBody>
+                            <CardTitle>My Trip</CardTitle>
+                            <CardSubtitle>by Pullip123</CardSubtitle>
+                            <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
+                            <a href="/trip/:id"><Button>View more</Button></a>
+                        </CardBody>
+                    </Card>
 
-            </div>
+                </div>)
+        }}
+        </ThemeContext.Consumer>
     )
 }
 
