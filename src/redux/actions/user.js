@@ -18,6 +18,7 @@ import {
 
 } from '../constants/action-types'
 
+import authHeader from '../helpers/authHeader'
 import axios from 'axios'
 
 export function login(email, password) {
@@ -66,7 +67,9 @@ export function fetchAllUser() {
 
 export function fetchUser(payload) {
     return async (dispatch) => {
-        let res = await axios(`https://localhost:8000/user/one/${payload.user_id}`)
+        let res = await axios(`https://localhost:8000/user/one/${payload.user_id}`, {
+            headers:authHeader()
+        })
         dispatch({ type: FETCH_USER, payload: res.data })
     }
 }
