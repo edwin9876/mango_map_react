@@ -7,7 +7,7 @@ import { ThemeContext } from '../../Contexts/Theme'
 import SearchBar from '../../Components/UI/Layout/SearchBar'
 // Global - index.css , Local - Blog.css
 import './Blog.css';
-import { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 class CreatePost extends Component {
   static contextType = ThemeContext;
