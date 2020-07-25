@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { ThemeContext } from '../../Contexts/Theme'
 import {
     Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon
+    CardTitle, CardSubtitle, Button, Form, Input, InputGroup, InputGroupAddon
 } from 'reactstrap';
 
 import Comments from '../../Components/Blog/Comments'
