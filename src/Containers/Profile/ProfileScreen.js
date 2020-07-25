@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import SignIn from '../../Components/Auth/SignIn'
+// import SignIn from '../../Components/Auth/SignIn'
 import ProfileDetails from '../../Components/Profile/ProfileDetails'
 import { ThemeContext } from '../../Contexts/Theme'
 
