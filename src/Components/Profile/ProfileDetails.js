@@ -13,7 +13,7 @@ const ProfileDetails = () => {
             const theme = isLightTheme ? light : dark;
 
 return(
-        <div className="container" >
+        <div className="container noBorder" style={{background: theme.low}}>
        
             <i class="material-icons justify-content-center d-flex micons15 blur">account_circle</i>
             <h4 className=" bold justify-content-center d-flex">Pullip Lee</h4>
@@ -47,5 +47,3 @@ return(
 }
 
 export default ProfileDetails
-
-
