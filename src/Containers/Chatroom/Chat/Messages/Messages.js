@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './Messages.css';
+import '../Chat.css';
 
 const Messages = ({ conversation, userId }) => {
   let testing = conversation.map((message) => {
@@ -14,10 +14,10 @@ const Messages = ({ conversation, userId }) => {
       //   </div>
       // </div>
       <div class='container darker '>
-        <img
+        <img 
           src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRLWTAHflkoSso-p7fbKv7BecCWNSyYseuhfw&usqp=CAU'
           alt='Avatar'
-          class='right'
+          className='right roundimg'
         />
         <p>{message.message}</p>
         <span class='time-left'>11:00</span>
@@ -35,7 +35,7 @@ const Messages = ({ conversation, userId }) => {
         <img
           src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRIMey7cyC1XcqtyFcJlNhz7yP4oT1kAahWPw&usqp=CAU'
           alt='Avatar'
-        />
+        className="roundimg"/>
         <p>{message.message}</p>
         <div className='time-right'>11:00</div>
       </div>

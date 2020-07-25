@@ -126,7 +126,7 @@ class Chat extends Component {
     let displayedContent = this.state.currentRoomId ? (
       // This div is in a chatroom
       <div>
-        <h5 className='center'>Thomas Burberry</h5>
+        <h5 className='center'>Group1</h5>
         <div className='card-tabs margin1'>
           <ul className='tabs tabs-fixed-width'>
             <li className='tab'>
