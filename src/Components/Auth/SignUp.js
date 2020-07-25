@@ -2,15 +2,20 @@ import React, { Component } from 'react'
 import Toolbox from '../UI/Layout/Toolbox'
 
 export class SignUp extends Component {
-
-    state = {
-        email: '',
-        password: '',
-        firstName: '',
-        lastName: ''
+    constructor(props){
+        super(props)
+            this.state={
+                email: '',
+                password: '',
+                user_name: '',
+                description: ''
+            }
+        
     }
+    
 
     handleChange = (e) => {
+        console.log(this.state)
         this.setState({
             [e.target.id]: e.target.value
         })
@@ -25,11 +30,11 @@ export class SignUp extends Component {
     render() {
         
     
-            const changeBG = (e)=>{
+        const changeBG = (e)=>{
              e.target.style.border = 'solid grey 1px';
              e.target.style.borderRadius = '50px';
           }
-          const backBG = (e)=>{
+        const backBG = (e)=>{
              e.target.style.border = 'none';
           }
         return (
@@ -37,24 +42,25 @@ export class SignUp extends Component {
             <div>
                 <Toolbox />
                 <form onSubmit={this.handleSubmit} className="form-container white" >
-                    
                     <div className="input-field">
+                        <input type="email" id="email" onChange={this.handleChange} value={this.state.email}/>
                         <label htmlFor="email">Email</label>
-                        <input type="email" id="email" onChange={this.handleChange} />
                     </div>
+
                     <div className="input-field">
+                        <input type="text" id="user_name" onChange={this.handleChange} value={this.state.user_name} />
+                        <label htmlFor="user_name">User Name</label>
+                    </div>
+
+                    <div className="input-field">
+                        <input type="password" id="password" onChange={this.handleChange} value={this.state.password}/>
                         <label htmlFor="password">Password</label>
-                        <input type="password" id="password" onChange={this.handleChange} />
                     </div>
 
-                    <div className="input-field">
-                        <label htmlFor="firstName">First Name</label>
-                        <input type="text" id="firstName" onChange={this.handleChange} />
-                    </div>
 
                     <div className="input-field">
-                        <label htmlFor="lastName">Last Name</label>
-                        <input type="text" id="lastName" onChange={this.handleChange} />
+                        <textarea className='materialize-textarea' id="description" onChange={this.handleChange} value={this.state.description}/>
+                        <label htmlFor="description">Description</label>
                     </div>
 
                     <div className="justify-content-center d-flex input-field">
@@ -69,5 +75,6 @@ export class SignUp extends Component {
         )
     }
 }
+
 
 export default SignUp

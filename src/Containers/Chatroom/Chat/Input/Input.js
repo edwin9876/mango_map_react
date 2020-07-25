@@ -1,10 +1,11 @@
 import React from 'react';
 
 import UploadPhotos from './UploadPhotos/UploadPhotos';
+import { Button } from 'reactstrap';
 
 import './Input.css';
 
-const input = ({ messages, sendMessage, setMessage }) => (
+const input = ({ messages, sendMessageHandler, setMessage }) => (
   <form className='form'>
     <input
       className='textInput'
@@ -13,18 +14,19 @@ const input = ({ messages, sendMessage, setMessage }) => (
       value={messages}
       onChange={(event) => setMessage(event.target.value)}
       onKeyPress={(event) =>
-        event.key === 'Enter' ? sendMessage(event) : null
+        event.key === 'Enter' ? sendMessageHandler(event) : null
       }
     />
     <UploadPhotos />
-    <button
-      className='sendButton'
+    <Button
       onClick={(event) => {
-        sendMessage(event);
+        sendMessageHandler(event);
       }}
+      color='primary'
+      size='sm'
     >
-      Send
-    </button>
+      SEND
+    </Button>{' '}
   </form>
 );
 

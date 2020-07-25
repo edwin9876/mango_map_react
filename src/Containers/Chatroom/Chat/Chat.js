@@ -71,7 +71,7 @@ class Chat extends Component {
 
   // State.conversation is the complete chat history and new messages
   // In the current chatroom
-  setConversation = (message) => {
+  setConversationHandler = (message) => {
     this.setState({
       ...this.state,
       conversation: [...this.state.conversation, message],
@@ -80,16 +80,16 @@ class Chat extends Component {
 
   // Sending the message to server
   // Will trigger the chat-message event in componentDidMount
-  sendMessage = (event) => {
+  sendMessageHandler = (event) => {
     event.preventDefault();
     console.log(this.state.messages);
     this.socket.emit(
       'send-chat-message',
       { message: this.state.messages },
       () => {
-        console.log('SendMessage callback is invoked');
+        console.log('sendMessageHandler callback is invoked');
         // Adding the new message just sent to the state
-        this.setConversation({
+        this.setConversationHandler({
           userId: this.state.userId,
           user: this.state.username,
           message: this.state.messages,
@@ -118,7 +118,7 @@ class Chat extends Component {
   ];
 
   // This is invoked when user click a room div
-  changeRoomId = (id) => {
+  changeRoomIdHandler = (id) => {
     this.setState({ ...this.state, currentRoomId: id });
   };
 
@@ -149,7 +149,7 @@ class Chat extends Component {
         </ScrollToBottom>
         <div>
           <Input
-            sendMessage={this.sendMessage}
+            sendMessageHandler={this.sendMessageHandler}
             messages={this.state.messages}
             setMessage={this.setMessage}
           />{' '}
@@ -159,7 +159,7 @@ class Chat extends Component {
       // Display the list of chatrooms the user has
       this.room.map((room, index) => {
         return (
-          <div key={index} onClick={() => this.changeRoomId(index)}>
+          <div key={index} onClick={() => this.changeRoomIdHandler(index)}>
             <ul className='collection'>
               <li className='collection-item avatar gray70'>
                 <i className='material-icons circle grey blur'>star</i>
