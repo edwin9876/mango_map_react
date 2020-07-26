@@ -2,8 +2,11 @@ import {
     LOGIN_REQUEST,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
-    LOGOUT
-} from '../constants/action-types'
+    LOGOUT,
+    REGISTER_REQUEST,
+    REGISTER_SUCCESS,
+    REGISTER_FAILURE
+} from '../constants/actionTypes'
 
 
 let user = JSON.parse(localStorage.getItem('user'));
@@ -26,6 +29,16 @@ const initialState = user ? { loggedIn: true, user } : {};
         return {};
     case LOGOUT:
         return {};
+
+    case REGISTER_REQUEST:
+        return {
+        };
+    case REGISTER_SUCCESS:
+        return {
+        };
+    case REGISTER_FAILURE:
+        return {};
+
     default:
         return state
     }

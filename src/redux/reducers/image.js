@@ -1,7 +1,7 @@
 import {
     FETCH_ALLIMAGE,
     FETCH_IMAGE
-} from '../constants/action-types'
+} from '../constants/actionTypes'
 
 const initialImageState =
 {
