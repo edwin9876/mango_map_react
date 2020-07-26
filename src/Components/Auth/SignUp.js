@@ -1,200 +1,214 @@
-import React, { Component } from 'react';
-import Toolbox from '../UI/Layout/Toolbox';
-import { ThemeContext } from '../../Contexts/Theme';
-import {
-  Col,
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  FormText,
-} from 'reactstrap';
-import { connect } from 'react-redux';
-import { signUp } from '../../redux/actions/user';
+// import React, { Component } from 'react'
+// import Toplogobox from '../UI/Layout/Toplogobox'
+// import { ThemeContext } from '../../Contexts/Theme'
+// import { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+// import {connect} from 'react-redux'
+// import {signUp} from '../../redux/actions/user'
 
-export class ConnectedSignUp extends Component {
-  static contextType = ThemeContext;
+//  export class ConnectedSignUp extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-      user_name: '',
-      description: '',
-      gender: true,
-      profile_picture_URL: '',
-    };
-  }
+//     static contextType = ThemeContext;
 
-  handleChange = (e) => {
-    // console.log(this.state)
+//     constructor(props){
+//         super(props)
+//             this.state={
+//                 email: '',
+//                 password: '',
+//                 user_name: '',
+//                 description: '',
+//                 gender:true,
+//                 profile_picture_URL:''
+//             }
+//         }
 
-    if (e.target.name === 'profile_picture_URL') {
-      this.handleImageChange(e);
-    }
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
-  };
+//     handleChange = (e) => {
+//         // console.log(this.state)
 
-  handleImageChange = (e) => {
-    let file = e.target.files[0];
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      this.setState({
-        profile_picture_URL: reader.result,
-      });
-    };
-  };
+//         if(e.target.name=='profile_picture_URL'){
+//             this.handleImageChange(e)
+//         }
+//         this.setState({
+//             [e.target.name]: e.target.value
+//         })
+//     }
+//     this.setState({
+//       [e.target.name]: e.target.value,
+//     });
+//   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const userInfo = { ...this.state };
-    console.log(userInfo);
-    const { dispatch } = this.props;
-    if (userInfo) {
-      dispatch(signUp(userInfo));
-    }
-  };
+//   handleImageChange = (e) => {
+//     let file = e.target.files[0];
+//     let reader = new FileReader();
+//     reader.readAsDataURL(file);
+//     reader.onloadend = () => {
+//       this.setState({
+//         profile_picture_URL: reader.result,
+//       });
+//     };
+//   };
 
-  render() {
-    const { isLightTheme, light, dark } = this.context;
-    const theme = isLightTheme ? light : dark;
+//   handleSubmit = (e) => {
+//     e.preventDefault();
+//     const userInfo = { ...this.state };
+//     console.log(userInfo);
+//     const { dispatch } = this.props;
+//     if (userInfo) {
+//       dispatch(signUp(userInfo));
+//     }
+//   };
 
-    return (
-      <div
-        id='Post_container'
-        style={{ background: theme.low, color: theme.high }}
-      >
-        <Toolbox />
+//   render() {
+//     const { isLightTheme, light, dark } = this.context;
+//     const theme = isLightTheme ? light : dark;
 
-        <Form
-          style={{ background: theme.low, color: theme.high }}
-          onSubmit={this.handleSubmit}
-          className='form-container'
-        >
-          <FormGroup>
-            <Label htmlFor='user_name'>User Name</Label>
-            <Input
-              type='text'
-              id='user_name'
-              name='user_name'
-              onChange={this.handleChange}
-              style={{
-                background: theme.low,
-                borderColor: theme.highlight,
-                color: theme.high,
-              }}
-            />
-          </FormGroup>
+//     return (
+//       <div
+//         id='Post_container'
+//         style={{ background: theme.low, color: theme.high }}
+//       >
+//         <Toolbox />
 
-          <FormGroup>
-            <Label htmlFor='gender'>Gender</Label>
-            <FormGroup>
-              <FormGroup check inline>
-                <Label check>
-                  <Input
-                    onChange={this.handleChange}
-                    type='radio'
-                    name='gender'
-                    value={true}
-                  />{' '}
-                  Male
-                </Label>
-              </FormGroup>
-              <FormGroup check inline>
-                <Label check>
-                  <Input
-                    onChange={this.handleChange}
-                    type='radio'
-                    name='gender'
-                    value={false}
-                  />{' '}
-                  Female
-                </Label>
-              </FormGroup>
-            </FormGroup>
-          </FormGroup>
+//         <Form
+//           style={{ background: theme.low, color: theme.high }}
+//           onSubmit={this.handleSubmit}
+//           className='form-container'
+//         >
+//           <FormGroup>
+//             <Label htmlFor='user_name'>User Name</Label>
+//             <Input
+//               type='text'
+//               id='user_name'
+//               name='user_name'
+//               onChange={this.handleChange}
+//               style={{
+//                 background: theme.low,
+//                 borderColor: theme.highlight,
+//                 color: theme.high,
+//               }}
+//             />
+//           </FormGroup>
 
-          <FormGroup>
-            <Label htmlFor='email'>Email</Label>
-            <Input
-              type='email'
-              id='email'
-              name='email'
-              onChange={this.handleChange}
-              style={{
-                background: theme.low,
-                borderColor: theme.highlight,
-                color: theme.high,
-              }}
-            />
-          </FormGroup>
+//           <FormGroup>
+//             <Label htmlFor='gender'>Gender</Label>
+//             <FormGroup>
+//               <FormGroup check inline>
+//                 <Label check>
+//                   <Input
+//                     onChange={this.handleChange}
+//                     type='radio'
+//                     name='gender'
+//                     value={true}
+//                   />{' '}
+//                   Male
+//                 </Label>
+//               </FormGroup>
+//               <FormGroup check inline>
+//                 <Label check>
+//                   <Input
+//                     onChange={this.handleChange}
+//                     type='radio'
+//                     name='gender'
+//                     value={false}
+//                   />{' '}
+//                   Female
+//                 </Label>
+//               </FormGroup>
+//             </FormGroup>
+//           </FormGroup>
 
-          <FormGroup>
-            <Label htmlFor='password'>Password</Label>
-            <Input
-              type='password'
-              id='password'
-              name='password'
-              onChange={this.handleChange}
-              style={{
-                background: theme.low,
-                borderColor: theme.highlight,
-                color: theme.high,
-              }}
-            />
-          </FormGroup>
+//         return (
+//             <div id= "Post_container" style={{ background: theme.low, color : theme.high}}>
+//                 <Toplogobox />
 
-          <FormGroup row>
-            <Label for='description' sm={2}>
-              Description
-            </Label>
-            <Col sm={10}>
-              <Input
-                type='textarea'
-                id='description'
-                name='description'
-                onChange={this.handleChange}
-                style={{
-                  background: theme.low,
-                  borderColor: theme.highlight,
-                  color: theme.high,
-                }}
-              />
-            </Col>
-          </FormGroup>
+//                 <Form style={{ background: theme.low, color : theme.high }} onSubmit={this.handleSubmit} className="form-container" >
 
-          <FormGroup>
-            <Label for='profile_picture_URL'>Profile Image</Label>
-            <Input
-              type='file'
-              id='profile_picture_URL'
-              name='profile_picture_URL'
-              onChange={this.handleChange}
-            />
-          </FormGroup>
+//                 <FormGroup>
+//                         <Label htmlFor="user_name">User Name</Label>
+//                         <Input type="text" id="user_name" name="user_name" onChange={this.handleChange} style={{background:theme.low, borderColor: theme.highlight, color:theme.high }} />
+//                     </FormGroup>
 
-          <div className='justify-content-center d-flex Input-field'>
-            <button className='transparent_btn white-text ' id='login_btn'>
-              {' '}
-              Sign Up
-            </button>
-          </div>
-        </Form>
-      </div>
-    );
-  }
-}
+//                     <FormGroup>
+//                     <Label htmlFor="gender">Gender</Label>
+//                     <FormGroup>
+//         <FormGroup check inline>
+//           <Label check>
+//             <Input onChange={this.handleChange} type="radio" name="gender" value={true} />{' '}Male
+//           </Label>
+//         </FormGroup>
+//         <FormGroup check inline>
+//           <Label check>
+//             <Input onChange={this.handleChange}  type="radio" name="gender" value={false} />{' '}Female
+//           </Label>
+//         </FormGroup>
+//         </FormGroup>
+//         </FormGroup>
 
-const mapStateToProps = (state) => {
-  return {
-    ...state.auth,
-  };
-};
-const SignUp = connect(mapStateToProps)(ConnectedSignUp);
+//                 <FormGroup>
+//                         <Label htmlFor="email">Email</Label>
+//                         <Input type="email" id="email" name="email"  onChange={this.handleChange} style={{background:theme.low, borderColor: theme.highlight, color:theme.high }}  />
+//                 </FormGroup>
 
-export default SignUp;
+//           <FormGroup>
+//             <Label htmlFor='password'>Password</Label>
+//             <Input
+//               type='password'
+//               id='password'
+//               name='password'
+//               onChange={this.handleChange}
+//               style={{
+//                 background: theme.low,
+//                 borderColor: theme.highlight,
+//                 color: theme.high,
+//               }}
+//             />
+//           </FormGroup>
+
+//           <FormGroup row>
+//             <Label for='description' sm={2}>
+//               Description
+//             </Label>
+//             <Col sm={10}>
+//               <Input
+//                 type='textarea'
+//                 id='description'
+//                 name='description'
+//                 onChange={this.handleChange}
+//                 style={{
+//                   background: theme.low,
+//                   borderColor: theme.highlight,
+//                   color: theme.high,
+//                 }}
+//               />
+//             </Col>
+//           </FormGroup>
+
+//           <FormGroup>
+//             <Label for='profile_picture_URL'>Profile Image</Label>
+//             <Input
+//               type='file'
+//               id='profile_picture_URL'
+//               name='profile_picture_URL'
+//               onChange={this.handleChange}
+//             />
+//           </FormGroup>
+
+//           <div className='justify-content-center d-flex Input-field'>
+//             <button className='transparent_btn white-text ' id='login_btn'>
+//               {' '}
+//               Sign Up
+//             </button>
+//           </div>
+//         </Form>
+//       </div>
+//     );
+//   }
+// }
+
+// const mapStateToProps = (state) => {
+//   return {
+//     ...state.auth,
+//   };
+// };
+// const SignUp = connect(mapStateToProps)(ConnectedSignUp);
+
+// export default SignUp;

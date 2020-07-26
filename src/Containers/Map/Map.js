@@ -168,31 +168,7 @@ export class MapContainer extends Component {
           >
             <div className='center'>
               <h5 className='bold gray70'>{this.state.selectedPlace.name}</h5>
-              <div className='row d-flex'>
-                {locationImages}
-                {/* <img
-                  className='center icons30 sm-col-5'
-                  alt='A demo'
-                  src='./assets/photos/1.jpg'
-                />
-                <img
-                  className='center icons30 sm-col-5'
-                  alt='A demo'
-                  src='./assets/photos/5.jpg'
-                />
-              </div>
-              <div className='row d-flex'>
-                <img
-                  className='center icons30'
-                  alt='A demo'
-                  src='./assets/photos/2.jpg'
-                />
-                <img
-                  className='center icons30'
-                  alt='A demo'
-                  src='./assets/photos/4.jpg'
-                /> */}
-              </div>
+              <div className='row d-flex'>{locationImages}</div>
             </div>
           </InfoWindow>
         </Map>

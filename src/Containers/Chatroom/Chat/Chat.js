@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
-import SearchBar from '../../../Components/UI/Layout/SearchBar';
 import ScrollToBottom from 'react-scroll-to-bottom';
-import Input from './Input/Input';
-
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../redux/constants/actionTypes';
 
 import io from 'socket.io-client';
-
 import { css } from 'glamor';
+
+import Input from './Input/Input';
 import Messages from './Messages/Messages';
+
+import {Button, ButtonGroup} from 'reactstrap'
+import { ThemeContext } from '../../../Contexts/Theme'
 
 import './Chat.css';
 
 class Chat extends Component {
+  static contextType = ThemeContext;
+
   constructor(props) {
     super(props);
     this.socket = io('https://localhost:8000');
@@ -123,29 +126,24 @@ class Chat extends Component {
   };
 
   render() {
+    const { isLightTheme, light, dark } = this.context;
+    const theme = isLightTheme ? light : dark;
+
     let displayedContent = this.state.currentRoomId ? (
       // This div is in a chatroom
       <div>
-        <h5 className='center'>Thomas Burberry</h5>
-        <div className='card-tabs margin1'>
-          <ul className='tabs tabs-fixed-width'>
-            <li className='tab'>
-              <a href='#test6' className='bold black-text'>
-                Messages
-              </a>
-            </li>
-            <li className='tab'>
-              <a href='#test4' className='bold black-text'>
-                TripBook
-              </a>
-            </li>
-          </ul>
-        </div>
+        <h5 className='d-flex justify-content-center paddingy1'>Group1</h5>
+        <ButtonGroup className="d-flex justify-content-center">
+        <Button style={{ background: theme.low, color: theme.high, borderColor: theme.low }}>Messages</Button>
+        <Button style={{ background: theme.low, color: theme.high, borderColor: theme.low }}>TimeTree</Button>
+    </ButtonGroup>
         <ScrollToBottom className={this.ROOT_CSS + ' textBox'}>
-          <Messages
-            conversation={this.state.conversation}
-            userId={this.state.userId}
-          />
+          <div className="margin5">
+            <Messages
+              conversation={this.state.conversation}
+              userId={this.state.userId}
+            />
+          </div>
         </ScrollToBottom>
         <div>
           <Input
@@ -156,24 +154,24 @@ class Chat extends Component {
         </div>
       </div>
     ) : (
-      // Display the list of chatrooms the user has
-      this.room.map((room, index) => {
-        return (
-          <div key={index} onClick={() => this.changeRoomIdHandler(index)}>
-            <ul className='collection'>
-              <li className='collection-item avatar gray70'>
-                <i className='material-icons circle grey blur'>star</i>
-                <span className='title bold'>{room.roomName}</span>
-                <p>Last message</p>
-                <a href='#!' className='secondary-content'>
-                  <i className='material-icons blur'>grade</i>
-                </a>
-              </li>
-            </ul>
-          </div>
-        );
-      })
-    );
+        // Display the list of chatrooms the user has
+        this.room.map((room, index) => {
+          return (
+            <div key={index} onClick={() => this.changeRoomIdHandler(index)}>
+              <ul className='collection'>
+                <li className='collection-item avatar gray70'>
+                  <i className='material-icons circle grey blur'>star</i>
+                  <span className='title bold'>{room.roomName}</span>
+                  <p>Last message</p>
+                  <a href='#!' className='secondary-content'>
+                    <i className='material-icons blur'>grade</i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          );
+        })
+      );
 
     return displayedContent;
   }
