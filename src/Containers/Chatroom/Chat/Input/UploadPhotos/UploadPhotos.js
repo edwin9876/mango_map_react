@@ -8,8 +8,7 @@ class UploadPhotos extends Component {
     selectedFile: null,
   };
 
-  //https://www.npmjs.com/package/imagemin use it to compress
-
+  // https://www.npmjs.com/package/imagemin use it to compress
   fileUploadHandler = (event) => {
     event.preventDefault();
     this.setState(
@@ -17,39 +16,27 @@ class UploadPhotos extends Component {
         selectedFile: event.target.files[0],
       },
       () => {
-        // FileReader
-        // const fd = new FormData();
-        // fd.append(
-        //   'image_data',
-        //   this.state.selectedFile,
-        //   this.state.selectedFile.name
-        // );
-        // console.log(fd);
-
         let file = this.state.selectedFile;
-
         let reader = new FileReader();
-
         reader.readAsDataURL(file);
-        console.log(reader);
-        // TODO: connect to redux to get user id and current roomId
-        // Parameters should be (image, userId, roomId)
-        axios.post(
-          `https://localhost:8000/image/private`,
-          {
-            ...reader,
-            roomId: 1,
-            userId: 1,
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Accept: '*/*',
-              'Access-Control-Allow-Origin': '*',
+        reader.onloadend = () => {
+          let base64Img = reader.result.split('base64')[1];
+          axios.post(
+            `https://localhost:8000/image/private`,
+            {
+              img: base64Img,
+              roomId: 1,
+              userId: 1,
             },
-          }
-        );
-        console.log('After');
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                Accept: '*/*',
+                'Access-Control-Allow-Origin': '*',
+              },
+            }
+          );
+        };
       }
     );
   };
@@ -71,4 +58,5 @@ class UploadPhotos extends Component {
     );
   }
 }
+
 export default UploadPhotos;

@@ -4,23 +4,16 @@ import { Link } from 'react-router-dom';
 import Toolbox from '../UI/Layout/Toolbox';
 import googleIC from '../../Icons/google_black.png';
 import instagramIC from '../../Icons/instagram_black.png';
-import { login } from '../../redux/actions/user';
+import { login, logout } from '../../redux/actions/user';
 import { ThemeContext } from '../../Contexts/Theme';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
-
-const mapStateToProps = (state) => {
-  const { loggingIn } = state.authentication;
-  return {
-    loggingIn,
-  };
-};
 
 export class ConnetedSignIn extends Component {
   static contextType = ThemeContext;
 
   constructor(props) {
     super(props);
-    // this.props.dispatch(logout());
+    this.props.dispatch(logout());
 
     this.state = {
       email: '',
@@ -28,6 +21,35 @@ export class ConnetedSignIn extends Component {
       submitted: false,
     };
   }
+
+  handleChange = (e) => {
+    this.setState({
+      [e.target.id]: e.target.value,
+    });
+    console.log(this.state);
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(this.state);
+    this.setState({ submitted: true });
+    const { email, password } = this.state;
+    const { dispatch } = this.props;
+    if (email && password) {
+      dispatch(login(email, password));
+    }
+  };
+
+  // constructor(props) {
+  //   super(props);
+  //   // this.props.dispatch(logout());
+
+  //   this.state = {
+  //     email: '',
+  //     password: '',
+  //     submitted: false,
+  //   };
+  // }
 
   handleChange = (e) => {
     this.setState({
@@ -121,6 +143,13 @@ export class ConnetedSignIn extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  const { loggingIn } = state.auth;
+  return {
+    loggingIn,
+  };
+};
 
 const SignIn = connect(mapStateToProps)(ConnetedSignIn);
 
