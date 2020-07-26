@@ -1,7 +1,7 @@
 
 import React from 'react'
 import SearchBar from '../UI/Layout/SearchBar'
-import './Chat.css'
+
 
 
 import Messages from '../../Containers/Chatroom/Chat/Messages/Messages';

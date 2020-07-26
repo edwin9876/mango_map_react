@@ -1,156 +1,174 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import Toolbox from '../UI/Layout/Toolbox';
-import googleIC from '../../Icons/google_black.png';
-import instagramIC from '../../Icons/instagram_black.png';
-import { login, logout } from '../../redux/actions/user';
-import { ThemeContext } from '../../Contexts/Theme';
-import { Form, FormGroup, Label, Input } from 'reactstrap';
+// import React, { Component} from 'react'
+// import {connect} from 'react-redux'
+// import {Link} from 'react-router-dom'
+// import Toplogobox from '../UI/Layout/Toplogobox'
+// import googleIC from '../../Icons/google_black.png'
+// import instagramIC from '../../Icons/instagram_black.png'
+// import {login,logout} from '../../redux/actions/user'
+// import { ThemeContext } from '../../Contexts/Theme'
+// import {Form, FormGroup, Label, Input } from 'reactstrap';
 
-export class ConnetedSignIn extends Component {
-  static contextType = ThemeContext;
+// export class ConnetedSignIn extends Component {
+//   static contextType = ThemeContext;
 
-  constructor(props) {
-    super(props);
-    this.props.dispatch(logout());
+//   constructor(props) {
+//     super(props);
+//     this.props.dispatch(logout());
 
-    this.state = {
-      email: '',
-      password: '',
-      submitted: false,
-    };
-  }
+//     this.state = {
+//       email: '',
+//       password: '',
+//       submitted: false,
+//     };
+//   }
 
-  handleChange = (e) => {
-    this.setState({
-      [e.target.id]: e.target.value,
-    });
-    console.log(this.state);
-  };
+//   handleChange = (e) => {
+//     this.setState({
+//       [e.target.id]: e.target.value,
+//     });
+//     console.log(this.state);
+//   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(this.state);
-    this.setState({ submitted: true });
-    const { email, password } = this.state;
-    const { dispatch } = this.props;
-    if (email && password) {
-      dispatch(login(email, password));
-    }
-  };
+//   handleSubmit = (e) => {
+//     e.preventDefault();
+//     console.log(this.state);
+//     this.setState({ submitted: true });
+//     const { email, password } = this.state;
+//     const { dispatch } = this.props;
+//     if (email && password) {
+//       dispatch(login(email, password));
+//     }
 
-  // constructor(props) {
-  //   super(props);
-  //   // this.props.dispatch(logout());
+//     render() {
+//         // setting themecontext
+//         const { isLightTheme, light, dark } = this.context;
+//         const theme = isLightTheme ? light : dark;
 
-  //   this.state = {
-  //     email: '',
-  //     password: '',
-  //     submitted: false,
-  //   };
-  // }
+//         return (
+//             <div id="Post_container" style={{ background: theme.low, color: theme.high }}>
+//                 <Toplogobox/>
 
-  handleChange = (e) => {
-    this.setState({
-      [e.target.id]: e.target.value,
-    });
-  };
+//                 <Form className="margin5" id="createPost" onSubmit={this.handleSubmit}>
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(this.state);
-    this.setState({ submitted: true });
-    const { email, password } = this.state;
-    const { dispatch } = this.props;
-    if (email && password) {
-      // dispatch(login(email, password));
-    }
-  };
+//                     <FormGroup>
+//                         <Label htmlFor="email">Email</Label>
+//                         <Input style={{background:theme.low, borderColor: theme.highlight, color:theme.high }}  type="email" id="email" onChange={this.handleChange} />
+//                     </FormGroup>
 
-  render() {
-    // setting themecontext
-    const { isLightTheme, light, dark } = this.context;
-    const theme = isLightTheme ? light : dark;
+//                     <FormGroup>
+//                         <Label htmlFor="password">Password</Label>
+//                         <Input style={{background:theme.low, borderColor: theme.highlight, color:theme.high }}  type="password" id="password" onChange={this.handleChange} />
+//                     </FormGroup>
 
-    return (
-      <div
-        id='Post_container'
-        style={{ background: theme.low, color: theme.high }}
-      >
-        <Toolbox />
+//                     <div className="input-field d-flex justify-content-center">
+//                         <button className="transparent_btn grey-text " id="login_btn"
+//                         > Log In
+//                         </button>
+//                     </div>
 
-        <Form className='margin5' id='createPost' onSubmit={this.handleSubmit}>
-          <FormGroup>
-            <Label htmlFor='email'>Email</Label>
-            <Input
-              style={{
-                background: theme.low,
-                borderColor: theme.highlight,
-                color: theme.high,
-              }}
-              type='email'
-              id='email'
-              onChange={this.handleChange}
-            />
-          </FormGroup>
+//                 </Form>
 
-          <FormGroup>
-            <Label htmlFor='password'>Password</Label>
-            <Input
-              style={{
-                background: theme.low,
-                borderColor: theme.highlight,
-                color: theme.high,
-              }}
-              type='password'
-              id='password'
-              onChange={this.handleChange}
-            />
-          </FormGroup>
+//                 <div className="justify-content-center d-flex">
+//                     <div style={{backgroundImage: `url(${theme.img})`}} className="login_icons"  >
+//                         <img className="icons15 margin1 blur" src={googleIC} alt="googleIC" />
+//                     </div>
+//                     <div style={{backgroundImage: `url(${theme.img})`}} className="login_icons">
+//                         <img className="icons15 margin1 blur" src={instagramIC} alt="instagramIC" />
+//                     </div>
+//                 </div>
 
-          <div className='input-field d-flex justify-content-center'>
-            <button className='transparent_btn grey-text ' id='login_btn'>
-              {' '}
-              Log In
-            </button>
-          </div>
-        </Form>
+//                 <i class="material-icons justify-content-center d-flex">remove</i>
+//                 <p className="d-flex justify-content-center">Don't have an account? </p>
+//                 <Link className="d-flex justify-content-center" to='/signup'>Sign up</Link>
 
-        <div className='justify-content-center d-flex'>
-          <div className='login_icons'>
-            <img
-              className='icons15 active margin1'
-              src={googleIC}
-              alt='googleIC'
-            />
-          </div>
-          <div className='login_icons'>
-            <img
-              className='icons15 active margin1'
-              src={instagramIC}
-              alt='instagramIC'
-            />
-          </div>
-        </div>
+//             </div>
+//         )
+//     }
+//   };
 
-        <i class='material-icons justify-content-center d-flex'>remove</i>
-        <p className='d-flex justify-content-center'>Don't have an account? </p>
-        <Link className='d-flex justify-content-center' to='/signup'>
-          Sign up
-        </Link>
-      </div>
-    );
-  }
-}
+//   render() {
+//     // setting themecontext
+//     const { isLightTheme, light, dark } = this.context;
+//     const theme = isLightTheme ? light : dark;
 
-const mapStateToProps = (state) => {
-  const { loggingIn } = state.auth;
-  return {
-    loggingIn,
-  };
-};
+//     return (
+//       <div
+//         id='Post_container'
+//         style={{ background: theme.low, color: theme.high }}
+//       >
+//         <Toolbox />
 
-const SignIn = connect(mapStateToProps)(ConnetedSignIn);
+//         <Form className='margin5' id='createPost' onSubmit={this.handleSubmit}>
+//           <FormGroup>
+//             <Label htmlFor='email'>Email</Label>
+//             <Input
+//               style={{
+//                 background: theme.low,
+//                 borderColor: theme.highlight,
+//                 color: theme.high,
+//               }}
+//               type='email'
+//               id='email'
+//               onChange={this.handleChange}
+//             />
+//           </FormGroup>
 
-export default SignIn;
+//           <FormGroup>
+//             <Label htmlFor='password'>Password</Label>
+//             <Input
+//               style={{
+//                 background: theme.low,
+//                 borderColor: theme.highlight,
+//                 color: theme.high,
+//               }}
+//               type='password'
+//               id='password'
+//               onChange={this.handleChange}
+//             />
+//           </FormGroup>
+
+//           <div className='input-field d-flex justify-content-center'>
+//             <button className='transparent_btn grey-text ' id='login_btn'>
+//               {' '}
+//               Log In
+//             </button>
+//           </div>
+//         </Form>
+
+//         <div className='justify-content-center d-flex'>
+//           <div className='login_icons'>
+//             <img
+//               className='icons15 active margin1'
+//               src={googleIC}
+//               alt='googleIC'
+//             />
+//           </div>
+//           <div className='login_icons'>
+//             <img
+//               className='icons15 active margin1'
+//               src={instagramIC}
+//               alt='instagramIC'
+//             />
+//           </div>
+//         </div>
+
+//         <i class='material-icons justify-content-center d-flex'>remove</i>
+//         <p className='d-flex justify-content-center'>Don't have an account? </p>
+//         <Link className='d-flex justify-content-center' to='/signup'>
+//           Sign up
+//         </Link>
+//       </div>
+//     );
+//   }
+// }
+
+// const mapStateToProps = (state) => {
+//   const { loggingIn } = state.auth;
+//   return {
+//     loggingIn,
+//   };
+// };
+
+// const SignIn = connect(mapStateToProps)(ConnetedSignIn);
+
+// export default SignIn;

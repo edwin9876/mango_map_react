@@ -11,6 +11,7 @@ body {
 .gray70{color:#81806f;}
 .gray50{color:#ccd637;}
 .green{background-color: #ccd637 !important;}
+.bgdark{background-color:rgba(100, 98, 98, 0.658)!important}
 .highlight{color: #ec9791;}
 /* #d5d827 */
 .transparent{color: transparent;}
@@ -23,12 +24,14 @@ body {
 .sticky {position: fixed;}
 .d-flex{display: flex;}
 .justify-content-center{justify-content: center;}
+.text-align-center{text-align:center}
 .centerH{display:flex; justify-content: center; flex-direction: column;}
 .justify-content-between{justify-content: space-between;}
 .align-content-center {align-content:center}
 .hidden{display: none;}
 .position-absolute{position: absolute;}
 .margin1 {margin:1rem}
+.margin1x{margin:0 1vw}
 .margin1vw{margin:1vw 0}
 .margin5 {margin:5%}
 .mb10vh{margin-bottom: 10vh;}
@@ -36,22 +39,28 @@ body {
 .paddingy1{padding:1rem 0;}
 
 /* sizing */
+.height5{height: 5vh!important;}
+.height6{height: 6vh;}
 .icons15{width: 15vw; height: 13vw;padding: 1vw;}
 .icons20{width: 20vw; height: 18vw;padding: 1vw;}
 .icons30{width: 30vw; padding: 2vw;}
 .micons1{font-size: 3rem; padding: 0 1vw;}
 .micons15{font-size: 4rem;}
 .vw100{max-width: 100vw;}
+.roundimg{
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;    
+}
 
 /* font */
 .bold {font-weight: bold;}
+.rBorder{border-radius: 50px;}
+.thinBorder{border: 1px, rgb(255, 255, 255), solid}
 .noBorder{ border: transparent !important;}
-
-.card{
- background-color: rgba(255, 255, 255, 0.452);
- border: rgba(128, 128, 128, 0.479) thin solid;
- border-radius: 2px;
-}
+.font5{font-size: 5vh;}
 
 button:focus {
     cursor: pointer;
@@ -64,7 +73,7 @@ button:focus {
     padding: 20% 5% 5% 5%;
     width: 100vw;
     max-height: fit-content;
-    background-image: url(./Icons/marble.jpg);
+    /* background-image: url(./Icons/marble.jpg); */
 }
 
 .form-container{
@@ -79,7 +88,6 @@ button:focus {
     border: transparent;
     border-radius: 50px;
     margin: 0.5rem;
-    background-image: url(./Icons/marble.jpg);
     background-size: cover;
 }
 
@@ -88,11 +96,11 @@ button:focus {
     border: transparent;
 }
 
-
 #login_btn{
     width: 8rem;
     height: 3rem
 }
+
 /* createpost page */
 #Post_container{
     max-width:"100vw";
@@ -105,6 +113,11 @@ button:focus {
 min-height:100vh;
 padding-bottom: 10vh;
 }
+/* chat */
+#chat_container{
+    min-height:100vh;
+    padding-bottom: 10vh;
+    }
 
 /* Profile page */
 #profile_container{
@@ -134,19 +147,3 @@ padding-bottom: 10vh;
     padding: 0vh 2vh 3vh 2vh ;
     ;
 }
-
-
-input[type=text]:not(.browser-default):focus::content,
-input[type=email]:not(.browser-default):focus::content,
-input[type=password]:not(.browser-default):focus::content,
-select.browser-default:focus:not([readonly]),
-textarea.materialize-textarea:focus:not([readonly]){
-  box-shadow: none;
-  color: black;
-  font-weight: bold;
-}
-
-/* select.browser-default:focus:not([readonly]){
-    background-color: #cbd63754;
-    position: relative;
-} */

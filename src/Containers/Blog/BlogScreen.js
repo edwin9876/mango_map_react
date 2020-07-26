@@ -43,31 +43,32 @@ class BlogScreen extends Component {
     //     };
 
 
-        render() {
-            const {isLightTheme, light, dark} = this.context;
-            const theme = isLightTheme ? light : dark;
+    render() {
+        const { isLightTheme, light, dark } = this.context;
+        const theme = isLightTheme ? light : dark;
 
-            return (
+        return (
 
-                <div id="blog_container" style={{ background: theme.low, color : theme.high}}>
-                    <SearchBar />
-                    <WeeklyPost post={this.props.post} />
-                    {/* <WeeklyPic /> */}
+            <div id="blog_container" style={{ background: theme.low, color: theme.high }}>
+                <SearchBar />
+                <WeeklyPost post={this.props.post} />
+                {/* <WeeklyPic /> */}
 
-                    <ButtonGroup className="d-flex justify-content-center">
-                    <Button style={{ background: theme.low, color : theme.high, borderColor: theme.low}}>New Posts</Button>
-                    <Button style={{ background: theme.low, color : theme.high,  borderColor: theme.low}}>New Pictures</Button>
-                    <Button  style={{ background: theme.low, color : theme.high,  borderColor: theme.low}}>Top Users</Button>
-                  </ButtonGroup>
+                <ButtonGroup className="d-flex justify-content-center">
+                    <Button style={{ background: theme.low, color: theme.high, borderColor: theme.low }}>New Posts</Button>
+                    <Button style={{ background: theme.low, color: theme.high, borderColor: theme.low }}>New Pictures</Button>
+                    <Button style={{ background: theme.low, color: theme.high, borderColor: theme.low }}>Top Users</Button>
+                </ButtonGroup>
 
-
+                <div className="d-flex justify-content-center paddingy1">
                     {/* <BlogList posts={this.props.posts} /> */}
                     {/* <TopPics pictures={this.props.pictures} /> */}
                     <TopUsers users={this.props.users} />
                 </div>
-            )
-        }
+            </div>
+        )
     }
+}
 
 
 

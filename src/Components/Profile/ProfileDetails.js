@@ -3,6 +3,7 @@ import TripSummary from '../UI/Dashboard/TripSummary'
 import GroupSummary from '../UI/Dashboard/GroupSummary'
 import PostSummary from '../UI/Dashboard/PostSummary'
 import { ThemeContext } from '../../Contexts/Theme'
+import { Button } from 'reactstrap';
 
 
 const ProfileDetails = () => {
@@ -22,20 +23,20 @@ return(
 
             <div className="d-flex justify-content-center margin1" >
 
-                <div id="TripSummary" className="card margin1 panels center" style={{background: theme.low, borderColor:theme.highlight}}>
+            <Button className="margin1 panels center">
                     <h4 className="bold justify-content-center d-flex">30</h4>
                     <p className="justify-content-center d-flex">Trips</p>
-                </div>
+                    </Button>
 
-                <div id="GroupSummary" className="card margin1 panels center" style={{background: theme.low, borderColor:theme.highlight}}>
+                    <Button className="margin1 panels center">
                     <h4 className="bold justify-content-center d-flex">6</h4>
-                    <p className=" justify-content-center d-flex">Groups</p>
-                </div>
+                    <p className="justify-content-center d-flex">Groups</p>
+                    </Button>
 
-                <div id="PostSummary" className="card margin1 panels center" style={{background: theme.low, borderColor:theme.highlight}}>
+                    <Button className="margin1 panels center">
                     <h4 className="bold justify-content-center d-flex">2</h4>
-                    <p className=" justify-content-center d-flex">Postings</p>
-                </div>
+                    <p className="justify-content-center d-flex">Posts</p>
+                    </Button>
 
             </div>
             <TripSummary />

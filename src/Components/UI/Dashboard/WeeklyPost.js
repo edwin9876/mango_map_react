@@ -23,7 +23,7 @@ const Weekly = ({ post }) => {
                             <CardTitle className="bold">{post[0].title}</CardTitle>
                             <CardSubtitle >by {post[0].author}</CardSubtitle>
                             <br />
-                            <a href="/blog/:id"><Button className="noBorder" style={{background:theme.highlight}}>View more</Button></a>
+                            <a href="/blog/:id" className="d-flex justify-content-center"><Button className="noBorder" style={{background:theme.highlight}}>View more</Button></a>
                         </CardBody>
                     </Card>
                 </div>) }}
