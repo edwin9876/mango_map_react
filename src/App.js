@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import {withRouter, BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import {connect} from 'react-redux'
 
 import Navbar from './Components/UI/Layout/Navbar';
 import Home from './Containers/Map/MapScreen';
@@ -17,15 +18,20 @@ import SignUp from './Components/Auth/SignUp';
 import ThemeContextProvider from './Contexts/Theme'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isLoggedIn: false,
-    };
+const mapStateToProps= (state)=>{
+  return {
+    ...state
   }
+}
+
+class ConnectedApp extends Component {
+  // constructor() {
+  //   super();
+  // }
 
   render() {
+    let {loggedIn} = this.props.auth
+
     return (
       <BrowserRouter>
         <div className='App'>
@@ -44,7 +50,7 @@ class App extends Component {
                 exact
                 path='/profile'
                 render={() => {
-                  return this.state.isLoggedIn ? (
+                  return loggedIn ? (
                     <Redirect to='/profile/:id' />
                   ) : (
                       <Redirect to='/signin' />
@@ -64,5 +70,8 @@ class App extends Component {
   }
   // Test Liine
 }
+
+const App = connect(mapStateToProps)(ConnectedApp)
+
 
 export default App;
