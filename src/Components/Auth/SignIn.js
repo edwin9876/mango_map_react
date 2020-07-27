@@ -74,10 +74,10 @@ export class ConnetedSignIn extends Component {
 
 
                 <div className="justify-content-center d-flex">
-                    <div style={{backgroundImage: `url(${theme.img})`}} className="login_icons"  >
+                    <div style={{background:theme.highlight}} className="login_icons"  >
                         <img className="icons15 margin1 blur" src={googleIC} alt="googleIC" />
                     </div>
-                    <div style={{backgroundImage: `url(${theme.img})`}} className="login_icons">
+                    <div style={{background:theme.highlight}} className="login_icons">
                         <img className="icons15 margin1 blur" src={instagramIC} alt="instagramIC" />
                     </div>
                 </div>
