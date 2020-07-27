@@ -6,7 +6,7 @@ import googleIC from '../../Icons/google_black.png'
 import instagramIC from '../../Icons/instagram_black.png'
 import { login, logout } from '../../redux/actions/user'
 import { ThemeContext } from '../../Contexts/Theme'
-import { Form, FormGroup, Label, Input,FormText } from 'reactstrap';
+import { Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 
 export class ConnetedSignIn extends Component {
@@ -31,7 +31,7 @@ export class ConnetedSignIn extends Component {
         console.log(this.state)
     }
 
-    handleSubmit = async(e) => {
+    handleSubmit = async (e) => {
         e.preventDefault();
         console.log(this.state)
         this.setState({ submitted: true })
@@ -39,17 +39,16 @@ export class ConnetedSignIn extends Component {
         const { dispatch } = this.props;
         if (email && password) {
             await dispatch(login(email, password));
-            if(this.props.loggedIn)
-                {this.props.history.push(`/profile/${this.props.user.id}`)}
-            } 
-        
+            if (this.props.loggedIn) { this.props.history.push(`/profile/${this.props.user.id}`) }
+        }
+
     }
 
 
     render() {
         // setting themecontext
         const { loggingIn } = this.props;
-        const {email,password,submitted} = this.state
+        const { email, password, submitted } = this.state
         const { isLightTheme, light, dark } = this.context;
         const theme = isLightTheme ? light : dark;
 
@@ -58,14 +57,14 @@ export class ConnetedSignIn extends Component {
                 <Toplogobox />
 
                 <Form className="margin5" id="createPost" onSubmit={this.handleSubmit}>
-                {submitted&& !this.props.loggedIn&&
-                    <p className="text-danger" >Login In Fail</p >
-                 }
+                    {submitted && !this.props.loggedIn &&
+                        <p className="text-danger" >Login In Fail</p >
+                    }
                     <FormGroup>
                         <Label htmlFor="email">Email</Label>
-                        
-                        <Input invalid={!email&&submitted&&true} style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} type="email" id="email" onChange={this.handleChange} />
-                        
+
+                        <Input invalid={!email && submitted && true} style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} type="email" id="email" onChange={this.handleChange} />
+
                         {submitted && !email &&
                             <p className="text-danger" >* Email is required</p >
                         }
@@ -74,7 +73,7 @@ export class ConnetedSignIn extends Component {
 
                     <FormGroup>
                         <Label htmlFor="password">Password</Label>
-                        <Input invalid={!password&&submitted&&true} style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} type="password" id="password" onChange={this.handleChange} />
+                        <Input invalid={!password && submitted && true} style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} type="password" id="password" onChange={this.handleChange} />
                         {submitted && !password &&
                             <p className="text-danger" >* Password is required</p >
                         }
@@ -93,17 +92,10 @@ export class ConnetedSignIn extends Component {
 
 
                 <div className="justify-content-center d-flex">
-<<<<<<< HEAD
-                    <div style={{background:theme.highlight}} className="login_icons"  >
-                        <img className="icons15 margin1 blur" src={googleIC} alt="googleIC" />
-                    </div>
-                    <div style={{background:theme.highlight}} className="login_icons">
-=======
                     <div style={{ backgroundImage: `url(${theme.img})` }} className="login_icons"  >
                         <img className="icons15 margin1 blur" src={googleIC} alt="googleIC" />
                     </div>
                     <div style={{ backgroundImage: `url(${theme.img})` }} className="login_icons">
->>>>>>> 73a935999c64f85194ed8eb218cc61149318f5ff
                         <img className="icons15 margin1 blur" src={instagramIC} alt="instagramIC" />
                     </div>
                 </div>
