@@ -42,7 +42,7 @@ const userReducer = (state = initialUserState, action) => {
     case FETCH_USER:
       return {
         ...state,
-        user: [...action.payload],
+        user: {...action.payload},
       };
     case CREATE_USER:
       return {
