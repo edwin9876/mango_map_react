@@ -33,7 +33,6 @@ export class ConnetedSignIn extends Component {
 
     handleSubmit = async(e) => {
         e.preventDefault();
-        console.log(this.state)
         this.setState({ submitted: true })
         const { email, password } = this.state
         const { dispatch } = this.props;
@@ -58,9 +57,9 @@ export class ConnetedSignIn extends Component {
                 <Toplogobox />
 
                 <Form className="margin5" id="createPost" onSubmit={this.handleSubmit}>
-                {submitted&& !this.props.loggedIn&&
+                {/* {submitted&& !this.props.loggedIn&&
                     <p className="text-danger" >Login In Fail</p >
-                 }
+                 } */}
                     <FormGroup>
                         <Label htmlFor="email">Email</Label>
                         
@@ -101,7 +100,7 @@ export class ConnetedSignIn extends Component {
                     </div>
                 </div>
 
-                <i class="material-icons justify-content-center d-flex">remove</i>
+                <i className="material-icons justify-content-center d-flex">remove</i>
                 <p className="d-flex justify-content-center">Don't have an account? </p>
                 <Link className="d-flex justify-content-center" to='/signup'>Sign up</Link>
 

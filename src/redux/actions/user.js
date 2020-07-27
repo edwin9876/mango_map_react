@@ -27,9 +27,9 @@ export function login(email, password) {
             dispatch({ type: LOGIN_REQUEST, payload: email })
             let res = await axios.post('http://localhost:8000/auth/local-login', { email: email, password: password })
             console.log(res.data)
-            localStorage.setItem('user', JSON.stringify(res.data.user))
+            localStorage.setItem('user', JSON.stringify(res.data))
 
-            dispatch({ type: LOGIN_SUCCESS, payload: res.data.user })
+            dispatch({ type: LOGIN_SUCCESS, payload: res.data })
         }
         catch (err) {
             dispatch({ type: LOGIN_FAILURE, payload: err })
@@ -65,11 +65,13 @@ export function fetchAllUser() {
     }
 }
 
-export function fetchUser(payload) {
+export function fetchUser(user_id) {
     return async (dispatch) => {
-        let res = await axios(`https://localhost:8000/user/one/${payload.user_id}`, {
+        console.log(user_id)
+        let res = await axios(`http://localhost:8000/user/one/${user_id}`, {
             headers:authHeader()
         })
+        console.log(res.data)
         dispatch({ type: FETCH_USER, payload: res.data })
     }
 }
