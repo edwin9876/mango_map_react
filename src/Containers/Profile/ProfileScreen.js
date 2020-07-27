@@ -43,18 +43,13 @@ class ConnectedProfileScreen extends Component {
     }
 
     render() {
-<<<<<<< HEAD
-=======
         console.log(this.state.posts)
->>>>>>> ba0529b7edd77eecbe36f80a8865c6ebf2b3dff8
         const { isLightTheme, light, dark } = this.context;
         const theme = isLightTheme ? light : dark;
         // const isLoggedIn = this.state.isLoggedIn;
         // const id = this.state.id
         return (
             <div id="profile_container" style={{ background: theme.low, color: theme.high }}>
-<<<<<<< HEAD
-=======
 
 
                 <ProfileDetails user={this.state.user} locations={this.state.locations} chatrooms={this.state.chatrooms} posts={this.state.posts} />
@@ -75,7 +70,6 @@ class ConnectedProfileScreen extends Component {
                     }) : null
                 }
 
->>>>>>> ba0529b7edd77eecbe36f80a8865c6ebf2b3dff8
 
             <ThemeToggle />
                 <ProfileDetails />
