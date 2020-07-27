@@ -7,12 +7,21 @@ export const ThemeContext = createContext();
 class ThemeContextProvider extends Component {
     state = {
         isLightTheme: true,
-        light: { high: '#555', mid: '#ddd', low: 'white', highlight: '#ccd637', trans: 'transparent',listcolor:'light', img: 'https://images.pexels.com/photos/129733/pexels-photo-129733.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',logobox: '' },
-        dark: { high: '#ddd', mid: '#333', low: '#555', highlight: '#ccd637', trans: 'transparent', listcolor:'dark',img: 'https://i.pinimg.com/originals/eb/08/42/eb0842db86b37d4d6988854c4cb8e237.jpg',logobox: ''  }
+        light: { high: '#555', mid: '#ddd', low: 'white', highlight: '#ccd637', trans: 'transparent', listcolor: 'light', img: 'https://images.pexels.com/photos/129733/pexels-photo-129733.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', logobox: '' },
+        dark: { high: '#ddd', mid: '#333', low: '#555', highlight: '#ccd637', trans: 'transparent', listcolor: 'dark', img: 'https://i.pinimg.com/originals/eb/08/42/eb0842db86b37d4d6988854c4cb8e237.jpg', logobox: '' }
     }
+
+    toggleTheme = () => {
+        this.setState({ isLightTheme: !this.state.isLightTheme })
+    }
+
+    dragTheme = () => {
+        this.setState({ isLightTheme: !this.state.isLightTheme })
+    }
+
     render() {
         return (
-            <ThemeContext.Provider value={{ ...this.state }}>
+            <ThemeContext.Provider value={{ ...this.state, toggleTheme: this.toggleTheme, dragTheme: this.dragTheme }}>
                 {this.props.children}
             </ThemeContext.Provider>
         );
