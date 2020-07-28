@@ -9,6 +9,8 @@ import TopPics from '../../Components/UI/Dashboard/TopPics'
 import TopUsers from '../../Components/UI/Dashboard/TopUsers'
 import BlogList from '../../Components/Blog/BlogList'
 
+import{fetchAllPost} from '../../redux/actions/blog'
+
 import { Button, ButtonGroup } from 'reactstrap';
 
 const mapStateToProps = (state) => {
@@ -25,6 +27,11 @@ class BlogScreen extends Component {
     state = {
         buttonId: null
     }
+
+
+componentDidMount(){
+    
+}
 
     handleRender = (id) => {
         this.setState({ buttonId: id });
