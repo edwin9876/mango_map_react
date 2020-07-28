@@ -11,7 +11,7 @@ class ThemeContextProvider extends Component {
         dark: { high: '#ddd', mid: '#333', low: '#555', highlight: '#ccd637', trans: 'transparent', listcolor: 'dark', img: 'https://i.pinimg.com/originals/eb/08/42/eb0842db86b37d4d6988854c4cb8e237.jpg', logobox: '' }
     }
 
-    toggleTheme = () => {
+    toggleTheme = (e) => {
         this.setState({ isLightTheme: !this.state.isLightTheme })
     }
 
