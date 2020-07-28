@@ -7,7 +7,7 @@ body {
 
 /* Colours */
 /* #8b8859 ,  #E1D100*/
-.white100{color:rgb(255, 255, 255)}
+.white100{color:rgb(255, 255, 255)!important}
 .gray70{color:#81806f;}
 .gray50{color:#ccd637;}
 .green{background-color: #ccd637 !important;}
@@ -59,6 +59,7 @@ body {
 /* font */
 .bold {font-weight: bold;}
 .rBorder{border-radius: 50px;}
+.sqBorder{border-radius: 0px!important;}
 .thinBorder{border: 1px, rgb(255, 255, 255), solid}
 .noBorder{ border: transparent !important;}
 .font5{font-size: 5vh;}
