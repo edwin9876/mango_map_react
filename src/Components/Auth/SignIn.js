@@ -28,17 +28,24 @@ export class ConnetedSignIn extends Component {
         this.setState({
             [e.target.id]: e.target.value
         })
-        console.log(this.state)
+        // console.log(this.state)
     }
 
     handleSubmit = async (e) => {
+
         e.preventDefault();
         this.setState({ submitted: true })
         const { email, password } = this.state
         const { dispatch } = this.props;
         if (email && password) {
+            console.log('login is though working1')
             await dispatch(login(email, password));
-            if (this.props.loggedIn) { this.props.history.push(`/profile/${this.props.user.id}`) }
+            console.log('login is though working2')
+            if (this.props.loggedIn) {
+                this.props.history.push(`/one/${this.props.user.id}`)
+                console.log(this.props.user.id)
+                console.log('login is though working3')
+            }
         }
 
     }
@@ -56,7 +63,7 @@ export class ConnetedSignIn extends Component {
                 <Toplogobox />
 
                 <Form className="margin5" id="createPost" onSubmit={this.handleSubmit}>
-                {/* {submitted&& !this.props.loggedIn&&
+                    {/* {submitted&& !this.props.loggedIn&&
                     <p className="text-danger" >Login In Fail</p >
                  } */}
                     <FormGroup>

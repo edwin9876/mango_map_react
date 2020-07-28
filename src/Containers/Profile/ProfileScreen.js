@@ -22,11 +22,13 @@ class ConnectedProfileScreen extends Component {
         }
     }
 
-    async componentDidMount() {
+    
+    async componentDidMount () {
         let { dispatch } = this.props
         let user_id = parseInt(this.props.auth.user.id)
         console.log(this.props)
         console.log(user_id)
+
             await dispatch(fetchUser(user_id))
 
         if (this.props.user.user) {
@@ -38,13 +40,16 @@ class ConnectedProfileScreen extends Component {
                 chatrooms: this.props.user.user.chatrooms,
                 posts: this.props.user.user.posts,
             })
+            console.log(this.props.user.user)
         }
+ 
     }
 
 
 
     render() {
-        console.log(this.props)
+
+ 
         const { isLightTheme, light, dark } = this.context;
         const theme = isLightTheme ? light : dark;
         // const isLoggedIn = this.state.isLoggedIn;
