@@ -9,7 +9,7 @@ import authentication from './auth';
 const rootReducer = combineReducers({
   blog: blogReducer,
   mapReducer,
-  chatroomReducer,
+  chatroom: chatroomReducer,
   imageReducer,
   user: userReducer,
   auth: authentication,

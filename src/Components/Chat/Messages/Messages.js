@@ -15,7 +15,7 @@ const Messages = ({ conversation, userId }) => {
         <span class='time-left'>11:00</span>
       </div>
     ) : (
-      <div className='container '>
+      <div className='container'>
         <img
           src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRIMey7cyC1XcqtyFcJlNhz7yP4oT1kAahWPw&usqp=CAU'
           alt='Avatar'

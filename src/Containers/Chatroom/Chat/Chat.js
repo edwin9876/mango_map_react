@@ -3,6 +3,9 @@ import ScrollToBottom from 'react-scroll-to-bottom';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../redux/constants/actionTypes';
 
+import * as actions from '../../../redux/actions/chatroom';
+import state from '../../../redux/reducers/chatroom';
+
 import io from 'socket.io-client';
 import { css } from 'glamor';
 
@@ -27,21 +30,8 @@ class Chat extends Component {
     width: '100%',
   });
 
-  state = {
-    userId: 1,
-    username: 'Jacky',
-    currentRoomId: 1,
-    messages: [],
-    conversation: [
-      { userId: 1, user: 'Jacky', message: 'hi' },
-      { userId: 1, user: 'Jacky', message: "How you doin'?" },
-      { userId: 2, user: 'Edwin', message: 'I am fine, thank you.' },
-      { userId: 3, user: 'Pullip', message: 'I go to school by bus.' },
-    ],
-  };
-
   componentDidMount() {
-    this.socket.emit('new-user', { name: 'Jacky' });
+    this.socket.emit('new-user', { name: this.props.username });
 
     console.log('[componentDidMount] is executed');
 
@@ -105,20 +95,6 @@ class Chat extends Component {
   };
 
   // Fake data
-  room = [
-    {
-      roomName: 'Pullip',
-    },
-    {
-      roomName: 'Edwin',
-    },
-    {
-      roomName: 'Jacky',
-    },
-    {
-      roomName: 'The capstone project group',
-    },
-  ];
 
   // This is invoked when user click a room div
   changeRoomIdHandler = (id) => {
@@ -129,7 +105,7 @@ class Chat extends Component {
     const { isLightTheme, light, dark } = this.context;
     const theme = isLightTheme ? light : dark;
 
-    let displayedContent = this.state.currentRoomId ? (
+    let displayedContent = this.props.currentRoomId ? (
       // This div is in a chatroom
       <div>
         <h5 className='d-flex justify-content-center paddingy1'>Group1</h5>
@@ -156,22 +132,22 @@ class Chat extends Component {
         <ScrollToBottom className={this.ROOT_CSS + ' textBox'}>
           <div className='margin5'>
             <Messages
-              conversation={this.state.conversation}
-              userId={this.state.userId}
+              conversation={this.props.conversation}
+              userId={this.props.userId}
             />
           </div>
         </ScrollToBottom>
         <div>
           <Input
             sendMessageHandler={this.sendMessageHandler}
-            messages={this.state.messages}
+            messages={this.props.messages}
             setMessage={this.setMessage}
           />{' '}
         </div>
       </div>
     ) : (
       // Display the list of chatrooms the user has
-      this.room.map((room, index) => {
+      this.props.roomList.map((room, index) => {
         return (
           <div key={index} onClick={() => this.changeRoomIdHandler(index)}>
             <ul className='collection'>
@@ -193,23 +169,15 @@ class Chat extends Component {
   }
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     prs: state.persons,
-//   };
-// };
+const mapStateToProps = (state) => {
+  return {
+    userId: state.chatroom.userId,
+    username: state.chatroom.username,
+    roomList: state.chatroom.roomList,
+    currentRoomId: state.chatroom.currentRoomId,
+    messages: state.chatroom.messages,
+    conversation: state.chatroom.conversation,
+  };
+};
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onAddedPerson: (name, age) =>
-//       dispatch({
-//         type: actionTypes.ADD_PERSON,
-//         personData: { name: name, age: age },
-//       }),
-//     onRemovedPerson: (id) =>
-//       dispatch({ type: actionTypes.REMOVE_PERSON, personId: id }),
-//   };
-// };
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Chat);
-export default Chat;
+export default connect(mapStateToProps, actions)(Chat);

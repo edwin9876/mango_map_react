@@ -30,5 +30,7 @@ describe('input some data input text area and click send button', () => {
     wrapped = mount(<Input />);
   });
 
-  it('');
+  afterEach(() => {
+    wrapped.unmount();
+  });
 });
