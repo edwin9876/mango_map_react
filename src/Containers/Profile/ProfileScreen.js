@@ -25,10 +25,9 @@ class ConnectedProfileScreen extends Component {
     async componentDidMount() {
         let { dispatch } = this.props
         let user_id = parseInt(this.props.auth.user.id)
+        console.log(this.props)
         console.log(user_id)
-        if (this.state.user.length == 0) {
             await dispatch(fetchUser(user_id))
-        }
 
         if (this.props.user.user) {
             console.log(this.props.user.user)
@@ -37,20 +36,15 @@ class ConnectedProfileScreen extends Component {
                 user: this.props.user.user,
                 locations: this.props.user.user.locations,
                 chatrooms: this.props.user.user.chatrooms,
-                posts: this.props.user.user.locations.map(location => location.userBlogs).filter(post => post.length !== 0)
+                posts: this.props.user.user.posts,
             })
         }
     }
 
 
-    componentWillUnmount(){
-        this.setState({
-            user:[]
-        })
-    }
-    
+
     render() {
-        console.log(this.state.posts)
+        console.log(this.props)
         const { isLightTheme, light, dark } = this.context;
         const theme = isLightTheme ? light : dark;
         // const isLoggedIn = this.state.isLoggedIn;
@@ -59,31 +53,32 @@ class ConnectedProfileScreen extends Component {
             <div id="profile_container" style={{ background: theme.low, color: theme.high }}>
 
 
-                <ProfileDetails user={this.state.user} locations={this.state.locations} chatrooms={this.state.chatrooms} posts={this.state.posts} />
+                    <ProfileDetails user={this.state.user} locations={this.state.locations} chatrooms={this.state.chatrooms} posts={this.state.posts} />
                 {(this.state.locations) ?
-                    this.state.locations.map((item,i) => {
+                    this.state.locations.map((item, i) => {
                         return <TripSummary location={item} key={i} />
                     }) : null
                 }
                 {(this.state.chatrooms) ?
-                    this.state.chatrooms.map((item,i) => {
+                    this.state.chatrooms.map((item, i) => {
                         return <GroupSummary chatroom={item} key={i} />
                     }) : null
                 }
-                
+
                 {(this.state.posts) ?
-                    this.state.posts.map((item,i) => {
-                        return <PostSummary posts={item} key={i}/>
+                    this.state.posts.map((item, i) => {
+                        return <PostSummary posts={item} key={i} />
                     }) : null
                 }
 
 
-            <ThemeToggle />
-                <ProfileDetails />
-               
+                <ThemeToggle />
+                <ProfileDetails />:null}
+
             </div>
+            
         )
-    }
+}
 }
 
 const mapStateToProps = state => {
@@ -92,7 +87,7 @@ const mapStateToProps = state => {
     }
 }
 
-let ProfileScreen = connect(mapStateToProps)(ConnectedProfileScreen)
+const ProfileScreen = connect(mapStateToProps)(ConnectedProfileScreen)
 
 
 export default ProfileScreen
