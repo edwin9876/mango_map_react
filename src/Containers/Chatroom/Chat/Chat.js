@@ -6,11 +6,11 @@ import * as actionTypes from '../../../redux/constants/actionTypes';
 import io from 'socket.io-client';
 import { css } from 'glamor';
 
-import Input from './Input/Input';
-import Messages from './Messages/Messages';
+import Input from '../../../Components/Chat/Input/Input';
+import Messages from '../../../Components/Chat/Messages/Messages';
 
-import {Button, ButtonGroup} from 'reactstrap'
-import { ThemeContext } from '../../../Contexts/Theme'
+import { Button, ButtonGroup } from 'reactstrap';
+import { ThemeContext } from '../../../Contexts/Theme';
 
 import './Chat.css';
 
@@ -133,12 +133,28 @@ class Chat extends Component {
       // This div is in a chatroom
       <div>
         <h5 className='d-flex justify-content-center paddingy1'>Group1</h5>
-        <ButtonGroup className="d-flex justify-content-center">
-        <Button style={{ background: theme.low, color: theme.high, borderColor: theme.low }}>Messages</Button>
-        <Button style={{ background: theme.low, color: theme.high, borderColor: theme.low }}>TimeTree</Button>
-    </ButtonGroup>
+        <ButtonGroup className='d-flex justify-content-center'>
+          <Button
+            style={{
+              background: theme.low,
+              color: theme.high,
+              borderColor: theme.low,
+            }}
+          >
+            Messages
+          </Button>
+          <Button
+            style={{
+              background: theme.low,
+              color: theme.high,
+              borderColor: theme.low,
+            }}
+          >
+            TimeTree
+          </Button>
+        </ButtonGroup>
         <ScrollToBottom className={this.ROOT_CSS + ' textBox'}>
-          <div className="margin5">
+          <div className='margin5'>
             <Messages
               conversation={this.state.conversation}
               userId={this.state.userId}
@@ -154,24 +170,24 @@ class Chat extends Component {
         </div>
       </div>
     ) : (
-        // Display the list of chatrooms the user has
-        this.room.map((room, index) => {
-          return (
-            <div key={index} onClick={() => this.changeRoomIdHandler(index)}>
-              <ul className='collection'>
-                <li className='collection-item avatar gray70'>
-                  <i className='material-icons circle grey blur'>star</i>
-                  <span className='title bold'>{room.roomName}</span>
-                  <p>Last message</p>
-                  <a href='#!' className='secondary-content'>
-                    <i className='material-icons blur'>grade</i>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          );
-        })
-      );
+      // Display the list of chatrooms the user has
+      this.room.map((room, index) => {
+        return (
+          <div key={index} onClick={() => this.changeRoomIdHandler(index)}>
+            <ul className='collection'>
+              <li className='collection-item avatar gray70'>
+                <i className='material-icons circle grey blur'>star</i>
+                <span className='title bold'>{room.roomName}</span>
+                <p>Last message</p>
+                <a href='#!' className='secondary-content'>
+                  <i className='material-icons blur'>grade</i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        );
+      })
+    );
 
     return displayedContent;
   }
