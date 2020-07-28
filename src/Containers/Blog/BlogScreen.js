@@ -46,12 +46,12 @@ componentDidMount(){
             <div id="blog_container" style={{ background: theme.low, color: theme.high }}>
                 <SearchBar />
                 <WeeklyPost post={this.props.post} />
-                {/* <WeeklyPic /> */}
+                {/* <WeeklyPic />*/}
 
                 <ButtonGroup className="d-flex justify-content-center">
-                    <Button onClick={() => this.handleRender(1)} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}>New Posts</Button>
-                    <Button onClick={() => this.handleRender(2)} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}>New Pictures</Button>
-                    <Button onClick={() => this.handleRender(3)} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}>Top Users</Button>
+                    <Button onClick={() => this.handleRender(1)} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>New Posts</h6></Button>
+                    <Button onClick={() => this.handleRender(2)} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>New Pictures</h6></Button>
+                    <Button onClick={() => this.handleRender(3)} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>Top Users</h6></Button>
                 </ButtonGroup>
 
                 <div className="d-flex justify-content-center ">

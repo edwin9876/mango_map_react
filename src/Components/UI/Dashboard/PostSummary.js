@@ -18,7 +18,7 @@ const MyPost = (props) => {
                 <div>
                     {(props.posts) ?
                     props.posts.map((item,i) => {
-                        return <Card key={i}style={{ background: theme.low, borderColor: theme.high }}>
+                        return <Card key={i}style={{ background: theme.low, borderColor: theme.high}}>
                             <CardImg top width="100%" src={item.main_picture_URL} alt="Card image cap" />
                             <CardBody>
                                 <CardTitle className="bold">{item.title}</CardTitle>

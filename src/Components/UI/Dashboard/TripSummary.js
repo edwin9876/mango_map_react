@@ -11,7 +11,7 @@ const TripSummary = (props) => {
             return (
 
                 <div>
-                    <Card className="margin5" style={{ background: theme.low, borderColor: theme.high }}>
+                    <Card className="margin5" style={{ background: theme.low, color: theme.high, borderColor: theme.high }}>
                         <CardBody>
                             <CardTitle className="bold">{props.location.en}</CardTitle>
                             <CardTitle className="bold">{props.location.cn}</CardTitle>
