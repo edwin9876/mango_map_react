@@ -1,7 +1,11 @@
 import React from 'react';
-import ReactDom from 'react-dom';
-import Chat from '../Containers/Chatroom/Chat/Chat';
+
+import { shallow } from 'enzyme';
+
+import Chat from '../Components/Chat/ChatList';
 
 it('renders the list of chatroom', () => {
-  ReactDom.render();
+  const wrapped = shallow(<Chat />);
+
+  expect(wrapped.find(<div />).length.toEqual(4));
 });
