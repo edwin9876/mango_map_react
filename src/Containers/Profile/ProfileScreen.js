@@ -38,9 +38,9 @@ class ConnectedProfileScreen extends Component {
                 user: this.props.user.user,
                 locations: this.props.user.user.locations,
                 chatrooms: this.props.user.user.chatrooms,
-                posts: this.props.user.user.posts,
+                posts: this.props.user.user.userBlogs,
             })
-            console.log(this.props.user.user)
+            console.log(this.state)
         }
  
     }
@@ -78,7 +78,6 @@ class ConnectedProfileScreen extends Component {
 
 
                 <ThemeToggle />
-                <ProfileDetails />:null}
 
             </div>
             

@@ -37,7 +37,6 @@ class ProfileDetails extends Component {
             <ThemeContext.Consumer>{(context) => {
                 const { isLightTheme, light, dark } = context;
                 const theme = isLightTheme ? light : dark;
-console.log( this.props.user)
                 return (
                     <div className="container noBorder" style={{ background: theme.low }}>
 
