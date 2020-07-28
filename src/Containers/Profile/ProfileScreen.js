@@ -41,6 +41,13 @@ class ConnectedProfileScreen extends Component {
         }
     }
 
+
+    componentWillUnmount(){
+        this.setState({
+            user:[]
+        })
+    }
+    
     render() {
         console.log(this.state.posts)
         const { isLightTheme, light, dark } = this.context;
