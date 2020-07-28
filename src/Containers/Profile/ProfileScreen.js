@@ -22,10 +22,12 @@ class ConnectedProfileScreen extends Component {
         }
     }
 
-    async componentDidMount() {
+    
+    async componentDidMount () {
         let { dispatch } = this.props
         let user_id = parseInt(this.props.auth.user.id)
         console.log(user_id)
+        
         if (this.state.user.length == 0) {
             await dispatch(fetchUser(user_id))
         }
@@ -39,10 +41,15 @@ class ConnectedProfileScreen extends Component {
                 chatrooms: this.props.user.user.chatrooms,
                 posts: this.props.user.user.locations.map(location => location.userBlogs).filter(post => post.length !== 0)
             })
+            console.log(this.props.user.user)
         }
+ 
     }
 
     render() {
+        let user_id = parseInt(this.props.auth.user.id)
+        console.log(user_id)
+        console.log(this.state)
         console.log(this.state.posts)
         const { isLightTheme, light, dark } = this.context;
         const theme = isLightTheme ? light : dark;
