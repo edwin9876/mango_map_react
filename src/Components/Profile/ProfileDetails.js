@@ -1,7 +1,4 @@
-import React, { Component , useState } from 'react'
-// import TripSummary from '../UI/Dashboard/TripSummary'
-// import GroupSummary from '../UI/Dashboard/GroupSummary'
-// import PostSummary from '../UI/Dashboard/PostSummary'
+import React, { Component, useState } from 'react'
 import { ThemeContext } from '../../Contexts/Theme'
 import ThemeToggle from '../../Components/UI/Layout/ThemeToggle'
 import { Button, ButtonGroup, Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap';
@@ -18,10 +15,10 @@ class ProfileDetails extends Component {
     toggle = () => {
         const { dropdownOpen } = this.state;
         this.setState({
-          dropdownOpen: !dropdownOpen,
+            dropdownOpen: !dropdownOpen,
         });
         console.log(this.state.dropdownOpen)
-      };
+    };
 
     render() {
 
@@ -49,22 +46,17 @@ class ProfileDetails extends Component {
                 const { isLightTheme, light, dark } = context;
                 const theme = isLightTheme ? light : dark;
                 console.log(this.props.user)
-                
+
                 return (
                     <div className="container noBorder" style={{ background: theme.low }}>
-
-
-
-                        <Dropdown direction="" isOpen={this.state.btnDropright} toggle={() => { this.setState({ btnDropright: !this.state.btnDropright }); }}>
+                        <Dropdown direction="" isOpen={this.state.btnDropdown} toggle={() => { this.setState({ btnDropdown: !this.state.btnDropdown }); }} id="dropdownmenu">
                             <DropdownToggle className="green noBorder" caret>
-                    </DropdownToggle>
-                            <DropdownMenu>
+                            </DropdownToggle>
+                            <DropdownMenu right>
                                 <DropdownItem>Sign out</DropdownItem>
-                                <DropdownItem disabled><ThemeToggle/></DropdownItem>
+                                <DropdownItem disabled><ThemeToggle /></DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
-
-
 
                         <i className="material-icons justify-content-center d-flex micons15 blur">account_circle</i>
                         <h4 className=" bold justify-content-center d-flex">{userName}</h4>
