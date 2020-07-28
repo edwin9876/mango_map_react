@@ -4,6 +4,7 @@ import TripSummary from '../../Components/UI/Dashboard/TripSummary'
 import GroupSummary from '../../Components/UI/Dashboard/GroupSummary'
 import PostSummary from '../../Components/UI/Dashboard/PostSummary'
 import ProfileDetails from '../../Components/Profile/ProfileDetails'
+import ThemeToggle from '../../Components/UI/Layout/ThemeToggle'
 import { ThemeContext } from '../../Contexts/Theme'
 import { connect } from 'react-redux'
 import { fetchUser } from '../../redux/actions/user'
@@ -77,6 +78,9 @@ class ConnectedProfileScreen extends Component {
                 }
 
 
+            <ThemeToggle />
+                <ProfileDetails />
+               
             </div>
         )
     }
