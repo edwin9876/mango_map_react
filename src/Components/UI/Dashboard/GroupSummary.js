@@ -4,13 +4,13 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 
 const GroupSummary = (props) => {
   console.log(props)
-    return (
+  return (
 
-      <ThemeContext.Consumer>{(context) => {
-        const { isLightTheme, light, dark } = context;
-        const theme = isLightTheme ? light : dark;
+    <ThemeContext.Consumer>{(context) => {
+      const { isLightTheme, light, dark } = context;
+      const theme = isLightTheme ? light : dark;
 
-        return(
+      return (
         <div className="margin5">
         <ListGroup>
         <ListGroupItem color={theme.listcolor} tag="a" href="/chat/:id" className="justify-content-between d-flex">
