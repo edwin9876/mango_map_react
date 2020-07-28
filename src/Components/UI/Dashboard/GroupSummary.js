@@ -4,13 +4,13 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 
 const GroupSummary = (props) => {
   console.log(props)
-    return (
+  return (
 
-      <ThemeContext.Consumer>{(context) => {
-        const { isLightTheme, light, dark } = context;
-        const theme = isLightTheme ? light : dark;
+    <ThemeContext.Consumer>{(context) => {
+      const { isLightTheme, light, dark } = context;
+      const theme = isLightTheme ? light : dark;
 
-        return(
+      return (
         <div className="margin5">
         <ListGroup>
         <ListGroupItem color={theme.listcolor} tag="a" href="/chat/:id" className="justify-content-between d-flex">
@@ -19,7 +19,6 @@ const GroupSummary = (props) => {
         alt='Avatar'/>
         <h4 className="d-flex align-items-center">{props.chatroom.name}</h4>
         <h6 className="d-flex align-items-center blur">{props.chatroom.created_at}
-        
         </h6>
     
         </ListGroupItem>

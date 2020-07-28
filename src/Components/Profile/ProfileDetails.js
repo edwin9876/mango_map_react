@@ -1,34 +1,42 @@
-import React, { Component } from 'react'
-import TripSummary from '../UI/Dashboard/TripSummary'
-import GroupSummary from '../UI/Dashboard/GroupSummary'
-import PostSummary from '../UI/Dashboard/PostSummary'
+import React, { Component, useState } from 'react'
 import { ThemeContext } from '../../Contexts/Theme'
-import { Button } from 'reactstrap';
-
-
-
+import ThemeToggle from '../../Components/UI/Layout/ThemeToggle'
+import { Button, ButtonGroup, Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap';
 
 
 class ProfileDetails extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            dropdownOpen: false,
+            setDropdownOpen: false
+        }
+    }
+    toggle = () => {
+        const { dropdownOpen } = this.state;
+        this.setState({
+            dropdownOpen: !dropdownOpen,
+        });
+        console.log(this.state.dropdownOpen)
+    };
 
     render() {
 
-        
-
         let locationsLength
         let chatroomsLength
-        let postsLength = 0 
-        let posts
-
+        let postsLength
+        // let favLength
+        let userName
+        let userGender
         if (this.props.locations) {
-            posts = this.props.locations.map(location=>location.userBlogs).filter(post=>post.length!==0)
 
             locationsLength = this.props.locations.length
             chatroomsLength = this.props.chatrooms.length
-            
-            posts.forEach(e=>postsLength+=e.length)
-            // let user_chatrooms = this.props.user.chatrooms
-            // let user_favblogs = this.props.user.favblogs
+            postsLength = this.props.chatrooms.length
+            // favLength = this.props.favourites.length
+
+            userName = this.props.user.user_name
+            userGender = this.props.user.gender
 
         }
 
@@ -37,34 +45,48 @@ class ProfileDetails extends Component {
             <ThemeContext.Consumer>{(context) => {
                 const { isLightTheme, light, dark } = context;
                 const theme = isLightTheme ? light : dark;
+                console.log(this.props.user)
 
                 return (
                     <div className="container noBorder" style={{ background: theme.low }}>
+                        <Dropdown direction="" isOpen={this.state.btnDropdown} toggle={() => { this.setState({ btnDropdown: !this.state.btnDropdown }); }} id="dropdownmenu">
+                            <DropdownToggle className="green noBorder" caret>
+                            </DropdownToggle>
+                            <DropdownMenu right>
+                                <DropdownItem>Sign out</DropdownItem>
+                                <DropdownItem disabled><ThemeToggle /></DropdownItem>
+                            </DropdownMenu>
+                        </Dropdown>
 
                         <i className="material-icons justify-content-center d-flex micons15 blur">account_circle</i>
-                        <h4 className=" bold justify-content-center d-flex">{this.props.user.user_name}</h4>
-                        <p className="justify-content-center d-flex blur bold">{this.props.user.gender}</p>
+                        <h4 className=" bold justify-content-center d-flex">{userName}</h4>
+                        <p className="justify-content-center d-flex blur bold">{userGender}</p>
 
 
-                        <div className="d-flex justify-content-center margin1" >
+                        <div className="d-flex justify-content-center" >
+                            <ButtonGroup >
+                                <Button color="secondary" className="margin1 sqBorder">
+                                    <h4 className="bold justify-content-center d-flex">{locationsLength}</h4>
+                                    <p className="justify-content-center d-flex">Trips</p>
+                                </Button>
 
-                            <Button className="margin1 panels center">
-                                <h4 className="bold justify-content-center d-flex">{locationsLength}</h4>
-                                <p className="justify-content-center d-flex">Trips</p>
-                            </Button>
+                                <Button color="secondary" className="margin1">
+                                    <h4 className="bold justify-content-center d-flex">{chatroomsLength}</h4>
+                                    <p className="justify-content-center d-flex">Groups</p>
+                                </Button>
 
-                            <Button className="margin1 panels center">
-                                <h4 className="bold justify-content-center d-flex">{chatroomsLength}</h4>
-                                <p className="justify-content-center d-flex">Groups</p>
-                            </Button>
+                                <Button color="secondary" className="margin1">
+                                    <h4 className="bold justify-content-center d-flex">{postsLength}</h4>
+                                    <p className="justify-content-center d-flex">Posts</p>
+                                </Button>
 
-                            <Button className="margin1 panels center">
-                                <h4 className="bold justify-content-center d-flex">{postsLength}</h4>
-                                <p className="justify-content-center d-flex">Posts</p>
-                            </Button>
-
+                                <Button color="secondary" className="margin1 sqBorder">
+                                    <h4 className="bold justify-content-center d-flex">1</h4>
+                                    <p className="justify-content-center d-flex">Likes</p>
+                                </Button>
+                            </ButtonGroup>
                         </div>
-                        
+
                     </div>)
             }}
             </ThemeContext.Consumer>

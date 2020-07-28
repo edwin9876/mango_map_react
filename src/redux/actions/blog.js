@@ -15,6 +15,8 @@ import {
 } from '../constants/actionTypes'
 
 import axios from 'axios'
+import authHeader from '../helpers/authHeader'
+
 
 export function fetchAllPost() {
     return (dispatch) => {
@@ -35,7 +37,7 @@ export function fetchPost(payload) {
 }
 export function fetchAllCategory() {
     return (dispatch) => {
-        return axios("https://localhost:8000/blog/categories/")
+        return axios("http://localhost:8000/blog/categories/")
             .then(res => {
                 dispatch({ type: FETCH_ALLCATEGORY, payload: res.data })
             })
@@ -65,11 +67,18 @@ export function createComment(payload) {
 //     }
 // }
 
-export function createPost(payload) {
+export function createPost(newBlog,user_id) {
     return dispatch => {
-        return axios.post(`https://localhost:8000/blog`, payload)
+        return axios.post(`http://localhost:8000/blog`, {
+            ...newBlog,user_id
+        },            
+        {
+            headers:authHeader()
+        },
+        )
             .then(res => {
                 dispatch({ type: CREATE_POST, payload:res.data })
+                console.log(res.data)
             })
     }
 }

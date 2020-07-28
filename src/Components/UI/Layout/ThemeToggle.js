@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {Button} from 'reactstrap'
 import {ThemeContext} from '../../../Contexts/Theme'
-import {CustomInput, FormGroup, Label} from 'reactstrap'
+import {CustomInput, FormGroup} from 'reactstrap'
 
 export default class ThemeToggle extends Component {
     static contextType = ThemeContext;
