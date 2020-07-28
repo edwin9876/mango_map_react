@@ -19,7 +19,6 @@ const GroupSummary = (props) => {
         alt='Avatar'/>
         <h4 className="d-flex align-items-center">{props.chatroom.name}</h4>
         <h6 className="d-flex align-items-center blur">{props.chatroom.created_at}
-        
         </h6>
     
         </ListGroupItem>
