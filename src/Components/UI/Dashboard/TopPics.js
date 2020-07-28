@@ -4,7 +4,7 @@ import React from 'react'
 const IndiPicture = ({ picture }) => {
     return (
         <div>
-            <img src={picture.url} alt="individual pics" className="col s4 m6 margin1vw"/>
+            <img src={picture.url} alt="individual pics" className="icons30"/>
         </div>
     );
 };
@@ -13,7 +13,7 @@ const IndiPicture = ({ picture }) => {
 const TopPics = ({ pictures }) => {
     return (
 
-        <div className="row" id="topPic_container">
+        <div className="row d-flex justify-content-center margin1" id="topPic_container">
             {pictures && pictures.map(picture => {
                 return (
                     <IndiPicture picture={picture} key={picture.id} />

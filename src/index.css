@@ -30,6 +30,7 @@ body {
 .align-content-center {align-content:center}
 .hidden{display: none;}
 .position-absolute{position: absolute;}
+.margin0{margin:0}
 .margin1 {margin:1rem}
 .margin1x{margin:0 1vw}
 .margin1vw{margin:1vw 0}
@@ -46,7 +47,7 @@ body {
 .icons30{width: 30vw; padding: 2vw;}
 .micons1{font-size: 2.25rem; padding:0 1rem}
 .micons15{font-size: 4rem;}
-.vw100{max-width: 100vw;}
+.vw100{max-width: 100vw;min-width: 100vw;}
 .roundimg{
     float: left;
     max-width: 60px;
