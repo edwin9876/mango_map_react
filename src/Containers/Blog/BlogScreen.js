@@ -22,26 +22,13 @@ const mapStateToProps = (state) => {
 
 class BlogScreen extends Component {
     static contextType = ThemeContext;
+    state = {
+        buttonId: null
+    }
 
-    // constructior(props) {
-    //     super(props);
-    //     state = {
-    //         currentRendering: <BlogList />
-    //     };
-
-    //     toBlogList = () => {
-    //         // Change to immutable setState
-    //         this.setState({ ...this.state, currentRendering: <BlogList /> });
-    //     };
-    //     toPicList = () => {
-    //         // Change to immutable setState
-    //         this.setState({ ...this.state, currentRendering: <TopPics /> });
-    //     };
-    //     toUsers = () => {
-    //         // Change to immutable setState
-    //         this.setState({ ...this.state, currentRendering: <TopUsers /> });
-    //     };
-
+    handleRender = (id) => {
+        this.setState({ buttonId: id });
+    }
 
     render() {
         const { isLightTheme, light, dark } = this.context;
@@ -55,15 +42,17 @@ class BlogScreen extends Component {
                 {/* <WeeklyPic /> */}
 
                 <ButtonGroup className="d-flex justify-content-center">
-                    <Button style={{ background: theme.low, color: theme.high, borderColor: theme.low }}>New Posts</Button>
-                    <Button style={{ background: theme.low, color: theme.high, borderColor: theme.low }}>New Pictures</Button>
-                    <Button style={{ background: theme.low, color: theme.high, borderColor: theme.low }}>Top Users</Button>
+                    <Button onClick={() => this.handleRender(1)} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}>New Posts</Button>
+                    <Button onClick={() => this.handleRender(2)} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}>New Pictures</Button>
+                    <Button onClick={() => this.handleRender(3)} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}>Top Users</Button>
                 </ButtonGroup>
 
-                <div className="d-flex justify-content-center paddingy1">
-                    {/* <BlogList posts={this.props.posts} /> */}
-                    {/* <TopPics pictures={this.props.pictures} /> */}
-                    <TopUsers users={this.props.users} />
+                <div className="d-flex justify-content-center ">
+                    {this.state.buttonId === 1 && <BlogList posts={this.props.posts} />}
+                    {this.state.buttonId === 2 && <TopPics pictures={this.props.pictures} />}
+                    {this.state.buttonId === 3 && <TopUsers users={this.props.users} />}
+                    {this.state.buttonId !== 1 && this.state.buttonId !== 2 && this.state.buttonId !== 3 && <BlogList posts={this.props.posts} />}
+
                 </div>
             </div>
         )

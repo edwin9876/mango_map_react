@@ -1,15 +1,18 @@
 import React from 'react';
+import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
 
 const BlogSummary = ({ post }) => {
   return (
    
-    <div className="collection z-depth-0 blog-summary center" >
-       <ul>
-      <div className="collection-content grey-text text-darken-2">
-        <span className="bold">{post.title}</span>
-        <p className='grey-text'>{post.author}, 2nd July 2020</p>
-      </div>
-      </ul>
+    <div className="margin1" >
+    <ListGroup>
+      <ListGroupItem>
+      <ListGroupItemHeading>{post.title}</ListGroupItemHeading>
+      <ListGroupItemText>
+      {post.author}, 2nd July 2020
+      </ListGroupItemText>
+    </ListGroupItem>
+    </ListGroup>
     </div>
 
   );
