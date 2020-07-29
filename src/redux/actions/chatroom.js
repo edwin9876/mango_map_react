@@ -66,7 +66,6 @@ export const setMessage = (value) => {
 export const sendMessage = (message, roomId, roomUserId) => {
   console.log(message, roomId, roomUserId);
   return async (dispatch) => {
-    console.log('Inside');
     await axios
       .post('https://localhost:8000/chatroom/record', {
         message: message,

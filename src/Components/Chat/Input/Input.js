@@ -15,6 +15,7 @@ const input = ({ messages, sendMessage, setMessage }) => (
       onChange={(event) => setMessage(event.target.value)}
       onKeyPress={(event) => (event.key === 'Enter' ? sendMessage() : null)}
     />
+    <p className='HAHA'>aJSIDO</p>
     <InputGroupAddon
       className='height5 sendMessageButton'
       addonType='append'

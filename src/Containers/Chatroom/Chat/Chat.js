@@ -89,11 +89,6 @@ class Chat extends Component {
     );
   };
 
-  // This is invoked when user click a room div
-  changeRoomIdHandler = (id) => {
-    this.setState({ ...this.state, currentRoomId: id });
-  };
-
   render() {
     const { isLightTheme, light, dark } = this.context;
     const theme = isLightTheme ? light : dark;
@@ -148,7 +143,11 @@ class Chat extends Component {
       // Display the list of chatrooms the user has
       this.props.roomList.map((room, index) => {
         return (
-          <div key={index} onClick={() => this.props.fetchChatroom(index + 1)}>
+          <div
+            class='chatroomListTesting'
+            key={index}
+            onClick={() => this.props.fetchChatroom(index + 1)}
+          >
             <ul className='collection'>
               <li className='collection-item avatar gray70'>
                 <i className='material-icons circle grey blur'>star</i>
