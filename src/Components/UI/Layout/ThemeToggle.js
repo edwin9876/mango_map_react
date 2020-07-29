@@ -9,7 +9,7 @@ export default class ThemeToggle extends Component {
         return(
             <div>
 
-            <FormGroup>        
+            <FormGroup>       
               <CustomInput onClick={toggleTheme}  type="switch" id="exampleCustomSwitch" name="customSwitch" label="Night Mode" />
               </FormGroup>
             </div>
