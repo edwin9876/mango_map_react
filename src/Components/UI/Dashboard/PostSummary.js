@@ -18,7 +18,7 @@ const PostSummary = (props) => {
             return (
                 <div>
                    
-                         <Card style={{ background: theme.low, borderColor: theme.high }}>
+                         <Card className="margin5" style={{ background: theme.low, borderColor: theme.high }}>
                             <CardImg top width="100%" src={props.posts.main_picture_URL} alt="Card image cap" />
                             <CardBody>
                                 <CardTitle className="bold">{props.posts.title}</CardTitle>
