@@ -12,25 +12,26 @@ const FavPostSummary = (props) => {
 
       return (
         <div className="margin5">
-        <ListGroup>
-        <ListGroupItem color={theme.listcolor} tag="a" href="/chat/:id" className="justify-content-between d-flex">
-        {/* <img className="material-icons roundimg"
+          <ListGroup>
+            <ListGroupItem color={theme.listcolor} tag="a" href="/chat/:id" className="justify-content-between d-flex">
+              {/* <img className="material-icons roundimg"
         src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRIMey7cyC1XcqtyFcJlNhz7yP4oT1kAahWPw&usqp=CAU'
         alt='Avatar'/> */}
-        <h4 className="d-flex align-items-center">{props.favPosts.title}</h4>
-        <h6 className="d-flex align-items-center blur">{props.favPosts.created_at}
-        </h6>
-    
-        </ListGroupItem>
+              <h4 className="d-flex align-items-center">{props.favPosts.title}</h4>
+              <h6 className="d-flex align-items-center blur">{props.favPosts.created_at}
+              </h6>
 
-       
-        </ListGroup>
+            </ListGroupItem>
 
-           
 
-        </div>) }}
-        </ThemeContext.Consumer>
-    )
+          </ListGroup>
+
+
+
+        </div>)
+    }}
+    </ThemeContext.Consumer>
+  )
 }
 
 export default FavPostSummary
