@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 // import SignIn from '../../Components/Auth/SignIn'
 import TripSummary from '../../Components/UI/Dashboard/TripSummary'
 import GroupSummary from '../../Components/UI/Dashboard/GroupSummary'
@@ -10,7 +10,6 @@ import { connect } from 'react-redux'
 import { fetchUser } from '../../redux/actions/user'
 
 // will render signin component if user is not logged in. Still make the route to '/signin' for signin page though
-
 
 class ConnectedProfileScreen extends Component {
     static contextType = ThemeContext;
@@ -158,13 +157,14 @@ class ConnectedProfileScreen extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        ...state
-    }
-}
+        
 
-const ProfileScreen = connect(mapStateToProps)(ConnectedProfileScreen)
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  };
+};
 
+const ProfileScreen = connect(mapStateToProps)(ConnectedProfileScreen);
 
-export default ProfileScreen
+export default ProfileScreen;
