@@ -12,6 +12,7 @@ import {
   REMOVE_POSTIMAGE,
   FETCH_ALLPOST,
   FETCH_POST,
+  FETCH_WEEKLYPOST
 } from '../constants/actionTypes';
 
 const initialBlogState = {
@@ -21,6 +22,11 @@ const initialBlogState = {
 
 function blogReducer(state = initialBlogState, action) {
   switch (action.type) {
+    case  FETCH_WEEKLYPOST:
+     return{
+    ...state,
+    post:[...action.payload]
+    };
     case FETCH_ALLPOST:
       return {
         ...state,
