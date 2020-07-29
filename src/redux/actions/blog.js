@@ -12,9 +12,11 @@ import {
     REMOVE_POSTIMAGE,
     FETCH_ALLPOST,
     FETCH_POST,
-} from '../constants/action-types'
+} from '../constants/actionTypes'
 
 import axios from 'axios'
+import authHeader from '../helpers/authHeader'
+
 
 export function fetchAllPost() {
     return (dispatch) => {
@@ -35,7 +37,7 @@ export function fetchPost(payload) {
 }
 export function fetchAllCategory() {
     return (dispatch) => {
-        return axios("https://localhost:8000/blog/categories/")
+        return axios("http://localhost:8000/blog/categories/")
             .then(res => {
                 dispatch({ type: FETCH_ALLCATEGORY, payload: res.data })
             })
@@ -59,11 +61,24 @@ export function createComment(payload) {
     }
 }
 // creating new blog post
-export function createPost(payload) {
+// export const createPost = (post) => {
+//     return (dispatch, getState) => {
+//         dispatch({type: 'CREATE_POST', post})
+//     }
+// }
+
+export function createPost(newBlog,user_id) {
     return dispatch => {
-        return axios.post(`https://localhost:8000/blog`, payload)
+        return axios.post(`http://localhost:8000/blog`, {
+            ...newBlog,user_id
+        },            
+        {
+            headers:authHeader()
+        },
+        )
             .then(res => {
                 dispatch({ type: CREATE_POST, payload:res.data })
+                console.log(res.data)
             })
     }
 }

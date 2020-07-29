@@ -1,73 +1,230 @@
-import React, { Component } from 'react'
-import Toolbox from '../UI/Layout/Toolbox'
+import React, { Component } from 'react';
+import Toplogobox from '../UI/Layout/Toplogobox';
+import { ThemeContext } from '../../Contexts/Theme';
+import {
+  Col,
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormText,
+} from 'reactstrap';
+import { connect } from 'react-redux';
+import { signUp } from '../../redux/actions/user';
 
-export class SignUp extends Component {
+export class ConnectedSignUp extends Component {
+  static contextType = ThemeContext;
 
-    state = {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userInfo: {
         email: '',
         password: '',
-        firstName: '',
-        lastName: ''
+        user_name: '',
+        description: '',
+        gender: '',
+        profile_picture_URL: '',
+      },
+      submitted: false,
+    };
+  }
+
+  handleChange = (e) => {
+    // console.log(this.state)
+
+    if (e.target.name == 'profile_picture_URL') {
+      this.handleImageChange(e);
     }
+    console.log(this.state);
+    this.setState({
+      userInfo: { ...this.state.userInfo, [e.target.name]: e.target.value },
+    });
+  };
 
-    handleChange = (e) => {
-        this.setState({
-            [e.target.id]: e.target.value
-        })
+  handleImageChange = (e) => {
+    let file = e.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      this.setState({
+        userInfo: {
+          ...this.state.userInfo,
+          profile_picture_URL: reader.result.split('base64,')[1],
+        },
+      });
+
+      console.log(this.state);
+    };
+  };
+
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    this.setState({ submitted: true });
+    const { user_name, email, password, gender } = this.state.userInfo;
+    const userInfo = { ...this.state.userInfo };
+    const { dispatch } = this.props;
+    if (user_name && email && password && gender) {
+      await dispatch(signUp(userInfo));
+      if (this.props.signedUp) {
+        this.props.history.push('/signin');
+      }
     }
+  };
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(this.state)
-    }
+  render() {
+    const { user_name, email, password, gender } = this.state.userInfo;
+    const { submitted } = this.state;
+    const { isLightTheme, light, dark } = this.context;
+    const theme = isLightTheme ? light : dark;
 
+    return (
+      <div
+        id='Post_container'
+        style={{ background: theme.low, color: theme.high }}
+      >
+        <Toplogobox />
 
-    render() {
-        
-    
-            const changeBG = (e)=>{
-             e.target.style.border = 'solid grey 1px';
-             e.target.style.borderRadius = '50px';
-          }
-          const backBG = (e)=>{
-             e.target.style.border = 'none';
-          }
-        return (
-            
-            <div>
-                <Toolbox />
-                <form onSubmit={this.handleSubmit} className="form-container white" >
-                    
-                    <div className="input-field">
-                        <label htmlFor="email">Email</label>
-                        <input type="email" id="email" onChange={this.handleChange} />
-                    </div>
-                    <div className="input-field">
-                        <label htmlFor="password">Password</label>
-                        <input type="password" id="password" onChange={this.handleChange} />
-                    </div>
+        <Form
+          style={{ background: theme.low, color: theme.high }}
+          onSubmit={this.handleSubmit}
+          className='form-container'
+        >
+          {submitted && this.props.signedUpFail && (
+            <p className='text-danger'>Sign Up Fail</p>
+          )}
+          <FormGroup>
+            <Label htmlFor='user_name'>User Name</Label>
+            <Input
+              type='text'
+              id='user_name'
+              name='user_name'
+              onChange={this.handleChange}
+              style={{
+                background: theme.low,
+                borderColor: theme.highlight,
+                color: theme.high,
+              }}
+            />
+            {submitted && !user_name && (
+              <p className='text-danger'>* User Name is required</p>
+            )}
+          </FormGroup>
 
-                    <div className="input-field">
-                        <label htmlFor="firstName">First Name</label>
-                        <input type="text" id="firstName" onChange={this.handleChange} />
-                    </div>
+          <FormGroup>
+            <Label htmlFor='gender'>Gender</Label>
+            <FormGroup>
+              <FormGroup check inline>
+                <Label check>
+                  <Input
+                    onChange={this.handleChange}
+                    type='radio'
+                    name='gender'
+                    value='male'
+                  />{' '}
+                  Male
+                </Label>
+              </FormGroup>
+              <FormGroup check inline>
+                <Label check>
+                  <Input
+                    onChange={this.handleChange}
+                    type='radio'
+                    name='gender'
+                    value='female'
+                  />{' '}
+                  Female
+                </Label>
+              </FormGroup>
+            </FormGroup>
+            {submitted && !gender && (
+              <p className='text-danger'>* Gender is required</p>
+            )}
+          </FormGroup>
 
-                    <div className="input-field">
-                        <label htmlFor="lastName">Last Name</label>
-                        <input type="text" id="lastName" onChange={this.handleChange} />
-                    </div>
+          <FormGroup>
+            <Label htmlFor='email'>Email</Label>
+            <Input
+              type='email'
+              id='email'
+              name='email'
+              onChange={this.handleChange}
+              style={{
+                background: theme.low,
+                borderColor: theme.highlight,
+                color: theme.high,
+              }}
+            />
+            {submitted && !email && (
+              <p className='text-danger'>* Email is required</p>
+            )}
+          </FormGroup>
 
-                    <div className="justify-content-center d-flex input-field">
-                    <button className="transparent_btn grey-text " id="login_btn"
-                           onMouseOver={changeBG}
-                           onMouseLeave={backBG}> Sign Up
-                           
-                        </button>
-                    </div>
-                </form>
-            </div>
-        )
-    }
+          <FormGroup>
+            <Label htmlFor='password'>Password</Label>
+            <Input
+              type='password'
+              id='password'
+              name='password'
+              onChange={this.handleChange}
+              style={{
+                background: theme.low,
+                borderColor: theme.highlight,
+                color: theme.high,
+              }}
+            />
+            {submitted && !password && (
+              <p className='text-danger'>* Password is required </p>
+            )}
+          </FormGroup>
+
+          <FormGroup row>
+            <Label for='description' sm={2}>
+              Description
+            </Label>
+            <Col sm={10}>
+              <Input
+                type='textarea'
+                id='description'
+                name='description'
+                onChange={this.handleChange}
+                style={{
+                  background: theme.low,
+                  borderColor: theme.highlight,
+                  color: theme.high,
+                }}
+              />
+            </Col>
+          </FormGroup>
+
+          <FormGroup>
+            <Label for='profile_picture_URL'>Profile Image</Label>
+            <Input
+              type='file'
+              id='profile_picture_URL'
+              name='profile_picture_URL'
+              onChange={this.handleChange}
+            />
+          </FormGroup>
+
+          <div className='justify-content-center d-flex Input-field'>
+            <button className='transparent_btn white-text ' id='login_btn'>
+              {' '}
+              Sign Up
+            </button>
+          </div>
+        </Form>
+      </div>
+    );
+  }
 }
 
-export default SignUp
+const mapStateToProps = (state) => {
+  return {
+    ...state.auth,
+  };
+};
+const SignUp = connect(mapStateToProps)(ConnectedSignUp);
+
+export default SignUp;

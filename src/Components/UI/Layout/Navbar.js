@@ -1,17 +1,15 @@
-import React  from "react";
+import React, {Component}  from "react";
 import { NavLink } from 'react-router-dom'
+import {ThemeContext} from '../../../Contexts/Theme'
 
 
+export default class Navbar extends Component{
+    static contextType = ThemeContext;
+    render(){
+        const { dragTheme} = this.context;
 
-
-const isLoggedin = () => {
-
-}
-
-
-const Navbar = (props) => {
     return (
-        <div className="d-flex sticky justify-content-center align-content-center " id="toolbar">
+        <div draggable="true" onDrag={dragTheme} className="sticky d-flex justify-content-center" id="toolbar">
 
             <NavLink exact to="/"><i className="toolbar_icons micons1 material-icons" id="home_icon">home</i></NavLink>
             <NavLink to="/blog"><i className="toolbar_icons micons1 material-icons" id="blog_icon">toc</i></NavLink>
@@ -23,6 +21,6 @@ const Navbar = (props) => {
 
         </div>
     )
+    }
 }
 
-export default Navbar
