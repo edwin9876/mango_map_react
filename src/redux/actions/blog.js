@@ -20,7 +20,7 @@ import authHeader from '../helpers/authHeader'
 
 export function fetchAllPost() {
     return (dispatch) => {
-        return axios("https://localhost:8000/blog/all")
+        return axios("http://localhost:8000/blog/all")
             .then(res => {
                 dispatch({ type: FETCH_ALLPOST, payload: res.data })
             })

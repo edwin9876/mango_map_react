@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
   blog: blogReducer,
   mapReducer,
   chatroom: chatroomReducer,
-  imageReducer,
+  img:imageReducer,
   user: userReducer,
   auth: authentication,
 });
