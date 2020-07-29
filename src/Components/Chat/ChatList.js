@@ -2,17 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 export default class ChatList extends Component {
-  state = {
-    chatrooms: [
-      { name: 'Thomas Burberry', preview: 'Message Preview' },
-      { name: 'Thomas Burberry', preview: 'Message Preview' },
-      { name: 'Thomas Burberry', preview: 'Message Preview' },
-      { name: 'Thomas Burberry', preview: 'Message Preview' },
-    ],
-  };
-
   render() {
     const { chatrooms } = this.state;
+    console.log(this.state);
     const chatroomList = chatrooms.length ? (
       chatrooms.map((chatroom) => {
         return (
