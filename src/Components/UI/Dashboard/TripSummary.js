@@ -13,9 +13,9 @@ const TripSummary = (props) => {
                 <div>
                     <Card className="margin5" style={{ background: theme.low, color: theme.high, borderColor: theme.high }}>
                         <CardBody>
-                            <CardTitle className="bold">{props.location.en}</CardTitle>
+                            <CardTitle className="bold">{props.location.en.toUpperCase()}</CardTitle>
                             <CardTitle className="bold">{props.location.cn}</CardTitle>
-                            <CardSubtitle>{props.location.created_at}</CardSubtitle><br/>
+                            <CardSubtitle>{props.location.created_at.slice(0, 10)}</CardSubtitle><br/>
                             <a href="/trip/:id" className="d-flex justify-content-center"><Button className="noBorder" style={{ background: theme.highlight }}>View more</Button></a>
                         </CardBody>
                     </Card>
