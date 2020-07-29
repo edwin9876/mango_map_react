@@ -15,7 +15,7 @@ import ChatDetails from './Components/Chat/ChatDetails';
 import SignIn from './Components/Auth/SignIn';
 import SignUp from './Components/Auth/SignUp';
 
-import ThemeContextProvider from './Contexts/Theme'
+import ThemeContextProvider from './Contexts/Theme';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const mapStateToProps= (state)=>{
@@ -53,8 +53,8 @@ class ConnectedApp extends Component {
                   return loggedIn ? (
                     <Redirect to='/profile/:id' />
                   ) : (
-                      <Redirect to='/signin' />
-                    );
+                    <Redirect to='/signin' />
+                  );
                 }}
               />
 
