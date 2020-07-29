@@ -15,38 +15,8 @@ import {
 } from '../constants/actionTypes';
 
 const initialBlogState = {
-  images: [
-    {
-      id: '1',
-      url: `https://www.wowabouts.com/z-media/2018/10/Dragon's%20Back%201.jpg`,
-    },
-    {
-      id: '2',
-      url: `https://www.wowabouts.com/z-media/2018/10/Dragon's%20Back%201.jpg`,
-    },
-    {
-      id: '3',
-      url: `https://www.wowabouts.com/z-media/2018/10/Dragon's%20Back%201.jpg`,
-    },
-    {
-      id: '4',
-      url: `https://www.wowabouts.com/z-media/2018/10/Dragon's%20Back%201.jpg`,
-    },
-    {
-      id: '5',
-      url: `https://www.wowabouts.com/z-media/2018/10/Dragon's%20Back%201.jpg`,
-    },
-    {
-      id: '6',
-      url: `https://www.wowabouts.com/z-media/2018/10/Dragon's%20Back%201.jpg`,
-    },
-  ],
-
+  posts:[],
   post: [],
-
-  posts: [],
-
-  categories: [],
 };
 
 function blogReducer(state = initialBlogState, action) {
@@ -54,12 +24,12 @@ function blogReducer(state = initialBlogState, action) {
     case FETCH_ALLPOST:
       return {
         ...state,
-        posts: [...action.payload],
+        posts:[...action.payload]
       };
     case FETCH_POST:
       return {
         ...state,
-        post: [...action.payload],
+        post: {...action.payload},
       };
     case FETCH_ALLCATEGORY:
       return {

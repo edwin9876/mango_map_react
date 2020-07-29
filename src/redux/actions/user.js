@@ -60,7 +60,7 @@ export function signUp(userInfo) {
 
 export function fetchAllUser() {
     return async (dispatch) => {
-        let res = await axios('https://localhost:8000/user/all')
+        let res = await axios('http://localhost:8000/user/all')
         dispatch({ type: FETCH_ALLUSER, payload: res.data })
     }
 }

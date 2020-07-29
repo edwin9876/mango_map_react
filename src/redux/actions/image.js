@@ -1,13 +1,13 @@
 import {
     FETCH_ALLIMAGE,
     FETCH_IMAGE
-} from '../constants/action-types'
+} from '../constants/actionTypes'
 
 import axios from 'axios'
 
 export function fetchAllImages() {
     return async (dispatch) => {
-        let res = await axios('https://localhost:8000/image/all')
+        let res = await axios('http://localhost:8000/image/public')
         dispatch({ type: FETCH_ALLIMAGE, payload: res.data })
     }
 }
