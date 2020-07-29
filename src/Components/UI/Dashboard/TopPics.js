@@ -1,26 +1,21 @@
 import React from 'react'
+import { Row,  Container, CardImg } from 'reactstrap'
 
 
-const IndiPicture = ({ picture }) => {
-    return (
-        <div>
-            <img src={picture.url} alt="individual pics" className="icons30"/>
-        </div>
-    );
-};
 
 
-const TopPics = ({ pictures }) => {
+
+const TopPics = ({ image }) => {
+
     return (
 
-        <div className="row d-flex justify-content-center margin1" id="topPic_container">
-            {pictures && pictures.map(picture => {
-                return (
-                    <IndiPicture picture={picture} key={picture.id} />
-                )
-            })}
+        <div className="margin1x">
+            <Container className="bgdark noBorder">
+                <Row>
+                    <CardImg src={image.url} alt="individual pics" top width="100%" />
+                </Row>
+            </Container>
         </div>
-
     )
 }
 
