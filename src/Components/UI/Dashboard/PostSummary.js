@@ -19,10 +19,10 @@ const PostSummary = (props) => {
                 <div>
                    
                          <Card className="margin5" style={{ background: theme.low, borderColor: theme.high }}>
-                            <CardImg top width="100%" src={props.posts.main_picture_URL} alt="Card image cap" />
+                            <CardImg top width="100%" src='' alt="post_img" />
                             <CardBody>
-                                <CardTitle className="bold">{props.posts.title}</CardTitle>
-                                <CardSubtitle >{props.posts.created_at}</CardSubtitle>
+                                <CardTitle className="bold">{props.posts.title.toUpperCase()}</CardTitle>
+                                <CardSubtitle >{props.posts.created_at.slice(0, 10)}</CardSubtitle>
                                 <br />
                                 <a href="/blog/:id" className="d-flex justify-content-center"><Button className="noBorder" style={{ background: theme.highlight }}>View more</Button></a>
                             </CardBody>
