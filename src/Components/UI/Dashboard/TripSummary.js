@@ -1,27 +1,28 @@
 import React from 'react'
+import { ThemeContext } from '../../../Contexts/Theme'
+import {Card,CardBody, CardTitle, CardSubtitle, Button} from 'reactstrap';
 
-const TripSummary = () => {
+
+const TripSummary = (props) => {
     return (
+        <ThemeContext.Consumer>{(context) => {
+            const { isLightTheme, light, dark } = context;
+            const theme = isLightTheme ? light : dark;
+            return (
 
-        <div className="col s12 m7 margin5">
-            <div className="card horizontal">
-                <div className="card-image">
-                    <img src="https://lorempixel.com/100/190/nature/6"/>
-      </div>
-                    <div className="card-stacked">
-                        <div className="card-content center">
-                            <h5 id="trip_name">Trip to Sai Kung</h5>
-                            <br/>
-                            <p id="group_name">With Group2</p>
-                            <p id="trip_date">10 March 2020</p>
-                        </div>
-                        <div className="card-action center bold">
-                            <a href="/trip/:id">View more</a>
-                        </div>
-                    </div>
-                </div>
+                <div>
+                    <Card className="margin5" style={{ background: theme.low, color: theme.high, borderColor: theme.high }}>
+                        <CardBody>
+                            <CardTitle className="bold">{props.location.en}</CardTitle>
+                            <CardTitle className="bold">{props.location.cn}</CardTitle>
+                            <CardSubtitle>{props.location.created_at}</CardSubtitle><br/>
+                            <a href="/trip/:id" className="d-flex justify-content-center"><Button className="noBorder" style={{ background: theme.highlight }}>View more</Button></a>
+                        </CardBody>
+                    </Card>
 
-            </div>
+                </div>)
+        }}
+        </ThemeContext.Consumer>
     )
 }
 

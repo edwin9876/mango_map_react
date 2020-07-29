@@ -4,7 +4,7 @@ import {
   REMOVE_DISTRICT,
   FETCH_DISTRICT,
   FETCH_ALLDISTRICT,
-} from '../constants/action-types';
+} from '../constants/actionTypes';
 
 const initialMapState = {
   districts: [],

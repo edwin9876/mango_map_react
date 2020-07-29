@@ -1,29 +1,21 @@
-import React from 'react'
+import React from 'react';
 
-const ChatToolbar = () => {
+const ChatToolbar = ({ backToChatList }) => {
   return (
     <div>
-
       <nav>
-        <div className="nav-wrapper green">
-        <ul className="left">
-            <a href="/chat">
-          <i class="material-icons">arrow_back</i></a>
-          </ul>
-          <ul className="right">
-            <li>
-              <a href="#"><i className=" material-icons">add</i></a>
-            </li>
-      
-            <li>
-              <a href="mobile.html"><i className="material-icons">more_vert</i></a>
-            </li>
-          </ul>
+        <div className='d-flex justify-content-between paddingy1'>
+          <i className='material-icons' onClick={backToChatList}>
+            arrow_back
+          </i>
+
+          <a href='#'>
+            <i className=' material-icons'>add</i>
+          </a>
         </div>
       </nav>
-
     </div>
-  )
-}
+  );
+};
 
-export default ChatToolbar
+export default ChatToolbar;

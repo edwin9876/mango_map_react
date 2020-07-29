@@ -1,26 +1,51 @@
 import React from 'react'
+import { ThemeContext } from '../../../Contexts/Theme'
+import {
+    Card, CardImg, CardBody, CardTitle, CardSubtitle, Button
+} from 'reactstrap';
 
-const PostSummary = () => {
+
+const PostSummary = (props) => {
+    console.log(props)
+
     return (
-        <div>
 
-            <div className="row">
-                <div className="col s12 m6">
-                    <div className="card darken-1">
-                        <div className="card-content grey-text">
-                            <h4 className="card-title">Blog post 1</h4>
-                            <p>I am a very simple card. I am good at containing small bits of information.
-          I am convenient because I require little markup to use effectively.</p>
-                        </div>
-                        <div className="card-action center">
-                            <a href="#" className="bold green-text">View more</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <ThemeContext.Consumer>{(context) => {
+            const { isLightTheme, light, dark } = context;
+            const theme = isLightTheme ? light : dark;
+            console.log( props)
 
-        </div>
+            return (
+                <div>
+                   
+                         <Card style={{ background: theme.low, borderColor: theme.high }}>
+                            <CardImg top width="100%" src={props.posts.main_picture_URL} alt="Card image cap" />
+                            <CardBody>
+                                <CardTitle className="bold">{props.posts.title}</CardTitle>
+                                <CardSubtitle >{props.posts.created_at}</CardSubtitle>
+                                <br />
+                                <a href="/blog/:id" className="d-flex justify-content-center"><Button className="noBorder" style={{ background: theme.highlight }}>View more</Button></a>
+                            </CardBody>
+                        </Card>
+                    
+                </div>)
+        }}
+        </ThemeContext.Consumer>
     )
 }
+
+// const PostSummary = ( props) => {
+//     return (
+//         <ThemeContext.Consumer>{(context) => {
+//             const { isLightTheme, light, dark } = context;
+//             const theme = isLightTheme ? light : dark;
+//             return (
+//                 <div>
+//                     <MyPost posts={props.posts} />
+//                 </div>)
+//         }}
+//         </ThemeContext.Consumer>
+//     )
+// }
 
 export default PostSummary

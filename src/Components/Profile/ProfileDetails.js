@@ -1,46 +1,106 @@
-import React, { useState } from 'react'
-// import ProfilePanel from './ProfilePanel'
-
-import TripSummary from '../UI/Dashboard/TripSummary'
-import GroupSummary from '../UI/Dashboard/GroupSummary'
-import PostSummary from '../UI/Dashboard/PostSummary'
-
-
-const ProfileDetails = () => {
-    const [section, changeSection] = useState("sectionA");
-    return (
-        <div>
-       
-            <i class="material-icons justify-content-center d-flex micons15 blur margin5">account_circle</i>
-            <h5 className=" bold center">Pullip Lee</h5>
-            <p className="center">Sai Kung, Hong Kong</p>
+import React, { Component, useState } from 'react'
+import { ThemeContext } from '../../Contexts/Theme'
+import ThemeToggle from '../../Components/UI/Layout/ThemeToggle'
+import { Button, ButtonGroup, Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap';
+import { withRouter } from "react-router-dom";
 
 
-            <div className="d-flex justify-content-center margin1 ">
+class ProfileDetails extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            dropdownOpen: false,
+            setDropdownOpen: false
+        }
+    }
+    toggle = () => {
+        const { dropdownOpen } = this.state;
+        this.setState({
+            dropdownOpen: !dropdownOpen,
+        });
+        console.log(this.state.dropdownOpen)
+    };
 
-                <div onClick={() => changeSection("TripSummary")} id="TripSummary" className="card margin1 panels center">
-                    <h5 className="bold">30</h5>
-                    <p>Trips</p>
-                </div>
+    routeChange = () =>{ 
+        let path = `/signin`; 
+        this.props.history.push(path);
+      }
 
-                <div onClick={() => changeSection("GroupSummary")} id="GroupSummary" className="card margin1 panels center">
-                    <h5 className="bold">6</h5>
-                    <p>Groups</p>
-                </div>
+    render() {
 
-                <div onClick={() => changeSection("PostSummary")} id="PostSummary" className="card margin1 panels center">
-                    <h5 className="bold">2</h5>
-                    <p>Postings</p>
-                </div>
+        let locationsLength
+        let chatroomsLength
+        let postsLength
+        let favLength
 
-            </div >
-            <TripSummary />
-            <GroupSummary />
-            <PostSummary />
-        </div>
-    )
+        let userName
+        let userGender
+        if (this.props.locations) {
+
+            locationsLength = this.props.locations.length
+            chatroomsLength = this.props.chatrooms.length
+            postsLength = this.props.posts.length
+            favLength = this.props.favPosts.length
+
+            userName = this.props.user.user_name
+            userGender = this.props.user.gender
+
+        }
+        console.log(this.props)
+        // const numRows = membersToRender.length
+        return (
+            <ThemeContext.Consumer>{(context) => {
+                const { isLightTheme, light, dark } = context;
+                const theme = isLightTheme ? light : dark;
+                console.log(this.props.user)
+
+                return (
+                    <div className="container noBorder" style={{ background: theme.low }}>
+                        <Dropdown direction="down" isOpen={this.state.btnDropdown} toggle={() => { this.setState({ btnDropdown: !this.state.btnDropdown }); }} id="dropdownmenu">
+                            <DropdownToggle className="green noBorder" caret>
+                            </DropdownToggle>
+                            <DropdownMenu right>
+                                <DropdownItem onClick={this.routeChange}> Sign out</DropdownItem>
+                                <DropdownItem disabled><ThemeToggle /></DropdownItem>
+                            </DropdownMenu>
+                        </Dropdown>
+
+                        <i className="material-icons justify-content-center d-flex micons15 blur">account_circle</i>
+                        <h4 className=" bold justify-content-center d-flex">{userName}</h4>
+                        <p className="justify-content-center d-flex blur bold">{userGender}</p>
+
+
+                        <div className="d-flex justify-content-center" >
+                            <ButtonGroup >
+                                <Button onClick={this.props.filterLoc} color="secondary" className="margin1 sqBorder" >
+                                    <h4 className="bold justify-content-center d-flex">{locationsLength}</h4>
+                                    <p className="justify-content-center d-flex">Trips</p>
+                                </Button>
+
+                                <Button onClick={this.props.filterCha} color="secondary" className="margin1" >
+                                    <h4 className="bold justify-content-center d-flex">{chatroomsLength}</h4>
+                                    <p className="justify-content-center d-flex">Groups</p>
+                                </Button>
+
+                                <Button onClick={this.props.filterPos} color="secondary" className="margin1" >
+                                    <h4 className="bold justify-content-center d-flex">{postsLength}</h4>
+                                    <p className="justify-content-center d-flex">Posts</p>
+                                </Button>
+
+                                <Button onClick={this.props.filterFav} color="secondary" className="margin1 sqBorder">
+                                    <h4 className="bold justify-content-center d-flex">{favLength}</h4>
+                                    <p className="justify-content-center d-flex">Likes</p>
+                                </Button>
+                            </ButtonGroup>
+                        </div>
+
+                    </div>)
+            }}
+            </ThemeContext.Consumer>
+        )
+    }
+
 }
 
-export default ProfileDetails
 
-
+export default withRouter(ProfileDetails)

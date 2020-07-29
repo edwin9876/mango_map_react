@@ -4,16 +4,59 @@ import {
     FETCH_USER,
     UPDATE_USER,
     REMOVE_USER,
-    CREATE_FAVBLOG,
-    REMOVE_FAVBLOG,
+    CREATE_FAVPOST,
+    REMOVE_FAVPOST,
     CREATE_USERDISTRICT,
     REMOVE_USERDISTRICT,
-    CREATE_USERCHAT,
-    REMOVE_USERCHAT,
-    CREATE_USERCHATRECORD
-} from '../constants/action-types'
+    LOGIN_REQUEST,
+    LOGIN_SUCCESS,
+    LOGIN_FAILURE,
+    LOGOUT,
+    REGISTER_SUCCESS,
+    REGISTER_REQUEST,
+    REGISTER_FAILURE
 
+} from '../constants/actionTypes'
+
+import authHeader from '../helpers/authHeader'
 import axios from 'axios'
+
+export function login(email, password) {
+    return async (dispatch) => {
+        try {
+            dispatch({ type: LOGIN_REQUEST, payload: email })
+            let res = await axios.post('http://localhost:8000/auth/local-login', { email: email, password: password })
+            console.log(res.data)
+            localStorage.setItem('user', JSON.stringify(res.data))
+
+            dispatch({ type: LOGIN_SUCCESS, payload: res.data })
+        }
+        catch (err) {
+            dispatch({ type: LOGIN_FAILURE, payload: err })
+        }
+    }
+}
+
+export function logout() {
+    localStorage.removeItem('user');
+    return { type: LOGOUT }
+}
+
+export function signUp(userInfo) {
+    return async (dispatch) => {
+        try {
+            dispatch({ type: REGISTER_REQUEST, payload: userInfo })
+            let res = await axios.post('http://localhost:8000/auth/local-signup', { ...userInfo })
+            console.log(res.data)
+            // localStorage.setItem('user', JSON.stringify(res.data.user))
+
+            dispatch({ type: REGISTER_SUCCESS, payload: res.data.user })
+        }
+        catch (err) {
+            dispatch({ type: REGISTER_FAILURE, payload: err })
+        }
+    }
+}
 
 export function fetchAllUser() {
     return async (dispatch) => {
@@ -22,9 +65,13 @@ export function fetchAllUser() {
     }
 }
 
-export function fetchUser(payload) {
+export function fetchUser(user_id) {
     return async (dispatch) => {
-        let res = await axios(`https://localhost:8000/user/one/${payload.user_id}`)
+        console.log(user_id)
+        let res = await axios(`http://localhost:8000/user/one/${user_id}`, {
+            headers:authHeader()
+        })
+        console.log(res.data)
         dispatch({ type: FETCH_USER, payload: res.data })
     }
 }
@@ -36,10 +83,10 @@ export function createUser(payload) {
     }
 }
 
-export function createFavBlog(payload) {
+export function createFavPOST(payload) {
     return async (dispatch) => {
-        let res = await axios.post(`https://localhost:8000/authorized/${payload.user_id}/blog/${payload.blog_id}`)
-        dispatch({ type: CREATE_FAVBLOG, payload: res.data })
+        let res = await axios.post(`https://localhost:8000/authorized/${payload.user_id}/POST/${payload.POST_id}`)
+        dispatch({ type: CREATE_FAVPOST, payload: res.data })
     }
 
 }
@@ -50,20 +97,7 @@ export function createUserDistrict(payload) {
     }
 
 }
-export function createUserToUserChat(payload) {
-    return async (dispatch) => {
-        let res = await axios.post(`https://localhost:8000/authorized/${payload.user_id1}/userchat/${payload.user_id2}`)
-        dispatch({ type: CREATE_USERCHAT, payload: res.data })
-    }
 
-}
-
-export function createUserToUserChatRecord(payload) {
-    return async (dispatch) => {
-        let res = await axios.post(`https://localhost:8000/authorized/${payload.publisher_id}/userchatRecord/${payload.userChat_id}`,payload.chatRecord)
-        dispatch({ type: CREATE_USERCHATRECORD, payload:res.data })
-    } 
-}
 
 
 export function updateUser(payload) {
@@ -75,8 +109,8 @@ export function removeUser(payload) {
 }
 
 
-export function removeFavBlog(payload) {
-    return { type: REMOVE_FAVBLOG, payload }
+export function removeFavPOST(payload) {
+    return { type: REMOVE_FAVPOST, payload }
 }
 
 
@@ -85,6 +119,3 @@ export function removeUserDistrict(payload) {
 }
 
 
-export function removeUserChat(payload) {
-    return { type: REMOVE_USERCHAT, payload }
-}

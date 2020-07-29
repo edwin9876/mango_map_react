@@ -1,18 +1,18 @@
 import React from 'react'
+import { InputGroup, InputGroupAddon, Button, Input } from 'reactstrap';
 
 const SearchBar = () => {
-    return (
-
-        <div className="nav-wrapper">
-            <form>
-                <div className="input-field">
-                    <input id="search" type="search" required/>
-                        <label className="label-icon" for="search"><i className="material-icons">search</i></label>
-                        <i className="material-icons">close</i>
-                </div>
-            </form>
-        </div>
-    )
-}
-
+   
+            return (
+                <div >
+                    <InputGroup>
+                        <Input/>
+                        <InputGroupAddon addonType="append">
+                            <Button>Search</Button>
+                        </InputGroupAddon>
+                    </InputGroup>
+                </div>)
+            }
+ 
 export default SearchBar
+

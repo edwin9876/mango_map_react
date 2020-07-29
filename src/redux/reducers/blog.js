@@ -12,7 +12,7 @@ import {
   REMOVE_POSTIMAGE,
   FETCH_ALLPOST,
   FETCH_POST,
-} from '../constants/action-types';
+} from '../constants/actionTypes';
 
 const initialBlogState = {
   images: [
@@ -42,9 +42,12 @@ const initialBlogState = {
     },
   ],
 
-    post: [{
-        id: '4', title: 'Mini Trip in HK', author: 'Pullip123',
-        content: `Hope. Fear. Excitement. Traveling for the first time produced a wave of emotions.
+  post: [
+    {
+      id: '4',
+      title: 'Mini Trip in HK',
+      author: 'Pullip123',
+      content: `Hope. Fear. Excitement. Traveling for the first time produced a wave of emotions.
 
         When I left to travel the world on my first round-the-world trip, I didn’t know what to expect.
         
@@ -58,19 +61,15 @@ const initialBlogState = {
         
         So, if you’re new to travel and looking for advice to help you prepare, here are 12 tips that I’d tell a new traveler to help them avoid some of my early mistakes:
       `,
-<<<<<<< HEAD
-      main_picture_url: `https://www.wowabouts.com/z-media/2018/10/Dragon's%20Back%201.jpg`,
+      main_picture_url: `https://www.bhg.com.au/media/20109/mangos.jpg`,
+      comments: [
+        { id: '1', user_id: 'Jacky123', body: 'Quite inspiring!' },
+        { id: '2', user_id: 'Edwin123', body: 'Quite surprising!' },
+      ],
       modified: false,
       userDistrict_id: '',
     },
   ],
-=======
-        main_picture_url: `https://www.wowabouts.com/z-media/2018/10/Dragon's%20Back%201.jpg`,
-        comments: [{ id: '1', user_id: 'Jacky123', body: 'Quite inspiring!' }, { id: '2', user_id: 'Edwin123', body: 'Quite surprising!' }],
-        modified: false,
-        userDistrict_id: '',
-    }],
->>>>>>> 4edce4f6aff4dcd999bbed92f157ffb66ccdb9b4
 
   posts: [
     {
@@ -118,10 +117,12 @@ function blogReducer(state = initialBlogState, action) {
         ...state,
       };
     case CREATE_COMMENT:
+      console.log('created comment');
       return {
         ...state,
       };
     case CREATE_POST:
+      console.log('created post');
       return {
         ...state,
       };
