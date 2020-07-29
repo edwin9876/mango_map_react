@@ -10,23 +10,73 @@ import {
   UPDATE_CHATROOMUSER,
   FETCH_CHATROOM_LIST,
   FETCH_CHATROOM,
+  BACK_TO_CHAT_LIST,
+  SET_MESSAGE,
+  SEND_MESSAGE,
 } from '../constants/actionTypes';
 
 import axios from 'axios';
 
-export const fetchChatroomList = () => {
+export const fetchChatroomList = (userId) => {
   return async (dispatch) => {
-    let res = await axios('https://localhost:8000/chatroom/all');
+    let res = await axios(`https://localhost:8000/chatroom/all/${userId}`);
+    console.log(res.data);
     dispatch({ type: FETCH_CHATROOM_LIST, payload: res.data });
   };
 };
 
 export const fetchChatroom = (payload) => {
   return async (dispatch) => {
-    let res = await axios(
-      `https://localhost:8000/chatroom/${payload.chatroom_id}`
-    );
-    dispatch({ type: FETCH_CHATROOM, payload: res.data });
+    let res = await axios(`https://localhost:8000/chatroom/${payload}`);
+    let mergedConversation = [];
+    const chatroomUsers = res.data.chatroomUser;
+    for (let chats of chatroomUsers) {
+      for (let chat of chats.chatRecords) {
+        chat.user_name = chats.user_name;
+        mergedConversation.push(chat);
+      }
+    }
+
+    mergedConversation.sort((a, b) => {
+      return a.id - b.id || a.name.localeCompare(b.name);
+    });
+
+    console.log(mergedConversation);
+
+    dispatch({
+      type: FETCH_CHATROOM,
+      payload: mergedConversation,
+      roomId: res.data.id,
+    });
+  };
+};
+
+export const backToChatList = () => {
+  return (dispatch) => {
+    dispatch({ type: BACK_TO_CHAT_LIST });
+  };
+};
+
+export const setMessage = (value) => {
+  return (dispatch) => {
+    dispatch({ type: SET_MESSAGE, payload: value });
+  };
+};
+
+export const sendMessage = (message, roomId, roomUserId) => {
+  console.log(message, roomId, roomUserId);
+  return async (dispatch) => {
+    console.log('Inside');
+    await axios
+      .post('https://localhost:8000/chatroom/record', {
+        message: message,
+        roomId: roomId,
+        roomUserId: roomUserId,
+      })
+      .then((res) => {
+        console.log(res.data[0]);
+        dispatch({ type: SEND_MESSAGE, payload: res.data[0] });
+      });
   };
 };
 

@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import ScrollToBottom from 'react-scroll-to-bottom';
-import { connect } from 'react-redux';
-import * as actionTypes from '../../../redux/constants/actionTypes';
 
-import * as actions from '../../../redux/actions/chatroom';
-import state from '../../../redux/reducers/chatroom';
+import {
+  fetchChatroomList,
+  fetchChatroom,
+  setMessage,
+  sendMessage,
+} from '../../../redux/actions/chatroom';
+
+import { connect } from 'react-redux';
 
 import io from 'socket.io-client';
 import { css } from 'glamor';
@@ -44,23 +48,14 @@ class Chat extends Component {
       console.log(message);
       console.log('[chat-message] received');
     });
+
+    this.props.fetchChatroomList(this.props.userId);
   }
 
   componentWillUnmount() {
     this.socket.emit('disconnect');
     this.socket.off();
   }
-
-  // State.messages is the input value the users type in
-  setMessage = (message) => {
-    this.setState(
-      {
-        ...this.state,
-        messages: [message],
-      },
-      () => console.log(this.state.messages)
-    );
-  };
 
   // State.conversation is the complete chat history and new messages
   // In the current chatroom
@@ -93,8 +88,6 @@ class Chat extends Component {
       }
     );
   };
-
-  // Fake data
 
   // This is invoked when user click a room div
   changeRoomIdHandler = (id) => {
@@ -139,9 +132,15 @@ class Chat extends Component {
         </ScrollToBottom>
         <div>
           <Input
-            sendMessageHandler={this.sendMessageHandler}
+            sendMessage={() =>
+              this.props.sendMessage(
+                this.props.messages,
+                this.props.currentRoomId,
+                this.props.chatroomUserId
+              )
+            }
             messages={this.props.messages}
-            setMessage={this.setMessage}
+            setMessage={this.props.setMessage}
           />{' '}
         </div>
       </div>
@@ -149,11 +148,11 @@ class Chat extends Component {
       // Display the list of chatrooms the user has
       this.props.roomList.map((room, index) => {
         return (
-          <div key={index} onClick={() => this.changeRoomIdHandler(index)}>
+          <div key={index} onClick={() => this.props.fetchChatroom(index + 1)}>
             <ul className='collection'>
               <li className='collection-item avatar gray70'>
                 <i className='material-icons circle grey blur'>star</i>
-                <span className='title bold'>{room.roomName}</span>
+                <span className='title bold'>{room.room_name}</span>
                 <p>Last message</p>
                 <a href='#!' className='secondary-content'>
                   <i className='material-icons blur'>grade</i>
@@ -173,6 +172,7 @@ const mapStateToProps = (state) => {
   return {
     userId: state.chatroom.userId,
     username: state.chatroom.username,
+    chatroomUserId: state.chatroom.chatroomUserId,
     roomList: state.chatroom.roomList,
     currentRoomId: state.chatroom.currentRoomId,
     messages: state.chatroom.messages,
@@ -180,4 +180,14 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, actions)(Chat);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchChatroomList: (userId) => dispatch(fetchChatroomList(userId)),
+    fetchChatroom: (id) => dispatch(fetchChatroom(id)),
+    setMessage: (event) => dispatch(setMessage(event)),
+    sendMessage: (message, roomId, roomUserId) =>
+      dispatch(sendMessage(message, roomId, roomUserId)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);
