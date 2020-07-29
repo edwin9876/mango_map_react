@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeContext } from '../../Contexts/Theme'
-import {  ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
+import { ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
 
 const BlogList = (props) => {
 
@@ -10,19 +10,14 @@ const BlogList = (props) => {
       const theme = isLightTheme ? light : dark;
 
       return (
-        <div className="vw100">
+        <div className='margin1vw'>
           {/* in case there's no posts */}
-          {/* <div className="margin1" > */}
-            <ListGroupItem style={{ background: theme.low, color: theme.high, borderColor: theme.high }}>
-              <ListGroupItemHeading>{props.post.title}</ListGroupItemHeading>
-              <ListGroupItemText className="blur">at {props.post.locationName}</ListGroupItemText>
-              <ListGroupItemText className="blur">by {props.post.userName}</ListGroupItemText>
-              <ListGroupItemText className="blur">{props.post.created_at}</ListGroupItemText>
-            </ListGroupItem>
-          {/* </div> */}
-
-
-
+          <ListGroupItem style={{ background: theme.low, color: theme.high, borderColor: theme.high }}>
+            <ListGroupItemHeading className="d-flex justify-content-center">{props.post.title.toUpperCase()}</ListGroupItemHeading>
+            <ListGroupItemText className="gray70 d-flex justify-content-center">{props.post.locationName.toUpperCase()}</ListGroupItemText>
+            <ListGroupItemText className="blur d-flex justify-content-center">by {props.post.userName}</ListGroupItemText>
+            <p className="blur d-flex justify-content-center">{props.post.created_at.slice(0, 10)}</p>
+          </ListGroupItem>
         </div>)
     }}
     </ThemeContext.Consumer>

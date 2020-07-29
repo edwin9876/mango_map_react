@@ -37,18 +37,30 @@ body {
 .margin5 {margin:5%}
 .mb10vh{margin-bottom: 10vh;}
 .padding1{padding:1rem}
+.padding1vw{padding:1vw}
 .paddingy1{padding:1rem 0;}
 .floatR{float: right;}
+.noRow{margin-left: 15px; margin-right: 15px;}
 
 /* sizing */
 .height5{height: 5vh!important;}
 .height6{height: 6vh;}
 .icons15{width: 15vw; height: 13vw;padding: 1vw;}
 .icons20{width: 20vw; height: 18vw;padding: 1vw;}
-.icons30{width: 30vw; padding: 2vw;}
+.icons25{width:25vw; padding:2px}
+.icons30{width: 30vw; padding: 2px;}
 .micons1{font-size: 2.25rem; padding:0 1rem}
 .micons15{font-size: 4rem;}
-.vw100{max-width: 100vw;min-width: 100vw;}
+.vw100{max-width: 100vw;min-width: 100vw; }
+.imagecol3{
+    margin: 1vw 1vw 0 0;
+}
+.profilepic{
+    width: 20vw; 
+    height: 25vw;
+    display: flex;
+    justify-items: center;
+}
 .roundimg{
     float: left;
     max-width: 60px;
@@ -106,7 +118,7 @@ button:focus {
 
 /* createpost page */
 #Post_container{
-    max-width:"100vw";
+    max-width:100%;
     min-height:100vh;
     padding-bottom: 10vh;
 }
@@ -114,13 +126,32 @@ button:focus {
 /* blog */
 #blog_container{
 min-height:100vh;
+max-width:100vw;
 padding-bottom: 10vh;
 }
+
+#bloglist{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+#render_container{
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+
 /* chat */
 #chat_container{
     min-height:100vh;
     padding-bottom: 10vh;
     }
+#post_card{
+    width: 90vw;
+}
+
 
 /* Profile page */
 #dropdownmenu{
@@ -156,4 +187,5 @@ padding-bottom: 10vh;
     /* filter: drop-shadow(16px 16px 20px #ffffff) invert(45%); */
     color: grey;
 }
+
 

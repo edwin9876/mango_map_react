@@ -21,10 +21,10 @@ class ProfileDetails extends Component {
         console.log(this.state.dropdownOpen)
     };
 
-    routeChange = () =>{ 
-        let path = `/signin`; 
+    routeChange = () => {
+        let path = `/signin`;
         this.props.history.push(path);
-      }
+    }
 
     render() {
 
@@ -33,6 +33,7 @@ class ProfileDetails extends Component {
         let postsLength
         let favLength
 
+        let userPic
         let userName
         let userGender
         if (this.props.locations) {
@@ -42,6 +43,7 @@ class ProfileDetails extends Component {
             postsLength = this.props.posts.length
             favLength = this.props.favPosts.length
 
+            userPic = this.props.user.profile_picture_url
             userName = this.props.user.user_name
             userGender = this.props.user.gender
 

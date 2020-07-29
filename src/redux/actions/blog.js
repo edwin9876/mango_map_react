@@ -12,10 +12,22 @@ import {
     REMOVE_POSTIMAGE,
     FETCH_ALLPOST,
     FETCH_POST,
+    // FETCH_WEEKLYPOST
 } from '../constants/actionTypes'
 
 import axios from 'axios'
 import authHeader from '../helpers/authHeader'
+
+
+
+// export function fetchWeeklyPost(){
+//     return dispatch => {
+//         return axios(`https://localhost:8000/blog/${payload.blog_id}`)
+//             .then(res => {
+//                 dispatch({ type: FETCH_WEEKLYPOST, payload: res.data })
+//             })
+//     }
+// }
 
 
 export function fetchAllPost() {
