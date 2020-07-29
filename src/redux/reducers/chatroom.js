@@ -10,33 +10,20 @@ import {
   UPDATE_CHATROOMUSER,
   FETCH_CHATROOM_LIST,
   FETCH_CHATROOM,
+  BACK_TO_CHAT_LIST,
+  SET_MESSAGE,
+  SEND_MESSAGE,
 } from '../constants/actionTypes';
 
 const initialChatroomState = {
   userId: 1,
-  username: 'Jacky',
+  // Should be set according to the currentRoomId
+  chatroomUserId: 1,
+  username: 'Edwin',
   currentRoomId: null,
-  roomList: [
-    {
-      roomName: 'Pullip',
-    },
-    {
-      roomName: 'Edwin',
-    },
-    {
-      roomName: 'Jacky',
-    },
-    {
-      roomName: 'The capstone project group',
-    },
-  ],
-  messages: [],
-  conversation: [
-    { userId: 1, user: 'Jacky', message: 'hi' },
-    { userId: 1, user: 'Jacky', message: "How you doin'?" },
-    { userId: 2, user: 'Edwin', message: 'I am fine, thank you.' },
-    { userId: 3, user: 'Pullip', message: 'I go to school by bus.' },
-  ],
+  roomList: [],
+  messages: [''],
+  conversation: [],
 };
 
 const chatroomReducer = (state = initialChatroomState, action) => {
@@ -44,23 +31,45 @@ const chatroomReducer = (state = initialChatroomState, action) => {
     case FETCH_CHATROOM_LIST:
       return {
         ...state,
-        chatrooms: action.payload,
+        roomList: action.payload,
       };
 
     case FETCH_CHATROOM:
       return {
         ...state,
-        chatroom: action.payload,
+        currentRoomId: action.roomId,
+        conversation: action.payload,
+      };
+
+    case SET_MESSAGE:
+      return {
+        ...state,
+        messages: [action.payload],
+      };
+
+    case SEND_MESSAGE:
+      return {
+        ...state,
+        messages: [''],
+        conversation: [...state.conversation, action.payload],
       };
 
     case CREATE_CHATROOM:
       return {
         ...state,
       };
+
     case CREATE_CHATROOMRECORD:
       return {
         ...state,
       };
+
+    case BACK_TO_CHAT_LIST:
+      return {
+        ...state,
+        currentRoomId: null,
+      };
+
     default:
       return {
         ...state,
