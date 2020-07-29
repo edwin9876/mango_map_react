@@ -150,6 +150,19 @@ const mapStateToProps = (state) => {
   };
 };
 
+<<<<<<< HEAD
+const mapStateToProps = state => {
+    return {
+        ...state.auth
+    };
+}
+
+
+const SignIn = connect(mapStateToProps)(ConnetedSignIn)
+
+export default SignIn
+=======
 const SignIn = connect(mapStateToProps)(ConnetedSignIn);
 
 export default SignIn;
+>>>>>>> 1d615312e04c69dcbca0b502a5c76fb56b1f2816
