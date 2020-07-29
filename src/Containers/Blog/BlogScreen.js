@@ -8,39 +8,103 @@ import WeeklyPost from '../../Components/UI/Dashboard/WeeklyPost'
 import TopPics from '../../Components/UI/Dashboard/TopPics'
 import TopUsers from '../../Components/UI/Dashboard/TopUsers'
 import BlogList from '../../Components/Blog/BlogList'
+import { ListGroup, Button, ButtonGroup } from 'reactstrap'
+import { fetchAllPost } from '../../redux/actions/blog'
+import { fetchAllImages } from '../../redux/actions/image'
+import { fetchAllUser } from '../../redux/actions/user'
 
-import{fetchAllPost} from '../../redux/actions/blog'
 
-import { Button, ButtonGroup } from 'reactstrap';
 
-const mapStateToProps = (state) => {
-    return {
-        post: state.blog.post,
-        posts: state.blog.posts,
-        pictures: state.blog.images,
-        users: state.user.users
-    }
-}
 
-class BlogScreen extends Component {
+
+class ConnectedBlogScreen extends Component {
     static contextType = ThemeContext;
-    state = {
-        buttonId: null
+
+
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            showPosts: true,
+            showImages: false,
+            showUsers: false,
+        }
+    }
+    componentWillUnmount() {
+        this.setState({
+            showPosts: true,
+            showImages: false,
+            showUsers: false,
+        })
+
     }
 
+    async componentDidMount() {
 
-componentDidMount(){
-    
-}
+        const { dispatch } = this.props
 
-    handleRender = (id) => {
-        this.setState({ buttonId: id });
+        await dispatch(fetchAllPost())
+
+        if (this.props.blog.posts) {
+            this.setState({
+                ...this.state,
+                posts: this.props.blog.posts,
+            })
+        }
+        await dispatch(fetchAllImages())
+
+        if (this.props.img.images) {
+            this.setState({
+                ...this.state,
+                images: this.props.img.images
+            })
+        }
+
+        await dispatch(fetchAllUser())
+
+        if (this.props.user.users) {
+            this.setState({
+                ...this.state,
+                users: this.props.user.users
+            })
+        }
+
     }
+    filterImg = (e) => {
+
+        const { showImages } = this.state;
+        this.setState({
+            showPosts: false,
+            showImages: !showImages,
+            showUsers: false,
+        })
+
+    }
+    filterUser = (e) => {
+
+        const { showUsers } = this.state;
+        this.setState({
+            showPosts: false,
+            showImages: false,
+            showUsers: !showUsers,
+        })
+
+    }
+    filterPost = (e) => {
+
+        const { showPosts } = this.state;
+        this.setState({
+            showPosts: !showPosts,
+            showImages: false,
+            showUsers: false,
+        })
+
+    }
+
 
     render() {
         const { isLightTheme, light, dark } = this.context;
         const theme = isLightTheme ? light : dark;
-
         return (
 
             <div id="blog_container" style={{ background: theme.low, color: theme.high }}>
@@ -49,16 +113,32 @@ componentDidMount(){
                 {/* <WeeklyPic />*/}
 
                 <ButtonGroup className="d-flex justify-content-center">
-                    <Button onClick={() => this.handleRender(1)} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>New Posts</h6></Button>
-                    <Button onClick={() => this.handleRender(2)} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>New Pictures</h6></Button>
-                    <Button onClick={() => this.handleRender(3)} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>Top Users</h6></Button>
+                    <Button onClick={this.filterPost} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>New Posts</h6></Button>
+                    <Button onClick={this.filterImg} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>New Pictures</h6></Button>
+                    <Button onClick={this.filterUser} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>Top Users</h6></Button>
                 </ButtonGroup>
 
                 <div className="d-flex justify-content-center ">
-                    {this.state.buttonId === 1 && <BlogList posts={this.props.posts} />}
-                    {this.state.buttonId === 2 && <TopPics pictures={this.props.pictures} />}
-                    {this.state.buttonId === 3 && <TopUsers users={this.props.users} />}
-                    {this.state.buttonId !== 1 && this.state.buttonId !== 2 && this.state.buttonId !== 3 && <BlogList posts={this.props.posts} />}
+
+                    <ListGroup>
+                        {this.state.posts && this.state.showPosts &&
+                            this.state.posts.map((post, i) => {
+                                return <BlogList key={i} post={post} />
+                            })}
+                    </ListGroup>
+
+                    <ListGroup>
+                        {this.state.images && this.state.showImages &&
+                            this.state.images.map((img, i) => {
+                                return <TopPics key={i} image={img} />
+                            })}
+                    </ListGroup>
+
+                    {this.state.users && this.state.showUsers &&
+                        this.state.users.map((user, i) => {
+                            return <TopUsers key={i} user={user} />
+                        })}
+
 
                 </div>
             </div>
@@ -66,6 +146,13 @@ componentDidMount(){
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        ...state
+    }
+}
 
 
-export default connect(mapStateToProps)(BlogScreen)
+const BlogScreen = connect(mapStateToProps)(ConnectedBlogScreen)
+
+export default BlogScreen
