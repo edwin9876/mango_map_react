@@ -127,4 +127,3 @@ const mapStateToProps = state => {
 const SignIn = connect(mapStateToProps)(ConnetedSignIn)
 
 export default SignIn
-

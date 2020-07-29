@@ -61,7 +61,6 @@ const initialBlogState = {
         
         So, if you’re new to travel and looking for advice to help you prepare, here are 12 tips that I’d tell a new traveler to help them avoid some of my early mistakes:
       `,
-      main_picture_url: `https://www.bhg.com.au/media/20109/mangos.jpg`,
       comments: [
         { id: '1', user_id: 'Jacky123', body: 'Quite inspiring!' },
         { id: '2', user_id: 'Edwin123', body: 'Quite surprising!' },
