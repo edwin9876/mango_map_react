@@ -12,6 +12,7 @@ class ThemeContextProvider extends Component {
     }
 
     toggleTheme = (e) => {
+        e.preventDefault()
         this.setState({ isLightTheme: !this.state.isLightTheme })
     }
 
