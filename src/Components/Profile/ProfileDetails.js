@@ -2,6 +2,7 @@ import React, { Component, useState } from 'react'
 import { ThemeContext } from '../../Contexts/Theme'
 import ThemeToggle from '../../Components/UI/Layout/ThemeToggle'
 import { Button, ButtonGroup, Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap';
+import { withRouter } from "react-router-dom";
 
 
 class ProfileDetails extends Component {
@@ -20,26 +21,32 @@ class ProfileDetails extends Component {
         console.log(this.state.dropdownOpen)
     };
 
+    routeChange = () =>{ 
+        let path = `/signin`; 
+        this.props.history.push(path);
+      }
+
     render() {
 
         let locationsLength
         let chatroomsLength
         let postsLength
-        // let favLength
+        let favLength
+
         let userName
         let userGender
         if (this.props.locations) {
 
             locationsLength = this.props.locations.length
             chatroomsLength = this.props.chatrooms.length
-            postsLength = this.props.chatrooms.length
-            // favLength = this.props.favourites.length
+            postsLength = this.props.posts.length
+            favLength = this.props.favPosts.length
 
             userName = this.props.user.user_name
             userGender = this.props.user.gender
 
         }
-
+        console.log(this.props)
         // const numRows = membersToRender.length
         return (
             <ThemeContext.Consumer>{(context) => {
@@ -49,11 +56,11 @@ class ProfileDetails extends Component {
 
                 return (
                     <div className="container noBorder" style={{ background: theme.low }}>
-                        <Dropdown direction="" isOpen={this.state.btnDropdown} toggle={() => { this.setState({ btnDropdown: !this.state.btnDropdown }); }} id="dropdownmenu">
+                        <Dropdown direction="down" isOpen={this.state.btnDropdown} toggle={() => { this.setState({ btnDropdown: !this.state.btnDropdown }); }} id="dropdownmenu">
                             <DropdownToggle className="green noBorder" caret>
                             </DropdownToggle>
                             <DropdownMenu right>
-                                <DropdownItem>Sign out</DropdownItem>
+                                <DropdownItem onClick={this.routeChange}> Sign out</DropdownItem>
                                 <DropdownItem disabled><ThemeToggle /></DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
@@ -65,23 +72,23 @@ class ProfileDetails extends Component {
 
                         <div className="d-flex justify-content-center" >
                             <ButtonGroup >
-                                <Button color="secondary" className="margin1 sqBorder">
+                                <Button onClick={this.props.filterLoc} color="secondary" className="margin1 sqBorder" >
                                     <h4 className="bold justify-content-center d-flex">{locationsLength}</h4>
                                     <p className="justify-content-center d-flex">Trips</p>
                                 </Button>
 
-                                <Button color="secondary" className="margin1">
+                                <Button onClick={this.props.filterCha} color="secondary" className="margin1" >
                                     <h4 className="bold justify-content-center d-flex">{chatroomsLength}</h4>
                                     <p className="justify-content-center d-flex">Groups</p>
                                 </Button>
 
-                                <Button color="secondary" className="margin1">
+                                <Button onClick={this.props.filterPos} color="secondary" className="margin1" >
                                     <h4 className="bold justify-content-center d-flex">{postsLength}</h4>
                                     <p className="justify-content-center d-flex">Posts</p>
                                 </Button>
 
-                                <Button color="secondary" className="margin1 sqBorder">
-                                    <h4 className="bold justify-content-center d-flex">1</h4>
+                                <Button onClick={this.props.filterFav} color="secondary" className="margin1 sqBorder">
+                                    <h4 className="bold justify-content-center d-flex">{favLength}</h4>
                                     <p className="justify-content-center d-flex">Likes</p>
                                 </Button>
                             </ButtonGroup>
@@ -96,4 +103,4 @@ class ProfileDetails extends Component {
 }
 
 
-export default ProfileDetails
+export default withRouter(ProfileDetails)

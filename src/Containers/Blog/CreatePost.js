@@ -76,7 +76,7 @@ class ConnectedCreatePost extends Component {
     const newBlog = this.state.post
     console.log(newBlog)
     console.log(user_id)
-    if (title && body && category && location_id &&user_id){
+    if (title && body && category && location_id && user_id){
       await dispatch(createPost(newBlog, user_id))
       console.log(this.state)
     }
@@ -145,14 +145,14 @@ class ConnectedCreatePost extends Component {
         {redirect}
 
         <ButtonGroup className="d-flex justify-content-center paddingy1">
-          {/* <Button onClick={() => this.handleRender(1)} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}> <i className="material-icons">create</i></Button> */}
+          <Button onClick={() => this.handleRender(1)} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}> <i className="material-icons">create</i></Button>
 
           <Button onClick={() => this.handleRender(2)} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}> <i className="material-icons">add_a_photo</i></Button>
         </ButtonGroup>
 
-        {/* {this.state.buttonId === 1 && this.state.categories ? <NewPost categories={this.state.categories} />:null}
+        {this.state.buttonId === 1 && this.state.categories ? <NewPost categories={this.state.categories} />:null}
         {this.state.buttonId === 2 && <NewPic />}
-        {this.state.buttonId !== 1 && this.state.buttonId !== 2 && this.state.categories ? <NewPost categories={this.state.categories} /> : null} */}
+        {this.state.buttonId !== 1 && this.state.buttonId !== 2 && this.state.categories ? <NewPost categories={this.state.categories} /> : null}
         <Form className="margin5" id="createPost" onSubmit={this.handleSubmit}>
           <FormGroup>
             <Label for="title">Title</Label>
