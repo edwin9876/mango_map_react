@@ -95,39 +95,39 @@ const initialBlogState = {
 };
 
 function blogReducer(state = initialBlogState, action) {
-    switch (action.type) {
-        case FETCH_ALLPOST:
-            return {
-                ...state,
-                posts: [...action.payload]
-            }
-        case FETCH_POST:
-            return {
-                ...state,
-                post: [...action.payload]
-            }
-        case FETCH_ALLCATEGORY:
-            return {
-                ...state,
-                categories: [...action.payload]
-            }
-        case CREATE_NEWCATEGORY:
-            return {
-                ...state
-            }
-        case CREATE_COMMENT:
-            console.log('created comment')
-            return {
-                ...state
-            }
-        case CREATE_POST:
-            console.log('created post')
-            return {
-               ...state
-            }
-        default:
-            return state
-    }
+  switch (action.type) {
+    case FETCH_ALLPOST:
+      return {
+        ...state,
+        posts: [...action.payload],
+      };
+    case FETCH_POST:
+      return {
+        ...state,
+        post: [...action.payload],
+      };
+    case FETCH_ALLCATEGORY:
+      return {
+        ...state,
+        categories: [...action.payload],
+      };
+    case CREATE_NEWCATEGORY:
+      return {
+        ...state,
+      };
+    case CREATE_COMMENT:
+      console.log('created comment');
+      return {
+        ...state,
+      };
+    case CREATE_POST:
+      console.log('created post');
+      return {
+        ...state,
+      };
+    default:
+      return state;
+  }
 }
 
 export default blogReducer;

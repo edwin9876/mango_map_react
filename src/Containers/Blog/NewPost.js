@@ -8,19 +8,12 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 export default class NewPost extends Component {
     static contextType = ThemeContext;
 
-  state = {
-    buttonId: null,
-    title: '',
-    category: '',
-    content: '',
-    author: 'Max',
-    submitted: false,
-  };
+
     render() {
         const { isLightTheme, light, dark } = this.context;
         const theme = isLightTheme ? light : dark;
     
-
+      console.log(this.props)
         return (
             <div>
             <Form className="margin5" id="createPost" onSubmit={this.handleSubmit}>
@@ -32,11 +25,12 @@ export default class NewPost extends Component {
             <FormGroup>
               <Label for="exampleSelectMulti">Choose Category</Label>
               <Input style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} type="select" name="selectMulti" id="exampleSelectMulti" multiple>
-                <option id="category" >1</option>
-                <option id="category" >2</option>
-                <option id="category" >3</option>
-                <option id="category" >4</option>
-                <option id="category" >5</option>
+              {this.props.categories?
+              this.props.categories.map((c,i)=>{
+                return <option key={i} value={c.category}> {c.category}</option>
+              }):null}
+              
+               
               </Input>
             </FormGroup>
   
