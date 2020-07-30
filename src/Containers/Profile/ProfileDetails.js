@@ -21,8 +21,13 @@ class ProfileDetails extends Component {
         console.log(this.state.dropdownOpen)
     };
 
-    routeChange = () => {
+    routeChangeSignout = () => {
         let path = `/signin`;
+        this.props.history.push(path);
+    }
+
+    routeChangeEditprofile = () => {
+        let path = `/profile/:id/edit`;
         this.props.history.push(path);
     }
 
@@ -62,7 +67,8 @@ class ProfileDetails extends Component {
                             <DropdownToggle className="green noBorder" caret>
                             </DropdownToggle>
                             <DropdownMenu right>
-                                <DropdownItem onClick={this.routeChange}> Sign out</DropdownItem>
+                                <DropdownItem onClick={this.routeChangeSignout}> Sign out</DropdownItem>
+                                <DropdownItem onClick={this.routeChangeEditprofile}> Edit Profile</DropdownItem>
                                 <DropdownItem disabled><ThemeToggle /></DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
