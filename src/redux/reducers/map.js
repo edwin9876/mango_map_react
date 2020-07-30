@@ -1,29 +1,29 @@
 import {
-  CREATE_DISTRICT,
-  UPDATE_DISTRICT,
-  REMOVE_DISTRICT,
-  FETCH_DISTRICT,
-  FETCH_ALLDISTRICT,
+  CREATE_LOCATION,
+  UPDATE_LOCATION,
+  REMOVE_LOCATION,
+  FETCH_LOCATION,
+  FETCH_ALLLOCATION
 } from '../constants/actionTypes';
 
 const initialMapState = {
-  districts: [],
-  district: [],
+  locations: [],
+  location: [],
 };
 
 const mapReducer = (state = initialMapState, action) => {
   switch (action.type) {
-    case FETCH_ALLDISTRICT:
+    case FETCH_ALLLOCATION:
       return {
         ...state,
-        districts: [...action.payload],
+        locations: [...action.payload],
       };
-    case FETCH_DISTRICT:
+    case FETCH_LOCATION:
       return {
         ...state,
-        district: [...action.payload],
+        location: [...action.payload],
       };
-    case CREATE_DISTRICT:
+    case CREATE_LOCATION:
       return {
         ...state,
       };
