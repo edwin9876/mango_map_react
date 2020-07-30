@@ -17,6 +17,7 @@ import Input from '../../../Components/Chat/Input/Input';
 import Messages from '../../../Components/Chat/Messages/Messages';
 
 import { Button, ButtonGroup } from 'reactstrap';
+
 import { ThemeContext } from '../../../Contexts/Theme';
 
 import './Chat.css';
@@ -52,19 +53,14 @@ class Chat extends Component {
     this.props.fetchChatroomList(this.props.userId);
   }
 
+  componentDidUpdate() {
+    console.log(this.props);
+  }
+
   componentWillUnmount() {
     this.socket.emit('disconnect');
     this.socket.off();
   }
-
-  // State.conversation is the complete chat history and new messages
-  // In the current chatroom
-  setConversationHandler = (message) => {
-    this.setState({
-      ...this.state,
-      conversation: [...this.state.conversation, message],
-    });
-  };
 
   // Sending the message to server
   // Will trigger the chat-message event in componentDidMount
@@ -121,7 +117,7 @@ class Chat extends Component {
           <div className='margin5'>
             <Messages
               conversation={this.props.conversation}
-              userId={this.props.userId}
+              chatroomUserId={this.props.chatroomUserId}
             />
           </div>
         </ScrollToBottom>
