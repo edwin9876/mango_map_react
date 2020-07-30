@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { ThemeContext } from '../../Contexts/Theme'
-// Global - index.css , Local - Blog.css
-import './Blog.css';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 
