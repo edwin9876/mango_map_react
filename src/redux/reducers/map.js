@@ -3,20 +3,29 @@ import {
   UPDATE_DISTRICT,
   REMOVE_DISTRICT,
   FETCH_DISTRICT,
-  FETCH_ALLDISTRICT,
+  FETCH_ALL_DISTRICTS,
+  CHANGE_ZOOM_LEVEL,
+  FETCH_ALL_LOCATIONS,
 } from '../constants/actionTypes';
 
 const initialMapState = {
   districts: [],
-  district: [],
+  locations: [],
+  zoom: 12,
 };
 
 const mapReducer = (state = initialMapState, action) => {
+  console.log(action);
   switch (action.type) {
-    case FETCH_ALLDISTRICT:
+    case FETCH_ALL_DISTRICTS:
       return {
         ...state,
         districts: [...action.payload],
+      };
+    case FETCH_ALL_LOCATIONS:
+      return {
+        ...state,
+        locations: [...action.payload],
       };
     case FETCH_DISTRICT:
       return {
@@ -27,9 +36,16 @@ const mapReducer = (state = initialMapState, action) => {
       return {
         ...state,
       };
+
+    case CHANGE_ZOOM_LEVEL:
+      return {
+        ...state,
+        zoom: action.payload,
+      };
     default:
       return {
         ...state,
+        districts: ['BUGGY'],
       };
   }
 };

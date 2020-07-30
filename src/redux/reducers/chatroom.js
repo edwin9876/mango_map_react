@@ -28,8 +28,6 @@ const initialChatroomState = {
 };
 
 const chatroomReducer = (state = initialChatroomState, action) => {
-  console.log(action);
-  console.log('Data has reached reudcer');
   switch (action.type) {
     case FETCH_CHATROOM_LIST:
       return {

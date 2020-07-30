@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Map, InfoWindow, GoogleApiWrapper, Marker } from 'google-maps-react';
-
-import icon from '../../assets/icons/adventure.png';
-import photo1 from '../../assets/photos/1.jpg';
-import SearchBar from '../../Components/UI/Layout/SearchBar';
-
-import predefinedLocations from './PredefinedLocations/LocationStorage';
-import CurrentLocationTesting from './CurrentLocation';
-
+import { connect } from 'react-redux';
 import axios from 'axios';
+import predefinedLocations from './PredefinedLocations/LocationStorage';
 
 // import mapStyle from './mapStyle';
 import simple from './mapStyle_simple';
+import {
+  fetchAllDistricts,
+  changeZoomLevel,
+  fetchAllLocations,
+} from '../../redux/actions/map';
 
 const mapStyles = {
   width: '100%',
@@ -22,7 +21,7 @@ const mapStyles = {
 export class MapContainer extends Component {
   constructor(props) {
     super(props);
-    this.refs = React.createRef();
+    this.mapRefs = React.createRef();
   }
 
   state = {
@@ -38,6 +37,9 @@ export class MapContainer extends Component {
   };
 
   componentDidMount() {
+    this.props.fetchAllDistricts();
+    this.props.fetchAllLocations();
+
     if (navigator && navigator.geolocation) {
       // console.log(this.props.google.maps.Map().panT);
       navigator.geolocation.getCurrentPosition((pos) => {
@@ -53,7 +55,7 @@ export class MapContainer extends Component {
   }
 
   _mapLoaded(mapProps, map) {
-    // console.log(map)
+    console.log('HIHI');
     map.setOptions({
       styles: simple,
     });
@@ -69,27 +71,30 @@ export class MapContainer extends Component {
         });
   }
 
-  onMarkerClick = (props, marker, e) =>
-    this.setState(
-      {
-        selectedPlace: props,
-        activeMarker: marker,
-        showingInfoWindow: true,
-      },
-      () => {
-        axios
-          .get(
-            `https://localhost:8000/image/public/${this.state.selectedPlace.locations_id}`
-          )
-          .then((data) => {
-            console.log(data.data);
-            this.setState({
-              ...this.state,
-              selectedPlaceImages: data.data,
-            });
-          });
-      }
-    );
+  onMarkerClick = (props, marker, e) => {
+    console.log(this.mapRefs);
+
+    // this.setState(
+    //   {
+    //     selectedPlace: props,
+    //     activeMarker: marker,
+    //     showingInfoWindow: true,
+    //   },
+    //   () => {
+    //     axios
+    //       .get(
+    //         `https://localhost:8000/image/public/${this.state.selectedPlace.locations_id}`
+    //       )
+    //       .then((data) => {
+    //         console.log(data.data);
+    //         this.setState({
+    //           ...this.state,
+    //           selectedPlaceImages: data.data,
+    //         });
+    //       });
+    //   }
+    // );
+  };
 
   onClose = (props) => {
     if (this.state.showingInfoWindow) {
@@ -101,29 +106,62 @@ export class MapContainer extends Component {
   };
 
   render() {
-    let locations = predefinedLocations.map((location) => {
-      return (
-        <Marker
-          icon={{
-            url: './assets/icons/adventure.png',
-            anchor: new window.google.maps.Point(25, 25),
-            scaledSize: new window.google.maps.Size(50, 50),
-          }}
-          position={{ lat: location.lat, lng: location.lng }}
-          onClick={this.onMarkerClick}
-          name={location.en}
-          locations_id={location.locations_id}
-        />
-      );
-    });
+    let locations;
+
+    console.log(this.props.zoom);
+
+    this.props.zoom <= 12
+      ? (locations = this.props.districts.map((location) => {
+          return (
+            <Marker
+              icon={{
+                url: './assets/icons/adventure.png',
+                anchor: new window.google.maps.Point(25, 25),
+                scaledSize: new window.google.maps.Size(50, 50),
+              }}
+              position={{ lat: location.lat, lng: location.lng }}
+              onClick={this.onMarkerClick}
+              name={location.en}
+              locations_id={location.locations_id}
+            />
+          );
+        }))
+      : (locations = this.props.locations.map((location) => {
+          return (
+            <Marker
+              icon={{
+                url: './assets/icons/adventure1.png',
+                anchor: new window.google.maps.Point(25, 25),
+                scaledSize: new window.google.maps.Size(50, 50),
+              }}
+              position={{ lat: location.lat, lng: location.lng }}
+              onClick={this.onMarkerClick}
+              name={location.en}
+              locations_id={location.locations_id}
+            />
+          );
+        }));
+
+    // locations = this.props.districts.map((location) => {
+    //   return (
+    //     <Marker
+    //       icon={{
+    //         url: './assets/icons/adventure.png',
+    //         anchor: new window.google.maps.Point(25, 25),
+    //         scaledSize: new window.google.maps.Size(50, 50),
+    //       }}
+    //       position={{ lat: location.lat, lng: location.lng }}
+    //       onClick={this.onMarkerClick}
+    //       name={location.en}
+    //       locations_id={location.locations_id}
+    //     />
+    //   );
+    // });
 
     let locationImages = <p> Please wait, Images are loading...</p>;
 
     if (this.state.selectedPlaceImages) {
-      console.log('Outside');
       locationImages = this.state.selectedPlaceImages.map((image) => {
-        console.log('inside');
-        console.log(image.url);
         return (
           <img
             className='center icons30 sm-col-5'
@@ -137,6 +175,11 @@ export class MapContainer extends Component {
     return (
       <div>
         <Map
+          ref={this.mapRefs}
+          onZoomChanged={(google, map) => {
+            this.props.changeZoomLevel(map.zoom);
+          }}
+          onLoad={(map) => console.log(map)}
           centerAroundCurrentLocation
           google={this.props.google}
           zoom={12}
@@ -145,7 +188,6 @@ export class MapContainer extends Component {
             lng: this.state.currentLocation.lng,
           }}
           onReady={(mapProps, map) => this._mapLoaded(mapProps, map)}
-          ref='maps'
         >
           <Marker
             icon={{
@@ -180,6 +222,27 @@ export class MapContainer extends Component {
   }
 }
 
-export default GoogleApiWrapper({
-  apiKey: 'AIzaSyAg-zxdwaWHeCd5QnJ-yBcy1_lvDttzCKk',
-})(MapContainer);
+const mapStateToProps = (state) => {
+  return {
+    districts: state.map.districts,
+    locations: state.map.locations,
+    zoom: state.map.zoom,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchAllDistricts: () => dispatch(fetchAllDistricts()),
+    fetchAllLocations: () => dispatch(fetchAllLocations()),
+    changeZoomLevel: (zoomLevel) => dispatch(changeZoomLevel(zoomLevel)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  GoogleApiWrapper({
+    apiKey: 'AIzaSyAg-zxdwaWHeCd5QnJ-yBcy1_lvDttzCKk',
+  })(MapContainer)
+);
