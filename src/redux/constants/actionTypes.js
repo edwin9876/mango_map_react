@@ -55,6 +55,7 @@ export const FETCH_ALLCATEGORY = 'FETCH_ALLCATEGORY';
 
 export const FETCH_ALLPOST = 'FETCH_ALLPOST';
 
+export const FETCH_WEEKLYPOST = 'FETCH_WEEKLYPOST'
 export const FETCH_POST = 'FETCH_POST';
 export const CREATE_POST = 'CREATE_POST';
 export const REMOVE_POST = 'REMOVE_POST';

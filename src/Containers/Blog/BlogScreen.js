@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { ThemeContext } from '../../Contexts/Theme'
-
+import { Row, Container, CardImg, Col } from 'reactstrap'
 import SearchBar from '../../Components/UI/Layout/SearchBar'
 import WeeklyPic from '../../Components/UI/Dashboard/WeeklyPic'
-import WeeklyPost from '../../Components/UI/Dashboard/WeeklyPost'
 import TopPics from '../../Components/UI/Dashboard/TopPics'
 import TopUsers from '../../Components/UI/Dashboard/TopUsers'
 import BlogList from '../../Components/Blog/BlogList'
 import { ListGroup, Button, ButtonGroup } from 'reactstrap'
+// import { fetchWeeklyPost} from '../../redux/actions/blog'
 import { fetchAllPost } from '../../redux/actions/blog'
 import { fetchAllImages } from '../../redux/actions/image'
 import { fetchAllUser } from '../../redux/actions/user'
@@ -42,6 +42,15 @@ class ConnectedBlogScreen extends Component {
     async componentDidMount() {
 
         const { dispatch } = this.props
+
+        // await dispatch(fetchWeeklyPost())
+
+        // if (this.props.blog.posts) {
+        //     this.setState({
+        //         ...this.state,
+        //         weeklypost: this.props.blog.post,
+        //     })
+        // }
 
         await dispatch(fetchAllPost())
 
@@ -109,7 +118,7 @@ class ConnectedBlogScreen extends Component {
 
             <div id="blog_container" style={{ background: theme.low, color: theme.high }}>
                 <SearchBar />
-                <WeeklyPost post={this.props.post} />
+                {/*<WeeklyPost key={post.id} post={post}/>*/}
                 {/* <WeeklyPic />*/}
 
                 <ButtonGroup className="d-flex justify-content-center">
@@ -118,29 +127,28 @@ class ConnectedBlogScreen extends Component {
                     <Button onClick={this.filterUser} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>Top Users</h6></Button>
                 </ButtonGroup>
 
-                <div className="d-flex justify-content-center ">
+                <div className="centerH margin1" >
+                    {this.state.posts && this.state.showPosts &&
+                        this.state.posts.map((post, i) => {
+                            return <BlogList key={i} post={post} />
+                        })}
+                </div>
 
-                    <ListGroup>
-                        {this.state.posts && this.state.showPosts &&
-                            this.state.posts.map((post, i) => {
-                                return <BlogList key={i} post={post} />
-                            })}
-                    </ListGroup>
+                <div className="d-flex justify-content-center row margin1">
+                    {this.state.images && this.state.showImages &&
+                        this.state.images.map((img, i) => {
+                            return <TopPics key={i} image={img} />
+                        })}
+                </div>
 
-                    <ListGroup>
-                        {this.state.images && this.state.showImages &&
-                            this.state.images.map((img, i) => {
-                                return <TopPics key={i} image={img} />
-                            })}
-                    </ListGroup>
-
+                <div className="d-flex justify-content-center margin1">
                     {this.state.users && this.state.showUsers &&
                         this.state.users.map((user, i) => {
                             return <TopUsers key={i} user={user} />
                         })}
-
-
                 </div>
+
+
             </div>
         )
     }
