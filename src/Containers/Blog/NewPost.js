@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { ThemeContext } from '../../Contexts/Theme'
 // Global - index.css , Local - Blog.css
-import './Blog.css';
 import { connect } from 'react-redux';
 
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
@@ -108,12 +107,12 @@ class ConnectedNewPost extends Component {
             <div>
              <Form className="margin5" id="createPost" onSubmit={this.handleSubmit}>
           <FormGroup>
-            <Label for="title">Title</Label>
+            <Label for="title" className="bold">Title</Label>
             <Input style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} onChange={this.handleChange} type="text" name="title" placeholder="Title" />
           </FormGroup>
 
           <FormGroup>
-            <Label for="exampleSelectMulti">Choose Category</Label>
+            <Label for="exampleSelectMulti" className="bold">Choose Category</Label>
             <Input style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} onChange={this.handleChange} type="select" name="category" multiple >
               {this.state.post.categories ?
                 this.state.post.categories.map((c, i) => {
@@ -125,12 +124,12 @@ class ConnectedNewPost extends Component {
           </FormGroup>
 
           <FormGroup>
-            <Label for="body">body</Label>
+            <Label for="body" className="bold">Contents</Label>
             <Input style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} onChange={this.handleChange} type="textarea" name="body" placeholder="Write here" rows="10" />
           </FormGroup>
 
           <FormGroup>
-            <Label for="exampleFile">Pictures</Label>
+            <Label for="exampleFile" className="bold">Pictures</Label>
             <Input style={{ background: theme.low, color: theme.high }} type="file" name="file" />
             <FormText color="muted">
               Upload pictures you want to attach to the post
