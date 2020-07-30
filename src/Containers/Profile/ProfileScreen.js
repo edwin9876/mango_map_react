@@ -127,7 +127,7 @@ class ConnectedProfileScreen extends Component {
 
                 {this.state.locations && this.state.showLocations ?
                     this.state.locations.map((item, i) => {
-                        return <TripSummary location={item} key={i} />
+                        return <TripSummary history={this.props.history} location={item} key={i} />
                     }) : null
                 }
                 {this.state.chatrooms && this.state.showChatrooms ?
