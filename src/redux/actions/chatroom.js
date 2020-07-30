@@ -13,6 +13,7 @@ import {
   BACK_TO_CHAT_LIST,
   SET_MESSAGE,
   SEND_MESSAGE,
+  SEND_IMAGE,
 } from '../constants/actionTypes';
 
 import axios from 'axios';
@@ -20,7 +21,6 @@ import axios from 'axios';
 export const fetchChatroomList = (userId) => {
   return async (dispatch) => {
     let res = await axios(`https://localhost:8000/chatroom/all/${userId}`);
-    console.log(res.data);
     dispatch({ type: FETCH_CHATROOM_LIST, payload: res.data });
   };
 };
@@ -76,6 +76,16 @@ export const sendMessage = (message, roomId, roomUserId) => {
         console.log(res.data[0]);
         dispatch({ type: SEND_MESSAGE, payload: res.data[0] });
       });
+  };
+};
+
+export const sendImage = (imageUrl, roomId, chatroomUserId) => {
+  return (dispatch) => {
+    dispatch({
+      type: SEND_IMAGE,
+      payload: imageUrl,
+      chatroomUserId: chatroomUserId,
+    });
   };
 };
 
