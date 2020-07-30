@@ -13,6 +13,7 @@ import {
   BACK_TO_CHAT_LIST,
   SET_MESSAGE,
   SEND_MESSAGE,
+  SEND_IMAGE,
 } from '../constants/actionTypes';
 
 const initialChatroomState = {
@@ -27,6 +28,8 @@ const initialChatroomState = {
 };
 
 const chatroomReducer = (state = initialChatroomState, action) => {
+  console.log(action);
+  console.log('Data has reached reudcer');
   switch (action.type) {
     case FETCH_CHATROOM_LIST:
       return {
@@ -54,6 +57,15 @@ const chatroomReducer = (state = initialChatroomState, action) => {
         conversation: [...state.conversation, action.payload],
       };
 
+    case SEND_IMAGE:
+      return {
+        ...state,
+        conversation: [
+          ...state.conversation,
+          { url: action.payload, chatroom_user_id: action.chatroomUserId },
+        ],
+      };
+
     case CREATE_CHATROOM:
       return {
         ...state,
@@ -68,6 +80,8 @@ const chatroomReducer = (state = initialChatroomState, action) => {
       return {
         ...state,
         currentRoomId: null,
+        conversation: [],
+        messages: [''],
       };
 
     default:
