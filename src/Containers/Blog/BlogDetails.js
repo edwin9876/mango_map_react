@@ -7,7 +7,7 @@ import {
     CardTitle, CardSubtitle, Button, Form, Input, InputGroup, InputGroupAddon
 } from 'reactstrap';
 
-import Comments from '../../Components/Blog/Comments'
+import Comments from './Comments'
 
 
 const mapStateToProps = (state) => {
