@@ -1,17 +1,28 @@
 import React from 'react';
 
 import '../../../Containers/Chatroom/Chat/Chat.css';
+import './Messages.css';
 
-const Messages = ({ conversation, userId }) => {
+const Messages = ({ conversation, chatroomUserId }) => {
   let testing = conversation.map((message) => {
-    return userId === message.chatroom_user_id ? (
+    return chatroomUserId === message.chatroom_user_id ? (
       <div class='container darker '>
         <img
           src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRLWTAHflkoSso-p7fbKv7BecCWNSyYseuhfw&usqp=CAU'
           alt='Avatar'
           className='right roundimg'
         />
-        <p>{message.body}</p>
+
+        {message.url ? (
+          <img
+            src={message.url}
+            alt='chatroom upload'
+            className='uploadedImage'
+          />
+        ) : (
+          <p>{message.body}</p>
+        )}
+
         <span class='time-left'>11:00</span>
       </div>
     ) : (
@@ -22,7 +33,15 @@ const Messages = ({ conversation, userId }) => {
           className='roundimg'
         />
         <p>{message.user_name}</p>
-        <p>{message.body}</p>
+        {message.url ? (
+          <img
+            src={message.url}
+            alt='chatroom upload'
+            className='uploadedImage'
+          />
+        ) : (
+          <p>{message.body}</p>
+        )}{' '}
         <div className='time-right'>11:00</div>
       </div>
     );
