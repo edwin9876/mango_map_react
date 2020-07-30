@@ -7,6 +7,7 @@ import Home from './Containers/Map/MapScreen';
 import Blog from './Containers/Blog/BlogScreen';
 import Chat from './Containers/Chatroom/ChatScreen';
 import Profile from './Containers/Profile/ProfileScreen';
+import EditProfile from './Containers/Profile/EditProfile'
 
 import MapDetails from './Components/Map/MapDetails';
 import CreatePost from './Containers/Blog/CreatePost';
@@ -61,6 +62,7 @@ class ConnectedApp extends Component {
               />
 
               <Route exact path='/profile/:id' component={Profile} />
+              
 
               <Route exact path='/signin' component={SignIn} />
               <Route exact path='/signup' component={SignUp} />
@@ -77,3 +79,7 @@ const App = connect(mapStateToProps)(ConnectedApp)
 
 
 export default App;
+
+
+
+// <Route exact path='/profile/:id/edit' component={EditProfile} />

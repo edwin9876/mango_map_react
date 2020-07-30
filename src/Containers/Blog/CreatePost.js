@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, FormText, ButtonGroup } from 'reactstrap';
 import { ThemeContext } from '../../Contexts/Theme'
-// import axios from 'axios';
 import SearchBar from '../../Components/UI/Layout/SearchBar'
-// Global - index.css , Local - Blog.css
-import './Blog.css';
 import NewPost from './NewPost'
 import NewPic from './NewPic'
 
