@@ -6,54 +6,89 @@ import {
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button, Form, Input, InputGroup, InputGroupAddon
 } from 'reactstrap';
+import { connect } from 'react-redux'
+import { fetchUserLocation } from '../../../redux/actions/user'
 
 
 
-// const mapStateToProps = (state) => {
-//     return {
-
-//     }
-//
-class TripDetails extends Component {
-    static contextType = ThemeContext;
-
-    render() {
-
-        const { isLightTheme, light, dark } = this.context;
-        const theme = isLightTheme ? light : dark;
-
-        return (
-            <div id="blog_container" className="padding1" style={{ background: theme.low, borderColor: theme.high }}>
-                <br />
-                <a href="javascript:history.back()"><i className="material-icons black-text">arrow_back</i></a>
-
-                <Card style={{ background: theme.low, borderColor: theme.high }}>
-
-
-
-                    <CardBody>
-
-                        <CardTitle className="bold justify-content-center d-flex">Trip to Tai po</CardTitle>
-
-                        <CardSubtitle className=" justify-content-center d-flex" > Group1, 2nd June 2020</CardSubtitle><br/>
-
-                        <CardImg top width="100%" src="https://media.timeout.com/images/105629341/630/472/image.jpg" alt="trip images" />
-                        <CardText>image timestamp</CardText>
-
-                        <CardImg top width="100%" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRE-bRqV31-X6AKd4FQK39pizKcs1Kwc2YcKg&usqp=CAU" alt="trip images" />
-                        <CardText>image timestamp</CardText>
-
-                        <CardImg top width="100%" src="https://weareexplorers.co/wp-content/uploads/2018/05/IMG-8553.jpg" />
-                        <CardText>image timestamp</CardText>
-
-                        <CardImg top width="100%" src="https://img.etimg.com/thumb/width-640,height-480,imgsize-201359,resizemode-1,msid-65975178/magazines/panache/travel-in-a-clique-be-sane-4-point-guide-to-organise-a-big-group-trip/travellinginagroup.jpg" />
-                        <CardText>image timestamp</CardText>
-                        
-                    </CardBody>
-                </Card>
-            </div>
-        )
+const mapStateToProps = (state) => {
+    return {
+        ...state
     }
 }
 
-export default TripDetails
+class ConncectedTripDetails extends Component {
+    static contextType = ThemeContext;
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            location: {}
+        }
+
+    }
+
+    async componentDidMount() {
+            const { dispatch } = this.props
+            console.log(this.props)
+            const user_id = parseInt(this.props.auth.user.id)
+            const location_id = parseInt(this.props.match.params.id)
+            await dispatch(fetchUserLocation(user_id, location_id))
+
+            if (this.props.user.user.location) {
+                this.setState({
+                    location: this.props.user.user.location
+                })
+            }
+            console.log(this.state)
+        }
+
+
+        componentWillUnmount() {
+            this.setState = {
+                location: {}
+            }
+        }
+
+        render() {
+            console.log(this.props)
+            const { isLightTheme, light, dark } = this.context;
+            const theme = isLightTheme ? light : dark;
+
+            return (
+                <div id="blog_container" className="padding1" style={{ background: theme.low, borderColor: theme.high }}>
+                    <br />
+                    <a href="javascript:history.back()"><i className="material-icons black-text">arrow_back</i></a>
+
+                    <Card style={{ background: theme.low, borderColor: theme.high }}>
+
+
+
+                        <CardBody>
+
+                            <CardTitle className="bold justify-content-center d-flex">Trip to {this.state.location.en} {this.state.location.cn}</CardTitle>
+
+                            <CardSubtitle className=" justify-content-center d-flex" > Group1, {this.state.location.created_at}</CardSubtitle><br />
+
+                            {this.state.location.images && this.state.location.images.map((img, i) => {
+                                return (
+                                    <div key={i}>
+                                        <CardImg top width="100%" src={img.url} alt="trip images" />
+                                        <CardText>{img.created_at}</CardText>
+                                    </div>)
+                            })
+                            }
+
+
+
+                        </CardBody>
+                    </Card>
+                </div>
+            )
+        }
+    }
+
+    const TripDetails = connect(mapStateToProps)(ConncectedTripDetails)
+
+
+    export default TripDetails

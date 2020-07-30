@@ -1,13 +1,14 @@
 import {
   CREATE_USER,
   FETCH_ALLUSER,
+  FETCH_USERLOCATION,
   FETCH_USER,
   UPDATE_USER,
   REMOVE_USER,
   CREATE_FAVPOST,
   REMOVE_FAVPOST,
-  CREATE_USERDISTRICT,
-  REMOVE_USERDISTRICT,
+  CREATE_USERLOCATION,
+  REMOVE_USERLOCATION,
 } from '../constants/actionTypes';
 
 
@@ -28,6 +29,11 @@ const userReducer = (state = initialUserState, action) => {
         ...state,
         user: {...action.payload},
       };
+    case FETCH_USERLOCATION:
+      return {
+        ...state,
+        user:{location:{...action.payload}},
+      };
     case CREATE_USER:
       return {
         ...state,
@@ -36,7 +42,7 @@ const userReducer = (state = initialUserState, action) => {
       return {
         ...state,
       };
-    case CREATE_USERDISTRICT:
+    case CREATE_USERLOCATION:
       return {
         ...state,
       };
