@@ -30,12 +30,15 @@ class PostSummary extends Component {
                     <div>
 
                         <Card className="margin5" style={{ background: theme.low, borderColor: theme.high }}>
-                            <CardImg top width="100%" src='' alt="post_img" />
+                            <CardImg top width="100%" src='' alt="post_imgs" />
                             <CardBody>
-                                <CardTitle className="bold">{this.props.posts.title.toUpperCase()}</CardTitle>
-                                <CardSubtitle >{this.props.posts.created_at.slice(0, 10)}</CardSubtitle>
+                                <CardTitle className="bold d-flex justify-content-center">{this.props.posts.title.toUpperCase()}</CardTitle>
+                                <CardSubtitle className="d-flex justify-content-center">{this.props.posts.created_at.slice(0, 10)}</CardSubtitle>
                                 <br />
-                                <Button onClick={this.handleClick} className="noBorder d-flex justify-content-center" style={{ background: theme.highlight }}>View more</Button>
+                                <a className="d-flex justify-content-center">
+                                <Button className="noBorder" style={{ background: theme.highlight }}>View more
+                                </Button>
+                                </a>
                             </CardBody>
                         </Card>
 
