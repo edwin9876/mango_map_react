@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { ThemeContext } from '../../Contexts/Theme'
-import { Row, Container, CardImg, Col } from 'reactstrap'
+
 import SearchBar from '../../Components/UI/Layout/SearchBar'
 import WeeklyPic from '../../Components/UI/Dashboard/WeeklyPic'
 import TopPics from '../../Components/UI/Dashboard/TopPics'
 import TopUsers from '../../Components/UI/Dashboard/TopUsers'
 import BlogList from './BlogList'
-import { ListGroup, Button, ButtonGroup } from 'reactstrap'
-// import { fetchWeeklyPost} from '../../redux/actions/blog'
+
+import { Button, ButtonGroup } from 'reactstrap'
+
+// import { fetchPost} from '../../redux/actions/blog'
 import { fetchAllPost } from '../../redux/actions/blog'
 import { fetchAllImages } from '../../redux/actions/image'
 import { fetchAllUser } from '../../redux/actions/user'
@@ -40,18 +42,7 @@ class ConnectedBlogScreen extends Component {
     }
 
     async componentDidMount() {
-
-        const { dispatch } = this.props
-
-        // await dispatch(fetchWeeklyPost())
-
-        // if (this.props.blog.posts) {
-        //     this.setState({
-        //         ...this.state,
-        //         weeklypost: this.props.blog.post,
-        //     })
-        // }
-
+        let { dispatch } = this.props
         await dispatch(fetchAllPost())
 
         if (this.props.blog.posts) {
@@ -130,7 +121,7 @@ class ConnectedBlogScreen extends Component {
                 <div className="centerH margin1" >
                     {this.state.posts && this.state.showPosts &&
                         this.state.posts.map((post, i) => {
-                            return <BlogList key={i} post={post} />
+                            return <BlogList  history={this.props.history} posts={post} key={i}  />
                         })}
                 </div>
 

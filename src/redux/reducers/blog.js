@@ -2,6 +2,7 @@ import {
   CREATE_NEWCATEGORY,
   FETCH_ALLCATEGORY,
   CREATE_POST,
+  FETCH_COMMENT,
   CREATE_COMMENT,
   REMOVE_COMMENT,
   UPDATE_POST,
@@ -12,7 +13,7 @@ import {
   REMOVE_POSTIMAGE,
   FETCH_ALLPOST,
   FETCH_POST,
-  FETCH_WEEKLYPOST
+  
 } from '../constants/actionTypes';
 
 const initialBlogState = {
@@ -22,11 +23,7 @@ const initialBlogState = {
 
 function blogReducer(state = initialBlogState, action) {
   switch (action.type) {
-    case  FETCH_WEEKLYPOST:
-     return{
-    ...state,
-    post:[...action.payload]
-    };
+   
     case FETCH_ALLPOST:
       return {
         ...state,
@@ -46,6 +43,13 @@ function blogReducer(state = initialBlogState, action) {
       return {
         ...state,
       };
+
+      case FETCH_COMMENT:
+        return {
+          ...state,
+          comments: {...action.payload},
+        };
+
     case CREATE_COMMENT:
       console.log('created comment');
       return {
