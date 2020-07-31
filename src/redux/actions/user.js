@@ -70,22 +70,22 @@ export function fetchUser(user_id) {
     return async (dispatch) => {
         console.log(user_id)
         let res = await axios(`http://localhost:8000/user/one/${user_id}`, {
-            headers:authHeader()
+            headers: authHeader()
         })
         console.log(res.data)
         dispatch({ type: FETCH_USER, payload: res.data })
     }
 }
 
-export function fetchUserLocation(user_id,location_id){
-    
-    return async(dispatch)=>{
+export function fetchUserLocation(user_id, location_id) {
 
-        let res = await axios(`http://localhost:8000/user/${user_id}/tripDetails/${location_id}`,{
-            headers:authHeader()
+    return async (dispatch) => {
+
+        let res = await axios(`http://localhost:8000/user/${user_id}/tripDetails/${location_id}`, {
+            headers: authHeader()
         })
         console.log(res.data)
-        dispatch({ type:FETCH_USERLOCATION,payload:res.data[0]})
+        dispatch({ type: FETCH_USERLOCATION, payload: res.data[0] })
     }
 }
 
@@ -114,7 +114,16 @@ export function createUserLOCATION(payload) {
 
 
 export function updateUser(payload) {
-    return { type: UPDATE_USER, payload }
+    return async (dispatch) => {
+        let res = await axios.put(`http://localhost:8000/user/one/${payload.id}`,
+            {
+                ...payload
+            },
+            {
+                headers: authHeader()
+            })
+        dispatch({ type: UPDATE_USER, payload: res.data })
+    }
 }
 
 export function removeUser(payload) {
