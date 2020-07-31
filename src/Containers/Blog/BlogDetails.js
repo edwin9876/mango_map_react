@@ -4,12 +4,11 @@ import { connect } from 'react-redux'
 import { ThemeContext } from '../../Contexts/Theme'
 import {
     Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Form, Input, InputGroup, InputGroupAddon
+    CardTitle, CardSubtitle, Form, Input, InputGroup, InputGroupAddon,
 } from 'reactstrap';
 
 import Comments from './Comments'
 import { fetchPost } from '../../redux/actions/blog'
-
 
 
 class ConnectedBlogDetails extends Component {
@@ -40,8 +39,6 @@ class ConnectedBlogDetails extends Component {
             })
         }
 
-        //use location_id in post, grab user_id
-
         console.log(this.state)
 
 
@@ -60,9 +57,11 @@ class ConnectedBlogDetails extends Component {
         console.log(this.props)
 
         return (
-            <div id="blog_container" className="padding1" style={{ background: theme.low, borderColor: theme.high }}>
+            <div id="blogdetail_container" style={{ background: theme.low, borderColor: theme.high }}>
                 <br />
-                <button onClick={this.props.history.goBack}><i  className="material-icons black-text">arrow_back</i></button>
+
+                <i onClick={this.props.history.goBack} style={{cursor: 'pointer'}} className="material-icons gray50">arrow_back</i>
+
 
                 <Card style={{ background: theme.low, borderColor: theme.high }}>
 
@@ -101,6 +100,7 @@ class ConnectedBlogDetails extends Component {
 
                     {this.state.post.comments && this.state.post.comments.map((com, i) => {
                         return <Comments key={i} comment={com} />
+
                     })}
 
                     

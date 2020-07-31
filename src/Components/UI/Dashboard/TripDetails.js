@@ -56,7 +56,9 @@ class ConncectedTripDetails extends Component {
             return (
                 <div id="blog_container" className="padding1" style={{ background: theme.low, borderColor: theme.high }}>
                     <br />
-                    <button onClick={this.props.history.goBack}><i className="material-icons black-text">arrow_back</i></button>
+
+                  <i  onClick={this.props.history.goBack}  className="material-icons gray50">arrow_back</i>
+
 
                     <Card style={{ background: theme.low, borderColor: theme.high }}>
 
@@ -71,7 +73,7 @@ class ConncectedTripDetails extends Component {
                             {this.state.location.images && this.state.location.images.map((img, i) => {
                                 return (
                                     <div key={i}>
-                                        <CardImg top width="100%" src={img.url} alt="trip images" />
+                                        <CardImg top width="100%" src={img.url} alt="trip images" className="margin1vw"/>
                                         <CardText>{img.created_at}</CardText>
                                     </div>)
                             })
