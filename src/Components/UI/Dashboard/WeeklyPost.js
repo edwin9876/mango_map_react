@@ -17,14 +17,18 @@ const WeeklyPost = (props) => {
             return (
                 <div>
                     <Card style={{ background: theme.low, borderColor: theme.high }}>
-
                         <CardBody>
                             <CardImg top width="100%" src={props.post.id} alt="Card image cap" />
-                            <CardTitle className="bold">{props.post.title}</CardTitle>
-                            <CardSubtitle >by {props.post.userName}</CardSubtitle>
+                            <CardTitle  d-flex justify-content-center>{props.post.title}</CardTitle>
+                            <CardSubtitle className="d-flex justify-content-center">by {props.post.userName}</CardSubtitle>
                             {/* <CardText >by {props.post.body}</CardText> */}
                             <br />
-                            <Button onClick={() => props.history.push(`/blog/${props.post.id}`)} className="d-flex justify-content-center noBorder" style={{ background: theme.highlight }}>View more</Button>
+
+                            <a className="d-flex justify-content-center">
+                            <Button onClick={() => props.history.push(`/blog/${props.post.id}`)} className="noBorder" style={{ background: theme.highlight }}>View more
+                            </Button>
+                            </a>
+
                         </CardBody>
                     </Card>
                 </div>)
