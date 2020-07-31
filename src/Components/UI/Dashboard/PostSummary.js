@@ -36,7 +36,7 @@ class PostSummary extends Component {
                                 <CardSubtitle className="d-flex justify-content-center">{this.props.posts.created_at.slice(0, 10)}</CardSubtitle>
                                 <br />
                                 <a className="d-flex justify-content-center">
-                                <Button className="noBorder" style={{ background: theme.highlight }}>View more
+                                <Button onClick={this.handleClick} className="noBorder" style={{ background: theme.highlight }}>View more
                                 </Button>
                                 </a>
                             </CardBody>
