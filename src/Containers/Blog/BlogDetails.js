@@ -9,9 +9,7 @@ import {
 
 import Comments from './Comments'
 import { fetchPost } from '../../redux/actions/blog'
-import { fetchUserLocation } from '../../redux/actions/user'
-import { fetchUser } from '../../redux/actions/user'
-import { fetchComment } from '../../redux/actions/blog'
+
 
 
 class ConnectedBlogDetails extends Component {
@@ -59,11 +57,12 @@ class ConnectedBlogDetails extends Component {
     render() {
         const { isLightTheme, light, dark } = this.context;
         const theme = isLightTheme ? light : dark;
+        console.log(this.props)
 
         return (
             <div id="blog_container" className="padding1" style={{ background: theme.low, borderColor: theme.high }}>
                 <br />
-                <a href="/blog"><i className="material-icons black-text">arrow_back</i></a>
+                <button onClick={this.props.history.goBack}><i  className="material-icons black-text">arrow_back</i></button>
 
                 <Card style={{ background: theme.low, borderColor: theme.high }}>
 

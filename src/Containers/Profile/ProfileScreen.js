@@ -138,7 +138,7 @@ class ConnectedProfileScreen extends Component {
 
                 {this.state.posts && this.state.showPosts ?
                     this.state.posts.map((item, i) => {
-                        return <PostSummary posts={item} key={i} />
+                        return <PostSummary history={this.props.history} posts={item} key={i} />
                     }) : null
                 }
 
