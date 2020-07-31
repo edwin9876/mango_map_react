@@ -40,11 +40,11 @@ export function fetchAllPost() {
 
     }
 }
-export function fetchPost(payload) {
+export function fetchPost(blog_id) {
     return dispatch => {
-        return axios(`https://localhost:8000/blog/${payload.blog_id}`)
+        return axios(`http://localhost:8000/blog/${blog_id}`)
             .then(res => {
-                dispatch({ type: FETCH_POST, payload: res.data })
+                dispatch({ type: FETCH_POST, payload: res.data[0] })
             })
     }
 }
