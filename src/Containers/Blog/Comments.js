@@ -5,8 +5,8 @@ const IndiComment = ( { comment }) => {
 
     return (
         <div className="d-flex" >
-            {/* <p className="bold ">{comment.user_id}</p> */}
-            <p >{comment}</p>
+            <p className="bold ">{comment.user_name}</p>
+            <p >{comment.body}</p>
         </div>
     );
 };
