@@ -8,7 +8,7 @@ import {
 } from 'reactstrap';
 
 import Comments from './Comments'
-import { fetchPost } from '../../redux/actions/blog'
+import { fetchPost, createComment } from '../../redux/actions/blog'
 
 
 class ConnectedBlogDetails extends Component {
@@ -19,6 +19,7 @@ class ConnectedBlogDetails extends Component {
         super(props)
         this.state = {
             post: {},
+            comment: '',
             color: "black"
         }
 
@@ -39,11 +40,15 @@ class ConnectedBlogDetails extends Component {
                 post: this.props.blog.post
             })
         }
-
         console.log(this.state)
-
-
     }
+
+    // async componentDidUpdate() {
+    //     const { dispatch } = this.props
+    //     let blog_id = parseInt(this.props.match.params.id)
+
+
+
 
     //change color addfavourite, alert upon click
     addFav = (e) => {
@@ -62,17 +67,44 @@ class ConnectedBlogDetails extends Component {
         }
     }
 
+    handleChange = (e) => {
+        this.setState({
+            ...this.state,
+            comment: { [e.target.name]: e.target.value }
+        })
+    }
 
     // post comments on submit form
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(this.state);
+        const { dispatch } = this.props
+
+        const comment = {
+            ...this.state.comment,
+            user_id: this.props.auth.user.id,
+            blog_id: this.props.blog.post.id
+        }
+
+        if (comment) {
+            await dispatch(createComment(comment))
+
+            await dispatch(fetchPost(comment.blog_id))
+            if (this.props.blog.post) {
+                this.setState({
+                    ...this.state,
+                    post: this.props.blog.post
+                })
+            }
+            console.log(this.state)
+        }
+
+        console.log(this.props)
     }
 
     render() {
         const { isLightTheme, light, dark } = this.context;
         const theme = isLightTheme ? light : dark;
-        console.log(this.props)
+        console.log(this.state)
 
         return (
             <div id="blogdetail_container" style={{ background: theme.low, borderColor: theme.high }}>
@@ -111,7 +143,7 @@ class ConnectedBlogDetails extends Component {
 
                     <Form action="post" onSubmit={this.handleSubmit} className=" paddingy1">
                         <InputGroup>
-                            <Input style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} onChange={this.handleChange} type="text" name="contents" id="contents" placeholder="Please comment here" />
+                            <Input style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} onChange={this.handleChange} type="text" name="body" id="body" placeholder="Please comment here" />
 
                             <InputGroupAddon addonType="append">
                                 <button style={{ borderColor: theme.highlight }} id="ice" name="submit" type="submit" className="btn">Submit</button>
@@ -121,7 +153,7 @@ class ConnectedBlogDetails extends Component {
                     </Form>
 
                     {this.state.post.comments && this.state.post.comments.map((com, i) => {
-                        return <Comments key={i} comment={com} />
+                        return <Comments key={i} comment={com}  />
 
                     })}
 

@@ -65,9 +65,10 @@ export function createNewCategory(payload) {
             })
     }
 }
-export function createComment(payload) {
+export function createComment(comment) {
+    console.log(comment)
     return dispatch => {
-        return axios.post(`https://localhost:8000/blog/comment/${payload.blog_id}`, payload.comment)
+        return axios.post(`http://localhost:8000/blog/comment/`, comment)
             .then(res => {
                 dispatch({ type: CREATE_COMMENT, payload:res.data })
             })
