@@ -30,7 +30,7 @@ class TripSummary extends Component {
                         <CardTitle className="bold">{this.props.location.en.toUpperCase()}</CardTitle>
                         <CardTitle className="bold">{this.props.location.cn}</CardTitle>
                         <CardSubtitle>{this.props.location.created_at.slice(0, 10)}</CardSubtitle><br />
-                        <Button onClick={this.handleClick} className="noBorder d-flex justify-content-center" style={{ background: theme.highlight }}>View more</Button>
+                        <a className="d-flex justify-content-center"><Button onClick={this.handleClick} className="noBorder" style={{ background: theme.highlight }}>View more</Button></a>
                     </CardBody>
                 </Card>
 
