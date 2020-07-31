@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button, ButtonGroup, ButtonToolbar } from 'reactstrap'
 
 class PopularSpots extends Component {
     state = {
@@ -17,17 +18,17 @@ class PopularSpots extends Component {
         const locationList = locations.length ?
             (locations.map(location => {
                 return (
-                    <div className="col s4" key={location.id}>
-                        <a href="/map/id" className="transparent-bg"><button className="filter_Btns">{location.name}</button></a>
-                    </div>
+                    <ButtonGroup key={location.id} className="">
+                  <Button outline size="sm" color="secondary" className="margin1xy" id="filter-btn">{location.name}</Button>
+                    </ButtonGroup>
                 )
             }))
             :
-            (<div className="d-flex justify-content-center">No posts yet</div>)
+            (<div className="d-flex justify-content-center">No spots yet</div>)
         return (
-            <div id="filterTab">
-                <p className="center bold gray70">popular spots</p>
-                <div className="row"> {locationList}</div>
+            <div className="margin5">
+                <p className="d-flex justify-content-center bold gray70">Popular spots</p>
+                {locationList}
             </div>
         )
     }
