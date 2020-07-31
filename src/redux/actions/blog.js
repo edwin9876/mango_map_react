@@ -12,7 +12,7 @@ import {
     REMOVE_POSTIMAGE,
     FETCH_ALLPOST,
     FETCH_POST,
-    // FETCH_WEEKLYPOST
+    FETCH_COMMENT,
 } from '../constants/actionTypes'
 
 import axios from 'axios'
@@ -20,14 +20,15 @@ import authHeader from '../helpers/authHeader'
 
 
 
-// export function fetchWeeklyPost(){
-//     return dispatch => {
-//         return axios(`https://localhost:8000/blog/${payload.blog_id}`)
-//             .then(res => {
-//                 dispatch({ type: FETCH_WEEKLYPOST, payload: res.data })
-//             })
-//     }
-// }
+export function fetchComment() {
+    return (dispatch) => {
+        return axios("http://localhost:8000/comment")
+            .then(res => {
+                dispatch({ type: FETCH_COMMENT, payload: res.data })
+            })
+
+    }
+}
 
 
 export function fetchAllPost() {
@@ -72,12 +73,6 @@ export function createComment(payload) {
             })
     }
 }
-// creating new blog post
-// export const createPost = (post) => {
-//     return (dispatch, getState) => {
-//         dispatch({type: 'CREATE_POST', post})
-//     }
-// }
 
 export function createPost(newBlog,user_id) {
     return dispatch => {

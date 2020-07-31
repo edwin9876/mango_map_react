@@ -1,12 +1,10 @@
 // this is the individual blog page, set route to '/trip/:id'
 import React, { Component } from 'react'
-// import { connect } from 'react-redux'
-import { ThemeContext } from '../../../Contexts/Theme'
-import {
-    Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button, Form, Input, InputGroup, InputGroupAddon
-} from 'reactstrap';
 import { connect } from 'react-redux'
+
+import { ThemeContext } from '../../../Contexts/Theme'
+import {Card, CardImg, CardText, CardBody,CardTitle,CardSubtitle} from 'reactstrap';
+
 import { fetchUserLocation } from '../../../redux/actions/user'
 
 
