@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { ThemeContext } from '../../Contexts/Theme'
 
 import SearchBar from '../../Components/UI/Layout/SearchBar'
+import WeeklyPost from '../../Components/UI/Dashboard/WeeklyPost'
 import WeeklyPic from '../../Components/UI/Dashboard/WeeklyPic'
 import TopPics from '../../Components/UI/Dashboard/TopPics'
 import TopUsers from '../../Components/UI/Dashboard/TopUsers'
@@ -105,12 +106,17 @@ class ConnectedBlogScreen extends Component {
     render() {
         const { isLightTheme, light, dark } = this.context;
         const theme = isLightTheme ? light : dark;
+        console.log(this.state)
         return (
 
             <div id="blog_container" style={{ background: theme.low, color: theme.high }}>
                 <SearchBar />
-                {/*<WeeklyPost key={post.id} post={post}/>*/}
-                {/* <WeeklyPic />*/}
+                {this.state.posts &&
+                    <WeeklyPost history={this.props.history} post={this.state.posts[3]} />
+                }
+                {this.state.images &&
+                <WeeklyPic history={this.props.history} image={this.state.images[3]}/>
+                }
 
                 <ButtonGroup className="d-flex justify-content-center">
                     <Button onClick={this.filterPost} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>New Posts</h6></Button>
@@ -121,7 +127,7 @@ class ConnectedBlogScreen extends Component {
                 <div className="centerH margin1" >
                     {this.state.posts && this.state.showPosts &&
                         this.state.posts.map((post, i) => {
-                            return <BlogList  history={this.props.history} posts={post} key={i}  />
+                            return <BlogList history={this.props.history} posts={post} key={i} />
                         })}
                 </div>
 
