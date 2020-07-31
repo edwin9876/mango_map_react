@@ -71,6 +71,7 @@ body {
 
 /* font */
 .bold {font-weight: bold;}
+.light {font-weight: lighter;}
 .rBorder{border-radius: 50px;}
 .sqBorder{border-radius: 0px!important;}
 .thinBorder{border: 1px, rgb(255, 255, 255), solid}
