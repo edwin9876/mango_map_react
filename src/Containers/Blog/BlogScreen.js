@@ -7,8 +7,8 @@ import WeeklyPost from '../../Components/UI/Dashboard/WeeklyPost'
 import WeeklyPic from '../../Components/UI/Dashboard/WeeklyPic'
 import TopPics from '../../Components/UI/Dashboard/TopPics'
 import TopUsers from '../../Components/UI/Dashboard/TopUsers'
-import PopularSpots from '../../Components/UI/Dashboard/PopularSpots'
 import BlogList from './BlogList'
+import PopularSpots from '../../Components/UI/Dashboard/PopularSpots'
 
 import { Button, ButtonGroup } from 'reactstrap'
 
