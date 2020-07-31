@@ -1,31 +1,34 @@
 import React from 'react'
 import { ThemeContext } from '../../../Contexts/Theme'
 import {
-    Card, CardImg,CardBody,
-    CardTitle, CardSubtitle, Button
+    Card, CardImg, CardBody,
+    CardTitle, CardSubtitle, Button,
+    CardText
 } from 'reactstrap';
 
 const WeeklyPost = (props) => {
 
     console.log(props)
     return (
-
         <ThemeContext.Consumer>{(context) => {
             const { isLightTheme, light, dark } = context;
             const theme = isLightTheme ? light : dark;
 
             return (
                 <div>
-                    <Card style={{background: theme.low, borderColor:theme.high}}>
-                        <CardImg top width="100%" src={props.post.id}alt="Card image cap" />
+                    <Card style={{ background: theme.low, borderColor: theme.high }}>
+
                         <CardBody>
+                            <CardImg top width="100%" src={props.post.id} alt="Card image cap" />
                             <CardTitle className="bold">{props.post.title}</CardTitle>
                             <CardSubtitle >by {props.post.userName}</CardSubtitle>
+                            {/* <CardText >by {props.post.body}</CardText> */}
                             <br />
-                            <a href="/blog/:id" className="d-flex justify-content-center"><Button className="noBorder" style={{background:theme.highlight}}>View more</Button></a>
+                            <Button onClick={() => props.history.push(`/blog/${props.post.id}`)} className="d-flex justify-content-center noBorder" style={{ background: theme.highlight }}>View more</Button>
                         </CardBody>
                     </Card>
-                </div>) }}
+                </div>)
+        }}
         </ThemeContext.Consumer>
     )
 }
