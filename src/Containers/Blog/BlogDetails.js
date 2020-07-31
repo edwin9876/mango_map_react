@@ -19,6 +19,7 @@ class ConnectedBlogDetails extends Component {
         super(props)
         this.state = {
             post: {},
+            color: "black"
         }
 
     }
@@ -44,6 +45,23 @@ class ConnectedBlogDetails extends Component {
 
     }
 
+    //change color addfavourite, alert upon click
+    addFav = (e) => {
+
+        if (this.state.color === "black") {
+            alert('Added to your Likes!')
+            this.setState({
+                color: "#ccd637"
+            })
+        }
+        else {
+            alert('Removed from your Likes!')
+            this.setState({
+                color: "black"
+            })
+        }
+    }
+
 
     // post comments on submit form
     handleSubmit = (e) => {
@@ -60,7 +78,7 @@ class ConnectedBlogDetails extends Component {
             <div id="blogdetail_container" style={{ background: theme.low, borderColor: theme.high }}>
                 <br />
 
-                <i onClick={this.props.history.goBack} style={{cursor: 'pointer'}} className="material-icons gray50">arrow_back</i>
+                <i onClick={this.props.history.goBack} style={{ cursor: 'pointer' }} className="material-icons gray50">arrow_back</i>
 
 
                 <Card style={{ background: theme.low, borderColor: theme.high }}>
@@ -71,14 +89,18 @@ class ConnectedBlogDetails extends Component {
                     })}
 
                     <CardBody>
-                        <CardTitle className="bold">{this.state.post.title}</CardTitle>
+                        <CardTitle className="bold d-flex justify-content-between">{this.state.post.title}
+                            <i onClick={this.addFav} style={{ cursor: 'pointer', color: this.state.color }} className="material-icons">thumb_up</i>
+                        </CardTitle>
+
                         <CardSubtitle >{this.state.post.locationName}</CardSubtitle>
                         <CardText >by {this.state.post.userName}</CardText>
-                        {this.state.post.categories && this.state.post.categories.map((cat, i) => {
-                            return <CardText key={i} > {cat.category}</CardText>
-
-                        })}
                         <CardText> {this.state.post.body}</CardText>
+                        <div className="d-flex">
+                            {this.state.post.categories && this.state.post.categories.map((cat, i) => {
+                                return <CardText className="blur" key={i} > #{cat.category}</CardText>
+                            })}
+                        </div>
                     </CardBody>
                 </Card>
 
@@ -103,7 +125,7 @@ class ConnectedBlogDetails extends Component {
 
                     })}
 
-                    
+
 
                 </div>
             </div>
