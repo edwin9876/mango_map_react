@@ -9,7 +9,6 @@ import {
 
 import Comments from './Comments'
 import { fetchPost } from '../../redux/actions/blog'
-import { fetchComment } from '../../redux/actions/blog'
 
 
 class ConnectedBlogDetails extends Component {
@@ -55,11 +54,14 @@ class ConnectedBlogDetails extends Component {
     render() {
         const { isLightTheme, light, dark } = this.context;
         const theme = isLightTheme ? light : dark;
+        console.log(this.props)
 
         return (
             <div id="blogdetail_container" style={{ background: theme.low, borderColor: theme.high }}>
                 <br />
+
                 <i onClick={this.props.history.goBack} style={{cursor: 'pointer'}} className="material-icons gray50">arrow_back</i>
+
 
                 <Card style={{ background: theme.low, borderColor: theme.high }}>
 
