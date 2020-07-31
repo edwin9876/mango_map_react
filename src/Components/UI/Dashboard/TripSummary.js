@@ -27,9 +27,9 @@ class TripSummary extends Component {
             <div>
                 <Card className="margin5" style={{ background: theme.low, color: theme.high, borderColor: theme.high }}>
                     <CardBody>
-                        <CardTitle className="bold">{this.props.location.en.toUpperCase()}</CardTitle>
-                        <CardTitle className="bold">{this.props.location.cn}</CardTitle>
-                        <CardSubtitle>{this.props.location.created_at.slice(0, 10)}</CardSubtitle><br />
+                        <CardTitle className="bold d-flex justify-content-center">{this.props.location.en.toUpperCase()}</CardTitle>
+                        <CardTitle className="bold d-flex justify-content-center">{this.props.location.cn}</CardTitle>
+                        <CardSubtitle className="d-flex justify-content-center">{this.props.location.created_at.slice(0, 10)}</CardSubtitle><br />
                         <a className="d-flex justify-content-center"><Button onClick={this.handleClick} className="noBorder" style={{ background: theme.highlight }}>View more</Button></a>
                     </CardBody>
                 </Card>

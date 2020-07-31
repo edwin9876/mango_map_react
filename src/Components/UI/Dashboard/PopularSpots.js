@@ -19,7 +19,6 @@ class PopularSpots extends Component {
                 return (
                     <div className="col s4" key={location.id}>
                         <a href="/map/id" className="transparent-bg"><button className="filter_Btns">{location.name}</button></a>
-                        {/* <a href="/map/id" className="transparent-bg"><div className="card center filter_Btns ">{location.name}</div></a> */}
                     </div>
                 )
             }))

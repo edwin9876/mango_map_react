@@ -7,6 +7,7 @@ import WeeklyPost from '../../Components/UI/Dashboard/WeeklyPost'
 import WeeklyPic from '../../Components/UI/Dashboard/WeeklyPic'
 import TopPics from '../../Components/UI/Dashboard/TopPics'
 import TopUsers from '../../Components/UI/Dashboard/TopUsers'
+import PopularSpots from '../../Components/UI/Dashboard/PopularSpots'
 import BlogList from './BlogList'
 
 import { Button, ButtonGroup } from 'reactstrap'
@@ -111,12 +112,21 @@ class ConnectedBlogScreen extends Component {
 
             <div id="blog_container" style={{ background: theme.low, color: theme.high }}>
                 <SearchBar />
+
+                <div className="margin5">
+                <p className="d-flex justify-content-center bold gray70 ">Weekly Post</p>
                 {this.state.posts &&
                     <WeeklyPost history={this.props.history} post={this.state.posts[3]} />
                 }
+                </div>
+                <p className="d-flex justify-content-center bold gray70 ">Weekly Picture</p>
+                <div className="margin5">
                 {this.state.images &&
                 <WeeklyPic history={this.props.history} image={this.state.images[3]}/>
                 }
+                </div>
+
+                <PopularSpots/>
 
                 <ButtonGroup className="d-flex justify-content-center">
                     <Button onClick={this.filterPost} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>New Posts</h6></Button>
@@ -124,7 +134,7 @@ class ConnectedBlogScreen extends Component {
                     <Button onClick={this.filterUser} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>Top Users</h6></Button>
                 </ButtonGroup>
 
-                <div className="centerH margin1" >
+                <div className="centerH margin5" >
                     {this.state.posts && this.state.showPosts &&
                         this.state.posts.map((post, i) => {
                             return <BlogList history={this.props.history} posts={post} key={i} />
