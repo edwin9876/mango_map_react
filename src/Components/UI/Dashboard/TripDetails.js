@@ -56,7 +56,7 @@ class ConncectedTripDetails extends Component {
             return (
                 <div id="blog_container" className="padding1" style={{ background: theme.low, borderColor: theme.high }}>
                     <br />
-                    <a href="javascript:history.back()"><i className="material-icons black-text">arrow_back</i></a>
+                    <button onClick={this.props.history.goBack}><i className="material-icons black-text">arrow_back</i></button>
 
                     <Card style={{ background: theme.low, borderColor: theme.high }}>
 
