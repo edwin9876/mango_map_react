@@ -101,7 +101,7 @@ class ConnectedBlogDetails extends Component {
                     </Form>
 
                     {this.state.post.comments && this.state.post.comments.map((com, i) => {
-                        return <Comments key={i} comment={com.body} />
+                        return <Comments key={i} comment={com} />
                     })}
 
                     
