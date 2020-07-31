@@ -31,6 +31,7 @@ body {
 .hidden{display: none;}
 .position-absolute{position: absolute;}
 .margin0{margin:0}
+.margin1xy{margin:1vw}
 .margin1 {margin:1rem}
 .margin1x{margin:0 1vw}
 .margin1vw{margin:1vw 0}
@@ -149,6 +150,11 @@ padding-bottom: 10vh;
     width:100%;
     display: flex;
     justify-content: center;
+}
+
+#filter-btn{
+    width: 28vw;
+    height: 6vh;
 }
 
 /* chat */
