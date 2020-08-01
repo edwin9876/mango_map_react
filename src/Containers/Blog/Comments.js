@@ -2,10 +2,12 @@ import React from 'react';
 import LocationStorage from '../Map/PredefinedLocations/LocationStorage';
 
 // unpacking individual comments from comments array
+
 const IndiComment = ({ comment }) => {
-
-    let user_id = JSON.parse(localStorage.getItem('user')).id
-
+    let user_id 
+    if (localStorage.getItem('user')) {
+        user_id = JSON.parse(localStorage.getItem('user')).id
+    }
     return (
         <div className="d-flex" >
             <p className="bold margin1x">{comment.user_name}</p>

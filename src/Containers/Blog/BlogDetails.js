@@ -92,7 +92,8 @@ class ConnectedBlogDetails extends Component {
             if (this.props.blog.post) {
                 this.setState({
                     ...this.state,
-                    post: this.props.blog.post
+                    post: this.props.blog.post,
+                    comment: { body:''}
                 })
             }
             console.log(this.state)
@@ -105,7 +106,10 @@ class ConnectedBlogDetails extends Component {
         const { isLightTheme, light, dark } = this.context;
         const theme = isLightTheme ? light : dark;
         console.log(this.state)
-
+        let user_id
+        if (localStorage.getItem('user')) {
+            user_id = JSON.parse(localStorage.getItem('user')).id
+        }
         return (
             <div id="blogdetail_container" style={{ background: theme.low, borderColor: theme.high }}>
                 <br />
@@ -140,20 +144,20 @@ class ConnectedBlogDetails extends Component {
                 {/* comment */}
 
                 <div className="center">
+                    {user_id &&
+                        <Form action="post" onSubmit={this.handleSubmit} className=" paddingy1">
+                            <InputGroup>
+                                <Input value={this.state.comment.body} style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} onChange={this.handleChange} type="text" name="body" id="body" placeholder="Please comment here" />
 
-                    <Form action="post" onSubmit={this.handleSubmit} className=" paddingy1">
-                        <InputGroup>
-                            <Input style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} onChange={this.handleChange} type="text" name="body" id="body" placeholder="Please comment here" />
+                                <InputGroupAddon addonType="append">
+                                    <button style={{ borderColor: theme.highlight }} id="ice" name="submit" type="submit" className="btn">Submit</button>
+                                </InputGroupAddon>
 
-                            <InputGroupAddon addonType="append">
-                                <button style={{ borderColor: theme.highlight }} id="ice" name="submit" type="submit" className="btn">Submit</button>
-                            </InputGroupAddon>
-
-                        </InputGroup>
-                    </Form>
+                            </InputGroup>
+                        </Form>}
 
                     {this.state.post.comments && this.state.post.comments.map((com, i) => {
-                        return <Comments key={i} comment={com}  />
+                        return <Comments key={i} comment={com} />
 
                     })}
 
