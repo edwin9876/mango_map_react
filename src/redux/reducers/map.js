@@ -6,7 +6,7 @@ import {
   FETCH_ALL_DISTRICTS,
   CHANGE_ZOOM_LEVEL,
   FETCH_ALL_LOCATIONS,
-  FETCH_LOCATION
+  FETCH_LOCATION,
 } from '../constants/actionTypes';
 
 const initialMapState = {
