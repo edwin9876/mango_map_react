@@ -16,6 +16,7 @@ import { Button, ButtonGroup } from 'reactstrap'
 import { fetchAllPost } from '../../redux/actions/blog'
 import { fetchAllImages } from '../../redux/actions/image'
 import { fetchAllUser } from '../../redux/actions/user'
+import { fetchAllLocations } from '../../redux/actions/map'
 
 
 
@@ -46,31 +47,22 @@ class ConnectedBlogScreen extends Component {
     async componentDidMount() {
         let { dispatch } = this.props
         await dispatch(fetchAllPost())
+        await dispatch(fetchAllLocations())
+        await dispatch(fetchAllImages())
+        await dispatch(fetchAllUser())
 
-        if (this.props.blog.posts) {
+        if (this.props.blog.posts
+            && this.props.img.images
+            && this.props.user.users
+            && this.props.map.locations) {
             this.setState({
                 ...this.state,
                 posts: this.props.blog.posts,
+                images: this.props.img.images,
+                users: this.props.user.users,
+                locations: this.props.map.locations
             })
         }
-        await dispatch(fetchAllImages())
-
-        if (this.props.img.images) {
-            this.setState({
-                ...this.state,
-                images: this.props.img.images
-            })
-        }
-
-        await dispatch(fetchAllUser())
-
-        if (this.props.user.users) {
-            this.setState({
-                ...this.state,
-                users: this.props.user.users
-            })
-        }
-
     }
     filterImg = (e) => {
 
@@ -114,19 +106,28 @@ class ConnectedBlogScreen extends Component {
                 <SearchBar />
 
                 <div className="margin5">
-                <p className="d-flex justify-content-center bold gray70 ">Weekly Post</p>
-                {this.state.posts &&
-                    <WeeklyPost history={this.props.history} post={this.state.posts[3]} />
-                }
+                    <p className="d-flex justify-content-center bold gray70 ">Weekly Post</p>
+                    {this.state.posts &&
+                        <WeeklyPost history={this.props.history} post={this.state.posts[3]} />
+                    }
                 </div>
                 <p className="d-flex justify-content-center bold gray70 ">Weekly Picture</p>
                 <div className="margin5">
-                {this.state.images &&
-                <WeeklyPic history={this.props.history} image={this.state.images[3]}/>
-                }
+                    {this.state.images &&
+                        <WeeklyPic history={this.props.history} image={this.state.images[3]} />
+                    }
                 </div>
 
-                <PopularSpots/>
+                <div className="margin5">
+                    <p className="d-flex justify-content-center bold gray70">Popular spots</p>
+                    {this.state.locations ?
+                        this.state.locations.map((location, i) => {
+                            return <PopularSpots history={this.props.history} location={location} key={i} />
+                        }) : <div className="d-flex justify-content-center">No spots yet</div>
+                    }
+                </div>
+
+                {/* <PopularSpots /> */}
 
                 <ButtonGroup className="d-flex justify-content-center">
                     <Button onClick={this.filterPost} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>New Posts</h6></Button>

@@ -28,8 +28,6 @@ const initialChatroomState = {
 };
 
 const chatroomReducer = (state = initialChatroomState, action) => {
-  console.log(action);
-  console.log('Data has reached reudcer');
   switch (action.type) {
     case FETCH_CHATROOM_LIST:
       return {
@@ -62,7 +60,11 @@ const chatroomReducer = (state = initialChatroomState, action) => {
         ...state,
         conversation: [
           ...state.conversation,
-          { url: action.payload, chatroom_user_id: action.chatroomUserId },
+          {
+            url: action.payload,
+            chatroom_user_id: action.chatroomUserId,
+            created_at: action.created_at,
+          },
         ],
       };
 

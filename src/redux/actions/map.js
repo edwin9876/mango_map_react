@@ -1,46 +1,68 @@
 import {
-    CREATE_LOCATION,
-    UPDATE_LOCATION,
-    REMOVE_LOCATION,
-    FETCH_LOCATION,
-    FETCH_ALLLOCATION,
-    FETCH_USERLOCATION
-} from '../constants/actionTypes'
+  CREATE_DISTRICT,
+  UPDATE_DISTRICT,
+  REMOVE_DISTRICT,
+  FETCH_DISTRICT,
+  CREATE_LOCATION,
+  UPDATE_LOCATION,
+  REMOVE_LOCATION,
+  FETCH_LOCATION,
+  FETCH_ALL_DISTRICTS,
+  CHANGE_ZOOM_LEVEL,
+  FETCH_ALL_LOCATIONS,
+} from '../constants/actionTypes';
 
-import axios from 'axios'
+import axios from 'axios';
 
+require('dotenv').config()
 
-export function fetchAllLocation(){
-    return async(dispatch)=>{
-        let res = await axios('https://localhost:8000/map/Locations')
-        dispatch({ type:FETCH_ALLLOCATION,payload:res.data})
-    }
+export function fetchAllDistricts() {
+  return async (dispatch) => {
+    let res = await axios(`${process.env.REACT_APP_DEV_URL}map/districts`);
+    dispatch({ type: FETCH_ALL_DISTRICTS, payload: res.data });
+    return res;
+  };
+}
+export function fetchAllLocations() {
+  return async (dispatch) => {
+    let res = await axios(`${process.env.REACT_APP_DEV_URL}map/locations`);
+    dispatch({ type: FETCH_ALL_LOCATIONS, payload: res.data });
+    return res;
+  };
+}
+export function fetchLocation(location_id) {
+  return async (dispatch) => {
+    let res = await axios(`${process.env.REACT_APP_DEV_URL}map/location/${location_id}`);
+    dispatch({ type: FETCH_LOCATION, payload: res.data[0] });
+    return res;
+  };
 }
 
-export function fetchLocation(payload){
-    return async(dispatch)=>{
-        let res = await axios(`https://localhost:8000/map/Location/${payload.LOCATION_id}`)
-        dispatch({ type:FETCH_LOCATION,payload:res.data})
-    }
+export function changeZoomLevel(zoomLevel) {
+  return (dispatch) => {
+    dispatch({ type: CHANGE_ZOOM_LEVEL, payload: zoomLevel });
+  };
 }
 
-export function fetchUserLocation(payload){
-    return async(dispatch)=>{
-        let res = await axios(`https://localhost:8000/map/tripDetails/${payload.LOCATION_id}`)
-        dispatch({ type:FETCH_LOCATION,payload:res.data})
-    }
+export function fetchDistrict(payload) {
+  return async (dispatch) => {
+    let res = await axios(
+      `${process.env.REACT_APP_DEV_URL}map/district/${payload.district_id}`
+    );
+    dispatch({ type: FETCH_DISTRICT, payload: res.data });
+  };
 }
 
-export function createLocation(payload){
-    return async(dispatch)=>{
-        let res = await axios(`https://localhost:8000/map/Location/`,payload)
-        dispatch({ type:CREATE_LOCATION,payload:res.data})
-    }
+export function createDistrict(payload) {
+  return async (dispatch) => {
+    let res = await axios(`${process.env.REACT_APP_DEV_URL}map/district/`, payload);
+    dispatch({ type: CREATE_DISTRICT, payload: res.data });
+  };
 }
 
-export function updateLocation(payload){
-    return { type:UPDATE_LOCATION,payload}
+export function updateDistrict(payload) {
+  return { type: UPDATE_DISTRICT, payload };
 }
-export function removeLocation(payload){
-    return { type:REMOVE_LOCATION,payload}
+export function removeDistrict(payload) {
+  return { type: REMOVE_DISTRICT, payload };
 }
