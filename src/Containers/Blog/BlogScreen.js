@@ -16,7 +16,7 @@ import { Button, ButtonGroup } from 'reactstrap'
 import { fetchAllPost } from '../../redux/actions/blog'
 import { fetchAllImages } from '../../redux/actions/image'
 import { fetchAllUser } from '../../redux/actions/user'
-import { fetchAllLocation } from '../../redux/actions/map'
+import { fetchAllLocations } from '../../redux/actions/map'
 
 
 
@@ -47,7 +47,7 @@ class ConnectedBlogScreen extends Component {
     async componentDidMount() {
         let { dispatch } = this.props
         await dispatch(fetchAllPost())
-        await dispatch(fetchAllLocation())
+        await dispatch(fetchAllLocations())
         await dispatch(fetchAllImages())
         await dispatch(fetchAllUser())
 
