@@ -47,40 +47,22 @@ class ConnectedBlogScreen extends Component {
     async componentDidMount() {
         let { dispatch } = this.props
         await dispatch(fetchAllPost())
+        await dispatch(fetchAllLocation())
+        await dispatch(fetchAllImages())
+        await dispatch(fetchAllUser())
 
-        if (this.props.blog.posts) {
+        if (this.props.blog.posts
+            && this.props.img.images
+            && this.props.user.users
+            && this.props.map.locations) {
             this.setState({
                 ...this.state,
                 posts: this.props.blog.posts,
-            })
-        }
-        await dispatch(fetchAllImages())
-
-        if (this.props.img.images) {
-            this.setState({
-                ...this.state,
-                images: this.props.img.images
-            })
-        }
-
-        await dispatch(fetchAllUser())
-
-        if (this.props.user.users) {
-            this.setState({
-                ...this.state,
-                users: this.props.user.users
-            })
-        }
-
-        await dispatch(fetchAllLocations())
-
-        if (this.props.map.locations) {
-            this.setState({
-                ...this.state,
+                images: this.props.img.images,
+                users: this.props.user.users,
                 locations: this.props.map.locations
             })
         }
-
     }
     filterImg = (e) => {
 
