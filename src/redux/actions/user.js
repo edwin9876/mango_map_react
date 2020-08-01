@@ -1,13 +1,14 @@
 import {
     CREATE_USER,
     FETCH_ALLUSER,
+    FETCH_USERLOCATION,
     FETCH_USER,
     UPDATE_USER,
     REMOVE_USER,
     CREATE_FAVPOST,
     REMOVE_FAVPOST,
-    CREATE_USERDISTRICT,
-    REMOVE_USERDISTRICT,
+    CREATE_USERLOCATION,
+    REMOVE_USERLOCATION,
     LOGIN_REQUEST,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
@@ -25,7 +26,7 @@ export function login(email, password) {
     return async (dispatch) => {
         try {
             dispatch({ type: LOGIN_REQUEST, payload: email })
-            let res = await axios.post('http://localhost:8000/auth/local-login', { email: email, password: password })
+            let res = await axios.post('https://localhost:8000/auth/local-login', { email: email, password: password })
             console.log(res.data)
             localStorage.setItem('user', JSON.stringify(res.data))
 
@@ -46,7 +47,7 @@ export function signUp(userInfo) {
     return async (dispatch) => {
         try {
             dispatch({ type: REGISTER_REQUEST, payload: userInfo })
-            let res = await axios.post('http://localhost:8000/auth/local-signup', { ...userInfo })
+            let res = await axios.post('https://localhost:8000/auth/local-signup', { ...userInfo })
             console.log(res.data)
             // localStorage.setItem('user', JSON.stringify(res.data.user))
 
@@ -60,7 +61,7 @@ export function signUp(userInfo) {
 
 export function fetchAllUser() {
     return async (dispatch) => {
-        let res = await axios('http://localhost:8000/user/all')
+        let res = await axios('https://localhost:8000/user/all')
         dispatch({ type: FETCH_ALLUSER, payload: res.data })
     }
 }
@@ -68,11 +69,23 @@ export function fetchAllUser() {
 export function fetchUser(user_id) {
     return async (dispatch) => {
         console.log(user_id)
-        let res = await axios(`http://localhost:8000/user/one/${user_id}`, {
-            headers:authHeader()
+        let res = await axios(`https://localhost:8000/user/one/${user_id}`, {
+            headers: authHeader()
         })
         console.log(res.data)
         dispatch({ type: FETCH_USER, payload: res.data })
+    }
+}
+
+export function fetchUserLocation(user_id, location_id) {
+
+    return async (dispatch) => {
+
+        let res = await axios(`https://localhost:8000/user/${user_id}/tripDetails/${location_id}`, {
+            headers: authHeader()
+        })
+        console.log(res.data)
+        dispatch({ type: FETCH_USERLOCATION, payload: res.data[0] })
     }
 }
 
@@ -90,10 +103,10 @@ export function createFavPOST(payload) {
     }
 
 }
-export function createUserDistrict(payload) {
+export function createUserLOCATION(payload) {
     return async (dispatch) => {
-        let res = await axios.post(`https://localhost:8000/authorized/${payload.user_id}/district/${payload.district_id}`)
-        dispatch({ type: CREATE_USERDISTRICT, payload: res.data })
+        let res = await axios.post(`https://localhost:8000/authorized/${payload.user_id}/LOCATION/${payload.LOCATION_id}`)
+        dispatch({ type: CREATE_USERLOCATION, payload: res.data })
     }
 
 }
@@ -101,7 +114,16 @@ export function createUserDistrict(payload) {
 
 
 export function updateUser(payload) {
-    return { type: UPDATE_USER, payload }
+    return async (dispatch) => {
+        let res = await axios.put(`https://localhost:8000/user/one/${payload.id}`,
+            {
+                ...payload
+            },
+            {
+                headers: authHeader()
+            })
+        dispatch({ type: UPDATE_USER, payload: res.data })
+    }
 }
 
 export function removeUser(payload) {
@@ -114,8 +136,8 @@ export function removeFavPOST(payload) {
 }
 
 
-export function removeUserDistrict(payload) {
-    return { type: REMOVE_USERDISTRICT, payload }
+export function removeUserLOCATION(payload) {
+    return { type: REMOVE_USERLOCATION, payload }
 }
 
 

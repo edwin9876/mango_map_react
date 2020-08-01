@@ -63,7 +63,7 @@ class ConnectedApp extends Component {
 
               <Route exact path='/profile/:id' component={Profile} />
               
-
+              <Route exact path='/profile/:id/edit' component={EditProfile} />
               <Route exact path='/signin' component={SignIn} />
               <Route exact path='/signup' component={SignUp} />
             </Switch>
@@ -82,4 +82,3 @@ export default App;
 
 
 
-// <Route exact path='/profile/:id/edit' component={EditProfile} />
