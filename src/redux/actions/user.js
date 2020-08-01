@@ -26,7 +26,7 @@ export function login(email, password) {
     return async (dispatch) => {
         try {
             dispatch({ type: LOGIN_REQUEST, payload: email })
-            let res = await axios.post('http://localhost:8000/auth/local-login', { email: email, password: password })
+            let res = await axios.post('https://localhost:8000/auth/local-login', { email: email, password: password })
             console.log(res.data)
             localStorage.setItem('user', JSON.stringify(res.data))
 
@@ -47,7 +47,7 @@ export function signUp(userInfo) {
     return async (dispatch) => {
         try {
             dispatch({ type: REGISTER_REQUEST, payload: userInfo })
-            let res = await axios.post('http://localhost:8000/auth/local-signup', { ...userInfo })
+            let res = await axios.post('https://localhost:8000/auth/local-signup', { ...userInfo })
             console.log(res.data)
             // localStorage.setItem('user', JSON.stringify(res.data.user))
 
@@ -61,7 +61,7 @@ export function signUp(userInfo) {
 
 export function fetchAllUser() {
     return async (dispatch) => {
-        let res = await axios('http://localhost:8000/user/all')
+        let res = await axios('https://localhost:8000/user/all')
         dispatch({ type: FETCH_ALLUSER, payload: res.data })
     }
 }
@@ -69,7 +69,7 @@ export function fetchAllUser() {
 export function fetchUser(user_id) {
     return async (dispatch) => {
         console.log(user_id)
-        let res = await axios(`http://localhost:8000/user/one/${user_id}`, {
+        let res = await axios(`https://localhost:8000/user/one/${user_id}`, {
             headers: authHeader()
         })
         console.log(res.data)
@@ -81,7 +81,7 @@ export function fetchUserLocation(user_id, location_id) {
 
     return async (dispatch) => {
 
-        let res = await axios(`http://localhost:8000/user/${user_id}/tripDetails/${location_id}`, {
+        let res = await axios(`https://localhost:8000/user/${user_id}/tripDetails/${location_id}`, {
             headers: authHeader()
         })
         console.log(res.data)
@@ -115,7 +115,7 @@ export function createUserLOCATION(payload) {
 
 export function updateUser(payload) {
     return async (dispatch) => {
-        let res = await axios.put(`http://localhost:8000/user/one/${payload.id}`,
+        let res = await axios.put(`https://localhost:8000/user/one/${payload.id}`,
             {
                 ...payload
             },
