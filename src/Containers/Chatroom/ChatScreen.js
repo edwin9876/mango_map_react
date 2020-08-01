@@ -21,7 +21,7 @@ class ChatScreen extends Component {
         {this.state.loggedIn ? (
           <>
 
-            <div className=''>
+            <div>
               <Chat />
             </div>
           </>

@@ -17,8 +17,9 @@ import ChatToolbar from '../../../Components/UI/Layout/ChatToolbar'
 import { backToChatList } from '../../../redux/actions/chatroom'
 import Input from '../../../Components/Chat/Input/Input';
 import Messages from '../../../Components/Chat/Messages/Messages';
+import AddChat from '../../../Components/UI/Layout/AddChat'
 
-import { Button, ButtonGroup } from 'reactstrap';
+import { Button, ButtonGroup, ListGroup, ListGroupItem } from 'reactstrap';
 
 import { ThemeContext } from '../../../Contexts/Theme';
 
@@ -141,20 +142,21 @@ class Chat extends Component {
         this.props.roomList.map((room, index) => {
           return (
             <div
-              class='chatroomListTesting'
+              className='chatroomListTesting margin5'
               key={index}
               onClick={() => this.props.fetchChatroom(index + 1)}
             >
-              <ul className='collection'>
-                <li className='collection-item avatar gray70'>
-                  <i className='material-icons circle grey blur'>star</i>
-                  <span className='title bold'>{room.room_name}</span>
-                  <p>Last message</p>
-                  <a href='#!' className='secondary-content'>
-                    <i className='material-icons blur'>grade</i>
-                  </a>
-                </li>
-              </ul>
+              <ListGroup>
+              <ListGroupItem color={theme.listcolor} className="justify-content-between d-flex">
+              <img className="material-icons roundimg"
+              src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRIMey7cyC1XcqtyFcJlNhz7yP4oT1kAahWPw&usqp=CAU'
+              alt='Avatar'/>
+              <h6 className="d-flex align-items-center">{room.room_name}</h6>
+              <h6 className="d-flex align-items-center blur light">{room.created_at.slice(0, 10)}
+              </h6>
+          
+              </ListGroupItem>
+              </ListGroup>
             </div>
           );
         })
