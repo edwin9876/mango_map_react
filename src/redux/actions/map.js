@@ -21,7 +21,6 @@ export function fetchAllDistricts() {
     return res;
   };
 }
-
 export function fetchAllLocations() {
   return async (dispatch) => {
     let res = await axios('https://localhost:8000/map/locations');

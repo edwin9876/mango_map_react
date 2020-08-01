@@ -42,7 +42,7 @@ const mapReducer = (state = initialMapState, action) => {
     case FETCH_DISTRICT:
       return {
         ...state,
-        location: [...action.payload],
+        location: action.payload,
       };
     case CREATE_DISTRICT:
       return {
