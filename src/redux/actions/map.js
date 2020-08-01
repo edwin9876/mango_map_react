@@ -29,6 +29,13 @@ export function fetchAllLocations() {
   };
 }
 
+export function fetchLocation(location_id){
+  return async(dispatch)=>{
+      let res = await axios(`${process.env.REACT_APP_DEV_URL}map/location/${location_id}`)
+      dispatch({ type:FETCH_LOCATION,payload:res.data[0]})
+  }
+}
+
 export function changeZoomLevel(zoomLevel) {
   return (dispatch) => {
     dispatch({ type: CHANGE_ZOOM_LEVEL, payload: zoomLevel });
