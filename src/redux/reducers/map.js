@@ -32,7 +32,7 @@ const mapReducer = (state = initialMapState, action) => {
     case FETCH_ALL_DISTRICTS:
       return {
         ...state,
-        locations: [...action.payload],
+        districts: [...action.payload],
       };
     case FETCH_ALL_LOCATIONS:
       return {
@@ -44,7 +44,7 @@ const mapReducer = (state = initialMapState, action) => {
         ...state,
         location: [...action.payload],
       };
-    case CREATE_LOCATION:
+    case CREATE_DISTRICT:
       return {
         ...state,
       };
