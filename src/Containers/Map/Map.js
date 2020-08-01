@@ -34,11 +34,24 @@ export class MapContainer extends Component {
     },
     locations_id: null,
     selectedPlaceImages: [],
+    // This must be stored in database
+    selfDefinedMarkers: [],
   };
 
   componentDidMount() {
     this.props.fetchAllDistricts();
     this.props.fetchAllLocations();
+
+    // window.google.maps.Map.prototype.panTo({
+    //   lat: 22.5838475,
+    //   lng: 114.0552244,
+    // });
+
+    console.log(this.mapRefs.current.props.google.maps.Map);
+
+    console.log(window.google.maps.Map.prototype.panTo);
+    console.log(this.mapRefs.current.props.google.maps);
+    // console.log(this.mapRefs);
 
     if (navigator && navigator.geolocation) {
       // console.log(this.props.google.maps.Map().panT);
@@ -55,7 +68,6 @@ export class MapContainer extends Component {
   }
 
   _mapLoaded(mapProps, map) {
-    console.log('HIHI');
     map.setOptions({
       styles: simple,
     });
@@ -72,46 +84,69 @@ export class MapContainer extends Component {
   }
 
   onMarkerClick = (props, marker, e) => {
-    console.log(this.mapRefs);
-
-    // this.setState(
-    //   {
-    //     selectedPlace: props,
-    //     activeMarker: marker,
-    //     showingInfoWindow: true,
-    //   },
-    //   () => {
-    //     axios
-    //       .get(
-    //         `https://localhost:8000/image/public/${this.state.selectedPlace.locations_id}`
-    //       )
-    //       .then((data) => {
-    //         console.log(data.data);
-    //         this.setState({
-    //           ...this.state,
-    //           selectedPlaceImages: data.data,
-    //         });
-    //       });
-    //   }
-    // );
+    this.setState(
+      {
+        selectedPlace: props,
+        activeMarker: marker,
+        showingInfoWindow: true,
+      },
+      () => {
+        if (!this.state.selectedPlace.locationId) {
+          console.log('Return');
+          return;
+        }
+        axios
+          .get(
+            `https://localhost:8000/image/public/${this.state.selectedPlace.locationId}`
+          )
+          .then((data) => {
+            this.setState({
+              ...this.state,
+              selectedPlaceImages: data.data,
+            });
+          });
+      }
+    );
   };
 
   onClose = (props) => {
     if (this.state.showingInfoWindow) {
-      this.setState({
-        showingInfoWindow: false,
-        activeMarker: null,
-      });
+      this.setState(
+        {
+          showingInfoWindow: false,
+          activeMarker: null,
+          selectedPlaceImages: null,
+          selectedPlace: {},
+        },
+        () => {
+          console.log(props);
+        }
+      );
     }
+  };
+
+  createMarker = (lat, lng) => {
+    this.mapRefs.current.props.google.maps.Map.prototype.panTo({
+      lat: 22.5838475,
+      lng: 114.0552244,
+    });
+    this.setState(
+      {
+        ...this.state,
+        selfDefinedMarkers: [...this.state.selfDefinedMarkers, { lat, lng }],
+      },
+      () => {
+        console.log(this.state.selfDefinedMarkers);
+      }
+    );
   };
 
   render() {
     let locations;
+    let selfDefinedMarkers;
 
-    console.log(this.props.zoom);
-
-    this.props.zoom <= 12
-      ? (locations = this.props.districts.map((location) => {
+    this.props.zoom <= 13
+      ? (locations = this.props.districts.map((district) => {
           return (
             <Marker
               icon={{
@@ -119,10 +154,10 @@ export class MapContainer extends Component {
                 anchor: new window.google.maps.Point(25, 25),
                 scaledSize: new window.google.maps.Size(50, 50),
               }}
-              position={{ lat: location.lat, lng: location.lng }}
+              key={district.id}
+              position={{ lat: district.lat, lng: district.lng }}
               onClick={this.onMarkerClick}
-              name={location.en}
-              locations_id={location.locations_id}
+              name={district.en}
             />
           );
         }))
@@ -134,29 +169,14 @@ export class MapContainer extends Component {
                 anchor: new window.google.maps.Point(25, 25),
                 scaledSize: new window.google.maps.Size(50, 50),
               }}
+              key={location.id}
+              locationId={location.id}
               position={{ lat: location.lat, lng: location.lng }}
               onClick={this.onMarkerClick}
               name={location.en}
-              locations_id={location.locations_id}
             />
           );
         }));
-
-    // locations = this.props.districts.map((location) => {
-    //   return (
-    //     <Marker
-    //       icon={{
-    //         url: './assets/icons/adventure.png',
-    //         anchor: new window.google.maps.Point(25, 25),
-    //         scaledSize: new window.google.maps.Size(50, 50),
-    //       }}
-    //       position={{ lat: location.lat, lng: location.lng }}
-    //       onClick={this.onMarkerClick}
-    //       name={location.en}
-    //       locations_id={location.locations_id}
-    //     />
-    //   );
-    // });
 
     let locationImages = <p> Please wait, Images are loading...</p>;
 
@@ -172,6 +192,21 @@ export class MapContainer extends Component {
       });
     }
 
+    if (this.state.selfDefinedMarkers) {
+      selfDefinedMarkers = this.state.selfDefinedMarkers.map((marker) => {
+        return (
+          <Marker
+            position={{
+              lat: marker.lat,
+              lng: marker.lng,
+            }}
+            onClick={this.onMarkerClick}
+            name='You defined it'
+          />
+        );
+      });
+    }
+
     return (
       <div>
         <Map
@@ -180,6 +215,12 @@ export class MapContainer extends Component {
             this.props.changeZoomLevel(map.zoom);
           }}
           onLoad={(map) => console.log(map)}
+          onClick={(props, google, clickEvent) => {
+            const lat = clickEvent.latLng.lat();
+            const lng = clickEvent.latLng.lng();
+            console.log(google);
+            this.createMarker(lat, lng);
+          }}
           centerAroundCurrentLocation
           google={this.props.google}
           zoom={12}
@@ -202,6 +243,7 @@ export class MapContainer extends Component {
             onClick={this.onMarkerClick}
             name='You are here'
           />
+          {selfDefinedMarkers}
           {locations}
           <InfoWindow
             marker={this.state.activeMarker}
