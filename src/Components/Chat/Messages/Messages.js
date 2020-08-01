@@ -37,7 +37,8 @@ const Messages = ({ conversation, chatroomUserId }) => {
           alt='Avatar'
           className='roundimg'
         />
-        <p>{message.user_name}</p>
+
+        <p className="floatR blur">{message.user_name}</p>
         {message.url ? (
           <img
             src={message.url}
