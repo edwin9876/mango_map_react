@@ -44,7 +44,7 @@ class ConncectedSpotDetails extends Component {
                 location: {...this.props.map.location}
             })
         }
-        console.log(this.state)
+        console.log(this.state.location)
     }
 
 
