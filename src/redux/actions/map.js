@@ -9,31 +9,32 @@ import {
 
 import axios from 'axios'
 
+require('dotenv').config()
 
 export function fetchAllLocation(){
     return async(dispatch)=>{
-        let res = await axios('https://localhost:8000/map/Locations')
+        let res = await axios(`${process.env.REACT_APP_DEV_URL}map/locations`)
         dispatch({ type:FETCH_ALLLOCATION,payload:res.data})
     }
 }
 
-export function fetchLocation(payload){
+export function fetchLocation(location_id){
     return async(dispatch)=>{
-        let res = await axios(`https://localhost:8000/map/Location/${payload.LOCATION_id}`)
-        dispatch({ type:FETCH_LOCATION,payload:res.data})
+        let res = await axios(`${process.env.REACT_APP_DEV_URL}map/location/${location_id}`)
+        dispatch({ type:FETCH_LOCATION,payload:res.data[0]})
     }
 }
 
 export function fetchUserLocation(payload){
     return async(dispatch)=>{
-        let res = await axios(`https://localhost:8000/map/tripDetails/${payload.LOCATION_id}`)
+        let res = await axios(`${process.env.REACT_APP_DEV_URL}map/tripDetails/${payload.LOCATION_id}`)
         dispatch({ type:FETCH_LOCATION,payload:res.data})
     }
 }
 
 export function createLocation(payload){
     return async(dispatch)=>{
-        let res = await axios(`https://localhost:8000/map/Location/`,payload)
+        let res = await axios(`${process.env.REACT_APP_DEV_URL}map/location/`,payload)
         dispatch({ type:CREATE_LOCATION,payload:res.data})
     }
 }

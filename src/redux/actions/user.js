@@ -22,11 +22,13 @@ import {
 import authHeader from '../helpers/authHeader'
 import axios from 'axios'
 
+require('dotenv').config()
+
 export function login(email, password) {
     return async (dispatch) => {
         try {
             dispatch({ type: LOGIN_REQUEST, payload: email })
-            let res = await axios.post('https://localhost:8000/auth/local-login', { email: email, password: password })
+            let res = await axios.post(`${process.env.REACT_APP_DEV_URL}auth/local-login`, { email: email, password: password })
             console.log(res.data)
             localStorage.setItem('user', JSON.stringify(res.data))
 
@@ -47,7 +49,7 @@ export function signUp(userInfo) {
     return async (dispatch) => {
         try {
             dispatch({ type: REGISTER_REQUEST, payload: userInfo })
-            let res = await axios.post('https://localhost:8000/auth/local-signup', { ...userInfo })
+            let res = await axios.post(`${process.env.REACT_APP_DEV_URL}auth/local-signup`, { ...userInfo })
             console.log(res.data)
             // localStorage.setItem('user', JSON.stringify(res.data.user))
 
@@ -61,7 +63,7 @@ export function signUp(userInfo) {
 
 export function fetchAllUser() {
     return async (dispatch) => {
-        let res = await axios('https://localhost:8000/user/all')
+        let res = await axios(`${process.env.REACT_APP_DEV_URL}user/all`)
         dispatch({ type: FETCH_ALLUSER, payload: res.data })
     }
 }
@@ -69,7 +71,7 @@ export function fetchAllUser() {
 export function fetchUser(user_id) {
     return async (dispatch) => {
         console.log(user_id)
-        let res = await axios(`https://localhost:8000/user/one/${user_id}`, {
+        let res = await axios(`${process.env.REACT_APP_DEV_URL}user/one/${user_id}`, {
             headers: authHeader()
         })
         console.log(res.data)
@@ -81,7 +83,7 @@ export function fetchUserLocation(user_id, location_id) {
 
     return async (dispatch) => {
 
-        let res = await axios(`https://localhost:8000/user/${user_id}/tripDetails/${location_id}`, {
+        let res = await axios(`${process.env.REACT_APP_DEV_URL}user/${user_id}/tripDetails/${location_id}`, {
             headers: authHeader()
         })
         console.log(res.data)
@@ -91,21 +93,21 @@ export function fetchUserLocation(user_id, location_id) {
 
 export function createUser(payload) {
     return async (dispatch) => {
-        let res = await axios.post(`https://localhost:8000/user/`, payload.user)
+        let res = await axios.post(`${process.env.REACT_APP_DEV_URL}user/`, payload.user)
         dispatch({ type: CREATE_USER, payload: res.data })
     }
 }
 
 export function createFavPOST(payload) {
     return async (dispatch) => {
-        let res = await axios.post(`https://localhost:8000/authorized/${payload.user_id}/POST/${payload.POST_id}`)
+        let res = await axios.post(`${process.env.REACT_APP_DEV_URL}authorized/${payload.user_id}/POST/${payload.POST_id}`)
         dispatch({ type: CREATE_FAVPOST, payload: res.data })
     }
 
 }
 export function createUserLOCATION(payload) {
     return async (dispatch) => {
-        let res = await axios.post(`https://localhost:8000/authorized/${payload.user_id}/LOCATION/${payload.LOCATION_id}`)
+        let res = await axios.post(`${process.env.REACT_APP_DEV_URL}authorized/${payload.user_id}/LOCATION/${payload.LOCATION_id}`)
         dispatch({ type: CREATE_USERLOCATION, payload: res.data })
     }
 
@@ -115,7 +117,7 @@ export function createUserLOCATION(payload) {
 
 export function updateUser(payload) {
     return async (dispatch) => {
-        let res = await axios.put(`https://localhost:8000/user/one/${payload.id}`,
+        let res = await axios.put(`${process.env.REACT_APP_DEV_URL}user/one/${payload.id}`,
             {
                 ...payload
             },
