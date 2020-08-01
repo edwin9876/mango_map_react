@@ -14,17 +14,26 @@ import {
 
 import axios from 'axios';
 
+require('dotenv').config()
+
 export function fetchAllDistricts() {
   return async (dispatch) => {
-    let res = await axios('https://localhost:8000/map/districts');
+    let res = await axios(`${process.env.REACT_APP_DEV_URL}map/districts`);
     dispatch({ type: FETCH_ALL_DISTRICTS, payload: res.data });
     return res;
   };
 }
 export function fetchAllLocations() {
   return async (dispatch) => {
-    let res = await axios('https://localhost:8000/map/locations');
+    let res = await axios(`${process.env.REACT_APP_DEV_URL}map/locations`);
     dispatch({ type: FETCH_ALL_LOCATIONS, payload: res.data });
+    return res;
+  };
+}
+export function fetchLocation(location_id) {
+  return async (dispatch) => {
+    let res = await axios(`${process.env.REACT_APP_DEV_URL}map/location/${location_id}`);
+    dispatch({ type: FETCH_LOCATION, payload: res.data[0] });
     return res;
   };
 }
@@ -45,7 +54,7 @@ export function changeZoomLevel(zoomLevel) {
 export function fetchDistrict(payload) {
   return async (dispatch) => {
     let res = await axios(
-      `https://localhost:8000/map/district/${payload.district_id}`
+      `${process.env.REACT_APP_DEV_URL}map/district/${payload.district_id}`
     );
     dispatch({ type: FETCH_DISTRICT, payload: res.data });
   };
@@ -53,7 +62,7 @@ export function fetchDistrict(payload) {
 
 export function createDistrict(payload) {
   return async (dispatch) => {
-    let res = await axios(`https://localhost:8000/map/district/`, payload);
+    let res = await axios(`${process.env.REACT_APP_DEV_URL}map/district/`, payload);
     dispatch({ type: CREATE_DISTRICT, payload: res.data });
   };
 }

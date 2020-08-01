@@ -47,7 +47,7 @@ class ConnectedBlogScreen extends Component {
     async componentDidMount() {
         let { dispatch } = this.props
         await dispatch(fetchAllPost())
-        await dispatch(fetchAllLocation())
+        await dispatch(fetchAllLocations())
         await dispatch(fetchAllImages())
         await dispatch(fetchAllUser())
 

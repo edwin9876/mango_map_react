@@ -6,6 +6,7 @@ import {
   FETCH_ALL_DISTRICTS,
   CHANGE_ZOOM_LEVEL,
   FETCH_ALL_LOCATIONS,
+  FETCH_LOCATION
 } from '../constants/actionTypes';
 
 const initialMapState = {
@@ -38,6 +39,11 @@ const mapReducer = (state = initialMapState, action) => {
       return {
         ...state,
         locations: [...action.payload],
+      };
+    case FETCH_LOCATION:
+      return {
+        ...state,
+        location: action.payload,
       };
     case FETCH_DISTRICT:
       return {
