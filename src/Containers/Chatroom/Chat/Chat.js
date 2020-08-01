@@ -13,14 +13,14 @@ import { connect } from 'react-redux';
 import io from 'socket.io-client';
 import { css } from 'glamor';
 
+import ChatToolbar from '../../../Components/UI/Layout/ChatToolbar'
+import { backToChatList } from '../../../redux/actions/chatroom'
 import Input from '../../../Components/Chat/Input/Input';
 import Messages from '../../../Components/Chat/Messages/Messages';
 
 import { Button, ButtonGroup } from 'reactstrap';
 
 import { ThemeContext } from '../../../Contexts/Theme';
-
-import './Chat.css';
 
 class Chat extends Component {
   static contextType = ThemeContext;
@@ -92,7 +92,8 @@ class Chat extends Component {
     let displayedContent = this.props.currentRoomId ? (
       // This div is in a chatroom
       <div>
-        <h5 className='d-flex justify-content-center paddingy1'>Group1</h5>
+        <ChatToolbar backToChatList={this.props.backToChatList} />
+        <h5 className='d-flex justify-content-center paddingy1'>ChatRoomName</h5>
         <ButtonGroup className='d-flex justify-content-center'>
           <Button
             style={{
@@ -136,28 +137,28 @@ class Chat extends Component {
         </div>
       </div>
     ) : (
-      // Display the list of chatrooms the user has
-      this.props.roomList.map((room, index) => {
-        return (
-          <div
-            class='chatroomListTesting'
-            key={index}
-            onClick={() => this.props.fetchChatroom(index + 1)}
-          >
-            <ul className='collection'>
-              <li className='collection-item avatar gray70'>
-                <i className='material-icons circle grey blur'>star</i>
-                <span className='title bold'>{room.room_name}</span>
-                <p>Last message</p>
-                <a href='#!' className='secondary-content'>
-                  <i className='material-icons blur'>grade</i>
-                </a>
-              </li>
-            </ul>
-          </div>
-        );
-      })
-    );
+        // Display the list of chatrooms the user has
+        this.props.roomList.map((room, index) => {
+          return (
+            <div
+              class='chatroomListTesting'
+              key={index}
+              onClick={() => this.props.fetchChatroom(index + 1)}
+            >
+              <ul className='collection'>
+                <li className='collection-item avatar gray70'>
+                  <i className='material-icons circle grey blur'>star</i>
+                  <span className='title bold'>{room.room_name}</span>
+                  <p>Last message</p>
+                  <a href='#!' className='secondary-content'>
+                    <i className='material-icons blur'>grade</i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          );
+        })
+      );
 
     return displayedContent;
   }
@@ -181,7 +182,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchChatroom: (id) => dispatch(fetchChatroom(id)),
     setMessage: (event) => dispatch(setMessage(event)),
     sendMessage: (message, roomId, roomUserId) =>
-      dispatch(sendMessage(message, roomId, roomUserId)),
+    dispatch(sendMessage(message, roomId, roomUserId)),
+    backToChatList: () => dispatch(backToChatList()),
   };
 };
 

@@ -51,6 +51,7 @@ class ConnectedApp extends Component {
               <Route exact path='/trip/:id' component={TripDetails}/>
               <Route exact path='/spot/:id' component={SpotDetails}/>
 
+
               <Route
                 exact
                 path='/profile'
