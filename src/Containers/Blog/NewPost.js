@@ -112,7 +112,7 @@ class ConnectedNewPost extends Component {
           </FormGroup>
 
           <FormGroup>
-            <Label for="exampleSelectMulti" className="bold">Choose Category</Label>
+            <Label for="exampleSelectMulti" className="bold">Choose Category<span className="light">(select 1 or more)</span></Label>
             <Input style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} onChange={this.handleChange} type="select" name="category" multiple >
               {this.state.post.categories ?
                 this.state.post.categories.map((c, i) => {

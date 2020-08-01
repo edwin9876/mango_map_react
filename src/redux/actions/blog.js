@@ -12,7 +12,7 @@ import {
     REMOVE_POSTIMAGE,
     FETCH_ALLPOST,
     FETCH_POST,
-    // FETCH_WEEKLYPOST
+    FETCH_COMMENT,
 } from '../constants/actionTypes'
 
 import axios from 'axios'
@@ -20,36 +20,37 @@ import authHeader from '../helpers/authHeader'
 
 
 
-// export function fetchWeeklyPost(){
-//     return dispatch => {
-//         return axios(`https://localhost:8000/blog/${payload.blog_id}`)
-//             .then(res => {
-//                 dispatch({ type: FETCH_WEEKLYPOST, payload: res.data })
-//             })
-//     }
-// }
+export function fetchComment() {
+    return (dispatch) => {
+        return axios("https://localhost:8000/comment")
+            .then(res => {
+                dispatch({ type: FETCH_COMMENT, payload: res.data })
+            })
+
+    }
+}
 
 
 export function fetchAllPost() {
     return (dispatch) => {
-        return axios("http://localhost:8000/blog/all")
+        return axios("https://localhost:8000/blog/all")
             .then(res => {
                 dispatch({ type: FETCH_ALLPOST, payload: res.data })
             })
 
     }
 }
-export function fetchPost(payload) {
+export function fetchPost(blog_id) {
     return dispatch => {
-        return axios(`https://localhost:8000/blog/${payload.blog_id}`)
+        return axios(`https://localhost:8000/blog/${blog_id}`)
             .then(res => {
-                dispatch({ type: FETCH_POST, payload: res.data })
+                dispatch({ type: FETCH_POST, payload: res.data[0] })
             })
     }
 }
 export function fetchAllCategory() {
     return (dispatch) => {
-        return axios("http://localhost:8000/blog/categories/")
+        return axios("https://localhost:8000/blog/categories/")
             .then(res => {
                 dispatch({ type: FETCH_ALLCATEGORY, payload: res.data })
             })
@@ -64,24 +65,19 @@ export function createNewCategory(payload) {
             })
     }
 }
-export function createComment(payload) {
+export function createComment(comment) {
+    console.log(comment)
     return dispatch => {
-        return axios.post(`https://localhost:8000/blog/comment/${payload.blog_id}`, payload.comment)
+        return axios.post(`https://localhost:8000/blog/comment/`, comment)
             .then(res => {
                 dispatch({ type: CREATE_COMMENT, payload:res.data })
             })
     }
 }
-// creating new blog post
-// export const createPost = (post) => {
-//     return (dispatch, getState) => {
-//         dispatch({type: 'CREATE_POST', post})
-//     }
-// }
 
 export function createPost(newBlog,user_id) {
     return dispatch => {
-        return axios.post(`http://localhost:8000/blog`, {
+        return axios.post(`https://localhost:8000/blog`, {
             ...newBlog,user_id
         },            
         {

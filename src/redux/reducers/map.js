@@ -13,6 +13,18 @@ const initialMapState = {
   locations: [],
   zoom: 12,
 };
+//   CREATE_LOCATION,
+//   UPDATE_LOCATION,
+//   REMOVE_LOCATION,
+//   FETCH_LOCATION,
+//   FETCH_ALLLOCATION
+// } from '../constants/actionTypes';
+
+// const initialMapState = {
+//   districts: [],
+//   locations: [],
+//   zoom: 12,
+// };
 
 const mapReducer = (state = initialMapState, action) => {
   console.log(action);
@@ -20,7 +32,7 @@ const mapReducer = (state = initialMapState, action) => {
     case FETCH_ALL_DISTRICTS:
       return {
         ...state,
-        districts: [...action.payload],
+        locations: [...action.payload],
       };
     case FETCH_ALL_LOCATIONS:
       return {
@@ -30,9 +42,9 @@ const mapReducer = (state = initialMapState, action) => {
     case FETCH_DISTRICT:
       return {
         ...state,
-        district: [...action.payload],
+        location: [...action.payload],
       };
-    case CREATE_DISTRICT:
+    case CREATE_LOCATION:
       return {
         ...state,
       };
