@@ -49,6 +49,7 @@ class ConnectedApp extends Component {
               <Route exact path='/chat/:id' component={ChatDetails} />
               <Route exact path='/trip/:id' component={TripDetails}/>
 
+
               <Route
                 exact
                 path='/profile'
