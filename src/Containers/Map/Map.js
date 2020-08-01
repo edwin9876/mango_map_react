@@ -42,11 +42,6 @@ export class MapContainer extends Component {
     this.props.fetchAllDistricts();
     this.props.fetchAllLocations();
 
-    // window.google.maps.Map.prototype.panTo({
-    //   lat: 22.5838475,
-    //   lng: 114.0552244,
-    // });
-
     console.log(this.mapRefs.current.props.google.maps.Map);
 
     console.log(window.google.maps.Map.prototype.panTo);
@@ -145,6 +140,8 @@ export class MapContainer extends Component {
     let locations;
     let selfDefinedMarkers;
 
+    console.log(this.props.zoom);
+
     this.props.zoom <= 13
       ? (locations = this.props.districts.map((district) => {
           return (
@@ -162,6 +159,7 @@ export class MapContainer extends Component {
           );
         }))
       : (locations = this.props.locations.map((location) => {
+          console.log(location);
           return (
             <Marker
               icon={{
