@@ -21,7 +21,7 @@ const mapReducer = (state = initialMapState, action) => {
     case FETCH_LOCATION:
       return {
         ...state,
-        location: [...action.payload],
+        location: action.payload,
       };
     case CREATE_LOCATION:
       return {
