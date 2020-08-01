@@ -60,7 +60,11 @@ const chatroomReducer = (state = initialChatroomState, action) => {
         ...state,
         conversation: [
           ...state.conversation,
-          { url: action.payload, chatroom_user_id: action.chatroomUserId },
+          {
+            url: action.payload,
+            chatroom_user_id: action.chatroomUserId,
+            created_at: action.created_at,
+          },
         ],
       };
 

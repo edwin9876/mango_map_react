@@ -41,8 +41,6 @@ export const fetchChatroom = (payload) => {
       return a.id - b.id || a.name.localeCompare(b.name);
     });
 
-    console.log(mergedConversation);
-
     dispatch({
       type: FETCH_CHATROOM,
       payload: mergedConversation,
@@ -85,6 +83,7 @@ export const sendImage = (imageUrl, roomId, chatroomUserId) => {
       type: SEND_IMAGE,
       payload: imageUrl,
       chatroomUserId: chatroomUserId,
+      created_at: new Date(),
     });
   };
 };
