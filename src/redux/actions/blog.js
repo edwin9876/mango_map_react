@@ -1,3 +1,4 @@
+
 import {
     CREATE_NEWCATEGORY,
     FETCH_ALLCATEGORY,
@@ -18,11 +19,14 @@ import {
 import axios from 'axios'
 import authHeader from '../helpers/authHeader'
 
+require('dotenv').config()
 
+
+console.log(process.env.REACT_APP_DEV_URL)
 
 export function fetchComment() {
     return (dispatch) => {
-        return axios("https://localhost:8000/comment")
+        return axios(`${process.env.REACT_APP_DEV_URL}comment`)
             .then(res => {
                 dispatch({ type: FETCH_COMMENT, payload: res.data })
             })
@@ -33,7 +37,7 @@ export function fetchComment() {
 
 export function fetchAllPost() {
     return (dispatch) => {
-        return axios("https://localhost:8000/blog/all")
+        return axios(`${process.env.REACT_APP_DEV_URL}blog/all`)
             .then(res => {
                 dispatch({ type: FETCH_ALLPOST, payload: res.data })
             })
@@ -42,7 +46,7 @@ export function fetchAllPost() {
 }
 export function fetchPost(blog_id) {
     return dispatch => {
-        return axios(`https://localhost:8000/blog/${blog_id}`)
+        return axios(`${process.env.REACT_APP_DEV_URL}blog/${blog_id}`)
             .then(res => {
                 dispatch({ type: FETCH_POST, payload: res.data[0] })
             })
@@ -50,7 +54,7 @@ export function fetchPost(blog_id) {
 }
 export function fetchAllCategory() {
     return (dispatch) => {
-        return axios("https://localhost:8000/blog/categories/")
+        return axios(`${process.env.REACT_APP_DEV_URL}blog/categories/`)
             .then(res => {
                 dispatch({ type: FETCH_ALLCATEGORY, payload: res.data })
             })
@@ -59,7 +63,7 @@ export function fetchAllCategory() {
 }
 export function createNewCategory(payload) {
     return dispatch => {
-        return axios.post(`https://localhost:8000/blog/categories/`, payload)
+        return axios.post(`${process.env.REACT_APP_DEV_URL}blog/categories/`, payload)
             .then(res => {
                 dispatch({ type: CREATE_NEWCATEGORY, payload: res.data })
             })
@@ -68,24 +72,24 @@ export function createNewCategory(payload) {
 export function createComment(comment) {
     console.log(comment)
     return dispatch => {
-        return axios.post(`https://localhost:8000/blog/comment/`, comment)
+        return axios.post(`${process.env.REACT_APP_DEV_URL}blog/comment/`, comment)
             .then(res => {
-                dispatch({ type: CREATE_COMMENT, payload:res.data })
+                dispatch({ type: CREATE_COMMENT, payload: res.data })
             })
     }
 }
 
-export function createPost(newBlog,user_id) {
+export function createPost(newBlog, user_id) {
     return dispatch => {
-        return axios.post(`https://localhost:8000/blog`, {
-            ...newBlog,user_id
-        },            
-        {
-            headers:authHeader()
+        return axios.post(`${process.env.REACT_APP_DEV_URL}blog`, {
+            ...newBlog, user_id
         },
+            {
+                headers: authHeader()
+            },
         )
             .then(res => {
-                dispatch({ type: CREATE_POST, payload:res.data })
+                dispatch({ type: CREATE_POST, payload: res.data })
                 console.log(res.data)
             })
     }

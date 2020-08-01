@@ -9,6 +9,7 @@ import Chat from './Containers/Chatroom/ChatScreen';
 import Profile from './Containers/Profile/ProfileScreen';
 import EditProfile from './Containers/Profile/EditProfile'
 
+import SpotDetails from './Components/Map/SpotDetails';
 import MapDetails from './Components/Map/MapDetails';
 import CreatePost from './Containers/Blog/CreatePost';
 import BlogDetails from './Containers/Blog/BlogDetails';
@@ -48,6 +49,7 @@ class ConnectedApp extends Component {
               <Route exact path='/chat' component={Chat} />
               <Route exact path='/chat/:id' component={ChatDetails} />
               <Route exact path='/trip/:id' component={TripDetails}/>
+              <Route exact path='/spot/:id' component={SpotDetails}/>
 
 
               <Route

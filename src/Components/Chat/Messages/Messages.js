@@ -5,6 +5,9 @@ import './Messages.css';
 
 const Messages = ({ conversation, chatroomUserId }) => {
   let testing = conversation.map((message) => {
+    let h = new Date(message.created_at).getHours();
+    let m = new Date(message.created_at).getMinutes();
+
     return chatroomUserId === message.chatroom_user_id ? (
       <div class='container darker '>
         <img
@@ -23,7 +26,9 @@ const Messages = ({ conversation, chatroomUserId }) => {
           <p>{message.body}</p>
         )}
 
-        <span class='time-left'>11:00</span>
+        <span class='time-left'>
+          {h}:{m}
+        </span>
       </div>
     ) : (
       <div className='container'>
@@ -42,7 +47,9 @@ const Messages = ({ conversation, chatroomUserId }) => {
         ) : (
           <p>{message.body}</p>
         )}{' '}
-        <div className='time-right'>11:00</div>
+        <div className='time-right'>
+          {h}:{m}
+        </div>
       </div>
     );
   });
