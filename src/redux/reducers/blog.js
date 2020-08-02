@@ -3,6 +3,7 @@ import {
   FETCH_ALLCATEGORY,
   CREATE_POST,
   CREATE_USERFAVPOST,
+  CREATE_POSTIMAGES,
   REMOVE_USERFAVPOST,
   FETCH_COMMENT,
   CREATE_COMMENT,
@@ -66,6 +67,12 @@ function blogReducer(state = initialBlogState, action) {
       console.log('created comment');
       return {
         ...state,
+      };
+    case CREATE_POST:
+      console.log('created post');
+      return {
+        ...state,
+        post:{...action.payload}
       };
     case CREATE_POST:
       console.log('created post');

@@ -1,7 +1,7 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 
 import {
-    Form, Input, InputGroup, Button, InputGroupAddon, Alert
+    Form, Input, InputGroup, Button, InputGroupAddon,
 } from 'reactstrap';
 
 import { connect } from 'react-redux'
