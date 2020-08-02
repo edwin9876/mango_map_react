@@ -20,7 +20,7 @@ const initialChatroomState = {
   userId: 1,
   // Should be set according to the currentRoomId
   chatroomUserId: 1,
-  username: 'Edwin',
+  username: 'Edwin123',
   currentRoomId: null,
   roomList: [],
   messages: [''],
@@ -52,7 +52,10 @@ const chatroomReducer = (state = initialChatroomState, action) => {
       return {
         ...state,
         messages: [''],
-        conversation: [...state.conversation, action.payload],
+        conversation: [
+          ...state.conversation,
+          { ...action.payload, user_name: state.username },
+        ],
       };
 
     case SEND_IMAGE:

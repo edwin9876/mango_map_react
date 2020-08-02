@@ -121,7 +121,7 @@ class Chat extends Component {
           <div className='margin5'>
             <Messages
               conversation={this.props.conversation}
-              chatroomUserId={this.props.chatroomUserId}
+              username={this.props.username}
             />
           </div>
         </ScrollToBottom>
@@ -141,12 +141,13 @@ class Chat extends Component {
       </div>
     ) : (
       // Display the list of chatrooms the user has
-      this.props.roomList.map((room, index) => {
+      this.props.roomList.map((room) => {
+        console.log(room);
         return (
           <div
             className='chatroomListTesting margin5'
-            key={index}
-            onClick={() => this.props.fetchChatroom(index + 1)}
+            key={room.chatroom_id}
+            onClick={() => this.props.fetchChatroom(room.chatroom_id)}
           >
             <ListGroup>
               <ListGroupItem
@@ -190,8 +191,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchChatroomList: (userId) => dispatch(fetchChatroomList(userId)),
     fetchChatroom: (id) => dispatch(fetchChatroom(id)),
     setMessage: (event) => dispatch(setMessage(event)),
-    sendMessage: (message, roomId, roomUserId) =>
-      dispatch(sendMessage(message, roomId, roomUserId)),
+    sendMessage: (message, roomId, userId) =>
+      dispatch(sendMessage(message, roomId, userId)),
     backToChatList: () => dispatch(backToChatList()),
   };
 };

@@ -3,12 +3,14 @@ import React from 'react';
 import '../../../Containers/Chatroom/Chat/Chat.css';
 import './Messages.css';
 
-const Messages = ({ conversation, chatroomUserId }) => {
+const Messages = ({ conversation, username }) => {
   let testing = conversation.map((message) => {
     let h = new Date(message.created_at).getHours();
     let m = new Date(message.created_at).getMinutes();
 
-    return chatroomUserId === message.chatroom_user_id ? (
+    console.log(message);
+
+    return username === message.user_name ? (
       <div class='container darker '>
         <img
           src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRLWTAHflkoSso-p7fbKv7BecCWNSyYseuhfw&usqp=CAU'
@@ -37,8 +39,7 @@ const Messages = ({ conversation, chatroomUserId }) => {
           alt='Avatar'
           className='roundimg'
         />
-
-        <p className="floatR blur">{message.user_name}</p>
+        <p className='floatR blur'>{message.user_name}</p>
         {message.url ? (
           <img
             src={message.url}

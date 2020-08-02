@@ -69,7 +69,6 @@ export const setMessage = (value) => {
 };
 
 export const sendMessage = (message, roomId, roomUserId) => {
-  console.log(message, roomId, roomUserId);
   return async (dispatch) => {
     await axios
       .post(`${process.env.REACT_APP_DEV_URL}chatroom/record`, {
