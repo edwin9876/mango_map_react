@@ -120,14 +120,12 @@ class ConnectedBlogScreen extends Component {
 
                 <div className="margin5">
                     <p className="d-flex justify-content-center bold gray70">Popular spots</p>
-                    {this.state.locations ?
-                        this.state.locations.map((location, i) => {
+                    {   this.state.locations&& (this.state.locations.length=9) ?
+                        this.state.locations.map((location, i ) => { 
                             return <PopularSpots history={this.props.history} location={location} key={i} />
                         }) : <div className="d-flex justify-content-center">No spots yet</div>
                     }
                 </div>
-
-                {/* <PopularSpots /> */}
 
                 <ButtonGroup className="d-flex justify-content-center">
                     <Button onClick={this.filterPost} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>New Posts</h6></Button>
