@@ -19,7 +19,6 @@ class ConnectedBlogList extends Component {
   render() {
     const { isLightTheme, light, dark } = this.context;
     const theme = isLightTheme ? light : dark;
-    console.log(this.props)
     return (
       <div className='margin1vw'>
         {/* in case there's no posts */}
