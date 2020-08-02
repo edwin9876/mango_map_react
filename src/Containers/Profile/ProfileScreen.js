@@ -144,7 +144,7 @@ class ConnectedProfileScreen extends Component {
 
                 {this.state.favPosts && this.state.showFav ?
                     this.state.favPosts.map((item, i) => {
-                        return <FavPostSummary favPosts={item} key={i} />
+                        return <FavPostSummary history={this.props.history} favPosts={item} key={i} />
                     }) : null
                 }
 

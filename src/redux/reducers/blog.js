@@ -2,6 +2,8 @@ import {
   CREATE_NEWCATEGORY,
   FETCH_ALLCATEGORY,
   CREATE_POST,
+  CREATE_USERFAVPOST,
+  REMOVE_USERFAVPOST,
   FETCH_COMMENT,
   CREATE_COMMENT,
   REMOVE_COMMENT,
@@ -40,7 +42,11 @@ function blogReducer(state = initialBlogState, action) {
         ...state,
         categories: [...action.payload],
       };
-    case CREATE_NEWCATEGORY:
+    case CREATE_USERFAVPOST:
+      return {
+        ...state,
+      };
+    case REMOVE_USERFAVPOST:
       return {
         ...state,
       };

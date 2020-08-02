@@ -12,6 +12,8 @@ import {
     REMOVE_POST,
     REMOVE_POSTCATEGORY,
     REMOVE_POSTIMAGE,
+    CREATE_USERFAVPOST,
+    REMOVE_USERFAVPOST,
     FETCH_ALLPOST,
     FETCH_POST,
     FETCH_COMMENT,
@@ -84,6 +86,26 @@ export function removeComment(comment_id) {
 
         }
     }
+    export function createFavPost(blog_id,user_id) {
+        return dispatch => {
+            return axios.post(`${process.env.REACT_APP_DEV_URL}blog/favBlog/${blog_id}/${user_id}`)
+                .then(res => {
+                    console.log(res.data)
+                    dispatch({ type: CREATE_USERFAVPOST, payload: res.data })
+                })
+        }
+    }
+
+    export function removeFavPost(blog_id,user_id) {
+        return dispatch => {
+            return axios.delete(`${process.env.REACT_APP_DEV_URL}blog/favBlog/${blog_id}/${user_id}`)
+                .then(res => {
+                    console.log(res.data)
+                    dispatch({ type: REMOVE_USERFAVPOST, payload: res.data })
+                })
+        }
+    }
+
     export function createNewCategory(payload) {
         return dispatch => {
             return axios.post(`${process.env.REACT_APP_DEV_URL}blog/categories/`, payload)
