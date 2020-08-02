@@ -87,15 +87,15 @@ const ChatToolbar = ({ backToChatList, currentRoomId }, props) => {
                     setUsername(event.target.value);
                   }}
                 />
-                <Label for='exampleSelectMulti'>Search result comes here</Label>
-                <Input
-                  type='select'
-                  name='selectMulti'
-                  id='exampleSelectMulti'
-                  multiple
-                >
-                  {options}
-                </Input>
+                <Label for='exampleSelectMulti'>Search result</Label>
+                <div className="d-flex justify-content-between align-items-center normalBorder smrBorder padding1">      
+                <img className="icons20" src='https://pngimg.com/uploads/minions/minions_PNG86.png' />
+                <p>
+                USERNAME<br/>
+                <span className="blur">Desciptions</span>
+                </p>
+                </div>
+         
                 {/* <img src='https://pngimg.com/uploads/minions/minions_PNG86.png' /> */}
 
                 <div style={alreadyIn}>
