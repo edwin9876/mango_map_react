@@ -37,11 +37,14 @@ body {
 .margin1 {margin:1rem}
 .margin1x{margin:0 1vw}
 .margin1vw{margin:1vw 0}
+.margin5x{margin: 0 5%}
 .margin5 {margin:5%}
 .mb10vh{margin-bottom: 10vh;}
 .padding1{padding:1rem}
 .padding1vw{padding:1vw}
 .paddingy1{padding:1rem 0;}
+.paddingb1{padding-bottom: 1rem;}
+.paddingt1{padding-top: 1rem;}
 .floatR{float: right;}
 .noRow{margin-left: 15px; margin-right: 15px;}
 
@@ -164,6 +167,7 @@ padding-bottom: 10vh;
 
 /* chat */
 #chat_container{
+    min-height:100vh;
     max-height:100vh;
     padding-bottom: 10vh;
     }

@@ -143,15 +143,15 @@ class Chat extends Component {
       this.props.roomList.map((room) => {
         return (
           <div
-            className='chatroomListTesting margin5'
+            className='chatroomListTesting paddingt1 margin5x'
             key={room.chatroom_id}
             onClick={() => {
               this.props.fetchChatroom(room.chatroom_id);
               this.props.setRoomname(room.room_name);
             }}
           >
-            <ListGroup>
-              <ListGroupItem
+            <ListGroup className="">
+              <ListGroupItem 
                 color={theme.listcolor}
                 className='justify-content-between d-flex'
               >
