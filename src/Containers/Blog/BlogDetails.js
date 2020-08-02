@@ -20,7 +20,8 @@ class ConnectedBlogDetails extends Component {
         this.state = {
             post: {},
             comment: '',
-            color: "black"
+            color: "black",
+            updateComment: ''
         }
 
     }
@@ -43,9 +44,6 @@ class ConnectedBlogDetails extends Component {
         console.log(this.state)
     }
 
-    // async componentDidUpdate() {
-    //     const { dispatch } = this.props
-    //     let blog_id = parseInt(this.props.match.params.id)
 
 
 
@@ -68,10 +66,11 @@ class ConnectedBlogDetails extends Component {
     }
 
     handleChange = (e) => {
-        this.setState({
-            ...this.state,
-            comment: { [e.target.name]: e.target.value }
-        })
+            this.setState({
+                ...this.state,
+                comment: { [e.target.name]: e.target.value }
+            })
+        
     }
 
     // post comments on submit form
@@ -89,11 +88,12 @@ class ConnectedBlogDetails extends Component {
             await dispatch(createComment(comment))
 
             await dispatch(fetchPost(comment.blog_id))
+
             if (this.props.blog.post) {
                 this.setState({
                     ...this.state,
                     post: this.props.blog.post,
-                    comment: { body:''}
+                    comment: { body: '' }
                 })
             }
             console.log(this.state)
@@ -105,7 +105,7 @@ class ConnectedBlogDetails extends Component {
     render() {
         const { isLightTheme, light, dark } = this.context;
         const theme = isLightTheme ? light : dark;
-        console.log(this.state)
+        console.log(this.props.history)
         let user_id
         if (localStorage.getItem('user')) {
             user_id = JSON.parse(localStorage.getItem('user')).id
@@ -157,8 +157,7 @@ class ConnectedBlogDetails extends Component {
                         </Form>}
 
                     {this.state.post.comments && this.state.post.comments.map((com, i) => {
-                        return <Comments key={i} comment={com} />
-
+                        return <Comments key={com.id} comment={com} />
                     })}
 
 

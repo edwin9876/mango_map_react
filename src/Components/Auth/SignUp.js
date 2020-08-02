@@ -25,7 +25,7 @@ export class ConnectedSignUp extends Component {
         user_name: '',
         description: '',
         gender: '',
-        profile_picture_URL: '',
+        profile_picture_url: '',
       },
       submitted: false,
     };
