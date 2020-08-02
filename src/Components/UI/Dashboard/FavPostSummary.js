@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { ThemeContext } from '../../../Contexts/Theme'
 import {
   Card, CardImg, CardBody, CardTitle, CardSubtitle, Button
@@ -6,30 +6,43 @@ import {
 
 
 
-const FavPostSummary = (props) => {
-  console.log(props)
-  return (
+class FavPostSummary extends Component {
+  static contextType = ThemeContext;
 
-    <ThemeContext.Consumer>{(context) => {
-      const { isLightTheme, light, dark } = context;
-      const theme = isLightTheme ? light : dark;
+  constructor(props) {
+    super(props)
+    this.state = {
+    }
 
-      return (
-        <div>
+  }
+  handleClick = async (e) => {
+    console.log(this.props)
+    this.props.history.push(`/blog/${this.props.favPosts.id}`);
+
+  }
+  render() {
+    const { isLightTheme, light, dark } = this.context;
+    const theme = isLightTheme ? light : dark;
+
+    return (
+      <div>
         <Card className="margin5" style={{ background: theme.low, borderColor: theme.high }}>
-        <CardImg top width="100%" src='' alt="post_img" />
-        <CardBody>
-            <CardTitle className="bold">{props.favPosts.title.toUpperCase()}</CardTitle>
-            <CardSubtitle >{props.favPosts.created_at.slice(0, 10)}</CardSubtitle>
+          <CardImg top width="100%" src='' alt="post_img" />
+          <CardBody>
+            <CardTitle className="bold">{this.props.favPosts.title.toUpperCase()}</CardTitle>
+            <CardSubtitle >{this.props.favPosts.created_at.slice(0, 10)}</CardSubtitle>
             <br />
-            <a href="/blog/:id" className="d-flex justify-content-center"><Button className="noBorder" style={{ background: theme.highlight }}>View more</Button></a>
-        </CardBody>
-    </Card>
+            <a  className="d-flex justify-content-center">
+              <Button onClick={this.handleClick} className="noBorder" style={{ background: theme.highlight }}>View more</Button>
+            </a>
+          </CardBody>
+        </Card>
 
-        </div>)
-    }}
-    </ThemeContext.Consumer>
-  )
+      </div>)
+  }
+
+
+
 }
 
 export default FavPostSummary
