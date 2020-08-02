@@ -27,7 +27,7 @@ body {
 .text-align-center{text-align:center}
 .centerH{display:flex; justify-content: center; flex-direction: column;}
 .justify-content-between{justify-content: space-between;}
-.align-content-center {align-content:center}
+.align-items-center {align-items:center}
 .hidden{display: none;}
 .position-absolute{position: absolute;}
 .margin0{margin:0}
@@ -73,11 +73,14 @@ body {
 /* font */
 .bold {font-weight: bold;}
 .light {font-weight: lighter;}
+.font5{font-size: 5vh;}
+/* border */
 .rBorder{border-radius: 50px;}
+.smrBorder{border-radius: 10px;}
+.normalBorder{border: 1px rgba(128, 128, 128, 0.39) solid;}
 .sqBorder{border-radius: 0px!important;}
 .thinBorder{border: 1px, rgb(255, 255, 255), solid}
 .noBorder{ border: transparent !important;}
-.font5{font-size: 5vh;}
 
 button:focus {
     cursor: pointer;
