@@ -6,7 +6,7 @@ const TopPics = ({ image }) => {
     return (
       
         <div>
-        <img src={image.url} alt="individual pics" className="icons30"/>
+        <img src={image.url} alt="individual pics" className="iconsf30"/>
     </div>
 
     )
