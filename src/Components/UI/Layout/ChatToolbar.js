@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   Button,
   Modal,
@@ -10,17 +11,47 @@ import {
   Form,
 } from 'reactstrap';
 
-const ChatToolbar = ({ backToChatList }, props) => {
-  const { buttonLabel, className } = props;
+require('dotenv').config();
 
+const ChatToolbar = ({ backToChatList, currentRoomId }, props) => {
+  const { buttonLabel, className } = props;
   const [modal, setModal] = useState(false);
   const [unmountOnClose, setUnmountOnClose] = useState(true);
+  const [username, setUsername] = useState('');
+  const [options, setOptions] = useState('');
+  const [alreadyIn, setAlreadyIn] = useState({ color: 'red', display: 'none' });
 
-  const toggle = () => setModal(!modal);
+  const toggle = () => {
+    // Clean up when user closes add user modal
+    setOptions('');
+    setUsername('');
+    setAlreadyIn({ ...alreadyIn, display: 'none' });
+    setModal(!modal);
+  };
   const changeUnmountOnClose = (e) => {
     let value = e.target.value;
     setUnmountOnClose(JSON.parse(value));
   };
+
+  useEffect(() => {
+    axios
+      .post('https://localhost:8000/chatroom/username', {
+        username: username,
+      })
+      .then((response) => {
+        if (response.data.length === 1) {
+          console.log(response.data[0]);
+          setOptions(
+            <option key={response.data[0].id}>
+              {response.data[0].user_name}
+            </option>
+          );
+        } else {
+          setOptions();
+        }
+      })
+      .catch((err) => console.log(err));
+  }, [username]);
 
   return (
     <div>
@@ -49,21 +80,58 @@ const ChatToolbar = ({ backToChatList }, props) => {
                   type='textarea'
                   placeholder='Find with username'
                   rows={1}
-                  onChange={(event) => console.log(event.target.value)}
+                  onChange={(event) => {
+                    setUsername(event.target.value);
+                  }}
                 />
-                <Label for='exampleSelectMulti'>Search Result comes here</Label>
+                <Label for='exampleSelectMulti'>Search result comes here</Label>
                 <Input
                   type='select'
                   name='selectMulti'
                   id='exampleSelectMulti'
                   multiple
                 >
-                  <option>pullip1</option>
-                  <option>pullip12</option>
+                  {options}
                 </Input>
+                {/* <img src='https://pngimg.com/uploads/minions/minions_PNG86.png' /> */}
+
+                <div style={alreadyIn}>
+                  <p>This user is already in the chatroom</p>
+                </div>
               </ModalBody>
               <ModalFooter className='d-flex justify-content-center'>
-                <Button color='success' onClick={toggle}>
+                <Button
+                  color='success'
+                  onClick={() => {
+                    if (options) {
+                      console.log(options.key);
+                      axios
+                        .post(
+                          `${process.env.REACT_APP_DEV_URL}chatroom/username/check`,
+                          {
+                            // options.key is PK in users table
+                            userId: options.key,
+                            currentRoomId: currentRoomId,
+                          }
+                        )
+                        .then((response) => {
+                          if (response.data.length >= 1) {
+                            setAlreadyIn({ ...alreadyIn, display: 'block' });
+                          } else {
+                            axios.post(
+                              `${process.env.REACT_APP_DEV_URL}chatroom/user`,
+                              {
+                                chatroomId: currentRoomId,
+                                userId: options.key,
+                              }
+                            );
+                            toggle();
+                            alert('You have added a new user to this chatroom');
+                          }
+                        });
+                    }
+                  }}
+                >
                   Add User
                 </Button>{' '}
               </ModalFooter>
