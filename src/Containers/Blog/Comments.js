@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 
 import {
-    Form, Input, InputGroup, InputGroupAddon,
+    Form, Input, InputGroup, Button, InputGroupAddon, Alert
 } from 'reactstrap';
 
 import { connect } from 'react-redux'
@@ -27,8 +27,6 @@ class ConnectedIndiComment extends Component {
             updateComment: { body: e.target.value }
         })
     }
-
-
 
     handleDelete = async (e) => {
         const { dispatch } = this.props
@@ -60,6 +58,7 @@ class ConnectedIndiComment extends Component {
 
     }
 
+
     render() {
 
         let user_id
@@ -68,31 +67,36 @@ class ConnectedIndiComment extends Component {
         }
         console.log(this.state.deleted)
         return (
-            <div className="d-flex" >
-
-                {!this.state.deleted && <p className="bold margin1x">{this.props.comment.user_name}</p>}
-                {this.state.update ?
-                    <Form action="post" onSubmit={this.handleSubmit} className=" paddingy1">
-
-                        <InputGroup>
-                            <Input value={this.state.updateComment.body} onChange={this.handleChange} type="text" name='updateComment' id={this.props.num} placeholder="Please comment here" />
-
-                            <InputGroupAddon addonType="append">
-                                <button id="ice" name="submit" type="submit" className="btn">Submit</button>
-                            </InputGroupAddon>
-
-                        </InputGroup>
-                    </Form> : !this.state.deleted ?
-                        <p >{this.state.updateComment.body} </p> : null
-                }
-                {!this.state.deleted && user_id === this.props.comment.user_id &&
+            <div>
+                <div className="d-flex justify-content-between">
                     <div>
+                        {!this.state.deleted && <p className="bold margin1x">{this.props.comment.user_name}</p>}
+                    </div>
+
+                    {!this.state.deleted && user_id === this.props.comment.user_id &&
+                        <div className="d-flex">
                         <i onClick={() => this.setState({ ...this.state, update: !this.state.update })} className="margin1x material-icons tiny gray70">edit</i>
                         <i onClick={this.handleDelete} className="material-icons tiny gray70">delete_forever</i>
                     </div>
-                }
+                    }
 
+                </div>
+                <div>
+                    {this.state.update ?
+                        <Form action="post" onSubmit={this.handleSubmit} className="d-flex justify-content-center">
+
+                            <InputGroup className="paddingy1" id="editbox" >
+                                <Input value={this.state.updateComment.body} onChange={this.handleChange} type="textarea" rows={3} name='updateComment' id={this.props.num} placeholder="Please comment here" />
+                                <InputGroupAddon addonType="append">
+                                    <Button color="secondary">ADD</Button>
+                                </InputGroupAddon>
+                            </InputGroup>
+                        </Form> : !this.state.deleted ?
+                            <p className="padding1">{this.state.updateComment.body} </p> : null
+                    }
+                </div>
             </div>
+
         );
     };
 }
