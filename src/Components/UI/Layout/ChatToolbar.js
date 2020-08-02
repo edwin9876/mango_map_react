@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
 import axios from 'axios';
 import {
   Button,
@@ -20,6 +21,8 @@ const ChatToolbar = ({ backToChatList, currentRoomId }, props) => {
   const [username, setUsername] = useState('');
   const [options, setOptions] = useState('');
   const [alreadyIn, setAlreadyIn] = useState({ color: 'red', display: 'none' });
+
+  const socket = io(process.env.REACT_APP_DEV_URL);
 
   const toggle = () => {
     // Clean up when user closes add user modal
@@ -118,15 +121,24 @@ const ChatToolbar = ({ backToChatList, currentRoomId }, props) => {
                           if (response.data.length >= 1) {
                             setAlreadyIn({ ...alreadyIn, display: 'block' });
                           } else {
-                            axios.post(
-                              `${process.env.REACT_APP_DEV_URL}chatroom/user`,
-                              {
-                                chatroomId: currentRoomId,
-                                userId: options.key,
-                              }
-                            );
-                            toggle();
-                            alert('You have added a new user to this chatroom');
+                            axios
+                              .post(
+                                `${process.env.REACT_APP_DEV_URL}chatroom/user`,
+                                {
+                                  chatroomId: currentRoomId,
+                                  userId: options.key,
+                                }
+                              )
+                              .then((response) => {
+                                console.log(response.data[0]);
+                                socket.emit('new-chatroom-user', {
+                                  username: response.data[0].user_name,
+                                });
+                                alert(
+                                  'You have added a new user to this chatroom'
+                                );
+                                toggle();
+                              });
                           }
                         });
                     }

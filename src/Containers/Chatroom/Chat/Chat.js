@@ -5,6 +5,7 @@ import {
   fetchChatroomList,
   fetchChatroom,
   setMessage,
+  setRoomname,
   sendMessage,
 } from '../../../redux/actions/chatroom';
 
@@ -51,9 +52,7 @@ class Chat extends Component {
     this.props.fetchChatroomList(this.props.userId);
   }
 
-  componentDidUpdate() {
-    console.log(this.props);
-  }
+  componentDidUpdate() {}
 
   componentWillUnmount() {
     this.socket.emit('disconnect');
@@ -95,7 +94,7 @@ class Chat extends Component {
           currentRoomId={this.props.currentRoomId}
         />
         <h5 className='d-flex justify-content-center paddingy1'>
-          ChatRoomName
+          {this.props.roomname}
         </h5>
         <ButtonGroup className='d-flex justify-content-center'>
           <Button
@@ -142,12 +141,14 @@ class Chat extends Component {
     ) : (
       // Display the list of chatrooms the user has
       this.props.roomList.map((room) => {
-        console.log(room);
         return (
           <div
             className='chatroomListTesting margin5'
             key={room.chatroom_id}
-            onClick={() => this.props.fetchChatroom(room.chatroom_id)}
+            onClick={() => {
+              this.props.fetchChatroom(room.chatroom_id);
+              this.props.setRoomname(room.room_name);
+            }}
           >
             <ListGroup>
               <ListGroupItem
@@ -180,6 +181,7 @@ const mapStateToProps = (state) => {
     username: state.chatroom.username,
     chatroomUserId: state.chatroom.chatroomUserId,
     roomList: state.chatroom.roomList,
+    roomname: state.chatroom.roomname,
     currentRoomId: state.chatroom.currentRoomId,
     messages: state.chatroom.messages,
     conversation: state.chatroom.conversation,
@@ -191,8 +193,10 @@ const mapDispatchToProps = (dispatch) => {
     fetchChatroomList: (userId) => dispatch(fetchChatroomList(userId)),
     fetchChatroom: (id) => dispatch(fetchChatroom(id)),
     setMessage: (event) => dispatch(setMessage(event)),
+    setRoomname: (roomname) => dispatch(setRoomname(roomname)),
     sendMessage: (message, roomId, userId) =>
       dispatch(sendMessage(message, roomId, userId)),
+
     backToChatList: () => dispatch(backToChatList()),
   };
 };
