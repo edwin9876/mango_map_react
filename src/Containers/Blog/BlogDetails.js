@@ -13,7 +13,7 @@ import { fetchPost, createComment,createFavPost,removeFavPost} from '../../redux
 
 class ConnectedBlogDetails extends Component {
     static contextType = ThemeContext;
-
+// wec
 
     constructor(props) {
         super(props)
