@@ -14,7 +14,7 @@ import {
 
 import axios from 'axios';
 
-require('dotenv').config()
+require('dotenv').config();
 
 export function fetchAllDistricts() {
   return async (dispatch) => {
@@ -32,7 +32,9 @@ export function fetchAllLocations() {
 }
 export function fetchLocation(location_id) {
   return async (dispatch) => {
-    let res = await axios(`${process.env.REACT_APP_DEV_URL}map/location/${location_id}`);
+    let res = await axios(
+      `${process.env.REACT_APP_DEV_URL}map/location/${location_id}`
+    );
     dispatch({ type: FETCH_LOCATION, payload: res.data[0] });
     return res;
   };
@@ -55,7 +57,10 @@ export function fetchDistrict(payload) {
 
 export function createDistrict(payload) {
   return async (dispatch) => {
-    let res = await axios(`${process.env.REACT_APP_DEV_URL}map/district/`, payload);
+    let res = await axios(
+      `${process.env.REACT_APP_DEV_URL}map/district/`,
+      payload
+    );
     dispatch({ type: CREATE_DISTRICT, payload: res.data });
   };
 }
