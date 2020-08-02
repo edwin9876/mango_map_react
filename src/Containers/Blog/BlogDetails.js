@@ -71,14 +71,14 @@ class ConnectedBlogDetails extends Component {
         const { dispatch } = this.props
 
         if (this.state.color === "black") {
-            // alert('Added to your Likes!')
+            alert('Added to your Likes!')
             this.setState({
                 color: "#ccd637"
             })
             await dispatch(createFavPost(this.state.post.id,this.state.user_id))
         }
         else {
-            // alert('Removed from your Likes!')
+            alert('Removed from your Likes!')
             this.setState({
                 color: "black"
             })
