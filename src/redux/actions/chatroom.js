@@ -13,6 +13,7 @@ import {
   BACK_TO_CHAT_LIST,
   SET_MESSAGE,
   SEND_MESSAGE,
+  SET_ROOMNAME,
   SEND_IMAGE,
 } from '../constants/actionTypes';
 
@@ -65,6 +66,12 @@ export const backToChatList = () => {
 export const setMessage = (value) => {
   return (dispatch) => {
     dispatch({ type: SET_MESSAGE, payload: value });
+  };
+};
+
+export const setRoomname = (roomname) => {
+  return (dispatch) => {
+    dispatch({ type: SET_ROOMNAME, payload: roomname });
   };
 };
 
