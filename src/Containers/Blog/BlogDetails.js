@@ -178,8 +178,6 @@ class ConnectedBlogDetails extends Component {
                         return <Comments key={com.id} comment={com} />
                     })}
 
-
-
                 </div>
             </div>
         )
