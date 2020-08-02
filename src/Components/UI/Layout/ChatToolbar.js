@@ -59,7 +59,7 @@ const ChatToolbar = ({ backToChatList, currentRoomId }, props) => {
   return (
     <div>
       <nav>
-        <div className='d-flex justify-content-between margin5'>
+        <div className='d-flex justify-content-between paddingy1 margin5x'>
           <i className='material-icons gray50' onClick={backToChatList}>
             arrow_back
           </i>
