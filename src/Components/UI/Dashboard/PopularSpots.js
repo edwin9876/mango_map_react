@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { Button, ButtonGroup, ButtonToolbar } from 'reactstrap'
+import { ThemeContext } from '../../../Contexts/Theme'
+import { Button, ButtonGroup} from 'reactstrap'
 
 class PopularSpots extends Component {
+    static contextType = ThemeContext;
+
     constructor(props) {
         super(props)
         this.state = {}
@@ -14,10 +17,12 @@ class PopularSpots extends Component {
 
 
     render() {
+        const { isLightTheme, light, dark } = this.context;
+        const theme = isLightTheme ? light : dark;
 
         return (
-            <ButtonGroup className="">
-                <Button onClick={this.handleClick} outline size="sm" color="secondary" className="margin1xy overflow-auto" id="filter-btn">{this.props.location.en}</Button>
+            <ButtonGroup>
+                <Button style={{ background: theme.low, borderColor: theme.high, color: theme.high }} onClick={this.handleClick} outline size="sm" color="secondary" className="margin1xy overflow-auto" id="filter-btn">{this.props.location.en}</Button>
             </ButtonGroup>
         )
 
