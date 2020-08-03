@@ -39,6 +39,13 @@ class ConnectedNewPost extends Component {
     console.log(this.state)
   }
 
+  selectLocation = (e) => {
+    console.log('selected')
+    this.setState({
+      ...this.state,
+      selected: !this.state.selected
+    })
+  }
   componentWillUnmount() {
     this.setState({
       buttonId: null,
@@ -140,7 +147,7 @@ class ConnectedNewPost extends Component {
     return (
       <div>
       <Label for="title" className="bold margin5x">Choose location</Label>
-      <div id="minimap"><Map width="90vw" height="30vh"/></div>
+      <div id="minimap"><Map selectLocation={this.selectLocation} width="90vw" height="70vh"/></div>
       
         <Form id="createPost" onSubmit={this.handleSubmit}  className="uploader margin5" encType="multipart/form-data">
           <FormGroup>

@@ -39,7 +39,7 @@ export class ConnetedSignIn extends Component {
       await dispatch(login(email, password));
       console.log('login is though working2');
       if (this.props.loggedIn) {
-        this.props.history.push(`/profile/${this.props.user.id}`);
+        this.props.history.push(`/profile/`);
         console.log(this.props.user.id);
         console.log('login is though working3');
       }

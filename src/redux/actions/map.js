@@ -85,6 +85,15 @@ export function fetchDistrict(payload) {
   };
 }
 
+export function createUserLocation(location_id,user_id) {
+  return async (dispatch) => {
+    let res = await axios(
+      `${process.env.REACT_APP_DEV_URL}map/${user_id}/${location_id}`,
+    );
+    dispatch({ type: CREATE_DISTRICT, payload: res.data });
+  };
+}
+
 export function createDistrict(payload) {
   return async (dispatch) => {
     let res = await axios(
