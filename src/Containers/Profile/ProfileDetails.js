@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { ThemeContext } from '../../Contexts/Theme'
 import ThemeToggle from '../../Components/UI/Layout/ThemeToggle'
-import { Button, ButtonGroup, Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap';
+import {Button, ButtonGroup, Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap';
 import { withRouter } from "react-router-dom";
-
 
 class ProfileDetails extends Component {
     constructor(props) {
@@ -41,6 +40,8 @@ class ProfileDetails extends Component {
         let userPic
         let userName
         let userGender
+        let main_url
+
         if (this.props.locations) {
 
             locationsLength = this.props.locations.length
@@ -51,9 +52,10 @@ class ProfileDetails extends Component {
             userPic = this.props.user.profile_picture_url
             userName = this.props.user.user_name
             userGender = this.props.user.gender
+            main_url = this.props.user.profile_picture_url
 
         }
-        console.log(this.props)
+        console.log(main_url)
         // const numRows = membersToRender.length
         return (
             <ThemeContext.Consumer>{(context) => {
@@ -73,7 +75,11 @@ class ProfileDetails extends Component {
                             </DropdownMenu>
                         </Dropdown>
 
-                        <i className="material-icons justify-content-center d-flex micons15 blur">account_circle</i>
+                        {/* <i className="material-icons justify-content-center d-flex micons15 blur">account_circle</i> */}
+                        {main_url && main_url.length >=100?
+                        <img style={{height:100,width:'50%',margin:'auto'}}  src={`data:image/png;base64, ${main_url}`}></img>:
+                        <img style={{height:100,width:'50%',margin:'auto'}}  src={main_url}></img>
+                        }
                         <h4 className=" bold justify-content-center d-flex">{userName}</h4>
                         <p className="justify-content-center d-flex blur bold">{userGender}</p>
 
