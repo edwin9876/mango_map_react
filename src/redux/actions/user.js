@@ -4,11 +4,6 @@ import {
     FETCH_USERLOCATION,
     FETCH_USER,
     UPDATE_USER,
-    REMOVE_USER,
-    CREATE_FAVPOST,
-    REMOVE_FAVPOST,
-    CREATE_USERLOCATION,
-    REMOVE_USERLOCATION,
     LOGIN_REQUEST,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
@@ -16,6 +11,11 @@ import {
     REGISTER_SUCCESS,
     REGISTER_REQUEST,
     REGISTER_FAILURE
+    // REMOVE_USER,
+    // CREATE_FAVPOST,
+    // REMOVE_FAVPOST,
+    // CREATE_USERLOCATION,
+    // REMOVE_USERLOCATION,
 
 } from '../constants/actionTypes'
 
@@ -98,23 +98,6 @@ export function createUser(payload) {
     }
 }
 
-export function createFavPOST(payload) {
-    return async (dispatch) => {
-        let res = await axios.post(`${process.env.REACT_APP_DEV_URL}authorized/${payload.user_id}/POST/${payload.POST_id}`)
-        dispatch({ type: CREATE_FAVPOST, payload: res.data })
-    }
-
-}
-export function createUserLOCATION(payload) {
-    return async (dispatch) => {
-        let res = await axios.post(`${process.env.REACT_APP_DEV_URL}authorized/${payload.user_id}/LOCATION/${payload.LOCATION_id}`)
-        dispatch({ type: CREATE_USERLOCATION, payload: res.data })
-    }
-
-}
-
-
-
 export function updateUser(payload) {
     return async (dispatch) => {
         let res = await axios.put(`${process.env.REACT_APP_DEV_URL}user/one/${payload.id}`,
@@ -128,18 +111,32 @@ export function updateUser(payload) {
     }
 }
 
-export function removeUser(payload) {
-    return { type: REMOVE_USER, payload }
-}
+// export function createUserLOCATION(payload) {
+//     return async (dispatch) => {
+//         let res = await axios.post(`${process.env.REACT_APP_DEV_URL}authorized/${payload.user_id}/LOCATION/${payload.LOCATION_id}`)
+//         dispatch({ type: CREATE_USERLOCATION, payload: res.data })
+//     }
+// }
+
+// export function removeUser(payload) {
+//     return { type: REMOVE_USER, payload }
+// }
 
 
-export function removeFavPOST(payload) {
-    return { type: REMOVE_FAVPOST, payload }
-}
+// export function removeFavPOST(payload) {
+//     return { type: REMOVE_FAVPOST, payload }
+// }
+
+// export function createFavPOST(payload) {
+//     return async (dispatch) => {
+//         let res = await axios.post(`${process.env.REACT_APP_DEV_URL}authorized/${payload.user_id}/POST/${payload.POST_id}`)
+//         dispatch({ type: CREATE_FAVPOST, payload: res.data })
+//     }
+// }
 
 
-export function removeUserLOCATION(payload) {
-    return { type: REMOVE_USERLOCATION, payload }
-}
+// export function removeUserLOCATION(payload) {
+//     return { type: REMOVE_USERLOCATION, payload }
+// }
 
 
