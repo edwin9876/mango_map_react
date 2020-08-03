@@ -14,7 +14,6 @@ import { fetchPost, createComment,createFavPost,removeFavPost} from '../../redux
 class ConnectedBlogDetails extends Component {
     static contextType = ThemeContext;
 
-
     constructor(props) {
         super(props)
         this.state = {
