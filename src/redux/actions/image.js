@@ -17,7 +17,7 @@ export function fetchAllImages() {
 
 export function fetchImage(payload) {
     return async (dispatch) => {
-        let res = await axios(`${process.env.REACT_APP_DEV_URL}image/${payload.image_id}`)
+        let res = await axios(`${process.env.REACT_APP_DEV_URL}image/public/${payload.image_id}`)
         dispatch({ type: FETCH_IMAGE, payload: res.data })
     }
 }

@@ -76,11 +76,11 @@ export class MapContainer extends Component {
   changeTheme(mapProps, map) {
     map.setOptions.styles === simple
       ? map.setOptions({
-          styles: mapStyles,
-        })
+        styles: mapStyles,
+      })
       : map.setOptions({
-          styles: simple,
-        });
+        styles: simple,
+      });
   }
 
   onMarkerClick = (props, marker, e) => {
@@ -141,42 +141,52 @@ export class MapContainer extends Component {
     );
   };
 
+  selectLocation = (e) => {
+    this.props.history.push('/createpost')
+  }
+
+  onInfoWindowOpen(props, e) {
+    const button = (<button onClick={this.selectLocation}>Write a post for this place</button>);
+    ReactDOM.render(React.Children.only(button), document.getElementById("iwc"));
+    console.log(this.state.selectedPlace)
+  }
+
   render() {
     let locations;
     let selfDefinedMarkers;
 
     this.props.zoom <= 13
       ? (locations = this.props.districts.map((district) => {
-          return (
-            <Marker
-              icon={{
-                url: './assets/icons/adventure.png',
-                anchor: new window.google.maps.Point(25, 25),
-                scaledSize: new window.google.maps.Size(50, 50),
-              }}
-              key={district.id}
-              position={{ lat: district.lat, lng: district.lng }}
-              onClick={this.onMarkerClick}
-              name={district.en}
-            />
-          );
-        }))
+        return (
+          <Marker
+            icon={{
+              url: './assets/icons/adventure.png',
+              anchor: new window.google.maps.Point(25, 25),
+              scaledSize: new window.google.maps.Size(50, 50),
+            }}
+            key={district.id}
+            position={{ lat: district.lat, lng: district.lng }}
+            onClick={this.onMarkerClick}
+            name={district.en}
+          />
+        );
+      }))
       : (locations = this.props.locations.map((location) => {
-          return (
-            <Marker
-              icon={{
-                url: './assets/icons/adventure1.png',
-                anchor: new window.google.maps.Point(25, 25),
-                scaledSize: new window.google.maps.Size(50, 50),
-              }}
-              key={location.id}
-              locationId={location.id}
-              position={{ lat: location.lat, lng: location.lng }}
-              onClick={this.onMarkerClick}
-              name={location.en}
-            />
-          );
-        }));
+        return (
+          <Marker
+            icon={{
+              url: './assets/icons/adventure1.png',
+              anchor: new window.google.maps.Point(25, 25),
+              scaledSize: new window.google.maps.Size(50, 50),
+            }}
+            key={location.id}
+            locationId={location.id}
+            position={{ lat: location.lat, lng: location.lng }}
+            onClick={this.onMarkerClick}
+            name={location.en}
+          />
+        );
+      }));
 
     let locationImages = <p> Please wait, Images are loading...</p>;
 
@@ -249,10 +259,14 @@ export class MapContainer extends Component {
             marker={this.state.activeMarker}
             visible={this.state.showingInfoWindow}
             onClose={this.onClose}
+            onOpen={e => {
+                this.onInfoWindowOpen(this.props, e);
+              }}
           >
             <div className='center'>
               <h5 className='bold gray70'>{this.state.selectedPlace.name}</h5>
               <div className='row d-flex'>{locationImages}</div>
+              <div id="iwc" />
             </div>
           </InfoWindow>
         </Map>
