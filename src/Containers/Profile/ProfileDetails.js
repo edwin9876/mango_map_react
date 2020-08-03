@@ -75,11 +75,12 @@ class ProfileDetails extends Component {
                             </DropdownMenu>
                         </Dropdown>
 
-                        {/* <i className="material-icons justify-content-center d-flex micons15 blur">account_circle</i> */}
+                        <div className="justify-content-center d-flex">
                         {main_url && main_url.length >=100?
-                        <img style={{height:100,width:'50%',margin:'auto'}}  src={`data:image/png;base64, ${main_url}`}></img>:
-                        <img style={{height:100,width:'50%',margin:'auto'}}  src={main_url}></img>
+                        <img  src={`data:image/png;base64, ${main_url}`} id="profile_pic" />:
+                        <img  src={main_url} id="profile_pic" />
                         }
+                        </div>
                         <h4 className=" bold justify-content-center d-flex">{userName}</h4>
                         <p className="justify-content-center d-flex blur bold">{userGender}</p>
 
