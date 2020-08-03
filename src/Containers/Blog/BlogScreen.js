@@ -108,7 +108,7 @@ class ConnectedBlogScreen extends Component {
                 <div className="margin5">
                     <p className="d-flex justify-content-center bold gray70 ">Weekly Post</p>
                     {this.state.posts &&
-                        <WeeklyPost history={this.props.history} post={this.state.posts[4]} />
+                        <WeeklyPost history={this.props.history} post={this.state.posts[0]} />
                     }
                 </div>
                 <p className="d-flex justify-content-center bold gray70 ">Weekly Picture</p>
