@@ -10,7 +10,8 @@ class ConnectedNewPic extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      location_id:1
+      location_id:1,
+      images64:[]
     }
   }
 
@@ -64,8 +65,8 @@ class ConnectedNewPic extends Component {
       <div>
         <Form className="margin5" id="createPost" onSubmit={this.handleSubmit}>
 
-          <FormGroup>
-            <Input style={{ background: theme.low, color: theme.high }} type="file" name="file" id="exampleFile" />
+          <FormGroup onSubmit={this.handleSubmit}>
+            <Input onChange={this.handleImageChange} style={{ background: theme.low, color: theme.high }} type="file" name="file" id="exampleFile" />
             <FormText color="muted">
               Upload pictures you want to attach to the post
             </FormText>

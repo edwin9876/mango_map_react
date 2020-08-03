@@ -54,7 +54,7 @@ class ConnectedCreatePost extends Component {
         </ButtonGroup>
 
         {this.state.buttonId === 1 && <NewPost history={this.props.history}/>}
-        {this.state.buttonId === 2 && <NewPic />}
+        {this.state.buttonId === 2 && <NewPic history={this.props.history}/>}
         {this.state.buttonId !== 1 && this.state.buttonId !== 2 && this.state.categories ? <NewPost categories={this.state.categories} /> : null}
        
       </div >
