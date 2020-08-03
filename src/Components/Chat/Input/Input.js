@@ -3,7 +3,7 @@ import UploadPhotos from './UploadPhotos/UploadPhotos';
 import { Input, InputGroup, InputGroupAddon } from 'reactstrap';
 
 const input = ({ messages, sendMessage, setMessage }) => (
-  <InputGroup id="inputline">
+  <InputGroup id='inputline'>
     <InputGroupAddon addonType='prepend'>
       <UploadPhotos className='uploadPhotoButton' />
     </InputGroupAddon>
@@ -24,7 +24,6 @@ const input = ({ messages, sendMessage, setMessage }) => (
     >
       SEND
     </InputGroupAddon>
-    <button>HI</button>
   </InputGroup>
 );
 

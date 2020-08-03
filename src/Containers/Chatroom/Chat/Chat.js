@@ -41,7 +41,18 @@ class Chat extends Component {
     this.props.sendMessage(message, roomId, userId, username);
   };
 
+  // Alternative
+  // async componentDidMount() {
+  //   let roomList = await this.props.fetchChatroomList(this.props.userId);
+  //   let newRoomList = roomList.map((room) => room.chatroom_id);
+
+  //   this.socket.emit('new-user', {
+  //     name: this.props.username,
+  //     roomList: newRoomList,
+
   async componentDidMount() {
+    this.props.fetchChatroomList(this.props.userId);
+
     let chatroomList = await axios
       .get(`${process.env.REACT_APP_DEV_URL}chatroom/all/${this.props.userId}`)
       .then((response) => {
@@ -52,7 +63,6 @@ class Chat extends Component {
       });
 
     this.socket.on('chat-message', (data) => {
-      console.log('[Chat.js]', data);
       this.props.sendMessage(data);
     });
 
@@ -73,8 +83,6 @@ class Chat extends Component {
         `${data.username} has joined the chatroom!`
       );
     });
-
-    this.props.fetchChatroomList(this.props.userId);
   }
 
   componentDidUpdate() {}
@@ -197,7 +205,22 @@ class Chat extends Component {
       })
     );
 
-    return displayedContent;
+    return this.props.currentRoomId ? (
+      displayedContent
+    ) : (
+      <>
+        <div id="addChat">
+          <AddChat
+            userId={this.props.userId}
+            fetchChatroomList={this.props.fetchChatroomList}
+          />
+        </div>
+
+        <div className="padding5">
+        {displayedContent}
+        </div>
+      </>
+    );
   }
 }
 
