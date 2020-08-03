@@ -21,11 +21,14 @@ import axios from 'axios';
 require('dotenv').config();
 
 export const fetchChatroomList = (userId) => {
+  console.log('[chatroom.js] action is accessed');
+  console.log(userId);
   return async (dispatch) => {
     let res = await axios(
       `${process.env.REACT_APP_DEV_URL}chatroom/all/${userId}`
     );
     dispatch({ type: FETCH_CHATROOM_LIST, payload: res.data });
+    return res.data;
   };
 };
 
