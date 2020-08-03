@@ -18,8 +18,8 @@ const WeeklyPost = (props) => {
                 <div>
                     <Card style={{ background: theme.low, borderColor: theme.high }}>
                         <CardBody>
-                            <CardImg top width="100%" src={props.post.id} alt="Card image cap" />
-                            <CardTitle  d-flex justify-content-center>{props.post.title}</CardTitle>
+                            <CardImg top width="100%" src={props.post.images[0].url} alt="Card image cap" />
+                            <CardTitle  className="d-flex justify-content-center">{props.post.title}</CardTitle>
                             <CardSubtitle className="d-flex justify-content-center">by {props.post.userName}</CardSubtitle>
                             {/* <CardText >by {props.post.body}</CardText> */}
                             <br />

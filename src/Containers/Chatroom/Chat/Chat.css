@@ -1,5 +1,5 @@
 .textBox {
-    height: 60vh;
+    height: 65vh;
 }
 
 .body {
@@ -15,14 +15,14 @@
     background-color: #f1f1f1;
     border-radius: 5px;
     padding: 10px;
-    margin: 10px 0;
+    margin-bottom: 10px;
     width: 100%;
   }
   
   /* Darker chat container */
   .darker {
     border-color: #ccc;
-    background-color: #ddd;
+    background-color: rgb(183, 199, 145);
   }
   
   /* Clear floats */

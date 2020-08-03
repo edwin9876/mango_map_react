@@ -13,7 +13,6 @@ import SpotDetails from './Components/Map/SpotDetails';
 import MapDetails from './Components/Map/MapDetails';
 import CreatePost from './Containers/Blog/CreatePost';
 import BlogDetails from './Containers/Blog/BlogDetails';
-import ChatDetails from './Components/Chat/ChatDetails';
 import TripDetails from './Components/UI/Dashboard/TripDetails'
 import SignIn from './Components/Auth/SignIn';
 import SignUp from './Components/Auth/SignUp';
@@ -47,7 +46,6 @@ class ConnectedApp extends Component {
               <Route exact path='/createpost' component={CreatePost} />
               <Route exact path='/blog/:id' component={BlogDetails} />
               <Route exact path='/chat' component={Chat} />
-              <Route exact path='/chat/:id' component={ChatDetails} />
               <Route exact path='/trip/:id' component={TripDetails}/>
               <Route exact path='/spot/:id' component={SpotDetails}/>
 

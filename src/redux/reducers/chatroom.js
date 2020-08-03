@@ -12,6 +12,7 @@ import {
   FETCH_CHATROOM,
   BACK_TO_CHAT_LIST,
   SET_MESSAGE,
+  SET_ROOMNAME,
   SEND_MESSAGE,
   SEND_IMAGE,
 } from '../constants/actionTypes';
@@ -20,11 +21,12 @@ const initialChatroomState = {
   userId: 1,
   // Should be set according to the currentRoomId
   chatroomUserId: 1,
-  username: 'Edwin',
+  username: 'Edwin123',
   currentRoomId: null,
   roomList: [],
   messages: [''],
   conversation: [],
+  roomname: '',
 };
 
 const chatroomReducer = (state = initialChatroomState, action) => {
@@ -48,11 +50,20 @@ const chatroomReducer = (state = initialChatroomState, action) => {
         messages: [action.payload],
       };
 
+    case SET_ROOMNAME:
+      return {
+        ...state,
+        roomname: action.payload,
+      };
+
     case SEND_MESSAGE:
       return {
         ...state,
         messages: [''],
-        conversation: [...state.conversation, action.payload],
+        conversation: [
+          ...state.conversation,
+          { ...action.payload, user_name: state.username },
+        ],
       };
 
     case SEND_IMAGE:
