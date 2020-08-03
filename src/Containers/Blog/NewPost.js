@@ -168,7 +168,7 @@ class ConnectedNewPost extends Component {
     const { isLightTheme, light, dark } = this.context;
     const theme = isLightTheme ? light : dark;
     // dummy data for location list. must have label and value attributes inside of object.
-
+    let label,value
     //search select styling 
     const customStyles = {
       container: (base, state) => ({
@@ -198,14 +198,15 @@ class ConnectedNewPost extends Component {
         maxWidth: "100px"
       })
     }
-    const label = this.props.history.location.pathname.split('/')[2]
-    const value = parseInt(this.props.history.location.pathname.split('/')[3])
-
+    if(this.props.history.location){
+     label = this.props.history.location.pathname.split('/')[2]
+     value = parseInt(this.props.history.location.pathname.split('/')[3])
+    }
     return (
       <div>
         <div className="margin5">
           <Label for="title" className="bold">Choose location</Label>
-          <Select defaultValue={{ label: label, value: value }} onChange={this.handleChange} name='location_id' styles={customStyles} options={this.state.locations} />
+          <Select defaultValue={label&&value?{ label: label, value: value }:undefined} onChange={this.handleChange} name='location_id' styles={customStyles} options={this.state.locations} />
         </div>
 
         <Form id="createPost" onSubmit={this.handleSubmit} className="uploader margin5" encType="multipart/form-data">
