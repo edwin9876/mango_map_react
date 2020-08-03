@@ -140,7 +140,8 @@ export class MapContainer extends Component {
   };
 
   selectLocation = (e) => {
-    this.props.history.push(`/createpost/${this.state.selectedPlace.id}`)
+    console.log(this.state)
+    this.props.history.push(`/createpost/${this.state.selectedPlace.name}/${this.state.selectedPlace.id}`)
   }
 
   createLocation = (e) => {
@@ -181,13 +182,12 @@ export class MapContainer extends Component {
             id={district.id}
             position={{ lat: district.lat, lng: district.lng }}
             onClick={this.onMarkerClick}
-            name={district.en}
+            name={`${district.en} ${district.cn}`}
             district={true}
           />
         );
       }))
       : (locations = this.props.locations.map((location) => {
-        console.log(location);
         return (
           <Marker
             icon={{
@@ -199,7 +199,7 @@ export class MapContainer extends Component {
             id={location.id}
             position={{ lat: location.lat, lng: location.lng }}
             onClick={this.onMarkerClick}
-            name={location.en}
+            name={`${location.en} ${location.cn}`}
             location={true}
           />
         );
