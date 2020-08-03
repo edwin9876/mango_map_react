@@ -131,12 +131,9 @@ const ChatToolbar = ({ backToChatList, currentRoomId }, props) => {
                               )
                               .then((response) => {
                                 console.log(response.data[0]);
-                                socket.emit('new-chatroom-user', {
+                                socket.emit('add-chatroom-user', {
                                   username: response.data[0].user_name,
                                 });
-                                alert(
-                                  'You have added a new user to this chatroom'
-                                );
                                 toggle();
                               });
                           }

@@ -15,6 +15,7 @@ import {
   SET_ROOMNAME,
   SEND_MESSAGE,
   SEND_IMAGE,
+  RECEIVE_MESSAGE,
 } from '../constants/actionTypes';
 
 const initialChatroomState = {
@@ -60,10 +61,7 @@ const chatroomReducer = (state = initialChatroomState, action) => {
       return {
         ...state,
         messages: [''],
-        conversation: [
-          ...state.conversation,
-          { ...action.payload, user_name: state.username },
-        ],
+        conversation: [...state.conversation, { ...action.payload }],
       };
 
     case SEND_IMAGE:
@@ -74,6 +72,19 @@ const chatroomReducer = (state = initialChatroomState, action) => {
           {
             url: action.payload,
             chatroom_user_id: action.chatroomUserId,
+            created_at: action.created_at,
+          },
+        ],
+      };
+
+    case RECEIVE_MESSAGE:
+      return {
+        ...state,
+        conversation: [
+          ...state.conversation,
+          {
+            user_name: action.username,
+            body: action.message,
             created_at: action.created_at,
           },
         ],
