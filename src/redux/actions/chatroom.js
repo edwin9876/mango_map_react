@@ -13,24 +13,30 @@ import {
   BACK_TO_CHAT_LIST,
   SET_MESSAGE,
   SEND_MESSAGE,
+  SET_ROOMNAME,
   SEND_IMAGE,
 } from '../constants/actionTypes';
 
-
 import axios from 'axios';
-require('dotenv').config()
+require('dotenv').config();
 
 export const fetchChatroomList = (userId) => {
   return async (dispatch) => {
-    let res = await axios(`${process.env.REACT_APP_DEV_URL}chatroom/all/${userId}`);
+    let res = await axios(
+      `${process.env.REACT_APP_DEV_URL}chatroom/all/${userId}`
+    );
     dispatch({ type: FETCH_CHATROOM_LIST, payload: res.data });
   };
 };
 
 export const fetchChatroom = (payload) => {
   return async (dispatch) => {
-    let res = await axios(`${process.env.REACT_APP_DEV_URL}chatroom/${payload}`);
+    let res = await axios(
+      `${process.env.REACT_APP_DEV_URL}chatroom/${payload}`
+    );
+
     let mergedConversation = [];
+
     const chatroomUsers = res.data.chatroomUser;
     for (let chats of chatroomUsers) {
       for (let chat of chats.chatRecords) {
@@ -63,8 +69,13 @@ export const setMessage = (value) => {
   };
 };
 
+export const setRoomname = (roomname) => {
+  return (dispatch) => {
+    dispatch({ type: SET_ROOMNAME, payload: roomname });
+  };
+};
+
 export const sendMessage = (message, roomId, roomUserId) => {
-  console.log(message, roomId, roomUserId);
   return async (dispatch) => {
     await axios
       .post(`${process.env.REACT_APP_DEV_URL}chatroom/record`, {
@@ -92,7 +103,10 @@ export const sendImage = (imageUrl, roomId, chatroomUserId) => {
 
 export const createChatroom = (payload) => {
   return async (dispatch) => {
-    let res = await axios.post(`${process.env.REACT_APP_DEV_URL}chatroom/`, payload);
+    let res = await axios.post(
+      `${process.env.REACT_APP_DEV_URL}chatroom/`,
+      payload
+    );
     dispatch({ type: CREATE_CHATROOM, payload: res.data });
   };
 };

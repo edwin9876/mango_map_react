@@ -5,6 +5,7 @@ import {
   fetchChatroomList,
   fetchChatroom,
   setMessage,
+  setRoomname,
   sendMessage,
 } from '../../../redux/actions/chatroom';
 
@@ -13,12 +14,13 @@ import { connect } from 'react-redux';
 import io from 'socket.io-client';
 import { css } from 'glamor';
 
-import ChatToolbar from '../../../Components/UI/Layout/ChatToolbar'
-import { backToChatList } from '../../../redux/actions/chatroom'
+import ChatToolbar from '../../../Components/UI/Layout/ChatToolbar';
+import { backToChatList } from '../../../redux/actions/chatroom';
 import Input from '../../../Components/Chat/Input/Input';
 import Messages from '../../../Components/Chat/Messages/Messages';
+import AddChat from '../../../Components/UI/Layout/AddChat';
 
-import { Button, ButtonGroup } from 'reactstrap';
+import { Button, ButtonGroup, ListGroup, ListGroupItem } from 'reactstrap';
 
 import { ThemeContext } from '../../../Contexts/Theme';
 
@@ -37,9 +39,6 @@ class Chat extends Component {
 
   componentDidMount() {
     this.socket.emit('new-user', { name: this.props.username });
-
-    console.log('[componentDidMount] is executed');
-
     this.socket.on('user-connected', (name) => {
       console.log('Welcome to Mango Map, ' + name);
     });
@@ -53,9 +52,7 @@ class Chat extends Component {
     this.props.fetchChatroomList(this.props.userId);
   }
 
-  componentDidUpdate() {
-    console.log(this.props);
-  }
+  componentDidUpdate() {}
 
   componentWillUnmount() {
     this.socket.emit('disconnect');
@@ -92,8 +89,13 @@ class Chat extends Component {
     let displayedContent = this.props.currentRoomId ? (
       // This div is in a chatroom
       <div>
-        <ChatToolbar backToChatList={this.props.backToChatList} />
-        <h5 className='d-flex justify-content-center paddingy1'>ChatRoomName</h5>
+        <ChatToolbar
+          backToChatList={this.props.backToChatList}
+          currentRoomId={this.props.currentRoomId}
+        />
+        <h5 className='d-flex justify-content-center paddingy1'>
+          {this.props.roomname}
+        </h5>
         <ButtonGroup className='d-flex justify-content-center'>
           <Button
             style={{
@@ -118,7 +120,7 @@ class Chat extends Component {
           <div className='margin5'>
             <Messages
               conversation={this.props.conversation}
-              chatroomUserId={this.props.chatroomUserId}
+              username={this.props.username}
             />
           </div>
         </ScrollToBottom>
@@ -137,28 +139,37 @@ class Chat extends Component {
         </div>
       </div>
     ) : (
-        // Display the list of chatrooms the user has
-        this.props.roomList.map((room, index) => {
-          return (
-            <div
-              class='chatroomListTesting'
-              key={index}
-              onClick={() => this.props.fetchChatroom(index + 1)}
-            >
-              <ul className='collection'>
-                <li className='collection-item avatar gray70'>
-                  <i className='material-icons circle grey blur'>star</i>
-                  <span className='title bold'>{room.room_name}</span>
-                  <p>Last message</p>
-                  <a href='#!' className='secondary-content'>
-                    <i className='material-icons blur'>grade</i>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          );
-        })
-      );
+      // Display the list of chatrooms the user has
+      this.props.roomList.map((room) => {
+        return (
+          <div
+            className='chatroomListTesting paddingt1 margin5x'
+            key={room.chatroom_id}
+            onClick={() => {
+              this.props.fetchChatroom(room.chatroom_id);
+              this.props.setRoomname(room.room_name);
+            }}
+          >
+            <ListGroup className="">
+              <ListGroupItem 
+                color={theme.listcolor}
+                className='justify-content-between d-flex'
+              >
+                <img
+                  className='material-icons roundimg'
+                  src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRIMey7cyC1XcqtyFcJlNhz7yP4oT1kAahWPw&usqp=CAU'
+                  alt='Avatar'
+                />
+                <h6 className='d-flex align-items-center'>{room.room_name}</h6>
+                <h6 className='d-flex align-items-center blur light'>
+                  {room.created_at.slice(0, 10)}
+                </h6>
+              </ListGroupItem>
+            </ListGroup>
+          </div>
+        );
+      })
+    );
 
     return displayedContent;
   }
@@ -170,6 +181,7 @@ const mapStateToProps = (state) => {
     username: state.chatroom.username,
     chatroomUserId: state.chatroom.chatroomUserId,
     roomList: state.chatroom.roomList,
+    roomname: state.chatroom.roomname,
     currentRoomId: state.chatroom.currentRoomId,
     messages: state.chatroom.messages,
     conversation: state.chatroom.conversation,
@@ -181,8 +193,10 @@ const mapDispatchToProps = (dispatch) => {
     fetchChatroomList: (userId) => dispatch(fetchChatroomList(userId)),
     fetchChatroom: (id) => dispatch(fetchChatroom(id)),
     setMessage: (event) => dispatch(setMessage(event)),
-    sendMessage: (message, roomId, roomUserId) =>
-    dispatch(sendMessage(message, roomId, roomUserId)),
+    setRoomname: (roomname) => dispatch(setRoomname(roomname)),
+    sendMessage: (message, roomId, userId) =>
+      dispatch(sendMessage(message, roomId, userId)),
+
     backToChatList: () => dispatch(backToChatList()),
   };
 };
