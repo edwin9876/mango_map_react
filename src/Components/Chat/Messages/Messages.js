@@ -8,8 +8,6 @@ const Messages = ({ conversation, username }) => {
     let h = new Date(message.created_at).getHours();
     let m = new Date(message.created_at).getMinutes();
 
-    console.log(message);
-
     return username === message.user_name ? (
       <div class='container darker '>
         <img

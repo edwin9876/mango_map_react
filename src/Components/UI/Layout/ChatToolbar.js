@@ -45,9 +45,20 @@ const ChatToolbar = ({ backToChatList, currentRoomId }, props) => {
         if (response.data.length === 1) {
           console.log(response.data[0]);
           setOptions(
-            <option key={response.data[0].id}>
-              {response.data[0].user_name}
-            </option>
+            <div
+              key={response.data[0].id}
+              className='d-flex justify-content-between align-items-center normalBorder smrBorder padding1'
+            >
+              <img
+                className='icons20'
+                src={response.data[0].profile_picture_url}
+              />
+              <p>
+                {response.data[0].user_name}
+                <br />
+                <span className='blur'>Desciptions</span>
+              </p>
+            </div>
           );
         } else {
           setOptions();
@@ -85,18 +96,11 @@ const ChatToolbar = ({ backToChatList, currentRoomId }, props) => {
                   rows={1}
                   onChange={(event) => {
                     setUsername(event.target.value);
+                    setAlreadyIn({ ...alreadyIn, display: 'none' });
                   }}
                 />
                 <Label for='exampleSelectMulti'>Search result</Label>
-                <div className="d-flex justify-content-between align-items-center normalBorder smrBorder padding1">      
-                <img className="icons20" src='https://pngimg.com/uploads/minions/minions_PNG86.png' />
-                <p>
-                USERNAME<br/>
-                <span className="blur">Desciptions</span>
-                </p>
-                </div>
-         
-                {/* <img src='https://pngimg.com/uploads/minions/minions_PNG86.png' /> */}
+                {options}
 
                 <div style={alreadyIn}>
                   <p>This user is already in the chatroom</p>
@@ -107,7 +111,6 @@ const ChatToolbar = ({ backToChatList, currentRoomId }, props) => {
                   color='success'
                   onClick={() => {
                     if (options) {
-                      console.log(options.key);
                       axios
                         .post(
                           `${process.env.REACT_APP_DEV_URL}chatroom/username/check`,
@@ -121,6 +124,7 @@ const ChatToolbar = ({ backToChatList, currentRoomId }, props) => {
                           if (response.data.length >= 1) {
                             setAlreadyIn({ ...alreadyIn, display: 'block' });
                           } else {
+                            console.log(currentRoomId);
                             axios
                               .post(
                                 `${process.env.REACT_APP_DEV_URL}chatroom/user`,
@@ -130,13 +134,10 @@ const ChatToolbar = ({ backToChatList, currentRoomId }, props) => {
                                 }
                               )
                               .then((response) => {
-                                console.log(response.data[0]);
-                                socket.emit('new-chatroom-user', {
+                                console.log('[ChatToolbar]', response.data[0]);
+                                socket.emit('add-chatroom-user', {
                                   username: response.data[0].user_name,
                                 });
-                                alert(
-                                  'You have added a new user to this chatroom'
-                                );
                                 toggle();
                               });
                           }
