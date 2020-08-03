@@ -36,7 +36,7 @@ class Chat extends Component {
   });
 
   sendMessageToChatroom = (message, roomId, userId, username) => {
-    console.log('[Chat.js]', message, roomId, userId);
+    console.log('[Chats.js]', username);
     this.socket.emit('chat-message', { message, roomId, userId, username });
     this.props.sendMessage(message, roomId, userId, username);
   };
@@ -56,18 +56,7 @@ class Chat extends Component {
       this.props.sendMessage(data);
     });
 
-    this.socket.on('join-chatroom', (message) => {
-      console.log(message);
-    });
-
-    this.socket.on('test-message', (message) => {
-      console.log(message);
-    });
-
-    this.socket.emit('test-message2', {
-      message: 'I need to seek medical help',
-      roomId: this.props.currentRoomId,
-    });
+    // this.socket.on("chat-image", )
 
     this.socket.emit('new-user', {
       name: this.props.username,
@@ -76,12 +65,6 @@ class Chat extends Component {
 
     this.socket.on('user-connected', (name) => {
       console.log('Welcome to Mango Map, ' + name);
-    });
-
-    // Receive the messages from other users
-
-    this.socket.on('test', (message) => {
-      console.log(message);
     });
 
     this.socket.on('join-chatroom-user', (data) => {

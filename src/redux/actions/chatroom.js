@@ -84,11 +84,13 @@ export const sendMessage = (message, roomId, userId, username) => {
         message: message,
         roomId: roomId,
         userId: userId,
+        username: username,
       })
       .then((res) => {
         res.data[0].user_name
           ? console.log('[Chatroom.js action', res.data[0].user_name)
           : (res.data[0].user_name = username);
+        console.log('[chatrooms.js] action', res.data[0]);
         dispatch({ type: SEND_MESSAGE, payload: res.data[0] });
       });
   };
