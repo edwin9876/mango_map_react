@@ -13,10 +13,14 @@ import {
   fetchAllLocations,
 } from '../../redux/actions/map';
 
+// require('dotenv').config();
+
 const mapStyles = {
   width: '100%',
   height: '100%',
 };
+
+// Testing
 
 export class MapContainer extends Component {
   constructor(props) {
@@ -41,16 +45,8 @@ export class MapContainer extends Component {
   componentDidMount() {
     this.props.fetchAllDistricts();
     this.props.fetchAllLocations();
+    console.log(JSON.parse(localStorage.getItem('user')));
 
-    // window.google.maps.Map.prototype.panTo({
-    //   lat: 22.5838475,
-    //   lng: 114.0552244,
-    // });
-
-    console.log(this.mapRefs.current.props.google.maps.Map);
-
-    console.log(window.google.maps.Map.prototype.panTo);
-    console.log(this.mapRefs.current.props.google.maps);
     // console.log(this.mapRefs);
 
     if (navigator && navigator.geolocation) {
@@ -84,6 +80,7 @@ export class MapContainer extends Component {
   }
 
   onMarkerClick = (props, marker, e) => {
+    console.log(props);
     this.setState(
       {
         selectedPlace: props,
@@ -126,10 +123,10 @@ export class MapContainer extends Component {
   };
 
   createMarker = (lat, lng) => {
-    this.mapRefs.current.props.google.maps.Map.prototype.panTo({
-      lat: 22.5838475,
-      lng: 114.0552244,
-    });
+    // this.mapRefs.current.props.google.maps.Map.prototype.panTo({
+    //   lat: 22.5838475,
+    //   lng: 114.0552244,
+    // });
     this.setState(
       {
         ...this.state,
@@ -144,6 +141,8 @@ export class MapContainer extends Component {
   render() {
     let locations;
     let selfDefinedMarkers;
+
+    console.log(this.props.zoom);
 
     this.props.zoom <= 13
       ? (locations = this.props.districts.map((district) => {
@@ -162,6 +161,7 @@ export class MapContainer extends Component {
           );
         }))
       : (locations = this.props.locations.map((location) => {
+          console.log(location);
           return (
             <Marker
               icon={{
@@ -223,8 +223,9 @@ export class MapContainer extends Component {
           }}
           centerAroundCurrentLocation
           google={this.props.google}
-          zoom={12}
+          zoom={13}
           initialCenter={{
+            // TODO - default location
             lat: this.state.currentLocation.lat,
             lng: this.state.currentLocation.lng,
           }}
@@ -285,6 +286,6 @@ export default connect(
   mapDispatchToProps
 )(
   GoogleApiWrapper({
-    apiKey: 'AIzaSyAg-zxdwaWHeCd5QnJ-yBcy1_lvDttzCKk',
+    apiKey: process.env.REACT_APP_GOOGLE_MAP_API,
   })(MapContainer)
 );
