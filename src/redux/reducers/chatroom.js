@@ -19,10 +19,12 @@ import {
 } from '../constants/actionTypes';
 
 const initialChatroomState = {
-  userId: 1,
+  userId: 3,
+  // userId: 1,
   // Should be set according to the currentRoomId
-  chatroomUserId: 1,
-  username: 'Edwin123',
+  // chatroomUserId: 1,
+  username: 'Jacky123',
+  // username: 'Edwin123',
   currentRoomId: null,
   roomList: [],
   messages: [''],
@@ -31,6 +33,7 @@ const initialChatroomState = {
 };
 
 const chatroomReducer = (state = initialChatroomState, action) => {
+  console.log(action.type);
   switch (action.type) {
     case FETCH_CHATROOM_LIST:
       return {

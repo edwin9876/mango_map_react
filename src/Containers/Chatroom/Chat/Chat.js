@@ -35,25 +35,25 @@ class Chat extends Component {
     width: '100%',
   });
 
-  sendMessageToChatroom = (message, username, roomId, roomUserId) => {
-    this.socket.emit('send-message', { message, username, roomId, roomUserId });
-    this.props.sendMessage(message, username, roomId, roomUserId);
+  sendMessageToChatroom = (message, roomId, userId, username) => {
+    console.log('[Chat.js]', message, roomId, userId);
+    this.socket.emit('chat-message', { message, roomId, userId, username });
+    this.props.sendMessage(message, roomId, userId, username);
   };
 
   async componentDidMount() {
     let chatroomList = await axios
       .get(`${process.env.REACT_APP_DEV_URL}chatroom/all/${this.props.userId}`)
       .then((response) => {
+        console.log(response);
         return response.data.map((chatroom) => {
-          return chatroom.id;
+          return chatroom.chatroom_id;
         });
       });
 
-    this.sendMessageToChatroom('I have sent a message to backend', 1, 1);
-
     this.socket.on('chat-message', (data) => {
-      console.log('A cycle is completed');
-      console.log(data);
+      console.log('[Chat.js]', data);
+      this.props.sendMessage(data);
     });
 
     this.socket.on('join-chatroom', (message) => {
@@ -169,10 +169,11 @@ class Chat extends Component {
         <div>
           <Input
             sendMessage={() =>
-              this.props.sendMessage(
+              this.sendMessageToChatroom(
                 this.props.messages,
                 this.props.currentRoomId,
-                this.props.chatroomUserId
+                this.props.userId,
+                this.props.username
               )
             }
             messages={this.props.messages}
@@ -192,8 +193,8 @@ class Chat extends Component {
               this.props.setRoomname(room.room_name);
             }}
           >
-            <ListGroup className="">
-              <ListGroupItem 
+            <ListGroup className=''>
+              <ListGroupItem
                 color={theme.listcolor}
                 className='justify-content-between d-flex'
               >
@@ -236,8 +237,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchChatroom: (id) => dispatch(fetchChatroom(id)),
     setMessage: (event) => dispatch(setMessage(event)),
     setRoomname: (roomname) => dispatch(setRoomname(roomname)),
-    sendMessage: (message, roomId, userId) =>
-      dispatch(sendMessage(message, roomId, userId)),
+    sendMessage: (message, roomId, userId, username) =>
+      dispatch(sendMessage(message, roomId, userId, username)),
     receiveMessage: (username, message) =>
       dispatch(receiveMessage(username, message)),
     backToChatList: () => dispatch(backToChatList()),
