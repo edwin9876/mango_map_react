@@ -4,13 +4,14 @@ import {
   REMOVE_DISTRICT,
   FETCH_DISTRICT,
   CREATE_LOCATION,
-  UPDATE_LOCATION,
+  CREATE_USERLOCATION,
   REMOVE_LOCATION,
   FETCH_LOCATION,
   FETCH_ALL_DISTRICTS,
   CHANGE_ZOOM_LEVEL,
   FETCH_ALL_LOCATIONS,
   CREATE_LOCATIONIMAGES,
+  SAVE_LATLNG
 } from '../constants/actionTypes';
 
 import imgurHeader from '../helpers/imgurHeader'
@@ -85,12 +86,22 @@ export function fetchDistrict(payload) {
   };
 }
 
-export function createUserLocation(location_id,user_id) {
+export function createUserLocation(user_id,location_id) {
   return async (dispatch) => {
-    let res = await axios(
-      `${process.env.REACT_APP_DEV_URL}map/${user_id}/${location_id}`,
+    let res = await axios.post(
+      `${process.env.REACT_APP_DEV_URL}user/${user_id}/location/${location_id}`,
     );
     dispatch({ type: CREATE_DISTRICT, payload: res.data });
+  };
+}
+
+export function createLocation(new_location) {
+  return async (dispatch) => {
+    let res = await axios.post(
+      `${process.env.REACT_APP_DEV_URL}map/location/`,
+      new_location
+    );
+    dispatch({ type: CREATE_LOCATION, payload: res.data });
   };
 }
 
@@ -104,8 +115,8 @@ export function createDistrict(payload) {
   };
 }
 
-export function updateDistrict(payload) {
-  return { type: UPDATE_DISTRICT, payload };
+export function saveLatLng(latLng) {
+  return { type: SAVE_LATLNG, payload:latLng };
 }
 export function removeDistrict(payload) {
   return { type: REMOVE_DISTRICT, payload };

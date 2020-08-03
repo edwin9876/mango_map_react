@@ -13,6 +13,7 @@ import SpotDetails from './Components/Map/SpotDetails';
 import MapDetails from './Components/Map/MapDetails';
 import CreatePost from './Containers/Blog/CreatePost';
 import BlogDetails from './Containers/Blog/BlogDetails';
+import NewLocation from './Containers/Blog/NewLocation';
 import TripDetails from './Components/UI/Dashboard/TripDetails'
 import SignIn from './Components/Auth/SignIn';
 import SignUp from './Components/Auth/SignUp';
@@ -42,8 +43,9 @@ class ConnectedApp extends Component {
             <Switch>
               <Route exact path='/' component={Home} />
               <Route exact path='/location/:id' component={MapDetails} />
+              <Route exact path='/createlocation' component={NewLocation}/>
               <Route exact path='/blog' component={Blog} />
-              <Route exact path='/createpost' component={CreatePost} />
+              <Route path='/createpost' component={CreatePost} />
               <Route exact path='/blog/:id' component={BlogDetails} />
               <Route exact path='/chat' component={Chat} />
               <Route exact path='/trip/:id' component={TripDetails}/>
