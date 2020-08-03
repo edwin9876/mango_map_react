@@ -11,6 +11,7 @@ import {
   fetchAllDistricts,
   changeZoomLevel,
   fetchAllLocations,
+  saveLatLng
 } from '../../redux/actions/map';
 
 // require('dotenv').config();
@@ -139,13 +140,26 @@ export class MapContainer extends Component {
   };
 
   selectLocation = (e) => {
-    this.props.history.push('/createpost')
+    this.props.history.push(`/createpost/${this.state.selectedPlace.id}`)
+  }
+
+  createLocation = (e) => {
+    this.props.saveLatLng(this.state.selectedPlace.position)
+    console.log(this.props)
+    this.props.history.push('/createlocation')
   }
 
   onInfoWindowOpen(props, e) {
-    const button = (<button onClick={this.selectLocation}>Write a post for this place</button>);
+    const button = (<div>
+      {!this.state.selectedPlace.id && !this.state.selectedPlace.district?
+        <button onClick={this.createLocation}>Create a new spot!</button> :
+        this.state.selectedPlace.location ?
+          <button onClick={this.selectLocation}>Write a post for this spot</button> :
+          null
+      }
+    </div>)
     ReactDOM.render(React.Children.only(button), document.getElementById("iwc"));
-    console.log(this.state.selectedPlace)
+    console.log(this.state)
   }
 
   render() {
@@ -164,36 +178,40 @@ export class MapContainer extends Component {
               scaledSize: new window.google.maps.Size(50, 50),
             }}
             key={district.id}
+            id={district.id}
             position={{ lat: district.lat, lng: district.lng }}
             onClick={this.onMarkerClick}
             name={district.en}
+            district={true}
           />
         );
       }))
       : (locations = this.props.locations.map((location) => {
-          console.log(location);
-          return (
-            <Marker
-              icon={{
-                url: './assets/icons/adventure1.png',
-                anchor: new window.google.maps.Point(25, 25),
-                scaledSize: new window.google.maps.Size(50, 50),
-              }}
-              key={location.id}
-              locationId={location.id}
-              position={{ lat: location.lat, lng: location.lng }}
-              onClick={this.onMarkerClick}
-              name={location.en}
-            />
-          );
-        }));
+        console.log(location);
+        return (
+          <Marker
+            icon={{
+              url: './assets/icons/adventure1.png',
+              anchor: new window.google.maps.Point(25, 25),
+              scaledSize: new window.google.maps.Size(50, 50),
+            }}
+            key={location.id}
+            id={location.id}
+            position={{ lat: location.lat, lng: location.lng }}
+            onClick={this.onMarkerClick}
+            name={location.en}
+            location={true}
+          />
+        );
+      }));
 
     let locationImages = <p> Please wait, Images are loading...</p>;
 
     if (this.state.selectedPlaceImages) {
-      locationImages = this.state.selectedPlaceImages.map((image) => {
+      locationImages = this.state.selectedPlaceImages.map((image, i) => {
         return (
           <img
+            key={i}
             className='center icons30 sm-col-5'
             alt={image.en}
             src={`${image.url}.jpg`}
@@ -261,8 +279,8 @@ export class MapContainer extends Component {
             visible={this.state.showingInfoWindow}
             onClose={this.onClose}
             onOpen={e => {
-                this.onInfoWindowOpen(this.props, e);
-              }}
+              this.onInfoWindowOpen(this.props, e);
+            }}
           >
             <div className='center'>
               <h5 className='bold gray70'>{this.state.selectedPlace.name}</h5>
@@ -292,6 +310,7 @@ const mapDispatchToProps = (dispatch) => {
     fetchAllDistricts: () => dispatch(fetchAllDistricts()),
     fetchAllLocations: () => dispatch(fetchAllLocations()),
     changeZoomLevel: (zoomLevel) => dispatch(changeZoomLevel(zoomLevel)),
+    saveLatLng: (lat_lng) => dispatch(saveLatLng(lat_lng)),
   };
 };
 

@@ -8,6 +8,9 @@ import {
   FETCH_ALL_LOCATIONS,
   FETCH_LOCATION,
   CREATE_LOCATIONIMAGES,
+  CREATE_USERLOCATION,
+  SAVE_LATLNG,
+  CREATE_LOCATION
 } from '../constants/actionTypes';
 
 const initialMapState = {
@@ -45,6 +48,11 @@ const mapReducer = (state = initialMapState, action) => {
         ...state,
       };
 
+    case CREATE_USERLOCATION:
+      return {
+        ...state,
+      };
+
     case CHANGE_ZOOM_LEVEL:
       return {
         ...state,
@@ -53,6 +61,16 @@ const mapReducer = (state = initialMapState, action) => {
     case CREATE_LOCATIONIMAGES:
       return {
         ...state,
+      };
+    case CREATE_LOCATION:
+      return {
+        ...state,
+        new_location:action.payload[0]
+      };
+    case SAVE_LATLNG:
+      return {
+        ...state,
+        lat_lng:action.payload
       };
       
     default:
