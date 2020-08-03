@@ -51,6 +51,7 @@ class ConnectedCreatePost extends Component {
           <Button onClick={() => this.handleRender(1)} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}> <i className="material-icons">create</i></Button>
 
           <Button onClick={() => this.handleRender(2)} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}> <i className="material-icons">add_a_photo</i></Button>
+
         </ButtonGroup>
 
         {this.state.buttonId === 1 && <NewPost history={this.props.history}/>}
