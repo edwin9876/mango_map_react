@@ -22,7 +22,6 @@ const initialChatroomState = {
   // userId: 3,
   userId: 1,
   // Should be set according to the currentRoomId
-  // chatroomUserId: 1,
   // username: 'Jacky123',
   username: 'Edwin123',
   currentRoomId: null,

@@ -39,7 +39,6 @@ export class MapContainer extends Component {
     this.props.fetchAllDistricts();
     this.props.fetchAllLocations();
 
-
     console.log(this.mapRefs.current.props.google.maps.Map);
 
     console.log(window.google.maps.Map.prototype.panTo);
@@ -202,7 +201,7 @@ export class MapContainer extends Component {
 
     return (
       <div>
-        <Map 
+        <Map
           ref={this.mapRefs}
           onZoomChanged={(google, map) => {
             this.props.changeZoomLevel(map.zoom);
