@@ -21,12 +21,12 @@ import {
 } from '../constants/actionTypes'
 
 import axios from 'axios'
+import imgurHeader from '../helpers/imgurHeader'
 import authHeader from '../helpers/authHeader'
 
 require('dotenv').config()
 
 
-console.log(process.env.REACT_APP_IMGUR_CLIENT_ID)
 
 export function fetchComment() {
     return (dispatch) => {
@@ -141,7 +141,7 @@ export function createPost(newBlog, user_id) {
     }
 }
 
-export  function createPostImages(images64, blog_id) {
+export function createPostImages(images64, blog_id) {
     return async (dispatch) => {
 
         let images_url = []
@@ -153,12 +153,10 @@ export  function createPostImages(images64, blog_id) {
                     image: img
                 },
                 {
-                    headers: {
-                        Authorization: `Client-ID ${process.env.REACT_APP_IMGUR_CLIENT_ID}`
-                    }
+                    headers:imgurHeader()
+
                 }
             )
-
             images_url.push(res.data.data.link)
 
         }
@@ -171,6 +169,7 @@ export  function createPostImages(images64, blog_id) {
         return dispatch({ type: CREATE_POSTIMAGES, payload: res.data })
     }
 }
+
 export function updatePost(payload) {
     return { type: UPDATE_POST, payload }
 }

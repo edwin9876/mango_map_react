@@ -10,22 +10,52 @@ import {
   FETCH_ALL_DISTRICTS,
   CHANGE_ZOOM_LEVEL,
   FETCH_ALL_LOCATIONS,
+  CREATE_LOCATIONIMAGES,
 } from '../constants/actionTypes';
+
+import imgurHeader from '../helpers/imgurHeader'
 
 import axios from 'axios';
 
 require('dotenv').config();
 
+
+export  function createLocationImages(images64, user_id,location_id) {
+  return async (dispatch) => {
+      let images_url = []
+      console.log(images64)
+
+      for (let img of images64) {
+          let res = await axios.post('https://api.imgur.com/3/image',
+              {
+                  image: img
+              },
+              {
+                  headers: imgurHeader()
+              })
+          images_url.push(res.data.data.link)
+
+      }
+      console.log(images_url)
+      let res = await axios.post(`${process.env.REACT_APP_DEV_URL}map/location/${user_id}/${location_id}/images`,
+          {
+              images_url: images_url
+          })
+
+      return dispatch({ type: CREATE_LOCATIONIMAGES, payload: res.data })
+  }
+}
+
 export function fetchAllDistricts() {
   return async (dispatch) => {
-    let res = await axios(`${process.env.REACT_APP_DEV_URL}map/districts`);
+    let res = await axios(`https://localhost:8000/map/districts`);
     dispatch({ type: FETCH_ALL_DISTRICTS, payload: res.data });
     return res;
   };
 }
 export function fetchAllLocations() {
   return async (dispatch) => {
-    let res = await axios(`${process.env.REACT_APP_DEV_URL}map/locations`);
+    let res = await axios(`https://localhost:8000/map/locations`);
     dispatch({ type: FETCH_ALL_LOCATIONS, payload: res.data });
     return res;
   };
