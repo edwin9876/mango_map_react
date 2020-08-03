@@ -99,6 +99,7 @@ export function createUser(payload) {
 }
 
 export function updateUser(payload) {
+    console.log(payload)
     return async (dispatch) => {
         let res = await axios.put(`${process.env.REACT_APP_DEV_URL}user/one/${payload.id}`,
             {
