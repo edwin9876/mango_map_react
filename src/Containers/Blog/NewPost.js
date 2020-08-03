@@ -78,18 +78,8 @@ class ConnectedNewPost extends Component {
       console.log(images64)
       await dispatch(createPostImages(images64, newBlog_id))
 
-      this.setState({
-        buttonId: null,
-        categories: [],
-        image64: [],
-        post: {
-          title: '',
-          category: '',
-          body: '',
-          location_id: 1
-        },
-        submitted: true,
-      })
+      this.props.history.push(`/blog/${newBlog_id}`)
+    
     }
 
   }
