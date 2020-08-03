@@ -175,6 +175,11 @@ padding-bottom: 10vh;
 #post_card{
     width: 90vw;
 }
+#inputline{
+    position: absolute;
+    top: 87vh;
+    /* background-color: rgb(221, 227, 230); */
+}
 
 
 /* Profile page */
