@@ -138,7 +138,7 @@ class ConnectedNewPost extends Component {
 
     return (
       <div>
-        <Form className="margin5" id="createPost" onSubmit={this.handleSubmit}>
+        <Form id="createPost" onSubmit={this.handleSubmit}  className="uploader margin5" encType="multipart/form-data">
           <FormGroup>
             <Label for="title" className="bold">Title</Label>
             <Input style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} onChange={this.handleChange} type="text" name="title" placeholder="Title" />
@@ -163,7 +163,7 @@ class ConnectedNewPost extends Component {
 
           <FormGroup>
             <Label for="exampleFile" className="bold">Pictures</Label>
-            <Input onChange={this.handleImageChange} style={{ background: theme.low, color: theme.high }} type="file" name="file" />
+            <Input onChange={this.handleImageChange} style={{ background: theme.low, color: theme.high }} type="file" id="file" multiple />
             <FormText color="muted">
               Upload pictures you want to attach to the post
             </FormText>
