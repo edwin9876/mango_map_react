@@ -4,7 +4,7 @@ export default [
     elementType: 'geometry.fill',
     stylers: [
       {
-        visibility: 'off',
+        visibility: 'on',
       },
     ],
   },
@@ -13,7 +13,7 @@ export default [
     elementType: 'geometry.stroke',
     stylers: [
       {
-        visibility: 'off',
+        visibility: 'on',
       },
     ],
   },
@@ -70,7 +70,7 @@ export default [
     elementType: 'labels.text.fill',
     stylers: [
       {
-        color: '#FFFFFF',
+        color: 'white',
       },
     ],
   },
@@ -79,7 +79,7 @@ export default [
     elementType: 'geometry.fill',
     stylers: [
       {
-        visibility: 'off',
+        visibility: 'on',
       },
     ],
   },
@@ -95,7 +95,7 @@ export default [
 
   {
     featureType: 'landscape',
-    elementType: 'mountain',
+    elementType: 'all',
     stylers: [
       {
         color: '#FFFFFF',
@@ -134,10 +134,10 @@ export default [
     elementType: 'all',
     stylers: [
       {
-        saturation: 0,
+        saturation: 100,
       },
       {
-        lightness: 0,
+        lightness: 5,
       },
       {
         color: 'white',
@@ -149,7 +149,7 @@ export default [
     elementType: 'all',
     stylers: [
       {
-        visibility: 'off',
+        visibility: 'simplified',
       },
     ],
   },
@@ -176,7 +176,7 @@ export default [
     elementType: 'all',
     stylers: [
       {
-        color: 'rgb(207, 100, 210)',
+        color: 'rgb(220, 232, 241)',
       },
       {
         visibility: 'on',
