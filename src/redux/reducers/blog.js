@@ -1,22 +1,22 @@
 import {
-  CREATE_NEWCATEGORY,
   FETCH_ALLCATEGORY,
   CREATE_POST,
   CREATE_USERFAVPOST,
-  CREATE_POSTIMAGES,
   REMOVE_USERFAVPOST,
+  CREATE_POSTIMAGES,
   FETCH_COMMENT,
   CREATE_COMMENT,
-  REMOVE_COMMENT,
-  UPDATE_POST,
-  UPDATE_POSTCATEGORY,
-  UPDATE_POSTIMAGE,
   UPDATE_COMMENT,
-  REMOVE_POST,
-  REMOVE_POSTCATEGORY,
-  REMOVE_POSTIMAGE,
   FETCH_ALLPOST,
   FETCH_POST,
+  // CREATE_NEWCATEGORY,
+  // REMOVE_COMMENT,
+  // UPDATE_POST,
+  // UPDATE_POSTCATEGORY,
+  // UPDATE_POSTIMAGE,
+  // REMOVE_POST,
+  // REMOVE_POSTCATEGORY,
+  // REMOVE_POSTIMAGE,
 
 } from '../constants/actionTypes';
 
@@ -74,11 +74,17 @@ function blogReducer(state = initialBlogState, action) {
         ...state,
         post:{...action.payload}
       };
+    case CREATE_POSTIMAGES:
+      console.log('created post images');
+      return {
+        ...state,
+      };
     case CREATE_POST:
       console.log('created post');
       return {
         ...state,
       };
+
     default:
       return state;
   }
