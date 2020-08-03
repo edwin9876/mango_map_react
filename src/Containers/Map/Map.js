@@ -187,7 +187,6 @@ export class MapContainer extends Component {
         );
       }))
       : (locations = this.props.locations.map((location) => {
-        console.log(location);
         return (
           <Marker
             icon={{

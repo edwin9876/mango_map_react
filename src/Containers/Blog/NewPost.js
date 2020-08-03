@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { createPost, fetchAllCategory, createPostImages } from '../../redux/actions/blog';
+import { fetchAllLocations } from '../../redux/actions/map'
 import Select from 'react-select';
 
 
@@ -18,7 +19,7 @@ class ConnectedNewPost extends Component {
         title: '',
         category: '',
         body: '',
-        location_id: 1
+        location_id: ''
       },
       categories: [],
       images64: [],
@@ -29,11 +30,22 @@ class ConnectedNewPost extends Component {
     let { dispatch } = this.props
 
     await dispatch(fetchAllCategory())
+    await dispatch(fetchAllLocations())
+
+    let locations = [...this.props.map.locations]
+    let listLocations = locations.map((location) => {
+      return {
+        label: `${location.en} ${location.cn}`,
+        value: location.id
+      }
+    })
     console.log(this.props)
     if (this.props.blog.categories) {
       this.setState({
         ...this.state,
         categories: this.props.blog.categories,
+        locations: listLocations,
+        style: { color: 'green' }
       })
     }
     console.log(this.state)
@@ -113,7 +125,16 @@ class ConnectedNewPost extends Component {
 
   handleChange = (e) => {
     let opts = []
-    if (e.target.name === 'category') {
+
+    if (e.label) {
+      this.setState({
+        post: {
+          ...this.state.post,
+          location_id: e.value
+        }
+      })
+    }
+    else if (e.target.name && e.target.name === 'category') {
       for (let opt of e.target.options) {
 
         if (opt.selected) {
@@ -128,7 +149,9 @@ class ConnectedNewPost extends Component {
         }
       })
 
-    } else {
+    }
+
+    else {
       this.setState({
         post: {
           ...this.state.post,
@@ -137,21 +160,16 @@ class ConnectedNewPost extends Component {
       })
 
     }
+    console.log(this.state)
 
   }
 
   render() {
     const { isLightTheme, light, dark } = this.context;
     const theme = isLightTheme ? light : dark;
-// dummy data for location list. must have label and value attributes inside of object.
-    const locationList = [
-    { label: "Science park", value: 1,style: { color: 'green' }},
-    { label: "Harbour Grand", value: 2,style: { color: 'green' } },
-    { label: "Star Street", value: 3 ,style: { color: 'green' }},
-    { label: "Sai kung beach", value: 4 ,style: { color: 'green' }},
-    { label: "Golden beach", value: 5,style: { color: 'green' } },
-    { label: "Snakes island", value: 6,style: { color: 'green' } },];
-//search select styling 
+    // dummy data for location list. must have label and value attributes inside of object.
+
+    //search select styling 
     const customStyles = {
       container: (base, state) => ({
         ...base,
@@ -185,7 +203,7 @@ class ConnectedNewPost extends Component {
       <div>
         <div className="margin5">
           <Label for="title" className="bold">Choose location</Label>
-          <Select styles={customStyles} options={locationList} />
+          <Select onChange={this.handleChange} name='location_id' styles={customStyles} options={this.state.locations} />
         </div>
 
         <Form id="createPost" onSubmit={this.handleSubmit} className="uploader margin5" encType="multipart/form-data">
