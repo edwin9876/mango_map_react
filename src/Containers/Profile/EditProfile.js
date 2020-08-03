@@ -101,19 +101,17 @@ class ConnectedEditProfile extends Component {
 
 
         return (
-            <div>
+            <div className="vh100 padding5" style={{ background: theme.low, color: theme.high }}>
                 <Form
-                    style={{ background: theme.low, color: theme.high }}
                     onSubmit={this.handleSubmit}
-                    className='form-container'
                 >
-                    {/* {submitted && this.props.signedUpFail && (
-              <p className='text-danger'>Sign Up Fail</p>
-            )} */}
-                {this.state.userInfo.profile_picture_url && this.state.userInfo.profile_picture_url.length<100?
-                    <img style={{height:100,width:'50%',margin:'auto'}} src={this.state.userInfo.profile_picture_url} alt="profile img" />:
-                    <img style={{height:100,width:'50%',margin:'auto'}} src={`data:image/png;base64, ${this.state.userInfo.profile_picture_url}`} alt="profile img" />
-                }
+                    
+                <div className="justify-content-center d-flex paddingb1">
+                    {this.state.userInfo.profile_picture_url && this.state.userInfo.profile_picture_url.length < 100 ?
+                        <img id="profile_pic" src={this.state.userInfo.profile_picture_url} alt="profile img" /> :
+                        <img id="profile_pic" src={`data:image/png;base64, ${this.state.userInfo.profile_picture_url}`} alt="profile img" />
+                    }
+                    </div>
                     <FormGroup>
                         <Label for='profile_picture_url'>Profile Image</Label>
                         <Input
@@ -235,10 +233,14 @@ class ConnectedEditProfile extends Component {
 
 
                     <div className='justify-content-center d-flex Input-field'>
-                        <button className='transparent_btn white-text ' id='login_btn'>
+                        <Button className='margin1x'  onClick={this.props.history.goBack}   >
                             {' '}
-                Edit
-              </button>
+                Cancel
+              </Button>
+                        <Button className='margin1x' type="submit" >
+                            {' '}
+                Save
+              </Button>
                     </div>
                 </Form>
             </div>
