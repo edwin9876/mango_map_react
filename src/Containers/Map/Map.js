@@ -13,12 +13,14 @@ import {
   fetchAllLocations,
 } from '../../redux/actions/map';
 
-require('dotenv').config();
+// require('dotenv').config();
 
 const mapStyles = {
   width: '100%',
   height: '100%',
 };
+
+// Testing
 
 export class MapContainer extends Component {
   constructor(props) {
