@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { createPost, fetchAllCategory, createPostImages } from '../../redux/actions/blog';
-import Map from '../Map/Minimap'
+import Select from 'react-select';
 
 
 class ConnectedNewPost extends Component {
@@ -81,13 +81,13 @@ class ConnectedNewPost extends Component {
       console.log(newBlog_id)
     }
 
-    
+
     if (images64 && newBlog_id) {
       console.log(images64)
       await dispatch(createPostImages(images64, newBlog_id))
 
       this.props.history.push(`/blog/${newBlog_id}`)
-    
+
     }
 
   }
@@ -143,13 +143,53 @@ class ConnectedNewPost extends Component {
   render() {
     const { isLightTheme, light, dark } = this.context;
     const theme = isLightTheme ? light : dark;
+// dummy data for location list. must have label and value attributes inside of object.
+    const locationList = [
+    { label: "Science park", value: 1,style: { color: 'green' }},
+    { label: "Harbour Grand", value: 2,style: { color: 'green' } },
+    { label: "Star Street", value: 3 ,style: { color: 'green' }},
+    { label: "Sai kung beach", value: 4 ,style: { color: 'green' }},
+    { label: "Golden beach", value: 5,style: { color: 'green' } },
+    { label: "Snakes island", value: 6,style: { color: 'green' } },];
+//search select styling 
+    const customStyles = {
+      container: (base, state) => ({
+        ...base,
+        borderRadius: '5px',
+        border: state.isFocused ? "1px thin #ccd637" : "1px solid #ccd637",
+        color: "#858684",
+        transition:
+          null,
+        "&:hover": {
+          boxShadow: null
+        }
+      }),
+      control: (base, state) => ({
+        ...base,
+        border: 'transparent',
+        background: "transparent"
+      }),
+      valueContainer: (base, state) => ({
+        ...base,
+        border: 'none',
+        background: state.isFocused ? "#ccd637" : "transparent",
+      }),
+      multiValue: (base, state) => ({
+        ...base,
+        background: "lightYellow",
+        maxWidth: "100px"
+      })
+    }
 
     return (
       <div>
-      <Label for="title" className="bold margin5x">Choose location</Label>
-      <div id="minimap"><Map selectLocation={this.selectLocation} width="90vw" height="70vh"/></div>
-      
-        <Form id="createPost" onSubmit={this.handleSubmit}  className="uploader margin5" encType="multipart/form-data">
+        <div className="margin5">
+          <Label for="title" className="bold">Choose location</Label>
+          <Select styles={customStyles} options={locationList} />
+        </div>
+
+        <Form id="createPost" onSubmit={this.handleSubmit} className="uploader margin5" encType="multipart/form-data">
+
           <FormGroup>
             <Label for="title" className="bold">Title</Label>
             <Input style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} onChange={this.handleChange} type="text" name="title" placeholder="Title" />
