@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { ThemeContext } from '../../Contexts/Theme'
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { connect } from 'react-redux';
-import {createLocationImages} from '../../redux/actions/map'
- 
+import { createLocationImages } from '../../redux/actions/map'
+
 class ConnectedNewPic extends Component {
   static contextType = ThemeContext;
 
   constructor(props) {
     super(props)
     this.state = {
-      location_id:1,
-      images64:[]
+      location_id: 1,
+      images64: []
     }
   }
 
@@ -46,13 +46,13 @@ class ConnectedNewPic extends Component {
       images64 = this.state.images64
     }
 
-    
+
     if (images64 && user_id && location_id) {
       console.log(images64)
-      await dispatch(createLocationImages(images64, user_id,location_id))
+      await dispatch(createLocationImages(images64, user_id, location_id))
 
       this.props.history.push(`/spot/${location_id}`)
-    
+
     }
 
   }
@@ -63,10 +63,10 @@ class ConnectedNewPic extends Component {
 
     return (
       <div>
-        <Form className="margin5" id="createPost" onSubmit={this.handleSubmit}>
+        <Form className="margin5" id="createPost" onSubmit={this.handleSubmit} className="uploader margin5" encType="multipart/form-data">
 
           <FormGroup onSubmit={this.handleSubmit}>
-            <Input onChange={this.handleImageChange} style={{ background: theme.low, color: theme.high }} type="file" name="file" id="exampleFile" />
+            <Input onChange={this.handleImageChange} style={{ background: theme.low, color: theme.high }} type="file" id="file" multiple />
             <FormText color="muted">
               Upload pictures you want to attach to the post
             </FormText>
@@ -77,7 +77,9 @@ class ConnectedNewPic extends Component {
               type="submit" name="action" >Add Picture
             </Button>
           </div>
+
         </Form>
+
       </div>
     )
   }
