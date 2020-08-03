@@ -8,20 +8,15 @@ import {
   setRoomname,
   sendMessage,
 } from '../../../redux/actions/chatroom';
-
 import { connect } from 'react-redux';
-
 import io from 'socket.io-client';
 import { css } from 'glamor';
-
 import ChatToolbar from '../../../Components/UI/Layout/ChatToolbar';
 import { backToChatList } from '../../../redux/actions/chatroom';
 import Input from '../../../Components/Chat/Input/Input';
 import Messages from '../../../Components/Chat/Messages/Messages';
 import AddChat from '../../../Components/UI/Layout/AddChat';
-
 import { Button, ButtonGroup, ListGroup, ListGroupItem } from 'reactstrap';
-
 import { ThemeContext } from '../../../Contexts/Theme';
 
 class Chat extends Component {
@@ -176,7 +171,19 @@ class Chat extends Component {
       })
     );
 
-    return displayedContent;
+    return this.props.currentRoomId ? (
+      displayedContent
+    ) : (
+      <>
+        <div className='addNewChatroom'>
+          <AddChat
+            userId={this.props.userId}
+            fetchChatroomList={this.props.fetchChatroomList}
+          />
+        </div>
+        {displayedContent}
+      </>
+    );
   }
 }
 

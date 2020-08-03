@@ -21,7 +21,7 @@ import axios from 'axios';
 require('dotenv').config();
 
 export const fetchChatroomList = (userId) => {
-  console.log('[chatroom.js] action is accessed');
+  console.log('[chatroom.js] action fetchChatroomList is accessed');
   console.log(userId);
   return async (dispatch) => {
     let res = await axios(
