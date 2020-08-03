@@ -133,6 +133,12 @@ button:focus {
     min-height:100vh;
     padding-bottom: 10vh;
 }
+#minimap{
+    padding: 3vw;
+    position: relative;
+    width: 94vw;
+    height: 30vh!important;
+}
 
 /* blog */
 #blog_container{
