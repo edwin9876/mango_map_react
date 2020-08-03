@@ -71,15 +71,15 @@ class ConnectedEditProfile extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         this.setState({ submitted: true })
-        const { user_name, email, gender ,password} = this.state.userInfo
+        const { user_name, email, gender, password } = this.state.userInfo
         const payload = {
             ...this.state.userInfo,
-            updated_at:new Date()
+            updated_at: new Date()
         }
         const { dispatch } = this.props;
         if (user_name && email && gender && password && payload) {
             await dispatch(updateUser(payload))
-            console.log(this.state)
+            this.props.history.push(`/profile/${this.props.auth.user.id}`)
         }
     }
     handleChange = (e) => {
@@ -110,6 +110,20 @@ class ConnectedEditProfile extends Component {
                     {/* {submitted && this.props.signedUpFail && (
               <p className='text-danger'>Sign Up Fail</p>
             )} */}
+                {this.state.userInfo.profile_picture_url && this.state.userInfo.profile_picture_url.length<100?
+                    <img style={{height:100,width:'50%',margin:'auto'}} src={this.state.userInfo.profile_picture_url} alt="profile img" />:
+                    <img style={{height:100,width:'50%',margin:'auto'}} src={`data:image/png;base64, ${this.state.userInfo.profile_picture_url}`} alt="profile img" />
+                }
+                    <FormGroup>
+                        <Label for='profile_picture_url'>Profile Image</Label>
+                        <Input
+                            type='file'
+                            id='profile_picture_url'
+                            name='profile_picture_url'
+                            onChange={this.handleChange}
+                        />
+                    </FormGroup>
+
                     <FormGroup>
                         <Label htmlFor='user_name'>User Name</Label>
                         <Input
@@ -217,16 +231,7 @@ class ConnectedEditProfile extends Component {
                         </Col>
                     </FormGroup>
 
-                    <FormGroup>
-                        <Label for='profile_picture_url'>Profile Image</Label>
-                        <Input
-                            type='file'
-                            id='profile_picture_url'
-                            name='profile_picture_url'
-                            onChange={this.handleChange}
-                        />
-                    </FormGroup>
-                    <Media object data-src={this.state.userInfo.profile_picture_url} alt="Generic placeholder image" />
+
 
 
                     <div className='justify-content-center d-flex Input-field'>
