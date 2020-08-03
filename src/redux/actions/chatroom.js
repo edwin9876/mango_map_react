@@ -15,6 +15,7 @@ import {
   SEND_MESSAGE,
   SET_ROOMNAME,
   SEND_IMAGE,
+  RECEIVE_MESSAGE,
 } from '../constants/actionTypes';
 
 import axios from 'axios';
@@ -75,18 +76,34 @@ export const setRoomname = (roomname) => {
   };
 };
 
-export const sendMessage = (message, roomId, roomUserId) => {
+export const sendMessage = (message, roomId, userId, username) => {
+  console.log('[chatrooms.js action]', message, roomId);
   return async (dispatch) => {
     await axios
       .post(`${process.env.REACT_APP_DEV_URL}chatroom/record`, {
         message: message,
         roomId: roomId,
-        roomUserId: roomUserId,
+        userId: userId,
+        username: username,
       })
       .then((res) => {
-        console.log(res.data[0]);
+        res.data[0].user_name
+          ? console.log('[Chatroom.js action', res.data[0].user_name)
+          : (res.data[0].user_name = username);
+        console.log('[chatrooms.js] action', res.data[0]);
         dispatch({ type: SEND_MESSAGE, payload: res.data[0] });
       });
+  };
+};
+
+export const receiveMessage = (username, message) => {
+  return (dispatch) => {
+    dispatch({
+      type: RECEIVE_MESSAGE,
+      username: username,
+      message: message,
+      created_at: new Date(),
+    });
   };
 };
 

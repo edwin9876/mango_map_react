@@ -1,28 +1,26 @@
 import React, { Component } from 'react';
 import ScrollToBottom from 'react-scroll-to-bottom';
-
+import axios from 'axios';
 import {
   fetchChatroomList,
   fetchChatroom,
   setMessage,
   setRoomname,
   sendMessage,
+  receiveMessage,
 } from '../../../redux/actions/chatroom';
-
 import { connect } from 'react-redux';
-
 import io from 'socket.io-client';
 import { css } from 'glamor';
-
 import ChatToolbar from '../../../Components/UI/Layout/ChatToolbar';
 import { backToChatList } from '../../../redux/actions/chatroom';
 import Input from '../../../Components/Chat/Input/Input';
 import Messages from '../../../Components/Chat/Messages/Messages';
 import AddChat from '../../../Components/UI/Layout/AddChat';
-
 import { Button, ButtonGroup, ListGroup, ListGroupItem } from 'reactstrap';
-
 import { ThemeContext } from '../../../Contexts/Theme';
+
+require('dotenv').config();
 
 class Chat extends Component {
   static contextType = ThemeContext;
@@ -37,16 +35,43 @@ class Chat extends Component {
     width: '100%',
   });
 
-  componentDidMount() {
-    this.socket.emit('new-user', { name: this.props.username });
+  sendMessageToChatroom = (message, roomId, userId, username) => {
+    console.log('[Chats.js]', username);
+    this.socket.emit('chat-message', { message, roomId, userId, username });
+    this.props.sendMessage(message, roomId, userId, username);
+  };
+
+  async componentDidMount() {
+    let chatroomList = await axios
+      .get(`${process.env.REACT_APP_DEV_URL}chatroom/all/${this.props.userId}`)
+      .then((response) => {
+        console.log(response);
+        return response.data.map((chatroom) => {
+          return chatroom.chatroom_id;
+        });
+      });
+
+    this.socket.on('chat-message', (data) => {
+      console.log('[Chat.js]', data);
+      this.props.sendMessage(data);
+    });
+
+    // this.socket.on("chat-image", )
+
+    this.socket.emit('new-user', {
+      name: this.props.username,
+      roomList: chatroomList,
+    });
+
     this.socket.on('user-connected', (name) => {
       console.log('Welcome to Mango Map, ' + name);
     });
 
-    // Receive the messages from other users
-    this.socket.on('chat-message', (message) => {
-      console.log(message);
-      console.log('[chat-message] received');
+    this.socket.on('join-chatroom-user', (data) => {
+      this.props.receiveMessage(
+        data.username,
+        `${data.username} has joined the chatroom!`
+      );
     });
 
     this.props.fetchChatroomList(this.props.userId);
@@ -127,10 +152,11 @@ class Chat extends Component {
         <div>
           <Input
             sendMessage={() =>
-              this.props.sendMessage(
+              this.sendMessageToChatroom(
                 this.props.messages,
                 this.props.currentRoomId,
-                this.props.chatroomUserId
+                this.props.userId,
+                this.props.username
               )
             }
             messages={this.props.messages}
@@ -150,8 +176,8 @@ class Chat extends Component {
               this.props.setRoomname(room.room_name);
             }}
           >
-            <ListGroup className="">
-              <ListGroupItem 
+            <ListGroup className=''>
+              <ListGroupItem
                 color={theme.listcolor}
                 className='justify-content-between d-flex'
               >
@@ -194,9 +220,10 @@ const mapDispatchToProps = (dispatch) => {
     fetchChatroom: (id) => dispatch(fetchChatroom(id)),
     setMessage: (event) => dispatch(setMessage(event)),
     setRoomname: (roomname) => dispatch(setRoomname(roomname)),
-    sendMessage: (message, roomId, userId) =>
-      dispatch(sendMessage(message, roomId, userId)),
-
+    sendMessage: (message, roomId, userId, username) =>
+      dispatch(sendMessage(message, roomId, userId, username)),
+    receiveMessage: (username, message) =>
+      dispatch(receiveMessage(username, message)),
     backToChatList: () => dispatch(backToChatList()),
   };
 };
