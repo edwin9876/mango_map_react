@@ -37,8 +37,15 @@ class Chat extends Component {
     width: '100%',
   });
 
-  componentDidMount() {
-    this.socket.emit('new-user', { name: this.props.username });
+  async componentDidMount() {
+    let roomList = await this.props.fetchChatroomList(this.props.userId);
+    let newRoomList = roomList.map((room) => room.chatroom_id);
+
+    this.socket.emit('new-user', {
+      name: this.props.username,
+      roomList: newRoomList,
+    });
+
     this.socket.on('user-connected', (name) => {
       console.log('Welcome to Mango Map, ' + name);
     });
@@ -48,8 +55,6 @@ class Chat extends Component {
       console.log(message);
       console.log('[chat-message] received');
     });
-
-    this.props.fetchChatroomList(this.props.userId);
   }
 
   componentDidUpdate() {}
@@ -150,8 +155,8 @@ class Chat extends Component {
               this.props.setRoomname(room.room_name);
             }}
           >
-            <ListGroup className="">
-              <ListGroupItem 
+            <ListGroup className=''>
+              <ListGroupItem
                 color={theme.listcolor}
                 className='justify-content-between d-flex'
               >
