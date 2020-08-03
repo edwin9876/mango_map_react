@@ -8,19 +8,21 @@ import {
 } from 'reactstrap';
 
 import Comments from './Comments'
-import { fetchPost, createComment } from '../../redux/actions/blog'
+import { fetchPost, createComment,createFavPost,removeFavPost} from '../../redux/actions/blog'
 
 
 class ConnectedBlogDetails extends Component {
     static contextType = ThemeContext;
-
 
     constructor(props) {
         super(props)
         this.state = {
             post: {},
             comment: '',
-            color: "black"
+            color: "black",
+            updateComment: '',
+            user_id: '',
+            user_fav: [],
         }
 
     }
@@ -34,36 +36,53 @@ class ConnectedBlogDetails extends Component {
         //get individual post
         await dispatch(fetchPost(blog_id))
 
+        let user_id
+        let matchUser
+        if (localStorage.getItem('user')) {
+            user_id = JSON.parse(localStorage.getItem('user')).id
+        }
+        if (this.props.blog.post.favUsers) {
+            matchUser = [...this.props.blog.post.favUsers].filter((user) => user.user_id === user_id)
+            console.log(matchUser)
+        }
+
         if (this.props.blog.post) {
             this.setState({
                 ...this.state,
-                post: this.props.blog.post
+                post: this.props.blog.post,
+                user_id: user_id,
+                user_fav: matchUser,
+            })
+        }
+        if (this.state.user_fav.length) {
+            this.setState({
+                ...this.state,
+                color: '#ccd637',
             })
         }
         console.log(this.state)
     }
 
-    // async componentDidUpdate() {
-    //     const { dispatch } = this.props
-    //     let blog_id = parseInt(this.props.match.params.id)
-
-
-
 
     //change color addfavourite, alert upon click
-    addFav = (e) => {
+    addFav = async (e) => {
+
+        const { dispatch } = this.props
 
         if (this.state.color === "black") {
             alert('Added to your Likes!')
             this.setState({
                 color: "#ccd637"
             })
+            await dispatch(createFavPost(this.state.post.id,this.state.user_id))
         }
         else {
             alert('Removed from your Likes!')
             this.setState({
                 color: "black"
             })
+            await dispatch(removeFavPost(this.state.post.id,this.state.user_id))
+
         }
     }
 
@@ -72,6 +91,7 @@ class ConnectedBlogDetails extends Component {
             ...this.state,
             comment: { [e.target.name]: e.target.value }
         })
+
     }
 
     // post comments on submit form
@@ -89,11 +109,12 @@ class ConnectedBlogDetails extends Component {
             await dispatch(createComment(comment))
 
             await dispatch(fetchPost(comment.blog_id))
+
             if (this.props.blog.post) {
                 this.setState({
                     ...this.state,
                     post: this.props.blog.post,
-                    comment: { body:''}
+                    comment: { body: '' }
                 })
             }
             console.log(this.state)
@@ -105,11 +126,8 @@ class ConnectedBlogDetails extends Component {
     render() {
         const { isLightTheme, light, dark } = this.context;
         const theme = isLightTheme ? light : dark;
-        console.log(this.state)
-        let user_id
-        if (localStorage.getItem('user')) {
-            user_id = JSON.parse(localStorage.getItem('user')).id
-        }
+        console.log(this.props)
+
         return (
             <div id="blogdetail_container" style={{ background: theme.low, borderColor: theme.high }}>
                 <br />
@@ -144,7 +162,7 @@ class ConnectedBlogDetails extends Component {
                 {/* comment */}
 
                 <div className="center">
-                    {user_id &&
+                    {this.state.user_id &&
                         <Form action="post" onSubmit={this.handleSubmit} className=" paddingy1">
                             <InputGroup>
                                 <Input value={this.state.comment.body} style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} onChange={this.handleChange} type="text" name="body" id="body" placeholder="Please comment here" />
@@ -157,11 +175,8 @@ class ConnectedBlogDetails extends Component {
                         </Form>}
 
                     {this.state.post.comments && this.state.post.comments.map((com, i) => {
-                        return <Comments key={i} comment={com} />
-
+                        return <Comments key={com.id} comment={com} />
                     })}
-
-
 
                 </div>
             </div>

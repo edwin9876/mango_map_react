@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  max-width: 100vw;
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -21,13 +22,14 @@ body {
 
 /* Positions */
 /* .center{display:flex; justify-content: center; align-items: center;} */
+.block {display: block;}
 .sticky {position: fixed;}
 .d-flex{display: flex;}
 .justify-content-center{justify-content: center;}
 .text-align-center{text-align:center}
 .centerH{display:flex; justify-content: center; flex-direction: column;}
 .justify-content-between{justify-content: space-between;}
-.align-content-center {align-content:center}
+.align-items-center {align-items:center}
 .hidden{display: none;}
 .position-absolute{position: absolute;}
 .margin0{margin:0}
@@ -35,11 +37,14 @@ body {
 .margin1 {margin:1rem}
 .margin1x{margin:0 1vw}
 .margin1vw{margin:1vw 0}
+.margin5x{margin: 0 5%}
 .margin5 {margin:5%}
 .mb10vh{margin-bottom: 10vh;}
 .padding1{padding:1rem}
 .padding1vw{padding:1vw}
 .paddingy1{padding:1rem 0;}
+.paddingb1{padding-bottom: 1rem;}
+.paddingt1{padding-top: 1rem;}
 .floatR{float: right;}
 .noRow{margin-left: 15px; margin-right: 15px;}
 
@@ -73,11 +78,14 @@ body {
 /* font */
 .bold {font-weight: bold;}
 .light {font-weight: lighter;}
+.font5{font-size: 5vh;}
+/* border */
 .rBorder{border-radius: 50px;}
+.smrBorder{border-radius: 10px;}
+.normalBorder{border: 1px rgba(128, 128, 128, 0.39) solid;}
 .sqBorder{border-radius: 0px!important;}
 .thinBorder{border: 1px, rgb(255, 255, 255), solid}
 .noBorder{ border: transparent !important;}
-.font5{font-size: 5vh;}
 
 button:focus {
     cursor: pointer;
@@ -159,6 +167,7 @@ padding-bottom: 10vh;
 
 /* chat */
 #chat_container{
+    min-height:100vh;
     max-height:100vh;
     padding-bottom: 10vh;
     }
