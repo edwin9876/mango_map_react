@@ -4,6 +4,7 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { connect } from 'react-redux';
 import { createLocationImages } from '../../redux/actions/map'
 
+
 class ConnectedNewPic extends Component {
   static contextType = ThemeContext;
 
@@ -63,6 +64,7 @@ class ConnectedNewPic extends Component {
 
     return (
       <div>
+
         <Form className="margin5" id="createPost" onSubmit={this.handleSubmit} className="uploader margin5" encType="multipart/form-data">
 
           <FormGroup onSubmit={this.handleSubmit}>

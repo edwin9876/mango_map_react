@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { createPost, fetchAllCategory, createPostImages } from '../../redux/actions/blog';
+import Map from '../Map/Minimap'
 
 
 class ConnectedNewPost extends Component {
@@ -138,6 +139,9 @@ class ConnectedNewPost extends Component {
 
     return (
       <div>
+      <Label for="title" className="bold margin5x">Choose location</Label>
+      <div id="minimap"><Map width="90vw" height="30vh"/></div>
+      
         <Form id="createPost" onSubmit={this.handleSubmit}  className="uploader margin5" encType="multipart/form-data">
           <FormGroup>
             <Label for="title" className="bold">Title</Label>
