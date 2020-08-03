@@ -58,9 +58,8 @@
   justify-content: flex-end;
 }
 
-.addNewChatroom {
-  display: block;
-  height: 200px; /* minimum needed to be inline */
-  height: 200px;
-  float: right;
+#addChat {
+  position: absolute;
+  top: 80vh;
+  left: 78vw;
 }

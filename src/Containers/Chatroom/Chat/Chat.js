@@ -209,13 +209,16 @@ class Chat extends Component {
       displayedContent
     ) : (
       <>
-        <div className='addNewChatroom'>
+        <div id="addChat">
           <AddChat
             userId={this.props.userId}
             fetchChatroomList={this.props.fetchChatroomList}
           />
         </div>
+
+        <div className="padding5">
         {displayedContent}
+        </div>
       </>
     );
   }

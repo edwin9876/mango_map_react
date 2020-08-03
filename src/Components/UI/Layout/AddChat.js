@@ -46,8 +46,8 @@ const AddChat = (props) => {
       <nav>
         <Form inline onSubmit={(e) => e.preventDefault()}>
           {' '}
-          <i className='material-icons gray70' onClick={toggle}>
-            note_add{buttonLabel}
+          <i className="material-icons gray50 micons15" id="addchatIC" onClick={toggle}>
+            add_box{buttonLabel}
           </i>
         </Form>
         <Modal
