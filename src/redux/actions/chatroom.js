@@ -15,6 +15,7 @@ import {
   SEND_MESSAGE,
   SET_ROOMNAME,
   SEND_IMAGE,
+  RECEIVE_MESSAGE,
 } from '../constants/actionTypes';
 
 import axios from 'axios';
@@ -75,11 +76,12 @@ export const setRoomname = (roomname) => {
   };
 };
 
-export const sendMessage = (message, roomId, roomUserId) => {
+export const sendMessage = (message, username, roomId, roomUserId) => {
   return async (dispatch) => {
     await axios
       .post(`${process.env.REACT_APP_DEV_URL}chatroom/record`, {
         message: message,
+        user_name: username,
         roomId: roomId,
         roomUserId: roomUserId,
       })
@@ -87,6 +89,17 @@ export const sendMessage = (message, roomId, roomUserId) => {
         console.log(res.data[0]);
         dispatch({ type: SEND_MESSAGE, payload: res.data[0] });
       });
+  };
+};
+
+export const receiveMessage = (username, message) => {
+  return (dispatch) => {
+    dispatch({
+      type: RECEIVE_MESSAGE,
+      username: username,
+      message: message,
+      created_at: new Date(),
+    });
   };
 };
 
