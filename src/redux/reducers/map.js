@@ -7,6 +7,7 @@ import {
   CHANGE_ZOOM_LEVEL,
   FETCH_ALL_LOCATIONS,
   FETCH_LOCATION,
+  CREATE_LOCATIONIMAGES,
 } from '../constants/actionTypes';
 
 const initialMapState = {
@@ -14,18 +15,7 @@ const initialMapState = {
   locations: [],
   zoom: 12,
 };
-//   CREATE_LOCATION,
-//   UPDATE_LOCATION,
-//   REMOVE_LOCATION,
-//   FETCH_LOCATION,
-//   FETCH_ALLLOCATION
-// } from '../constants/actionTypes';
 
-// const initialMapState = {
-//   districts: [],
-//   locations: [],
-//   zoom: 12,
-// };
 
 const mapReducer = (state = initialMapState, action) => {
   console.log(action);
@@ -60,6 +50,11 @@ const mapReducer = (state = initialMapState, action) => {
         ...state,
         zoom: action.payload,
       };
+    case CREATE_LOCATIONIMAGES:
+      return {
+        ...state,
+      };
+      
     default:
       return {
         ...state,

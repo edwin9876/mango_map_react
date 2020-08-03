@@ -5,10 +5,10 @@ import { ThemeContext } from '../../Contexts/Theme'
 import SearchBar from '../../Components/UI/Layout/SearchBar'
 import NewPost from './NewPost'
 import NewPic from './NewPic'
+import {connect} from 'react-redux'
 
 
-
-class CreatePost extends Component {
+class ConnectedCreatePost extends Component {
   static contextType = ThemeContext;
   constructor(props) {
     super(props)
@@ -25,19 +25,7 @@ class CreatePost extends Component {
   }
 
   
-  // handleImageChange = (e) => {
-  //   let file = e.target.files[0];
-  //   let reader = new FileReader();
-  //   reader.readAsDataURL(file);
-  //   reader.onloadend = () => {
-  //     this.setState({
-  //       userInfo: { ...this.state.userInfo, profile_picture_URL: reader.result.split('base64,')[1] }
-  //     });
-
-  //     console.log(this.state)
-
-  //   }
-  // }
+  
 
   //set the id as state 
 
@@ -65,7 +53,7 @@ class CreatePost extends Component {
           <Button onClick={() => this.handleRender(2)} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}> <i className="material-icons">add_a_photo</i></Button>
         </ButtonGroup>
 
-        {this.state.buttonId === 1 && <NewPost />}
+        {this.state.buttonId === 1 && <NewPost history={this.props.history}/>}
         {this.state.buttonId === 2 && <NewPic />}
         {this.state.buttonId !== 1 && this.state.buttonId !== 2 && this.state.categories ? <NewPost categories={this.state.categories} /> : null}
        
@@ -75,7 +63,7 @@ class CreatePost extends Component {
 }
 
 
-
+const CreatePost = connect()(ConnectedCreatePost)
 
 
 
