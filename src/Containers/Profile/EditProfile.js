@@ -71,13 +71,12 @@ class ConnectedEditProfile extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         this.setState({ submitted: true })
-        const { user_name, email, gender, password } = this.state.userInfo
         const payload = {
             ...this.state.userInfo,
             updated_at: new Date()
         }
         const { dispatch } = this.props;
-        if (user_name && email && gender && password && payload) {
+        if ( this.state.userInfo) {
             await dispatch(updateUser(payload))
             this.props.history.push(`/profile/${this.props.auth.user.id}`)
         }
