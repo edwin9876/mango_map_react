@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Map, InfoWindow, GoogleApiWrapper, Marker } from 'google-maps-react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import ReactDOM from 'react-dom';
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 import simple from './minimapStyle';
 import {
@@ -33,6 +35,7 @@ export class MapContainer extends Component {
     selectedPlaceImages: [],
     // This must be stored in database
     selfDefinedMarkers: [],
+    selected: false,
   };
 
   componentDidMount() {
@@ -68,14 +71,15 @@ export class MapContainer extends Component {
   changeTheme(mapProps, map) {
     map.setOptions.styles === simple
       ? map.setOptions({
-          styles: mapStyles,
-        })
+        styles: mapStyles,
+      })
       : map.setOptions({
-          styles: simple,
-        });
+        styles: simple,
+      });
   }
 
   onMarkerClick = (props, marker, e) => {
+    console.log(this.state)
     this.setState(
       {
         selectedPlace: props,
@@ -133,42 +137,63 @@ export class MapContainer extends Component {
     );
   };
 
+  selectingLocation = (e) => {
+    console.log('selected')
+    this.setState({
+      ...this.state,
+      selected: !this.state.selected
+    })
+  }
+
+  submitLocation =(e)=>{
+    this.props.selectLocation()
+
+  }
+
+  onInfoWindowOpen(props, e) {
+    const button = (<button onClick={this.selectingLocation}>Write a post for this place</button>);
+    ReactDOM.render(React.Children.only(button), document.getElementById("iwc"));
+    console.log(this.state.selectedPlace)
+  }
+
   render() {
     let locations;
     let selfDefinedMarkers;
-
+    console.log(this.props)
     this.props.zoom <= 13
       ? (locations = this.props.districts.map((district) => {
-          return (
-            <Marker
-              icon={{
-                url: './assets/icons/adventure.png',
-                anchor: new window.google.maps.Point(25, 25),
-                scaledSize: new window.google.maps.Size(25, 25),
-              }}
-              key={district.id}
-              position={{ lat: district.lat, lng: district.lng }}
-              onClick={this.onMarkerClick}
-              name={district.en}
-            />
-          );
-        }))
+        return (
+          <Marker
+            icon={{
+              url: './assets/icons/adventure.png',
+              anchor: new window.google.maps.Point(25, 25),
+              scaledSize: new window.google.maps.Size(25, 25),
+            }}
+            key={district.id}
+            id={district.id}
+            position={{ lat: district.lat, lng: district.lng }}
+            onClick={this.onMarkerClick}
+            name={district.en}
+          />
+        );
+      }))
       : (locations = this.props.locations.map((location) => {
-          return (
-            <Marker
-              icon={{
-                url: './assets/icons/adventure1.png',
-                anchor: new window.google.maps.Point(25, 25),
-                scaledSize: new window.google.maps.Size(50, 50),
-              }}
-              key={location.id}
-              locationId={location.id}
-              position={{ lat: location.lat, lng: location.lng }}
-              onClick={this.onMarkerClick}
-              name={location.en}
-            />
-          );
-        }));
+        console.log(location)
+        return (
+          <Marker
+            icon={{
+              url: './assets/icons/adventure1.png',
+              anchor: new window.google.maps.Point(25, 25),
+              scaledSize: new window.google.maps.Size(50, 50),
+            }}
+            key={location.id}
+            locationId={location.id}
+            position={{ lat: location.lat, lng: location.lng }}
+            onClick={this.onMarkerClick}
+            name={location.en}
+          />
+        );
+      }));
 
     let locationImages = <p> Please wait, Images are loading...</p>;
 
@@ -201,53 +226,77 @@ export class MapContainer extends Component {
 
     return (
       <div>
-        <Map
-          ref={this.mapRefs}
-          onZoomChanged={(google, map) => {
-            this.props.changeZoomLevel(map.zoom);
-          }}
-          onLoad={(map) => console.log(map)}
-          onClick={(props, google, clickEvent) => {
-            const lat = clickEvent.latLng.lat();
-            const lng = clickEvent.latLng.lng();
-            console.log(google);
-            this.createMarker(lat, lng);
-          }}
-          centerAroundCurrentLocation
-          google={this.props.google}
-          zoom={12}
-          initialCenter={{
-            lat: this.state.currentLocation.lat,
-            lng: this.state.currentLocation.lng,
-          }}
-          onReady={(mapProps, map) => this._mapLoaded(mapProps, map)}
-        >
-          <Marker
-            icon={{
-              url: './assets/icons/user.png',
-              anchor: new window.google.maps.Point(25, 25),
-              scaledSize: new window.google.maps.Size(50, 50),
+        {!this.state.selected ?
+          <Map
+            ref={this.mapRefs}
+            onZoomChanged={(google, map) => {
+              this.props.changeZoomLevel(map.zoom);
             }}
-            position={{
+            onLoad={(map) => console.log(map)}
+            onClick={(props, google, clickEvent) => {
+              const lat = clickEvent.latLng.lat();
+              const lng = clickEvent.latLng.lng();
+              console.log(google);
+              this.createMarker(lat, lng);
+            }}
+            centerAroundCurrentLocation
+            google={this.props.google}
+            zoom={16}
+            initialCenter={{
               lat: this.state.currentLocation.lat,
               lng: this.state.currentLocation.lng,
             }}
-            onClick={this.onMarkerClick}
-            name='You are here'
-          />
-          {selfDefinedMarkers}
-          {locations}
-          <InfoWindow
-            marker={this.state.activeMarker}
-            visible={this.state.showingInfoWindow}
-            onClose={this.onClose}
+            onReady={(mapProps, map) => this._mapLoaded(mapProps, map)}
+
           >
-            <div className='center'>
-              <h5 className='bold gray70'>{this.state.selectedPlace.name}</h5>
-              <div className='row d-flex'>{locationImages}</div>
-            </div>
-          </InfoWindow>
-        </Map>
+            <Marker
+              icon={{
+                url: './assets/icons/user.png',
+                anchor: new window.google.maps.Point(25, 25),
+                scaledSize: new window.google.maps.Size(50, 50),
+              }}
+              position={{
+                lat: this.state.currentLocation.lat,
+                lng: this.state.currentLocation.lng,
+              }}
+              onClick={this.onMarkerClick}
+              name='You are here'
+            />
+            {selfDefinedMarkers}
+            {locations}
+            <InfoWindow
+              marker={this.state.activeMarker}
+              visible={this.state.showingInfoWindow}
+              onCloseClick={this.onClose}
+              onOpen={e => {
+                this.onInfoWindowOpen(this.props, e);
+              }}
+            >
+              <div className='center'>
+                <h5 className='bold gray70'>{this.state.selectedPlace.name}</h5>
+                <div className='row d-flex'>{locationImages}</div>
+                <div id="iwc" />
+              </div>
+            </InfoWindow>
+          </Map> :
+
+          <Form id="createLocation" onSubmit={this.submitLocation} className="uploader margin5" encType="multipart/form-data">
+            <FormGroup>
+              <Label for="en" className="bold">English Name</Label>
+              <Input  onChange={this.handleChange} type="text" name="en" placeholder="English Name" />
+            </FormGroup>
+            <FormGroup>
+              <Label for="cn" className="bold">Chinese Name</Label>
+              <Input  onChange={this.handleChange} type="text" name="cn" placeholder="Chinese Name" />
+            </FormGroup>
+            <FormGroup>
+              <Label for="description" className="bold">Contents</Label>
+              <Input  onChange={this.handleChange} type="textarea" name="description" placeholder="About this place" rows="3" />
+            </FormGroup>
+            <h3>{this.state.selectedPlace.name}</h3>
+            <button onClick={this.selectLocation}>Cancel Selection</button>
+          </Form>}
+
       </div>
     );
   }
