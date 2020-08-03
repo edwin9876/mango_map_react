@@ -41,6 +41,7 @@ class Chat extends Component {
     this.props.sendMessage(message, roomId, userId, username);
   };
 
+  // Alternative
   // async componentDidMount() {
   //   let roomList = await this.props.fetchChatroomList(this.props.userId);
   //   let newRoomList = roomList.map((room) => room.chatroom_id);
@@ -62,7 +63,6 @@ class Chat extends Component {
       });
 
     this.socket.on('chat-message', (data) => {
-      console.log('[Chat.js]', data);
       this.props.sendMessage(data);
     });
 

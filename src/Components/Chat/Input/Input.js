@@ -24,7 +24,6 @@ const input = ({ messages, sendMessage, setMessage }) => (
     >
       SEND
     </InputGroupAddon>
-    <button>HI</button>
   </InputGroup>
 );
 
