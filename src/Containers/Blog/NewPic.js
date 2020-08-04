@@ -3,6 +3,7 @@ import { ThemeContext } from '../../Contexts/Theme'
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { connect } from 'react-redux';
 import { createLocationImages } from '../../redux/actions/map'
+import Select from 'react-select';
 
 
 class ConnectedNewPic extends Component {
@@ -12,8 +13,34 @@ class ConnectedNewPic extends Component {
     super(props)
     this.state = {
       location_id: 1,
-      images64: []
+      images64: [],
+      locations: []
     }
+  }
+  async componentDidMount() {
+    let locations = [...this.props.map.locations]
+    let listLocations = locations.map((location) => {
+      return {
+        label: `${location.en} ${location.cn}`,
+        value: location.id
+      }
+    })
+    if (this.props.map.locations) {
+      this.setState({
+        ...this.state,
+        locations: listLocations,
+        location_id:parseInt(this.props.history.location.pathname.split('/')[3]),
+        style: { color: 'green' }
+      })
+    }
+  }
+
+  componentWillUnmount() {
+    this.setState({
+      location_id: '',
+      images64: [],
+      locations: []
+    })
   }
 
   handleImageChange = (e) => {
@@ -32,6 +59,14 @@ class ConnectedNewPic extends Component {
       console.log(this.state)
 
     }
+  }
+
+  handleChange = (e) => {
+    this.setState({
+      ...this.state,
+      location_id: e.value
+    })
+    console.log(this.state)
   }
 
   handleSubmit = async (e) => {
@@ -61,9 +96,47 @@ class ConnectedNewPic extends Component {
     const { isLightTheme, light, dark } = this.context;
     const theme = isLightTheme ? light : dark;
 
+    let label, value
+    //search select styling 
+    const customStyles = {
+      container: (base, state) => ({
+        ...base,
+        borderRadius: '5px',
+        border: state.isFocused ? "1px thin #ccd637" : "1px solid #ccd637",
+        color: "#858684",
+        transition:
+          null,
+        "&:hover": {
+          boxShadow: null
+        }
+      }),
+      control: (base, state) => ({
+        ...base,
+        border: 'transparent',
+        background: "transparent"
+      }),
+      valueContainer: (base, state) => ({
+        ...base,
+        border: 'none',
+        background: state.isFocused ? "#ccd637" : "transparent",
+      }),
+      multiValue: (base, state) => ({
+        ...base,
+        background: "lightYellow",
+        maxWidth: "100px"
+      })
+    }
+    if (this.props.history.location) {
+      label = this.props.history.location.pathname.split('/')[2]
+      value = parseInt(this.props.history.location.pathname.split('/')[3])
+    }
 
     return (
       <div>
+        <div className="margin5">
+          <Label for="title" className="bold">Choose location</Label>
+          <Select defaultValue={label && value ? { label: label, value: value } : undefined} onChange={this.handleChange} name='location_id' styles={customStyles} options={this.state.locations} />
+        </div>
 
         <Form className="margin5" id="createPost" onSubmit={this.handleSubmit} className="uploader margin5" encType="multipart/form-data">
 
