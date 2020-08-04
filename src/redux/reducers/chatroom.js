@@ -16,10 +16,10 @@ import {
   SEND_MESSAGE,
   SEND_IMAGE,
   RECEIVE_MESSAGE,
+  INITIALIZE_STATE,
 } from '../constants/actionTypes';
 
 const initialChatroomState = {
-  // userId: 3,
   userId: 1,
   // Should be set according to the currentRoomId
   // username: 'Jacky123',
@@ -32,8 +32,15 @@ const initialChatroomState = {
 };
 
 const chatroomReducer = (state = initialChatroomState, action) => {
-  console.log(action.type);
+  console.log(action.username);
+  console.log(action.userId);
   switch (action.type) {
+    case INITIALIZE_STATE:
+      return {
+        ...state,
+        username: action.username,
+        userId: action.userId,
+      };
     case FETCH_CHATROOM_LIST:
       return {
         ...state,

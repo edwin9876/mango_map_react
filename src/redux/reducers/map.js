@@ -10,7 +10,8 @@ import {
   CREATE_LOCATIONIMAGES,
   CREATE_USERLOCATION,
   SAVE_LATLNG,
-  CREATE_LOCATION
+  CREATE_LOCATION,
+  INITIALIZE_STATE,
 } from '../constants/actionTypes';
 
 const initialMapState = {
@@ -18,7 +19,6 @@ const initialMapState = {
   locations: [],
   zoom: 12,
 };
-
 
 const mapReducer = (state = initialMapState, action) => {
   console.log(action);
@@ -52,7 +52,6 @@ const mapReducer = (state = initialMapState, action) => {
       return {
         ...state,
       };
-
     case CHANGE_ZOOM_LEVEL:
       return {
         ...state,
@@ -65,14 +64,14 @@ const mapReducer = (state = initialMapState, action) => {
     case CREATE_LOCATION:
       return {
         ...state,
-        new_location:action.payload[0]
+        new_location: action.payload[0],
       };
     case SAVE_LATLNG:
       return {
         ...state,
-        lat_lng:action.payload
+        lat_lng: action.payload,
       };
-      
+
     default:
       return {
         ...state,

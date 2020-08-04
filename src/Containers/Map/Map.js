@@ -11,7 +11,7 @@ import {
   fetchAllDistricts,
   changeZoomLevel,
   fetchAllLocations,
-  saveLatLng
+  saveLatLng,
 } from '../../redux/actions/map';
 
 // require('dotenv').config();
@@ -46,6 +46,7 @@ export class MapContainer extends Component {
   componentDidMount() {
     this.props.fetchAllDistricts();
     this.props.fetchAllLocations();
+
     console.log(JSON.parse(localStorage.getItem('user')));
 
     // console.log(this.mapRefs);
@@ -73,11 +74,11 @@ export class MapContainer extends Component {
   changeTheme(mapProps, map) {
     map.setOptions.styles === simple
       ? map.setOptions({
-        styles: mapStyles,
-      })
+          styles: mapStyles,
+        })
       : map.setOptions({
-        styles: simple,
-      });
+          styles: simple,
+        });
   }
 
   onMarkerClick = (props, marker, e) => {
@@ -140,27 +141,35 @@ export class MapContainer extends Component {
   };
 
   selectLocation = (e) => {
-    console.log(this.state)
-    this.props.history.push(`/createpost/${this.state.selectedPlace.name}/${this.state.selectedPlace.id}`)
-  }
+    console.log(this.state);
+    this.props.history.push(
+      `/createpost/${this.state.selectedPlace.name}/${this.state.selectedPlace.id}`
+    );
+  };
 
   createLocation = (e) => {
-    this.props.saveLatLng(this.state.selectedPlace.position)
-    console.log(this.props)
-    this.props.history.push('/createlocation')
-  }
+    this.props.saveLatLng(this.state.selectedPlace.position);
+    console.log(this.props);
+    this.props.history.push('/createlocation');
+  };
 
   onInfoWindowOpen(props, e) {
-    const button = (<div>
-      {!this.state.selectedPlace.id && !this.state.selectedPlace.district?
-        <button onClick={this.createLocation}>Create a new spot!</button> :
-        this.state.selectedPlace.location ?
-          <button onClick={this.selectLocation}>Write a post for this spot</button> :
-          null
-      }
-    </div>)
-    ReactDOM.render(React.Children.only(button), document.getElementById("iwc"));
-    console.log(this.state)
+    const button = (
+      <div>
+        {!this.state.selectedPlace.id && !this.state.selectedPlace.district ? (
+          <button onClick={this.createLocation}>Create a new spot!</button>
+        ) : this.state.selectedPlace.location ? (
+          <button onClick={this.selectLocation}>
+            Write a post for this spot
+          </button>
+        ) : null}
+      </div>
+    );
+    ReactDOM.render(
+      React.Children.only(button),
+      document.getElementById('iwc')
+    );
+    console.log(this.state);
   }
 
   render() {
@@ -171,39 +180,39 @@ export class MapContainer extends Component {
 
     this.props.zoom <= 13
       ? (locations = this.props.districts.map((district) => {
-        return (
-          <Marker
-            icon={{
-              url: './assets/icons/adventure.png',
-              anchor: new window.google.maps.Point(25, 25),
-              scaledSize: new window.google.maps.Size(50, 50),
-            }}
-            key={district.id}
-            id={district.id}
-            position={{ lat: district.lat, lng: district.lng }}
-            onClick={this.onMarkerClick}
-            name={`${district.en} ${district.cn}`}
-            district={true}
-          />
-        );
-      }))
+          return (
+            <Marker
+              icon={{
+                url: './assets/icons/adventure.png',
+                anchor: new window.google.maps.Point(25, 25),
+                scaledSize: new window.google.maps.Size(50, 50),
+              }}
+              key={district.id}
+              id={district.id}
+              position={{ lat: district.lat, lng: district.lng }}
+              onClick={this.onMarkerClick}
+              name={`${district.en} ${district.cn}`}
+              district={true}
+            />
+          );
+        }))
       : (locations = this.props.locations.map((location) => {
-        return (
-          <Marker
-            icon={{
-              url: './assets/icons/adventure1.png',
-              anchor: new window.google.maps.Point(25, 25),
-              scaledSize: new window.google.maps.Size(50, 50),
-            }}
-            key={location.id}
-            id={location.id}
-            position={{ lat: location.lat, lng: location.lng }}
-            onClick={this.onMarkerClick}
-            name={`${location.en} ${location.cn}`}
-            location={true}
-          />
-        );
-      }));
+          return (
+            <Marker
+              icon={{
+                url: './assets/icons/adventure1.png',
+                anchor: new window.google.maps.Point(25, 25),
+                scaledSize: new window.google.maps.Size(50, 50),
+              }}
+              key={location.id}
+              id={location.id}
+              position={{ lat: location.lat, lng: location.lng }}
+              onClick={this.onMarkerClick}
+              name={`${location.en} ${location.cn}`}
+              location={true}
+            />
+          );
+        }));
 
     let locationImages = <p> Please wait, Images are loading...</p>;
 
@@ -278,14 +287,14 @@ export class MapContainer extends Component {
             marker={this.state.activeMarker}
             visible={this.state.showingInfoWindow}
             onClose={this.onClose}
-            onOpen={e => {
+            onOpen={(e) => {
               this.onInfoWindowOpen(this.props, e);
             }}
           >
             <div className='center'>
               <h5 className='bold gray70'>{this.state.selectedPlace.name}</h5>
               <div className='row d-flex'>{locationImages}</div>
-              <div id="iwc" />
+              <div id='iwc' />
             </div>
           </InfoWindow>
         </Map>

@@ -11,10 +11,11 @@ import {
   Label,
   Form,
 } from 'reactstrap';
+import ChatRoomSummary from '../../Chat/ChatRoomSummary';
 
 require('dotenv').config();
 
-const ChatToolbar = ({ backToChatList, currentRoomId }, props) => {
+const ChatToolbar = ({ backToChatList, currentRoomId, roomname }, props) => {
   const { buttonLabel, className } = props;
   const [modal, setModal] = useState(false);
   const [unmountOnClose, setUnmountOnClose] = useState(true);
@@ -74,7 +75,7 @@ const ChatToolbar = ({ backToChatList, currentRoomId }, props) => {
           <i className='material-icons gray50' onClick={backToChatList}>
             arrow_back
           </i>
-
+          <ChatRoomSummary roomname={roomname} currentRoomId={currentRoomId} />
           <div>
             <Form inline onSubmit={(e) => e.preventDefault()}>
               {' '}
