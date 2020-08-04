@@ -13,7 +13,7 @@ body {
 .gray50{color:#ccd637;}
 .green{background-color: #ccd637 !important;}
 .bgdark{background-color:rgba(100, 98, 98, 0.658)!important}
-.highlight{color: #ec9791;}
+.highlight{color: #FFA041;}
 /* #d5d827 */
 .transparent{color: transparent;}
 .transparent-bg{background-color: transparent;}
@@ -61,6 +61,7 @@ body {
 .micons1{font-size: 2.25rem; padding:0 1rem}
 .micons15{font-size: 4rem;}
 .vw50{width:50vw;}
+.vw75{width:75vw}
 .vw100{max-width: 100vw;min-width: 100vw; }
 .vh100{min-height: 100vh; max-height: fit-content;}
 .imagecol3{
@@ -78,6 +79,7 @@ body {
 }
 
 /* font */
+.messagefont{font-family: Verdana, Geneva, Tahoma, sans-serif;}
 .bold {font-weight: bold;}
 .light {font-weight: lighter;}
 .font5{font-size: 5vh;}
