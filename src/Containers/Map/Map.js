@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Map, InfoWindow, GoogleApiWrapper, Marker } from 'google-maps-react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import predefinedLocations from './PredefinedLocations/LocationStorage';
+// import predefinedLocations from './PredefinedLocations/LocationStorage';
 
 // import mapStyle from './mapStyle';
 import simple from './mapStyle_simple';
@@ -12,6 +12,7 @@ import {
   changeZoomLevel,
   fetchAllLocations,
   saveLatLng,
+  fetchLocation,
 } from '../../redux/actions/map';
 
 // require('dotenv').config();
@@ -90,13 +91,13 @@ export class MapContainer extends Component {
         showingInfoWindow: true,
       },
       () => {
-        if (!this.state.selectedPlace.locationId) {
+        if (!this.state.selectedPlace.id) {
           console.log('Return');
           return;
         }
         axios
           .get(
-            `https://localhost:8000/image/public/${this.state.selectedPlace.locationId}`
+            `https://localhost:8000/image/public/${this.state.selectedPlace.id}`
           )
           .then((data) => {
             this.setState({
