@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-// import SignIn from '../../Components/Auth/SignIn'
+import { ThemeContext } from '../../Contexts/Theme'
+import { connect } from 'react-redux'
+
+import ProfileDetails from './ProfileDetails'
 import TripSummary from '../../Components/UI/Dashboard/TripSummary'
 import GroupSummary from '../../Components/UI/Dashboard/GroupSummary'
 import PostSummary from '../../Components/UI/Dashboard/PostSummary'
 import FavPostSummary from '../../Components/UI/Dashboard/FavPostSummary'
-import ProfileDetails from '../../Components/Profile/ProfileDetails'
-import { ThemeContext } from '../../Contexts/Theme'
-import { connect } from 'react-redux'
+
 import { fetchUser } from '../../redux/actions/user'
 
 // will render signin component if user is not logged in. Still make the route to '/signin' for signin page though
@@ -109,7 +110,6 @@ class ConnectedProfileScreen extends Component {
         const { isLightTheme, light, dark } = this.context;
         const theme = isLightTheme ? light : dark;
 
-        console.log(this.state.favPosts)
         return (
             <div id="profile_container" style={{ background: theme.low, color: theme.high }}>
 
@@ -127,7 +127,7 @@ class ConnectedProfileScreen extends Component {
 
                 {this.state.locations && this.state.showLocations ?
                     this.state.locations.map((item, i) => {
-                        return <TripSummary location={item} key={i} />
+                        return <TripSummary history={this.props.history} location={item} key={i} />
                     }) : null
                 }
                 {this.state.chatrooms && this.state.showChatrooms ?
@@ -138,13 +138,13 @@ class ConnectedProfileScreen extends Component {
 
                 {this.state.posts && this.state.showPosts ?
                     this.state.posts.map((item, i) => {
-                        return <PostSummary posts={item} key={i} />
+                        return <PostSummary history={this.props.history} posts={item} key={i} />
                     }) : null
                 }
 
                 {this.state.favPosts && this.state.showFav ?
                     this.state.favPosts.map((item, i) => {
-                        return <FavPostSummary favPosts={item} key={i} />
+                        return <FavPostSummary history={this.props.history} favPosts={item} key={i} />
                     }) : null
                 }
 

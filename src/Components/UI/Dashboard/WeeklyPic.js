@@ -1,24 +1,29 @@
 import React from 'react'
+import { ThemeContext } from '../../../Contexts/Theme'
+import {
+    Card, CardImg, CardBody,
+    CardTitle, CardSubtitle
+} from 'reactstrap';
 
-const WeeklyPic = ({image}) => {
+const WeeklyPic = ({ image }) => {
     return (
-        <div className="row">
-            <p className="center bold gray70 ">Most Liked Picture</p>
+        <ThemeContext.Consumer>{(context) => {
+            const { isLightTheme, light, dark } = context;
+            const theme = isLightTheme ? light : dark;
 
-            <div className="col s12 m12" >
-                <div className="card vw100">
-                    <div className="card-image">
-                            <img src={image.url} />
-    <span className="card-title">{image.title}</span>
-                    </div>
-                    <div className="card-content">
-    <p>{image.district_id}</p>
-                    </div>
 
-                </div>
-            </div>
-            
-        </div>
+            return (
+                <div>
+                    <Card style={{ background: theme.low, borderColor: theme.high }}>
+                        <CardBody>
+                            <CardImg top width="100%" src={image.url} alt="Card image cap" />
+                            <CardTitle className="bold">{image.title}</CardTitle>
+                            <CardSubtitle>{image.district_id}</CardSubtitle>
+                        </CardBody>
+                    </Card>
+                </div>)
+        }}
+        </ThemeContext.Consumer>
 
     )
 }

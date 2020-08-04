@@ -18,7 +18,7 @@ const GroupSummary = (props) => {
         src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRIMey7cyC1XcqtyFcJlNhz7yP4oT1kAahWPw&usqp=CAU'
         alt='Avatar'/>
         <h4 className="d-flex align-items-center">{props.chatroom.name}</h4>
-        <h6 className="d-flex align-items-center blur">{props.chatroom.created_at}
+        <h6 className="d-flex align-items-center blur">{props.chatroom.created_at.slice(0, 10)}
         </h6>
     
         </ListGroupItem>

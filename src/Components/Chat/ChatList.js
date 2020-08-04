@@ -1,31 +1,42 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { ThemeContext } from '../../../Contexts/Theme';
+import { ListGroup, ListGroupItem } from 'reactstrap';
 
-export default class ChatList extends Component {
-  render() {
-    const { chatrooms } = this.state;
-    console.log(this.state);
-    const chatroomList = chatrooms.length ? (
-      chatrooms.map((chatroom) => {
+const ChatList = (props) => {
+  console.log(props);
+  return (
+    <ThemeContext.Consumer>
+      {(context) => {
+        const { isLightTheme, light, dark } = context;
+        const theme = isLightTheme ? light : dark;
+
         return (
-          <div>
-            <Link to='/chat/:id'>
-              <li className='collection-item avatar gray70'>
-                <i className='material-icons circle grey blur'>star</i>
-                <span className='title bold'>{chatroom.name}</span>
-                <p>{chatroom.preview}</p>
-                <a href='#!' className='secondary-content'>
-                  <i className='material-icons blur'>grade</i>
-                </a>
-              </li>
-            </Link>
+          <div className='margin5'>
+            <ListGroup>
+              <ListGroupItem
+                color={theme.listcolor}
+                tag='a'
+                href='/chat/:id'
+                className='justify-content-between d-flex'
+              >
+                <img
+                  className='material-icons roundimg'
+                  src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRIMey7cyC1XcqtyFcJlNhz7yP4oT1kAahWPw&usqp=CAU'
+                  alt='Avatar'
+                />
+                <h4 className='d-flex align-items-center'>
+                  {props.chatroom.name}
+                </h4>
+                <h6 className='d-flex align-items-center blur'>
+                  {props.chatroom.created_at.slice(0, 10)}
+                </h6>
+              </ListGroupItem>
+            </ListGroup>
           </div>
         );
-      })
-    ) : (
-      <div className='d-flex justify-content-center'>No chats yet</div>
-    );
+      }}
+    </ThemeContext.Consumer>
+  );
+};
 
-    return <ul className='collection'>{chatroomList}</ul>;
-  }
-}
+export default ChatList;
