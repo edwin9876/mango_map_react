@@ -30,7 +30,6 @@ class PostSummary extends Component {
                     <div>
 
                         <Card className="margin5" style={{ background: theme.low, borderColor: theme.high }}>
-                            <CardImg top width="100%" src='' alt="post_imgs" />
                             <CardBody>
                                 <CardTitle className="bold d-flex justify-content-center">{this.props.posts.title.toUpperCase()}</CardTitle>
                                 <CardSubtitle className="d-flex justify-content-center">{this.props.posts.created_at.slice(0, 10)}</CardSubtitle>
@@ -47,18 +46,5 @@ class PostSummary extends Component {
 
     }
 
-    // const PostSummary = ( props) => {
-    //     return (
-    //         <ThemeContext.Consumer>{(context) => {
-    //             const { isLightTheme, light, dark } = context;
-    //             const theme = isLightTheme ? light : dark;
-    //             return (
-    //                 <div>
-    //                     <MyPost posts={props.posts} />
-    //                 </div>)
-    //         }}
-    //         </ThemeContext.Consumer>
-    //     )
-    // }
 
     export default PostSummary

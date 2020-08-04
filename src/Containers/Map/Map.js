@@ -3,8 +3,12 @@ import ReactDOM from 'react-dom';
 import { Map, InfoWindow, GoogleApiWrapper, Marker } from 'google-maps-react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+<<<<<<< HEAD
 import predefinedLocations from './PredefinedLocations/LocationStorage';
 import {Button} from 'reactstrap'
+=======
+// import predefinedLocations from './PredefinedLocations/LocationStorage';
+>>>>>>> d36d340674d485a873e39b55ef3ddbf5afad8ee7
 
 // import mapStyle from './mapStyle';
 import simple from './mapStyle_simple';
@@ -13,6 +17,7 @@ import {
   changeZoomLevel,
   fetchAllLocations,
   saveLatLng,
+  fetchLocation,
 } from '../../redux/actions/map';
 
 // require('dotenv').config();
@@ -91,13 +96,13 @@ export class MapContainer extends Component {
         showingInfoWindow: true,
       },
       () => {
-        if (!this.state.selectedPlace.locationId) {
+        if (!this.state.selectedPlace.id) {
           console.log('Return');
           return;
         }
         axios
           .get(
-            `https://localhost:8000/image/public/${this.state.selectedPlace.locationId}`
+            `https://localhost:8000/image/public/${this.state.selectedPlace.id}`
           )
           .then((data) => {
             this.setState({
