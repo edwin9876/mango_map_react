@@ -20,14 +20,12 @@ class ConnectedEditProfile extends Component {
     }
 
 
-    async componentDidMount() {
-        console.log(this.props)
-        let user = await JSON.parse(localStorage.getItem('user'))
-        delete user['token']
-        if (user) {
+     componentDidMount() {
+
+        if (this.props.user.user) {
             this.setState({
                 ...this.state,
-                userInfo: { ...user }
+                userInfo: { ...this.props.user.user }
             })
         }
         console.log(this.state)
@@ -97,8 +95,9 @@ class ConnectedEditProfile extends Component {
     render() {
         const { isLightTheme, light, dark } = this.context;
         const theme = isLightTheme ? light : dark;
-
-
+        let main_url
+        if(this.state.userInfo.profile_picture_url){
+         main_url = this.state.userInfo.profile_picture_url}
         return (
             <div className="vh100 padding5" style={{ background: theme.low, color: theme.high }}>
                 <Form
@@ -106,9 +105,9 @@ class ConnectedEditProfile extends Component {
                 >
                     
                 <div className="justify-content-center d-flex paddingb1">
-                    {this.state.userInfo.profile_picture_url && this.state.userInfo.profile_picture_url.length < 100 ?
-                        <img id="profile_pic" src={this.state.userInfo.profile_picture_url} alt="profile img" /> :
-                        <img id="profile_pic" src={`data:image/png;base64, ${this.state.userInfo.profile_picture_url}`} alt="profile img" />
+                    { main_url&& main_url < 100 ?
+                        <img id="profile_pic" src={main_url} alt="profile img" /> :
+                        <img id="profile_pic" src={`data:image/png;base64, ${main_url}`} alt="profile img" />
                     }
                     </div>
                     <FormGroup>
