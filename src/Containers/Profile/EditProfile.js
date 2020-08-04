@@ -54,6 +54,8 @@ class ConnectedEditProfile extends Component {
         let reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
+            console.log(reader.result)
+
             this.setState({
                 userInfo: {
                     ...this.state.userInfo,
@@ -69,11 +71,20 @@ class ConnectedEditProfile extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         this.setState({ submitted: true })
+        console.log(this.state)
+        let {id,user_name,email,password,gender,description,profile_picture_url} = this.state.userInfo
         const payload = {
-            ...this.state.userInfo,
+            id,
+            user_name,
+            email,
+            password,
+            gender,
+            description,
+            profile_picture_url,
             updated_at: new Date()
         }
         const { dispatch } = this.props;
+
         if ( this.state.userInfo) {
             await dispatch(updateUser(payload))
             this.props.history.push(`/profile/${this.props.auth.user.id}`)
