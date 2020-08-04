@@ -39,7 +39,7 @@ class Chat extends Component {
 
   sendMessageToChatroom = (message, roomId, userId, username) => {
     console.log('[Chats.js]', username);
-    this.socket.emit('chat-message', message, roomId, userId, username);
+    this.socket.emit('chat-message', { message, roomId, userId, username });
     this.props.sendMessage(message, roomId, userId, username);
   };
 
@@ -68,8 +68,15 @@ class Chat extends Component {
         });
       });
 
-    this.socket.on('chat-message', (data) => {
-      this.props.sendMessage(data);
+    this.socket.on('chat-message', ({ message, roomId, userId, username }) => {
+      console.log(message, roomId, userId, username);
+      if (roomId === this.props.currentRoomId) {
+        this.props.sendMessage(message, roomId, userId, username);
+      }
+    });
+
+    this.socket.on('join-chatroom', (data) => {
+      console.log(data);
     });
 
     // this.socket.on("chat-image", )
