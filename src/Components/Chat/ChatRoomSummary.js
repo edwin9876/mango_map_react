@@ -1,26 +1,52 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react';
 import { Collapse, Button, CardBody, Card, CardTitle } from 'reactstrap';
+import axios from 'axios';
 
-const ChatRoomSummary = (props) => {
-    const [isOpen, setIsOpen] = useState(false);
-  
-    const toggle = () => setIsOpen(!isOpen);
-  
-    return (
-      <div>
-        <Button color="bright" onClick={toggle} style={{ marginBottom: '1rem' }} >I</Button>
-        <Collapse isOpen={isOpen}>
-          <Card>
-            <CardBody>
-            <CardTitle className="blur gray70 bold">Capstone</CardTitle>
-            <p>Members: Pullip123, Jacky123, Edwin123</p>
-            <p>Created: 20th June, 2020</p>
-            <p>Description: This is chat for capstone</p>
-            </CardBody>
-          </Card>
-        </Collapse>
-      </div>
-    );
-  }
+const ChatRoomSummary = ({ currentRoomId, roomname }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [userList, setUserList] = useState([]);
+  const [time, setTime] = useState('');
+  const [description, setDescription] = useState('');
 
-export default ChatRoomSummary
+  const toggle = () => setIsOpen(!isOpen);
+
+  const getChatroomInfo = (currentRoomId) => {
+    axios
+      .get(`${process.env.REACT_APP_DEV_URL}chatroom/info/${currentRoomId}`)
+      .then((res) => {
+        let createdAt = res.data[0]['created_at'].split('-');
+        createdAt =
+          createdAt[0] + ' ' + createdAt[1] + ' ' + createdAt[2].split('T')[0];
+        setTime(createdAt);
+        setDescription(res.data[0].descriptions);
+        setUserList(res.data);
+        toggle();
+      });
+  };
+
+  return (
+    <div>
+      <Button
+        color='bright'
+        onClick={() => getChatroomInfo(currentRoomId)}
+        style={{ marginBottom: '1rem' }}
+      >
+        {roomname}
+      </Button>
+      <Collapse isOpen={isOpen}>
+        <Card>
+          <CardBody>
+            <CardTitle className='blur gray70 bold'>Capstone</CardTitle>
+            <p>
+              Members: <p>{userList.map((user) => user.user_name + ', ')}</p>
+            </p>
+            <p>Created: {time}</p>
+            <p>Description: {description}</p>
+          </CardBody>
+        </Card>
+      </Collapse>
+    </div>
+  );
+};
+
+export default ChatRoomSummary;

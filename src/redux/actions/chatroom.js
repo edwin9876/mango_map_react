@@ -16,6 +16,7 @@ import {
   SET_ROOMNAME,
   SEND_IMAGE,
   RECEIVE_MESSAGE,
+  INITIALIZE_STATE,
 } from '../constants/actionTypes';
 
 import axios from 'axios';
@@ -57,6 +58,16 @@ export const fetchChatroom = (payload) => {
       type: FETCH_CHATROOM,
       payload: mergedConversation,
       roomId: res.data.id,
+    });
+  };
+};
+
+export const initializeState = (username, userId) => {
+  return (dispatch) => {
+    dispatch({
+      type: INITIALIZE_STATE,
+      username: username,
+      userId: userId,
     });
   };
 };
