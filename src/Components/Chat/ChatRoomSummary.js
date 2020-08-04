@@ -31,12 +31,11 @@ const ChatRoomSummary = ({ currentRoomId, roomname }) => {
         onClick={() => getChatroomInfo(currentRoomId)}
         style={{ marginBottom: '1rem' }}
       >
-        {roomname}
+        <p className="bold">{roomname}</p>
       </Button>
       <Collapse isOpen={isOpen}>
-        <Card>
+        <Card className="vw75">
           <CardBody>
-            <CardTitle className='blur gray70 bold'>Capstone</CardTitle>
             <p>
               Members: <p>{userList.map((user) => user.user_name + ', ')}</p>
             </p>

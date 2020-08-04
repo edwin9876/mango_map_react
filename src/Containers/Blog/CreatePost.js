@@ -48,9 +48,9 @@ class ConnectedCreatePost extends Component {
         {redirect}
 
         <ButtonGroup className="d-flex justify-content-center paddingy1">
-          <Button onClick={() => this.handleRender(1)} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}> <i className="material-icons">create</i></Button>
+          <Button onClick={() => this.handleRender(1)} style={{ background: theme.low, borderColor: theme.low }}> <i className="material-icons highlight">create</i></Button>
 
-          <Button onClick={() => this.handleRender(2)} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}> <i className="material-icons">add_a_photo</i></Button>
+          <Button onClick={() => this.handleRender(2)} style={{ background: theme.low, borderColor: theme.low }}> <i className="material-icons highlight">add_a_photo</i></Button>
 
         </ButtonGroup>
 

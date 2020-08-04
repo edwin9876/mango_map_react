@@ -128,9 +128,9 @@ class ConnectedBlogScreen extends Component {
                 </div>
 
                 <ButtonGroup className="d-flex justify-content-center">
-                    <Button onClick={this.filterPost} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>New Posts</h6></Button>
-                    <Button onClick={this.filterImg} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>New Pictures</h6></Button>
-                    <Button onClick={this.filterUser} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>Top Users</h6></Button>
+                    <Button onClick={this.filterPost} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}><h6>New Posts</h6></Button>
+                    <Button onClick={this.filterImg} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}><h6>New Pictures</h6></Button>
+                    <Button onClick={this.filterUser} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}><h6>Top Users</h6></Button>
                 </ButtonGroup>
 
                 <div className="centerH margin5" >
