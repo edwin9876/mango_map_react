@@ -128,10 +128,6 @@ class Chat extends Component {
     );
   };
 
-  openChatroomSummary = async (currentRoomId) => {
-    return <ChatroomSummary></ChatroomSummary>;
-  };
-
   render() {
     const { isLightTheme, light, dark } = this.context;
     const theme = isLightTheme ? light : dark;
