@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { createPost, fetchAllCategory, createPostImages } from '../../redux/actions/blog';
-import { fetchAllLocations } from '../../redux/actions/map'
+import { fetchAllLocations,createUserLocation } from '../../redux/actions/map'
 import Select from 'react-select';
 
 
@@ -43,6 +43,10 @@ class ConnectedNewPost extends Component {
     if (this.props.blog.categories) {
       this.setState({
         ...this.state,
+        post: {
+          ...this.state.post,
+          location_id : parseInt(this.props.history.location.pathname.split('/')[3])
+        },
         categories: this.props.blog.categories,
         locations: listLocations,
         style: { color: 'green' }
@@ -67,7 +71,7 @@ class ConnectedNewPost extends Component {
         title: '',
         category: '',
         body: '',
-        location_id: 1
+        location_id: '',
       },
       submitted: false,
     })
@@ -78,6 +82,7 @@ class ConnectedNewPost extends Component {
     const { title, body, location_id, category } = this.state.post
     const user_id = this.props.auth.user.id
     const { dispatch } = this.props
+
     const newBlog = this.state.post
     let newBlog_id
     let images64
@@ -85,7 +90,7 @@ class ConnectedNewPost extends Component {
     if (title && body && category && location_id && user_id) {
       await dispatch(createPost(newBlog, user_id))
     }
-    console.log(this.props.blog.post)
+    console.log(this.props.blog)
 
     if (this.props.blog.post && this.state.post) {
       newBlog_id = this.props.blog.post.id
