@@ -60,7 +60,7 @@ export class ConnetedSignIn extends Component {
       >
         <Toplogobox />
 
-        <Form className='margin5' id='createPost' onSubmit={this.handleSubmit}>
+        <Form className='margin5 padding5' id='createPost' onSubmit={this.handleSubmit}>
           {/* {submitted&& !this.props.loggedIn&&
                     <p className="text-danger" >Login In Fail</p >
                  } */}
