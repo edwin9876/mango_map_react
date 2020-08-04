@@ -1,17 +1,25 @@
 import React from 'react'
 import { ThemeContext } from '../../../Contexts/Theme'
 import { ListGroup, ListGroupItem } from 'reactstrap';
-
+import {fetchChatroom} from '../../../redux/actions/chatroom'
+ 
 const GroupSummary = (props) => {
   console.log(props)
+
+  
+
   return (
 
     <ThemeContext.Consumer>{(context) => {
       const { isLightTheme, light, dark } = context;
       const theme = isLightTheme ? light : dark;
 
-      const handleClick =(e)=>{
-        return props.history.push(`/chat/${props.chatroom.id}`)
+      const handleClick = async (e)=>{
+        const {dispatch} = props
+        await dispatch(fetchChatroom(props.chatroom.id))
+        console.log(props)
+
+         props.history.push(`/chat`)
       }
 
       return (
