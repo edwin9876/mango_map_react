@@ -1,123 +1,232 @@
 import React, { Component } from 'react';
 import { ThemeContext } from '../../Contexts/Theme'
 // Global - index.css , Local - Blog.css
-import './Blog.css';
 import { connect } from 'react-redux';
 
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import { createPost, fetchAllCategory } from '../../redux/actions/blog';
+import { createPost, fetchAllCategory, createPostImages } from '../../redux/actions/blog';
+import { fetchAllLocations,createUserLocation } from '../../redux/actions/map'
+import Select from 'react-select';
 
 
 class ConnectedNewPost extends Component {
-    static contextType = ThemeContext;
+  static contextType = ThemeContext;
 
-    constructor(props) {
-      super(props)
-      this.state = {
-        post: {
-          categories: [],
-          title: '',
-          category: '',
-          body: '',
-          location_id: 1
-        },
-        submitted: false,
-      };
-    }
-    async componentDidMount() {
-      let { dispatch } = this.props
-  
-      await dispatch(fetchAllCategory())
-      console.log(this.props)
-      if (this.props.blog.categories) {
-        this.setState({
-          ...this.state,
-          post: {
-            ...this.state.post,
-            categories: this.props.blog.categories
-          }
-        })
+  constructor(props) {
+    super(props)
+    this.state = {
+      post: {
+        title: '',
+        category: '',
+        body: '',
+        location_id: ''
+      },
+      categories: [],
+      images64: [],
+      submitted: false,
+    };
+  }
+  async componentDidMount() {
+    let { dispatch } = this.props
+
+    await dispatch(fetchAllCategory())
+    await dispatch(fetchAllLocations())
+
+    let locations = [...this.props.map.locations]
+    let listLocations = locations.map((location) => {
+      return {
+        label: `${location.en} ${location.cn}`,
+        value: location.id
       }
-      console.log(this.state)
-    }
-  
-    componentWillUnmount() {
+    })
+    console.log(this.props)
+    if (this.props.blog.categories) {
       this.setState({
-        buttonId: null,
+        ...this.state,
         post: {
-          categories: [],
-          title: '',
-          category: '',
-          body: '',
-          location_id: 1
+          ...this.state.post,
+          location_id : parseInt(this.props.history.location.pathname.split('/')[3])
         },
-        submitted: false,
+        categories: this.props.blog.categories,
+        locations: listLocations,
+        style: { color: 'green' }
       })
     }
-    handleSubmit = async (e) => {
-      e.preventDefault();
-      this.setState({ submitted: true })
-      const { title, body, location_id, category } = this.state.post
-      const user_id = this.props.auth.user.id
-      const { dispatch } = this.props
-      const newBlog = this.state.post
-      console.log(newBlog)
-      console.log(user_id)
-      if (title && body && category && location_id && user_id){
-        await dispatch(createPost(newBlog, user_id))
-        console.log(this.state)
-      }
+    console.log(this.state)
+  }
+
+  selectLocation = (e) => {
+    console.log('selected')
+    this.setState({
+      ...this.state,
+      selected: !this.state.selected
+    })
+  }
+  componentWillUnmount() {
+    this.setState({
+      buttonId: null,
+      categories: [],
+      image64: [],
+      post: {
+        title: '',
+        category: '',
+        body: '',
+        location_id: '',
+      },
+      submitted: false,
+    })
+  }
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    this.setState({ submitted: true })
+    const { title, body, location_id, category } = this.state.post
+    const user_id = this.props.auth.user.id
+    const { dispatch } = this.props
+
+    const newBlog = this.state.post
+    let newBlog_id
+    let images64
+
+    if (title && body && category && location_id && user_id) {
+      await dispatch(createPost(newBlog, user_id))
     }
-    handleChange = (e) => {
-      let opts = []
-      if (e.target.name === 'category') {
-        for (let opt of e.target.options) {
-  
-          if (opt.selected) {
-            opts.push(opt.value)
-          }
-  
-        }
-        this.setState({
-          post: {
-            ...this.state.post,
-            category: opts
-          }
-        })
-        console.log(this.state)
-  
-      } else {
-        this.setState({
-          post: {
-            ...this.state.post,
-            [e.target.name]: e.target.value
-          }
-        })
-  
-      }
-      console.log(this.state)
-  
+    console.log(this.props.blog)
+
+    if (this.props.blog.post && this.state.post) {
+      newBlog_id = this.props.blog.post.id
+      images64 = this.state.images64
+      console.log(newBlog_id)
     }
 
-    render() {
-        const { isLightTheme, light, dark } = this.context;
-        const theme = isLightTheme ? light : dark;
-    
-      console.log(this.props)
-        return (
-            <div>
-             <Form className="margin5" id="createPost" onSubmit={this.handleSubmit}>
+
+    if (images64 && newBlog_id) {
+      console.log(images64)
+      await dispatch(createPostImages(images64, newBlog_id))
+
+      this.props.history.push(`/blog/${newBlog_id}`)
+
+    }
+
+  }
+
+
+  handleImageChange = (e) => {
+    let file = e.target.files[0];
+    let reader = new FileReader();
+
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      let images64 = [...this.state.images64]
+      images64.push(reader.result.split('base64,')[1])
+      this.setState({
+        ...this.state,
+        images64: images64
+      })
+
+      console.log(this.state)
+
+    }
+  }
+
+  handleChange = (e) => {
+    let opts = []
+
+    if (e.label) {
+      this.setState({
+        post: {
+          ...this.state.post,
+          location_id: e.value
+        }
+      })
+    }
+    else if (e.target.name && e.target.name === 'category') {
+      for (let opt of e.target.options) {
+
+        if (opt.selected) {
+          opts.push({ id: opt.id, name: opt.value })
+        }
+
+      }
+      this.setState({
+        post: {
+          ...this.state.post,
+          category: opts
+        }
+      })
+
+    }
+
+    else {
+      this.setState({
+        post: {
+          ...this.state.post,
+          [e.target.name]: e.target.value
+        }
+      })
+
+    }
+    console.log(this.state)
+
+  }
+
+  render() {
+    const { isLightTheme, light, dark } = this.context;
+    const theme = isLightTheme ? light : dark;
+    // dummy data for location list. must have label and value attributes inside of object.
+    let label,value
+    //search select styling 
+    const customStyles = {
+      container: (base, state) => ({
+        ...base,
+        borderRadius: '5px',
+        border: state.isFocused ? "1px thin #ccd637" : "1px solid #ccd637",
+        color: "#858684",
+        transition:
+          null,
+        "&:hover": {
+          boxShadow: null
+        }
+      }),
+      control: (base, state) => ({
+        ...base,
+        border: 'transparent',
+        background: "transparent"
+      }),
+      valueContainer: (base, state) => ({
+        ...base,
+        border: 'none',
+        background: state.isFocused ? "#ccd637" : "transparent",
+      }),
+      multiValue: (base, state) => ({
+        ...base,
+        background: "lightYellow",
+        maxWidth: "100px"
+      })
+    }
+    if(this.props.history.location){
+     label = this.props.history.location.pathname.split('/')[2]
+     value = parseInt(this.props.history.location.pathname.split('/')[3])
+    }
+    return (
+      <div>
+        <div className="margin5">
+          <Label for="title" className="bold">Choose location</Label>
+          <Select defaultValue={label&&value?{ label: label, value: value }:undefined} onChange={this.handleChange} name='location_id' styles={customStyles} options={this.state.locations} />
+        </div>
+
+        <Form id="createPost" onSubmit={this.handleSubmit} className="uploader margin5" encType="multipart/form-data">
+
           <FormGroup>
-            <Label for="title">Title</Label>
+            <Label for="title" className="bold">Title</Label>
             <Input style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} onChange={this.handleChange} type="text" name="title" placeholder="Title" />
           </FormGroup>
 
           <FormGroup>
-            <Label for="exampleSelectMulti">Choose Category</Label>
+            <Label for="exampleSelectMulti" className="bold">Choose Category<span className="light">(select 1 or more)</span></Label>
             <Input style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} onChange={this.handleChange} type="select" name="category" multiple >
-              {this.state.post.categories ?
-                this.state.post.categories.map((c, i) => {
-                  return <option key={i} > {c.category}</option>
+              {this.state.categories ?
+                this.state.categories.map((c, i) => {
+                  return <option key={i} id={c.id}> {c.category}</option>
                 }) : null}
 
 
@@ -125,13 +234,13 @@ class ConnectedNewPost extends Component {
           </FormGroup>
 
           <FormGroup>
-            <Label for="body">body</Label>
+            <Label for="body" className="bold">Contents</Label>
             <Input style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} onChange={this.handleChange} type="textarea" name="body" placeholder="Write here" rows="10" />
           </FormGroup>
 
           <FormGroup>
-            <Label for="exampleFile">Pictures</Label>
-            <Input style={{ background: theme.low, color: theme.high }} type="file" name="file" />
+            <Label for="exampleFile" className="bold">Pictures</Label>
+            <Input onChange={this.handleImageChange} style={{ background: theme.low, color: theme.high }} type="file" id="file" multiple />
             <FormText color="muted">
               Upload pictures you want to attach to the post
             </FormText>
@@ -145,9 +254,9 @@ class ConnectedNewPost extends Component {
 
 
         </Form>
-            </div>
-        )
-    }
+      </div>
+    )
+  }
 }
 
 

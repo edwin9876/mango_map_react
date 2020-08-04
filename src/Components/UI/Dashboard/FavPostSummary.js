@@ -1,36 +1,48 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { ThemeContext } from '../../../Contexts/Theme'
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import {
+  Card, CardImg, CardBody, CardTitle, CardSubtitle, Button
+} from 'reactstrap';
 
-const FavPostSummary = (props) => {
-  console.log(props)
-  return (
 
-    <ThemeContext.Consumer>{(context) => {
-      const { isLightTheme, light, dark } = context;
-      const theme = isLightTheme ? light : dark;
 
-      return (
-        <div className="margin5">
-        <ListGroup>
-        <ListGroupItem color={theme.listcolor} tag="a" href="/chat/:id" className="justify-content-between d-flex">
-        {/* <img className="material-icons roundimg"
-        src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRIMey7cyC1XcqtyFcJlNhz7yP4oT1kAahWPw&usqp=CAU'
-        alt='Avatar'/> */}
-        <h4 className="d-flex align-items-center">{props.favPosts.title}</h4>
-        <h6 className="d-flex align-items-center blur">{props.favPosts.created_at}
-        </h6>
-    
-        </ListGroupItem>
+class FavPostSummary extends Component {
+  static contextType = ThemeContext;
 
-       
-        </ListGroup>
+  constructor(props) {
+    super(props)
+    this.state = {
+    }
 
-           
+  }
+  handleClick = async (e) => {
+    console.log(this.props)
+    this.props.history.push(`/blog/${this.props.favPosts.id}`);
 
-        </div>) }}
-        </ThemeContext.Consumer>
-    )
+  }
+  render() {
+    const { isLightTheme, light, dark } = this.context;
+    const theme = isLightTheme ? light : dark;
+
+    return (
+      <div>
+        <Card className="margin5" style={{ background: theme.low, borderColor: theme.high }}>
+          <CardImg top width="100%" src='' alt="post_img" />
+          <CardBody>
+            <CardTitle className="bold">{this.props.favPosts.title.toUpperCase()}</CardTitle>
+            <CardSubtitle >{this.props.favPosts.created_at.slice(0, 10)}</CardSubtitle>
+            <br />
+            <a  className="d-flex justify-content-center">
+              <Button onClick={this.handleClick} className="noBorder" style={{ background: theme.highlight }}>View more</Button>
+            </a>
+          </CardBody>
+        </Card>
+
+      </div>)
+  }
+
+
+
 }
 
 export default FavPostSummary

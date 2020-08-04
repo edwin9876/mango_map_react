@@ -13,22 +13,35 @@ import {
   BACK_TO_CHAT_LIST,
   SET_MESSAGE,
   SEND_MESSAGE,
+  SET_ROOMNAME,
+  SEND_IMAGE,
+  RECEIVE_MESSAGE,
+  INITIALIZE_STATE,
 } from '../constants/actionTypes';
 
 import axios from 'axios';
+require('dotenv').config();
 
 export const fetchChatroomList = (userId) => {
+  console.log('[chatroom.js] action fetchChatroomList is accessed');
+  console.log(userId);
   return async (dispatch) => {
-    let res = await axios(`https://localhost:8000/chatroom/all/${userId}`);
-    console.log(res.data);
+    let res = await axios(
+      `${process.env.REACT_APP_DEV_URL}chatroom/all/${userId}`
+    );
     dispatch({ type: FETCH_CHATROOM_LIST, payload: res.data });
+    return res.data;
   };
 };
 
 export const fetchChatroom = (payload) => {
   return async (dispatch) => {
-    let res = await axios(`https://localhost:8000/chatroom/${payload}`);
+    let res = await axios(
+      `${process.env.REACT_APP_DEV_URL}chatroom/${payload}`
+    );
+
     let mergedConversation = [];
+
     const chatroomUsers = res.data.chatroomUser;
     for (let chats of chatroomUsers) {
       for (let chat of chats.chatRecords) {
@@ -41,12 +54,20 @@ export const fetchChatroom = (payload) => {
       return a.id - b.id || a.name.localeCompare(b.name);
     });
 
-    console.log(mergedConversation);
-
     dispatch({
       type: FETCH_CHATROOM,
       payload: mergedConversation,
       roomId: res.data.id,
+    });
+  };
+};
+
+export const initializeState = (username, userId) => {
+  return (dispatch) => {
+    dispatch({
+      type: INITIALIZE_STATE,
+      username: username,
+      userId: userId,
     });
   };
 };
@@ -63,25 +84,60 @@ export const setMessage = (value) => {
   };
 };
 
-export const sendMessage = (message, roomId, roomUserId) => {
-  console.log(message, roomId, roomUserId);
+export const setRoomname = (roomname) => {
+  return (dispatch) => {
+    dispatch({ type: SET_ROOMNAME, payload: roomname });
+  };
+};
+
+export const sendMessage = (message, roomId, userId, username) => {
+  console.log('[chatrooms.js action]', message, roomId);
   return async (dispatch) => {
     await axios
-      .post('https://localhost:8000/chatroom/record', {
+      .post(`${process.env.REACT_APP_DEV_URL}chatroom/record`, {
         message: message,
         roomId: roomId,
-        roomUserId: roomUserId,
+        userId: userId,
+        username: username,
       })
       .then((res) => {
-        console.log(res.data[0]);
+        res.data[0].user_name
+          ? console.log('[Chatroom.js action', res.data[0].user_name)
+          : (res.data[0].user_name = username);
+        console.log('[chatrooms.js] action', res.data[0]);
         dispatch({ type: SEND_MESSAGE, payload: res.data[0] });
       });
   };
 };
 
+export const receiveMessage = (username, message) => {
+  return (dispatch) => {
+    dispatch({
+      type: RECEIVE_MESSAGE,
+      username: username,
+      message: message,
+      created_at: new Date(),
+    });
+  };
+};
+
+export const sendImage = (imageUrl, roomId, chatroomUserId) => {
+  return (dispatch) => {
+    dispatch({
+      type: SEND_IMAGE,
+      payload: imageUrl,
+      chatroomUserId: chatroomUserId,
+      created_at: new Date(),
+    });
+  };
+};
+
 export const createChatroom = (payload) => {
   return async (dispatch) => {
-    let res = await axios.post(`https://localhost:8000/chatroom/`, payload);
+    let res = await axios.post(
+      `${process.env.REACT_APP_DEV_URL}chatroom/`,
+      payload
+    );
     dispatch({ type: CREATE_CHATROOM, payload: res.data });
   };
 };
@@ -89,7 +145,7 @@ export const createChatroom = (payload) => {
 export const createChatroomRecord = (payload) => {
   return async (dispatch) => {
     let res = await axios.post(
-      `https://localhost:8000/chatroom/${payload.chatroom_id}/record`,
+      `${process.env.REACT_APP_DEV_URL}chatroom/${payload.chatroom_id}/record`,
       payload.chatRecord
     );
     dispatch({ type: CREATE_CHATROOMRECORD, payload: res.data });

@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { backToChatList } from '../../redux/actions/chatroom';
-
 import Chat from './Chat/Chat';
-import ChatToolbar from '../../Components/UI/Layout/ChatToolbar';
-import SearchBar from '../../Components/UI/Layout/SearchBar';
 import Join from './Join/Join';
 
 import { ThemeContext } from '../../Contexts/Theme';
@@ -24,9 +20,8 @@ class ChatScreen extends Component {
       <div id='chat_container' style={{ background: theme.low }}>
         {this.state.loggedIn ? (
           <>
-            <ChatToolbar backToChatList={this.props.backToChatList} />
-            <SearchBar />
-            <div className=''>
+
+            <div>
               <Chat />
             </div>
           </>
@@ -46,7 +41,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    backToChatList: () => dispatch(backToChatList()),
+
   };
 };
 

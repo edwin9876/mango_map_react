@@ -1,36 +1,32 @@
 import React, { Component } from 'react';
+import { ThemeContext } from '../../../Contexts/Theme'
+import { Button, ButtonGroup} from 'reactstrap'
 
 class PopularSpots extends Component {
-    state = {
-        locations: [
-            { name: 'Sai Kung Beach', id: '1' },
-            { name: 'Dragons back', id: '2' },
-            { name: 'Tung Long Chau', id: '3' },
-            { name: 'Lantau island', id: '4' },
-            { name: 'Repulse Bay', id: '5' },
-            { name: 'Taikoo shing', id: '6' }
-        ]
+    static contextType = ThemeContext;
+
+    constructor(props) {
+        super(props)
+        this.state = {}
+
     }
 
+    handleClick =  (e) => {
+        this.props.history.push(`/spot/${this.props.location.id}`);
+      }
+
+
     render() {
-        const { locations } = this.state
-        const locationList = locations.length ?
-            (locations.map(location => {
-                return (
-                    <div className="col s4" key={location.id}>
-                        <a href="/map/id" className="transparent-bg"><button className="filter_Btns">{location.name}</button></a>
-                        {/* <a href="/map/id" className="transparent-bg"><div className="card center filter_Btns ">{location.name}</div></a> */}
-                    </div>
-                )
-            }))
-            :
-            (<div className="d-flex justify-content-center">No posts yet</div>)
+        const { isLightTheme, light, dark } = this.context;
+        const theme = isLightTheme ? light : dark;
+
         return (
-            <div id="filterTab">
-                <p className="center bold gray70">popular spots</p>
-                <div className="row"> {locationList}</div>
-            </div>
+            <ButtonGroup>
+                <Button style={{ background: theme.low, borderColor: theme.high, color: theme.high }} onClick={this.handleClick} outline size="sm" color="secondary" className="margin1xy overflow-auto" id="filter-btn">{this.props.location.en}</Button>
+            </ButtonGroup>
         )
+
+
     }
 }
 

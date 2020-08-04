@@ -12,22 +12,35 @@ import {
   FETCH_CHATROOM,
   BACK_TO_CHAT_LIST,
   SET_MESSAGE,
+  SET_ROOMNAME,
   SEND_MESSAGE,
+  SEND_IMAGE,
+  RECEIVE_MESSAGE,
+  INITIALIZE_STATE,
 } from '../constants/actionTypes';
 
 const initialChatroomState = {
   userId: 1,
   // Should be set according to the currentRoomId
-  chatroomUserId: 1,
-  username: 'Edwin',
+  // username: 'Jacky123',
+  username: 'Edwin123',
   currentRoomId: null,
   roomList: [],
   messages: [''],
   conversation: [],
+  roomname: '',
 };
 
 const chatroomReducer = (state = initialChatroomState, action) => {
+  console.log(action.username);
+  console.log(action.userId);
   switch (action.type) {
+    case INITIALIZE_STATE:
+      return {
+        ...state,
+        username: action.username,
+        userId: action.userId,
+      };
     case FETCH_CHATROOM_LIST:
       return {
         ...state,
@@ -47,11 +60,43 @@ const chatroomReducer = (state = initialChatroomState, action) => {
         messages: [action.payload],
       };
 
+    case SET_ROOMNAME:
+      return {
+        ...state,
+        roomname: action.payload,
+      };
+
     case SEND_MESSAGE:
       return {
         ...state,
         messages: [''],
-        conversation: [...state.conversation, action.payload],
+        conversation: [...state.conversation, { ...action.payload }],
+      };
+
+    case SEND_IMAGE:
+      return {
+        ...state,
+        conversation: [
+          ...state.conversation,
+          {
+            url: action.payload,
+            chatroom_user_id: action.chatroomUserId,
+            created_at: action.created_at,
+          },
+        ],
+      };
+
+    case RECEIVE_MESSAGE:
+      return {
+        ...state,
+        conversation: [
+          ...state.conversation,
+          {
+            user_name: action.username,
+            body: action.message,
+            created_at: action.created_at,
+          },
+        ],
       };
 
     case CREATE_CHATROOM:
@@ -68,6 +113,8 @@ const chatroomReducer = (state = initialChatroomState, action) => {
       return {
         ...state,
         currentRoomId: null,
+        conversation: [],
+        messages: [''],
       };
 
     default:

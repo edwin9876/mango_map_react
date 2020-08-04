@@ -1,49 +1,19 @@
 import {
   CREATE_USER,
   FETCH_ALLUSER,
+  FETCH_USERLOCATION,
   FETCH_USER,
   UPDATE_USER,
   REMOVE_USER,
   CREATE_FAVPOST,
   REMOVE_FAVPOST,
-  CREATE_USERDISTRICT,
-  REMOVE_USERDISTRICT,
+  CREATE_USERLOCATION,
+  REMOVE_USERLOCATION,
 } from '../constants/actionTypes';
 
 
 const initialUserState = {
-  users: [
-    {
-      id: '1',
-      user_name: 'pullip123',
-      profile_picture_url: `https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRLWTAHflkoSso-p7fbKv7BecCWNSyYseuhfw&usqp=CAU`,
-    },
-    {
-      id: '2',
-      user_name: 'jacky123',
-      profile_picture_url: `https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRIMey7cyC1XcqtyFcJlNhz7yP4oT1kAahWPw&usqp=CAU`,
-    },
-    {
-      id: '3',
-      user_name: 'edwin123',
-      profile_picture_url: `https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSOqBpd6GqriW1DijpLyo7CCISdC_JSiYNXuw&usqp=CAU`,
-    },
-
-    {
-      id: '4',
-      user_name: 'sam123',
-      profile_picture_url: `https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSOqBpd6GqriW1DijpLyo7CCISdC_JSiYNXuw&usqp=CAU`,
-    },{
-      id: '5',
-      user_name: 'tom123',
-      profile_picture_url: `https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRLWTAHflkoSso-p7fbKv7BecCWNSyYseuhfw&usqp=CAU`,
-    },
-    {
-      id: '6',
-      user_name: 'alex123',
-      profile_picture_url: `https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRIMey7cyC1XcqtyFcJlNhz7yP4oT1kAahWPw&usqp=CAU`,
-    }
-  ],
+  users: [],
   user: [],
 };
 
@@ -59,6 +29,11 @@ const userReducer = (state = initialUserState, action) => {
         ...state,
         user: {...action.payload},
       };
+    case FETCH_USERLOCATION:
+      return {
+        ...state,
+        user:{location:{...action.payload}},
+      };
     case CREATE_USER:
       return {
         ...state,
@@ -67,7 +42,7 @@ const userReducer = (state = initialUserState, action) => {
       return {
         ...state,
       };
-    case CREATE_USERDISTRICT:
+    case CREATE_USERLOCATION:
       return {
         ...state,
       };

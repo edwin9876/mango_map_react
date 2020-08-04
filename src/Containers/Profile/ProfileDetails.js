@@ -1,9 +1,8 @@
-import React, { Component, useState } from 'react'
+import React, { Component } from 'react'
 import { ThemeContext } from '../../Contexts/Theme'
 import ThemeToggle from '../../Components/UI/Layout/ThemeToggle'
-import { Button, ButtonGroup, Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap';
+import {Button, ButtonGroup, Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap';
 import { withRouter } from "react-router-dom";
-
 
 class ProfileDetails extends Component {
     constructor(props) {
@@ -21,10 +20,15 @@ class ProfileDetails extends Component {
         console.log(this.state.dropdownOpen)
     };
 
-    routeChange = () =>{ 
-        let path = `/signin`; 
+    routeChangeSignout = () => {
+        let path = `/signin`;
         this.props.history.push(path);
-      }
+    }
+
+    routeChangeEditprofile = () => {
+        let path = `/profile/:id/edit`;
+        this.props.history.push(path);
+    }
 
     render() {
 
@@ -33,8 +37,11 @@ class ProfileDetails extends Component {
         let postsLength
         let favLength
 
+        let userPic
         let userName
         let userGender
+        let main_url
+
         if (this.props.locations) {
 
             locationsLength = this.props.locations.length
@@ -42,11 +49,13 @@ class ProfileDetails extends Component {
             postsLength = this.props.posts.length
             favLength = this.props.favPosts.length
 
+            userPic = this.props.user.profile_picture_url
             userName = this.props.user.user_name
             userGender = this.props.user.gender
+            main_url = this.props.user.profile_picture_url
 
         }
-        console.log(this.props)
+        console.log(main_url)
         // const numRows = membersToRender.length
         return (
             <ThemeContext.Consumer>{(context) => {
@@ -60,12 +69,18 @@ class ProfileDetails extends Component {
                             <DropdownToggle className="green noBorder" caret>
                             </DropdownToggle>
                             <DropdownMenu right>
-                                <DropdownItem onClick={this.routeChange}> Sign out</DropdownItem>
+                                <DropdownItem onClick={this.routeChangeSignout}> Sign out</DropdownItem>
+                                <DropdownItem onClick={this.routeChangeEditprofile}> Edit Profile</DropdownItem>
                                 <DropdownItem disabled><ThemeToggle /></DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
 
-                        <i className="material-icons justify-content-center d-flex micons15 blur">account_circle</i>
+                        <div className="justify-content-center d-flex">
+                        {main_url && main_url.length >=100?
+                        <img  src={`data:image/png;base64, ${main_url}`} id="profile_pic" />:
+                        <img  src={main_url} id="profile_pic" />
+                        }
+                        </div>
                         <h4 className=" bold justify-content-center d-flex">{userName}</h4>
                         <p className="justify-content-center d-flex blur bold">{userGender}</p>
 

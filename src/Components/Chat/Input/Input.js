@@ -3,7 +3,7 @@ import UploadPhotos from './UploadPhotos/UploadPhotos';
 import { Input, InputGroup, InputGroupAddon } from 'reactstrap';
 
 const input = ({ messages, sendMessage, setMessage }) => (
-  <InputGroup>
+  <InputGroup id='inputline'>
     <InputGroupAddon addonType='prepend'>
       <UploadPhotos className='uploadPhotoButton' />
     </InputGroupAddon>
@@ -15,7 +15,6 @@ const input = ({ messages, sendMessage, setMessage }) => (
       onChange={(event) => setMessage(event.target.value)}
       onKeyPress={(event) => (event.key === 'Enter' ? sendMessage() : null)}
     />
-    <p className='HAHA'>aJSIDO</p>
     <InputGroupAddon
       className='height5 sendMessageButton'
       addonType='append'

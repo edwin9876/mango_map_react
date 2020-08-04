@@ -8,9 +8,9 @@ import authentication from './auth';
 
 const rootReducer = combineReducers({
   blog: blogReducer,
-  mapReducer,
+  map: mapReducer,
   chatroom: chatroomReducer,
-  imageReducer,
+  img: imageReducer,
   user: userReducer,
   auth: authentication,
 });
