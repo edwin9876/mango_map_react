@@ -140,14 +140,14 @@ class ConnectedBlogScreen extends Component {
                         })}
                 </div>
 
-                <div className="d-flex justify-content-center row margin1">
+                <div className="d-flex justify-content-center row">
                     {this.state.images && this.state.showImages &&
                         this.state.images.map((img, i) => {
                             return <TopPics key={i} image={img} />
                         })}
                 </div>
 
-                <div className="d-flex justify-content-center margin1">
+                <div className="d-flex justify-content-center margin1xrem">
                     {this.state.users && this.state.showUsers &&
                         this.state.users.map((user, i) => {
                             return <TopUsers key={i} user={user} />
