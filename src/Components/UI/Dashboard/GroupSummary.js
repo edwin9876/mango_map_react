@@ -11,7 +11,7 @@ const GroupSummary = (props) => {
       const theme = isLightTheme ? light : dark;
 
       const handleClick =(e)=>{
-        return props.history.push('/chat')
+        return props.history.push(`/chat/${props.chatroom.id}`)
       }
 
       return (
