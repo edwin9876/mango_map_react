@@ -6,6 +6,7 @@ import {
     CardText
 } from 'reactstrap';
 
+
 const WeeklyPost = (props) => {
 
     console.log(props)

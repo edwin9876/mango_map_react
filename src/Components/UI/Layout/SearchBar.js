@@ -6,9 +6,9 @@ const SearchBar = () => {
             return (
                 <div >
                     <InputGroup>
-                        <Input/>
+                        <Input className="sqBorder"/>
                         <InputGroupAddon addonType="append">
-                            <Button>Search</Button>
+                            <Button className="sqBorder noBorder green">Search</Button>
                         </InputGroupAddon>
                     </InputGroup>
                 </div>)
