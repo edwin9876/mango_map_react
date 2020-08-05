@@ -51,14 +51,14 @@ export function createLocationImages(images64, user_id, location_id) {
 
 export function fetchAllDistricts() {
   return async (dispatch) => {
-    let res = await axios(`https://localhost:8000/map/districts`);
+    let res = await axios(`${process.env.REACT_APP_DEV_URL}map/districts`);
     dispatch({ type: FETCH_ALL_DISTRICTS, payload: res.data });
     return res;
   };
 }
 export function fetchAllLocations() {
   return async (dispatch) => {
-    let res = await axios(`https://localhost:8000/map/locations`);
+    let res = await axios(`${process.env.REACT_APP_DEV_URL}map/locations`);
     dispatch({ type: FETCH_ALL_LOCATIONS, payload: res.data });
     return res;
   };

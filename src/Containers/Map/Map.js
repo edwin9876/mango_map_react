@@ -4,7 +4,7 @@ import { Map, InfoWindow, GoogleApiWrapper, Marker } from 'google-maps-react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import predefinedLocations from './PredefinedLocations/LocationStorage';
-import {Button} from 'reactstrap'
+import { Button } from 'reactstrap';
 
 import simple from './mapStyle_simple';
 import {
@@ -75,11 +75,11 @@ export class MapContainer extends Component {
   changeTheme(mapProps, map) {
     map.setOptions.styles === simple
       ? map.setOptions({
-        styles: mapStyles,
-      })
+          styles: mapStyles,
+        })
       : map.setOptions({
-        styles: simple,
-      });
+          styles: simple,
+        });
   }
 
   onMarkerClick = (props, marker, e) => {
@@ -97,7 +97,7 @@ export class MapContainer extends Component {
         }
         axios
           .get(
-            `https://localhost:8000/image/public/${this.state.selectedPlace.id}`
+            `${process.env.REACT_APP_DEV_URL}image/public/${this.state.selectedPlace.id}`
           )
           .then((data) => {
             this.setState({
@@ -148,7 +148,6 @@ export class MapContainer extends Component {
     );
   };
 
-
   createLocation = (e) => {
     this.props.saveLatLng(this.state.selectedPlace.position);
     console.log(this.props);
@@ -157,14 +156,12 @@ export class MapContainer extends Component {
 
   onInfoWindowOpen(props, e) {
     const button = (
-      <div className="d-flex justify-content-center">
+      <div className='d-flex justify-content-center'>
         {!this.state.selectedPlace.id && !this.state.selectedPlace.district ? (
           <Button onClick={this.createLocation}>Create a new spot!</Button>
-        ) : this.state.selectedPlace.location ? 
-            <Button onClick={this.createPost}>
-              Add New Post, Picture
-          </Button>
-         : null}
+        ) : this.state.selectedPlace.location ? (
+          <Button onClick={this.createPost}>Add New Post, Picture</Button>
+        ) : null}
       </div>
     );
     ReactDOM.render(
@@ -182,39 +179,39 @@ export class MapContainer extends Component {
 
     this.props.zoom <= 13
       ? (locations = this.props.districts.map((district) => {
-        return (
-          <Marker
-            icon={{
-              url: './assets/icons/adventure.png',
-              anchor: new window.google.maps.Point(25, 25),
-              scaledSize: new window.google.maps.Size(50, 50),
-            }}
-            key={district.id}
-            id={district.id}
-            position={{ lat: district.lat, lng: district.lng }}
-            onClick={this.onMarkerClick}
-            name={`${district.en} ${district.cn}`}
-            district={true}
-          />
-        );
-      }))
+          return (
+            <Marker
+              icon={{
+                url: './assets/icons/adventure.png',
+                anchor: new window.google.maps.Point(25, 25),
+                scaledSize: new window.google.maps.Size(50, 50),
+              }}
+              key={district.id}
+              id={district.id}
+              position={{ lat: district.lat, lng: district.lng }}
+              onClick={this.onMarkerClick}
+              name={`${district.en} ${district.cn}`}
+              district={true}
+            />
+          );
+        }))
       : (locations = this.props.locations.map((location) => {
-        return (
-          <Marker
-            icon={{
-              url: './assets/icons/adventure1.png',
-              anchor: new window.google.maps.Point(25, 25),
-              scaledSize: new window.google.maps.Size(50, 50),
-            }}
-            key={location.id}
-            id={location.id}
-            position={{ lat: location.lat, lng: location.lng }}
-            onClick={this.onMarkerClick}
-            name={`${location.en} ${location.cn}`}
-            location={true}
-          />
-        );
-      }));
+          return (
+            <Marker
+              icon={{
+                url: './assets/icons/adventure1.png',
+                anchor: new window.google.maps.Point(25, 25),
+                scaledSize: new window.google.maps.Size(50, 50),
+              }}
+              key={location.id}
+              id={location.id}
+              position={{ lat: location.lat, lng: location.lng }}
+              onClick={this.onMarkerClick}
+              name={`${location.en} ${location.cn}`}
+              location={true}
+            />
+          );
+        }));
 
     let locationImages = <p> Please wait, Images are loading...</p>;
 
@@ -293,9 +290,13 @@ export class MapContainer extends Component {
               this.onInfoWindowOpen(this.props, e);
             }}
           >
-            <div className="vw50">
-              <h5 className='bold gray70 d-flex justify-content-center'>{this.state.selectedPlace.name}</h5>
-              <div className='d-flex justify-content-center'>{locationImages}</div>
+            <div className='vw50'>
+              <h5 className='bold gray70 d-flex justify-content-center'>
+                {this.state.selectedPlace.name}
+              </h5>
+              <div className='d-flex justify-content-center'>
+                {locationImages}
+              </div>
               <div id='iwc' />
             </div>
           </InfoWindow>
