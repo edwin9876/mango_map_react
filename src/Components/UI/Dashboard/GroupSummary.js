@@ -13,7 +13,6 @@ const GroupSummary = (props) => {
         const theme = isLightTheme ? light : dark;
 
         const handleClick = async (e) => {
-          console.log('[GroupSummary] Working');
           const { dispatch } = props;
           await dispatch(fetchChatroom(props.chatroom.id));
           console.log(props);
