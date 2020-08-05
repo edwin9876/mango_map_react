@@ -17,8 +17,11 @@ export default class Navbar extends Component {
                 <NavLink exact to="/"><i className="toolbar_icons micons1 material-icons" id="home_icon">home</i></NavLink>
                 <NavLink to="/blog"><i className="toolbar_icons micons1 material-icons" id="blog_icon">toc</i></NavLink>
                 {user_id ?
-                    <NavLink to="/createpost"><i className="toolbar_icons micons1 material-icons" id="map_icon">add_circle_outline</i></NavLink> :
-                    <i className="toolbar_icons micons1 material-icons" id="map_icon">add_circle_outline</i>
+                    <NavLink to="/createpost">
+                    <i className=" micons1 material-icons highlight" id="map_icon">add_circle_outline
+                    </i>
+                    </NavLink> :
+                    <i className=" micons1 material-icons highlight" id="map_icon">add_circle_outline</i>
                 }
                 {user_id ?
                     <NavLink to="/chat"><i className="toolbar_icons micons1 material-icons" id="chat_icon">mail_outline</i></NavLink> :

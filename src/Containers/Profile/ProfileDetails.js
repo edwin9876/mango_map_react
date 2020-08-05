@@ -12,12 +12,12 @@ class ProfileDetails extends Component {
             setDropdownOpen: false
         }
     }
+
     toggle = () => {
         const { dropdownOpen } = this.state;
         this.setState({
             dropdownOpen: !dropdownOpen,
         });
-        console.log(this.state.dropdownOpen)
     };
 
     routeChangeSignout = () => {
@@ -55,6 +55,7 @@ class ProfileDetails extends Component {
             main_url = this.props.user.profile_picture_url
 
         }
+        
         console.log(main_url)
         // const numRows = membersToRender.length
         return (
