@@ -27,10 +27,9 @@ class FavPostSummary extends Component {
     return (
       <div>
         <Card className="margin5" style={{ background: theme.low, borderColor: theme.high }}>
-          <CardImg top width="100%" src='' alt="post_img" />
           <CardBody>
-            <CardTitle className="bold">{this.props.favPosts.title.toUpperCase()}</CardTitle>
-            <CardSubtitle >{this.props.favPosts.created_at.slice(0, 10)}</CardSubtitle>
+            <CardTitle className="bold d-flex justify-content-center">{this.props.favPosts.title.toUpperCase()}</CardTitle>
+            <CardSubtitle className="d-flex justify-content-center">{this.props.favPosts.created_at.slice(0, 10)}</CardSubtitle>
             <br />
             <a  className="d-flex justify-content-center">
               <Button onClick={this.handleClick} className="noBorder" style={{ background: theme.highlight }}>View more</Button>

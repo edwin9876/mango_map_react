@@ -1,7 +1,6 @@
 import React from 'react'
 import { ThemeContext } from '../../../Contexts/Theme'
 
-
 const Toplogobox = () => {
     return (
         <ThemeContext.Consumer>{(context) => {
@@ -9,7 +8,7 @@ const Toplogobox = () => {
             const theme = isLightTheme ? light : dark;
 
             return(
-        <div  style={{backgroundImage: `url(${theme.img})`}}  id="toplogobox" className="gray50 d-flex justify-content-center">
+        <div  id="toplogobox" className="gray50 d-flex justify-content-center">
             <h4 className="bold">MANGO MAP</h4>
         </div>) }}
         </ThemeContext.Consumer>

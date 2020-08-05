@@ -22,7 +22,7 @@ class PopularSpots extends Component {
 
         return (
             <ButtonGroup>
-                <Button style={{ background: theme.low, borderColor: theme.high, color: theme.high }} onClick={this.handleClick} outline size="sm" color="secondary" className="margin1xy overflow-auto" id="filter-btn">{this.props.location.en}</Button>
+                <Button style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} onClick={this.handleClick} outline size="sm" color="secondary" className="margin1xy overflow-auto" id="filter-btn">{this.props.location.en}</Button>
             </ButtonGroup>
         )
 

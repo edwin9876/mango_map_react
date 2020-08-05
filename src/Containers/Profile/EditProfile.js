@@ -20,14 +20,12 @@ class ConnectedEditProfile extends Component {
     }
 
 
-    async componentDidMount() {
-        console.log(this.props)
-        let user = await JSON.parse(localStorage.getItem('user'))
-        delete user['token']
-        if (user) {
+     componentDidMount() {
+
+        if (this.props.user.user) {
             this.setState({
                 ...this.state,
-                userInfo: { ...user }
+                userInfo: { ...this.props.user.user }
             })
         }
         console.log(this.state)
@@ -56,6 +54,8 @@ class ConnectedEditProfile extends Component {
         let reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
+            console.log(reader.result)
+
             this.setState({
                 userInfo: {
                     ...this.state.userInfo,
@@ -71,11 +71,20 @@ class ConnectedEditProfile extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         this.setState({ submitted: true })
+        console.log(this.state)
+        let {id,user_name,email,password,gender,description,profile_picture_url} = this.state.userInfo
         const payload = {
-            ...this.state.userInfo,
+            id,
+            user_name,
+            email,
+            password,
+            gender,
+            description,
+            profile_picture_url,
             updated_at: new Date()
         }
         const { dispatch } = this.props;
+
         if ( this.state.userInfo) {
             await dispatch(updateUser(payload))
             this.props.history.push(`/profile/${this.props.auth.user.id}`)
@@ -97,8 +106,9 @@ class ConnectedEditProfile extends Component {
     render() {
         const { isLightTheme, light, dark } = this.context;
         const theme = isLightTheme ? light : dark;
-
-
+        let main_url
+        if(this.state.userInfo.profile_picture_url){
+         main_url = this.state.userInfo.profile_picture_url}
         return (
             <div className="vh100 padding5" style={{ background: theme.low, color: theme.high }}>
                 <Form
@@ -106,9 +116,9 @@ class ConnectedEditProfile extends Component {
                 >
                     
                 <div className="justify-content-center d-flex paddingb1">
-                    {this.state.userInfo.profile_picture_url && this.state.userInfo.profile_picture_url.length < 100 ?
-                        <img id="profile_pic" src={this.state.userInfo.profile_picture_url} alt="profile img" /> :
-                        <img id="profile_pic" src={`data:image/png;base64, ${this.state.userInfo.profile_picture_url}`} alt="profile img" />
+                    { main_url&& main_url < 100 ?
+                        <img id="profile_pic" src={main_url} alt="profile img" /> :
+                        <img id="profile_pic" src={`data:image/png;base64, ${main_url}`} alt="profile img" />
                     }
                     </div>
                     <FormGroup>
