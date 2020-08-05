@@ -1,14 +1,14 @@
 import React from 'react'
 import { InputGroup, InputGroupAddon, Button, Input } from 'reactstrap';
 
-const SearchBar = () => {
+const SearchBar = (props) => {
    
             return (
                 <div >
                     <InputGroup>
-                        <Input className="sqBorder"/>
+                        <Input onChange={props.handleSearch}className="sqBorder"/>
                         <InputGroupAddon addonType="append">
-                            <Button className="sqBorder noBorder green">Search</Button>
+                            <Button onClick={props.handleSubmit} className="sqBorder noBorder green">Search</Button>
                         </InputGroupAddon>
                     </InputGroup>
                 </div>)
