@@ -4,14 +4,15 @@ import { Map, InfoWindow, GoogleApiWrapper, Marker } from 'google-maps-react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import predefinedLocations from './PredefinedLocations/LocationStorage';
+import { Button } from 'reactstrap';
 
-// import mapStyle from './mapStyle';
 import simple from './mapStyle_simple';
 import {
   fetchAllDistricts,
   changeZoomLevel,
   fetchAllLocations,
   saveLatLng,
+  fetchLocation,
 } from '../../redux/actions/map';
 
 // require('dotenv').config();
@@ -90,7 +91,7 @@ export class MapContainer extends Component {
         showingInfoWindow: true,
       },
       () => {
-        if (!this.state.selectedPlace.locationId) {
+        if (!this.state.selectedPlace.id) {
           console.log('Return');
           return;
         }
@@ -155,13 +156,11 @@ export class MapContainer extends Component {
 
   onInfoWindowOpen(props, e) {
     const button = (
-      <div>
+      <div className='d-flex justify-content-center'>
         {!this.state.selectedPlace.id && !this.state.selectedPlace.district ? (
-          <button onClick={this.createLocation}>Create a new spot!</button>
+          <Button onClick={this.createLocation}>Create a new spot!</Button>
         ) : this.state.selectedPlace.location ? (
-          <button onClick={this.createPost}>
-            Write a post or upload pictures for this spot
-          </button>
+          <Button onClick={this.createPost}>Add New Post, Picture</Button>
         ) : null}
       </div>
     );
@@ -238,7 +237,7 @@ export class MapContainer extends Component {
               lng: marker.lng,
             }}
             onClick={this.onMarkerClick}
-            name='You defined it'
+            name='Something special here?'
           />
         );
       });
@@ -291,9 +290,13 @@ export class MapContainer extends Component {
               this.onInfoWindowOpen(this.props, e);
             }}
           >
-            <div className='center'>
-              <h5 className='bold gray70'>{this.state.selectedPlace.name}</h5>
-              <div className='row d-flex'>{locationImages}</div>
+            <div className='vw50'>
+              <h5 className='bold gray70 d-flex justify-content-center'>
+                {this.state.selectedPlace.name}
+              </h5>
+              <div className='d-flex justify-content-center'>
+                {locationImages}
+              </div>
               <div id='iwc' />
             </div>
           </InfoWindow>
