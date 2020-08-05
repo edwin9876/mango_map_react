@@ -147,7 +147,7 @@ class Chat extends Component {
               borderColor: theme.low,
             }}
           >
-            Messages
+          <p className="bold blur">Messages</p>
           </Button>
           <Button
             style={{
@@ -156,7 +156,7 @@ class Chat extends Component {
               borderColor: theme.low,
             }}
           >
-            TimeTree
+            <p className="bold blur">TimeTree</p>
           </Button>
         </ButtonGroup>
         <ScrollToBottom className={this.ROOT_CSS + ' textBox'}>
@@ -164,6 +164,7 @@ class Chat extends Component {
             <Messages
               conversation={this.props.conversation}
               username={this.props.username}
+              user={this.props.user}
             />
           </div>
         </ScrollToBottom>
@@ -187,7 +188,7 @@ class Chat extends Component {
       this.props.roomList.map((room) => {
         return (
           <div
-            className='chatroomListTesting paddingt1 margin5x'
+            className='chatroomListTesting paddingt1 margin1x'
             key={room.chatroom_id}
             onClick={() => {
               this.props.fetchChatroom(room.chatroom_id);
@@ -196,12 +197,16 @@ class Chat extends Component {
           >
             <ListGroup className=''>
               <ListGroupItem
-                color={theme.listcolor}
+                color={theme.listcolor} style={{
+                  background: theme.mid,
+                  color: theme.high,
+                  borderColor: theme.highlight,
+                }}
                 className='justify-content-between d-flex'
               >
                 <img
                   className='material-icons roundimg'
-                  src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRIMey7cyC1XcqtyFcJlNhz7yP4oT1kAahWPw&usqp=CAU'
+                  src='https://i.imgur.com/1jH2zcV.png'
                   alt='Avatar'
                 />
                 <h6 className='d-flex align-items-center'>{room.room_name}</h6>

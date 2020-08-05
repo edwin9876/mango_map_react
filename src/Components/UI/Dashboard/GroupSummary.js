@@ -2,23 +2,22 @@ import React from 'react';
 import { ThemeContext } from '../../../Contexts/Theme';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { fetchChatroom } from '../../../redux/actions/chatroom';
-import { connect } from 'react-redux';
 
 const GroupSummary = (props) => {
   console.log(props);
+
   return (
     <ThemeContext.Consumer>
       {(context) => {
         const { isLightTheme, light, dark } = context;
         const theme = isLightTheme ? light : dark;
-        const { dispatch } = props;
 
-        const handleClick = (e) => {
-          console.log(props.chatroom.id);
-          dispatch(fetchChatroom(props.chatroom.id));
+        const handleClick = async (e) => {
+          const { dispatch } = props;
+          await dispatch(fetchChatroom(props.chatroom.id));
           console.log(props);
-          return props.history.push(`/chat`);
-          // return props.history.push(`/chat/${props.chatroom.id}`);
+
+          props.history.push(`/chat`);
         };
 
         return (
@@ -26,19 +25,25 @@ const GroupSummary = (props) => {
             <ListGroup>
               <ListGroupItem
                 onClick={handleClick}
-                color={theme.listcolor}
                 tag='a'
+                style={{ backgroundColor: theme.mid, borderColor: theme.high }}
                 className='justify-content-between d-flex'
               >
                 <img
                   className='material-icons roundimg'
-                  src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRIMey7cyC1XcqtyFcJlNhz7yP4oT1kAahWPw&usqp=CAU'
+                  src='https://i.imgur.com/9TowUuJ.png'
                   alt='Avatar'
                 />
-                <h4 className='d-flex align-items-center'>
+                <h6
+                  className='d-flex align-items-center'
+                  style={{ color: theme.high }}
+                >
                   {props.chatroom.room_name}
-                </h4>
-                <h6 className='d-flex align-items-center blur'>
+                </h6>
+                <h6
+                  className='d-flex align-items-center blur'
+                  style={{ color: theme.high }}
+                >
                   {props.chatroom.created_at.slice(0, 10)}
                 </h6>
               </ListGroupItem>
@@ -50,8 +55,4 @@ const GroupSummary = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
-export default connect(null, mapDispatchToProps)(GroupSummary);
+export default GroupSummary;

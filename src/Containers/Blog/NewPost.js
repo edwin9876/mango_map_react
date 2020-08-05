@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { createPost, fetchAllCategory, createPostImages } from '../../redux/actions/blog';
-import { fetchAllLocations,createUserLocation } from '../../redux/actions/map'
+import { fetchAllLocations } from '../../redux/actions/map'
 import Select from 'react-select';
 
 

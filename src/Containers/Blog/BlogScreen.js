@@ -128,9 +128,9 @@ class ConnectedBlogScreen extends Component {
                 </div>
 
                 <ButtonGroup className="d-flex justify-content-center">
-                    <Button onClick={this.filterPost} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>New Posts</h6></Button>
-                    <Button onClick={this.filterImg} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>New Pictures</h6></Button>
-                    <Button onClick={this.filterUser} style={{ background: theme.low, color: theme.highlight, borderColor: theme.low }}><h6>Top Users</h6></Button>
+                    <Button onClick={this.filterPost} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}><h6>New Posts</h6></Button>
+                    <Button onClick={this.filterImg} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}><h6>New Pictures</h6></Button>
+                    <Button onClick={this.filterUser} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}><h6>Top Users</h6></Button>
                 </ButtonGroup>
 
                 <div className="centerH margin5" >
@@ -140,14 +140,14 @@ class ConnectedBlogScreen extends Component {
                         })}
                 </div>
 
-                <div className="d-flex justify-content-center row margin1">
+                <div className="d-flex justify-content-center row">
                     {this.state.images && this.state.showImages &&
                         this.state.images.map((img, i) => {
                             return <TopPics key={i} image={img} />
                         })}
                 </div>
 
-                <div className="d-flex justify-content-center margin1">
+                <div className="d-flex justify-content-center margin1xrem">
                     {this.state.users && this.state.showUsers &&
                         this.state.users.map((user, i) => {
                             return <TopUsers key={i} user={user} />

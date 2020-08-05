@@ -9,7 +9,6 @@ import PostSummary from '../../Components/UI/Dashboard/PostSummary';
 import FavPostSummary from '../../Components/UI/Dashboard/FavPostSummary';
 
 import { fetchUser } from '../../redux/actions/user';
-import { fetchChatroom } from '../../redux/actions/chatroom';
 
 // will render signin component if user is not logged in. Still make the route to '/signin' for signin page though
 
@@ -129,14 +128,7 @@ class ConnectedProfileScreen extends Component {
           : null}
         {this.state.chatrooms && this.state.showChatrooms
           ? this.state.chatrooms.map((item, i) => {
-              return (
-                <GroupSummary
-                  history={this.props.history}
-                  dispatch={this.props.dispatch}
-                  chatroom={item}
-                  key={i}
-                />
-              );
+              return <GroupSummary chatroom={item} key={i} />;
             })
           : null}
 
