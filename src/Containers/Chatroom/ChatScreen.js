@@ -20,7 +20,6 @@ class ChatScreen extends Component {
       <div id='chat_container' style={{ background: theme.low }}>
         {this.state.loggedIn ? (
           <>
-
             <div>
               <Chat />
             </div>
@@ -40,9 +39,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatScreen);
