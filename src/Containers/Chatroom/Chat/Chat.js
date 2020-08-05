@@ -29,7 +29,7 @@ class Chat extends Component {
 
   constructor(props) {
     super(props);
-    this.socket = io('https://localhost:8000');
+    this.socket = io(process.env.REACT_APP_DEV_URL);
   }
 
   ROOT_CSS = css({
@@ -151,7 +151,7 @@ class Chat extends Component {
               borderColor: theme.low,
             }}
           >
-          <p className="bold blur">Messages</p>
+            <p className='bold blur'>Messages</p>
           </Button>
           <Button
             style={{
@@ -160,7 +160,7 @@ class Chat extends Component {
               borderColor: theme.low,
             }}
           >
-            <p className="bold blur">TimeTree</p>
+            <p className='bold blur'>TimeTree</p>
           </Button>
         </ButtonGroup>
         <ScrollToBottom className={this.ROOT_CSS + ' textBox'}>
@@ -201,7 +201,8 @@ class Chat extends Component {
           >
             <ListGroup className=''>
               <ListGroupItem
-                color={theme.listcolor} style={{
+                color={theme.listcolor}
+                style={{
                   background: theme.mid,
                   color: theme.high,
                   borderColor: theme.highlight,
