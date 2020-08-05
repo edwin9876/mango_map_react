@@ -21,7 +21,7 @@ const GroupSummary = (props) => {
 
          props.history.push(`/chat`)
       }
-
+ 
       return (
         <div className="margin5">
         <ListGroup >
