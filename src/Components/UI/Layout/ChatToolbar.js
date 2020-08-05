@@ -39,7 +39,7 @@ const ChatToolbar = ({ backToChatList, currentRoomId, roomname }, props) => {
 
   useEffect(() => {
     axios
-      .post('https://localhost:8000/chatroom/username', {
+      .post(`${process.env.REACT_APP_DEV_URL}chatroom/username`, {
         username: username,
       })
       .then((response) => {
