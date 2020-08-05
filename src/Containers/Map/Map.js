@@ -97,7 +97,7 @@ export class MapContainer extends Component {
         }
         axios
           .get(
-            `https://localhost:8000/image/public/${this.state.selectedPlace.id}`
+            `${process.env.REACT_APP_DEV_URL}image/public/${this.state.selectedPlace.id}`
           )
           .then((data) => {
             this.setState({
