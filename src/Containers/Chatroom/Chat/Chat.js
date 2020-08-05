@@ -29,7 +29,7 @@ class Chat extends Component {
 
   constructor(props) {
     super(props);
-    this.socket = io('https://localhost:8000');
+    this.socket = io(process.env.REACT_APP_DEV_URL);
   }
 
   ROOT_CSS = css({
