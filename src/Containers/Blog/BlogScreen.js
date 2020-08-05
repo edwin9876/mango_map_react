@@ -124,6 +124,12 @@ class ConnectedBlogScreen extends Component {
         console.log(this.state)
     }
 
+    handleCancel = (e) =>{
+        this.setState({
+            searched: false,
+            searchKeyword: [],
+        })
+    }
 
     render() {
         const { isLightTheme, light, dark } = this.context;
@@ -132,7 +138,7 @@ class ConnectedBlogScreen extends Component {
         return (
 
             <div id="blog_container" style={{ background: theme.low, color: theme.high }}>
-                <SearchBar handleSubmit={this.handleSubmit} handleSearch={this.handleSearch} />
+                <SearchBar value={this.state.searchKeyword} handleCancel={this.handleCancel} handleSubmit={this.handleSubmit} handleSearch={this.handleSearch} />
                 {!this.state.searched &&
                     <div>
                         <div className="margin5">
