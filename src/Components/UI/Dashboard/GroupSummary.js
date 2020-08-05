@@ -25,7 +25,7 @@ const GroupSummary = (props) => {
       return (
         <div className="margin5">
         <ListGroup >
-        <ListGroupItem onClick={handleClick}  tag="a" style={{ backgroundColor: theme.mid, borderColor: theme.high }} className="justify-content-between d-flex">
+        <ListGroupItem onClick={handleClick}  style={{ backgroundColor: theme.mid, borderColor: theme.high }} className="justify-content-between d-flex">
         <img className="material-icons roundimg"
         src='https://i.imgur.com/9TowUuJ.png'
         alt='Avatar'/>
