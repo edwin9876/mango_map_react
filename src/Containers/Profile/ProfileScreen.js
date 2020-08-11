@@ -128,7 +128,14 @@ class ConnectedProfileScreen extends Component {
           : null}
         {this.state.chatrooms && this.state.showChatrooms
           ? this.state.chatrooms.map((item, i) => {
-              return <GroupSummary chatroom={item} key={i} />;
+              return (
+                <GroupSummary
+                  dispatch={this.props.dispatch}
+                  history={this.props.history}
+                  chatroom={item}
+                  key={i}
+                />
+              );
             })
           : null}
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { ThemeContext } from '../../../Contexts/Theme';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { fetchChatroom } from '../../../redux/actions/chatroom';
-import { connect } from 'react-redux';
 
 const GroupSummary = (props) => {
   console.log(props);
@@ -55,4 +54,4 @@ const GroupSummary = (props) => {
   );
 };
 
-export default connect(null, mapDispatchToProps)(GroupSummary);
+export default GroupSummary;
