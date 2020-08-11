@@ -12,7 +12,6 @@ import {
 } from '../../../redux/actions/chatroom';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
-import { css } from 'glamor';
 import ChatToolbar from '../../../Components/UI/Layout/ChatToolbar';
 import { backToChatList } from '../../../redux/actions/chatroom';
 import Input from '../../../Components/Chat/Input/Input';
@@ -32,25 +31,13 @@ class Chat extends Component {
     this.socket = io(process.env.REACT_APP_DEV_URL);
   }
 
-  ROOT_CSS = css({
-    height: '100%',
-    width: '100%',
-  });
-
+ 
   sendMessageToChatroom = (message, roomId, userId, username) => {
     console.log('[Chats.js]', username);
     this.socket.emit('chat-message', { message, roomId, userId, username });
     this.props.sendMessage(message, roomId, userId, username);
   };
 
-  // Alternative
-  // async componentDidMount() {
-  //   let roomList = await this.props.fetchChatroomList(this.props.userId);
-  //   let newRoomList = roomList.map((room) => room.chatroom_id);
-
-  //   this.socket.emit('new-user', {
-  //     name: this.props.username,
-  //     roomList: newRoomList,
 
   async componentDidMount() {
     let userInfo = await JSON.parse(localStorage.getItem('user'));
@@ -163,7 +150,7 @@ class Chat extends Component {
             <p className='bold blur'>TimeTree</p>
           </Button>
         </ButtonGroup>
-        <ScrollToBottom className={this.ROOT_CSS + ' textBox'}>
+        <ScrollToBottom className={ ' textBox'}>
           <div className='margin5'>
             <Messages
               conversation={this.props.conversation}

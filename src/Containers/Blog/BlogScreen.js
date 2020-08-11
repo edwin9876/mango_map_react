@@ -35,6 +35,7 @@ class ConnectedBlogScreen extends Component {
             showUsers: false,
             searchKeyword: [],
             searched: false,
+            showCancel: false,
         }
     }
     componentWillUnmount() {
@@ -44,6 +45,7 @@ class ConnectedBlogScreen extends Component {
             showUsers: false,
             searchKeyword: [],
             searched: false,
+            showCancel: false,
 
         })
 
@@ -103,6 +105,14 @@ class ConnectedBlogScreen extends Component {
 
     }
 
+    handleCancelBtn = (e) => {
+        const { showCancel } = this.state;
+        this.setState({
+            ...this.state,
+            showCancel: true,
+        })
+    }
+
     handleSearch = (e) => {
         this.setState({
             ...this.state,
@@ -124,7 +134,7 @@ class ConnectedBlogScreen extends Component {
         console.log(this.state)
     }
 
-    handleCancel = (e) =>{
+    handleCancel = (e) => {
         this.setState({
             searched: false,
             searchKeyword: [],
@@ -138,7 +148,7 @@ class ConnectedBlogScreen extends Component {
         return (
 
             <div id="blog_container" style={{ background: theme.low, color: theme.high }}>
-                <SearchBar value={this.state.searchKeyword} handleCancel={this.handleCancel} handleSubmit={this.handleSubmit} handleSearch={this.handleSearch} />
+                <SearchBar value={this.state.searchKeyword} handleCancelBtn={this.handleCancelBtn} handleCancel={this.handleCancel} handleSubmit={this.handleSubmit} handleSearch={this.handleSearch} />
                 {!this.state.searched &&
                     <div>
                         <div className="margin5">
@@ -166,7 +176,7 @@ class ConnectedBlogScreen extends Component {
                 }
                 <ButtonGroup className="d-flex justify-content-center">
                     <Button onClick={this.filterPost} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}><h6>{this.state.searched ? 'Posts' : 'New Posts'}</h6></Button>
-                    {!this.state.searched &&<Button onClick={this.filterImg} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}><h6>New Pictures</h6></Button>}
+                    {!this.state.searched && <Button onClick={this.filterImg} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}><h6>New Pictures</h6></Button>}
                     <Button onClick={this.filterUser} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}><h6>{this.state.searched ? 'Users' : 'Top Users'}</h6></Button>
                 </ButtonGroup>
 
@@ -185,16 +195,16 @@ class ConnectedBlogScreen extends Component {
                     {this.state.images && this.state.showImages && !this.state.searched ?
                         this.state.images.map((img, i) => {
                             return <TopPics key={i} image={img} />
-                        }):null}
+                        }) : null}
                 </div>
 
                 <div className="d-flex justify-content-center margin1xrem">
                     {this.state.users && this.state.showUsers && !this.state.searched ?
                         this.state.users.map((user, i) => {
                             return <TopUsers key={i} user={user} />
-                        }): this.state.filteredUsers && this.state.showUsers ?
+                        }) : this.state.filteredUsers && this.state.showUsers ?
                             this.state.filteredUsers.map((user, i) => {
-                                return <TopUsers key={i} user={user}/>
+                                return <TopUsers key={i} user={user} />
                             }) : null}
                 </div>
 

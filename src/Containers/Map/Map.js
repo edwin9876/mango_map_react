@@ -15,8 +15,6 @@ import {
   fetchLocation,
 } from '../../redux/actions/map';
 
-// require('dotenv').config();
-
 const mapStyles = {
   width: '100%',
   height: '100%',
