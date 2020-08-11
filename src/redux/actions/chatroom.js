@@ -35,10 +35,13 @@ export const fetchChatroomList = (userId) => {
 };
 
 export const fetchChatroom = (payload) => {
+  console.log('[fetchChatroom action]');
+  console.log(typeof payload);
   return async (dispatch) => {
     let res = await axios(
       `${process.env.REACT_APP_DEV_URL}chatroom/${payload}`
     );
+    console.log('[fetchChatroom action axios call]');
 
     let mergedConversation = [];
 

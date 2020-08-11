@@ -24,12 +24,43 @@ import ChatroomSummary from '../../../Components/Chat/ChatRoomSummary';
 
 require('dotenv').config();
 
+// import React from 'react';
+
+// const  = (props) => {
+
+// };
+
+//  export default ;
+
+// const chat = (props) => {
+
 class Chat extends Component {
   static contextType = ThemeContext;
 
   constructor(props) {
     super(props);
     this.socket = io(process.env.REACT_APP_DEV_URL);
+    this.userInfo = JSON.parse(localStorage.getItem('user'));
+    this.props.initializeState(this.userInfo.user_name, this.userInfo.id);
+
+    this.props.fetchChatroomList(this.userInfo.id);
+
+    this.socket.on('chat-message', ({ message, roomId, userId, username }) => {
+      if (roomId === this.props.currentRoomId) {
+        this.props.sendMessage(message, roomId, userId, username);
+      }
+    });
+
+    this.socket.on('join-chatroom', (data) => {
+      console.log(data);
+    });
+
+    this.socket.on('join-chatroom-user', (data) => {
+      this.props.receiveMessage(
+        data.username,
+        `${data.username} has joined the chatroom!`
+      );
+    });
   }
 
   ROOT_CSS = css({
@@ -53,10 +84,8 @@ class Chat extends Component {
   //     roomList: newRoomList,
 
   async componentDidMount() {
-    let userInfo = await JSON.parse(localStorage.getItem('user'));
-    console.log(this);
+    let userInfo = JSON.parse(localStorage.getItem('user'));
     this.props.initializeState(userInfo.user_name, userInfo.id);
-    console.log(this);
 
     this.props.fetchChatroomList(userInfo.id);
     let chatroomList = await axios
@@ -68,12 +97,12 @@ class Chat extends Component {
         });
       });
 
-    this.socket.on('chat-message', ({ message, roomId, userId, username }) => {
-      console.log(message, roomId, userId, username);
-      if (roomId === this.props.currentRoomId) {
-        this.props.sendMessage(message, roomId, userId, username);
-      }
-    });
+    // this.socket.on('chat-message', ({ message, roomId, userId, username }) => {
+    //   console.log(message, roomId, userId, username);
+    //   if (roomId === this.props.currentRoomId) {
+    //     this.props.sendMessage(message, roomId, userId, username);
+    //   }
+    // });
 
     this.socket.on('join-chatroom', (data) => {
       console.log(data);
@@ -88,13 +117,6 @@ class Chat extends Component {
 
     this.socket.on('user-connected', (name) => {
       console.log('Welcome to Mango Map, ' + name);
-    });
-
-    this.socket.on('join-chatroom-user', (data) => {
-      this.props.receiveMessage(
-        data.username,
-        `${data.username} has joined the chatroom!`
-      );
     });
   }
 
@@ -147,7 +169,7 @@ class Chat extends Component {
               borderColor: theme.low,
             }}
           >
-          <p className="bold blur">Messages</p>
+            <p className='bold blur'>Messages</p>
           </Button>
           <Button
             style={{
@@ -155,8 +177,9 @@ class Chat extends Component {
               color: theme.high,
               borderColor: theme.low,
             }}
+            onClick
           >
-            <p className="bold blur">TimeTree</p>
+            <p className='bold blur'>Group Map</p>
           </Button>
         </ButtonGroup>
         <ScrollToBottom className={this.ROOT_CSS + ' textBox'}>
@@ -197,7 +220,8 @@ class Chat extends Component {
           >
             <ListGroup className=''>
               <ListGroupItem
-                color={theme.listcolor} style={{
+                color={theme.listcolor}
+                style={{
                   background: theme.mid,
                   color: theme.high,
                   borderColor: theme.highlight,
