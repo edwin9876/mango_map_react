@@ -141,7 +141,7 @@ class ConnectedBlogScreen extends Component {
         {!this.state.searched && (
           <div>
             <div className="margin5">
-              <p className="d-flex justify-content-center bold gray70 ">
+              <p className="d-flex justify-content-center bold gray70">
                 Weekly Post
               </p>
               {this.state.posts && (
