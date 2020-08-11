@@ -1,6 +1,5 @@
 import React from 'react'
 import UserPicList from './UserPicList'
-import samplePic from '../../Icons/userPic.jpg'
 
 const MapDetails = (props) => {
     const id = props.match.params.id;
@@ -9,7 +8,7 @@ const MapDetails = (props) => {
         <div className="container section map-details">
             <div ClassName="card z-depth-0">
                 <div ClassName="card-content align-content-center">
-                    <img id="locationPic" className="margin5 d-flex justify-content-center " src={samplePic}
+                    <img id="locationPic" className="margin5 d-flex justify-content-center " src="https://i.imgur.com/oATUHWo.png"
                         alt="locationPic"
                     />
                     <UserPicList />

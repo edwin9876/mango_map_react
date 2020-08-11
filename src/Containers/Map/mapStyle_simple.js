@@ -70,7 +70,7 @@ export default [
     elementType: 'labels.text.fill',
     stylers: [
       {
-        color: 'white',
+        color: 'grey',
       },
     ],
   },
@@ -137,7 +137,7 @@ export default [
         saturation: 100,
       },
       {
-        lightness: 5,
+        lightness: 7,
       },
       {
         color: 'white',
@@ -149,7 +149,7 @@ export default [
     elementType: 'all',
     stylers: [
       {
-        visibility: 'simplified',
+        visibility: 'off',
       },
     ],
   },
