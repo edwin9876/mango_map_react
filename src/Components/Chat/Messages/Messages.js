@@ -9,9 +9,9 @@ const Messages = ({ conversation, username }) => {
     let m = new Date(message.created_at).getMinutes();
 
     return username === message.user_name ? (
-      <div class='container darker '>
+      <div className='container darker '>
         <img
-          src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRLWTAHflkoSso-p7fbKv7BecCWNSyYseuhfw&usqp=CAU'
+          src='https://i.imgur.com/1jH2zcV.png'
           alt='Avatar'
           className='right roundimg'
         />
@@ -26,18 +26,18 @@ const Messages = ({ conversation, username }) => {
           <p>{message.body}</p>
         )}
 
-        <span class='time-left'>
+        <span className='time-left white100'>
           {h}:{m}
         </span>
       </div>
     ) : (
       <div className='container'>
         <img
-          src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRIMey7cyC1XcqtyFcJlNhz7yP4oT1kAahWPw&usqp=CAU'
+          src='https://i.imgur.com/XzYFfkF.png'
           alt='Avatar'
           className='roundimg'
         />
-        <p className='floatR blur'>{message.user_name}</p>
+        <p className='floatR gray70'>{message.user_name}</p>
         {message.url ? (
           <img
             src={message.url}
