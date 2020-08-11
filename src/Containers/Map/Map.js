@@ -124,10 +124,7 @@ export class MapContainer extends Component {
   };
 
   createMarker = (lat, lng) => {
-    // this.mapRefs.current.props.google.maps.Map.prototype.panTo({
-    //   lat: 22.5838475,
-    //   lng: 114.0552244,
-    // });
+  
     this.setState(
       {
         ...this.state,
@@ -182,7 +179,7 @@ export class MapContainer extends Component {
               icon={{
                 url: './assets/icons/adventure.png',
                 anchor: new window.google.maps.Point(25, 25),
-                scaledSize: new window.google.maps.Size(50, 50),
+                scaledSize: new window.google.maps.Size(45, 45),
               }}
               key={district.id}
               id={district.id}
