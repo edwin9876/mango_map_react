@@ -127,7 +127,7 @@ export class ConnetedSignIn extends Component {
           >
             <img
               className='icons15 margin1 blur'
-              src="{instagramIC}"
+              src="https://i.imgur.com/k4aOHAQ.png"
               alt='instagramIC'
             />
           </div>

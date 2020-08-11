@@ -235,7 +235,7 @@ class ConnectedNewPost extends Component {
 
           <FormGroup>
             <Label for="body" className="bold">Contents</Label>
-            <Input style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} onChange={this.handleChange} type="textarea" name="body" placeholder="Write here" rows="10" />
+            <Input style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} onChange={this.handleChange} type="textarea" name="body" placeholder="Please write contents here" rows="10" />
           </FormGroup>
 
           <FormGroup>
