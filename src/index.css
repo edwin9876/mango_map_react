@@ -8,6 +8,7 @@ body {
 
 /* Colours */
 .white100{color:#FFFFFF!important}
+.black{color: rgb(0, 0, 0);}
 .gray70{color:#858684;}
 .gray50{color:#ccd637;}
 .green{background-color: #ccd637 !important;}
@@ -18,7 +19,7 @@ body {
 .active{filter: opacity(0.5);}
 .blur{filter: opacity(0.5);}
 .sparklebg{  box-shadow: 0px 0px 8px #fffccd73}
-
+.darkshadow {box-shadow: 5px 5px 7px rgba(33,33,33,.7)}
 /* Positions */
 
 .block {display: block;}
