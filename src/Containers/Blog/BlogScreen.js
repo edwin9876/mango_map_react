@@ -33,6 +33,8 @@ class ConnectedBlogScreen extends Component {
             showPosts: true,
             showImages: false,
             showUsers: false,
+            searchKeyword: [],
+            searched: false,
         }
     }
     componentWillUnmount() {
@@ -40,6 +42,9 @@ class ConnectedBlogScreen extends Component {
             showPosts: true,
             showImages: false,
             showUsers: false,
+            searchKeyword: [],
+            searched: false,
+
         })
 
     }
@@ -68,6 +73,7 @@ class ConnectedBlogScreen extends Component {
 
         const { showImages } = this.state;
         this.setState({
+            ...this.state,
             showPosts: false,
             showImages: !showImages,
             showUsers: false,
@@ -78,6 +84,7 @@ class ConnectedBlogScreen extends Component {
 
         const { showUsers } = this.state;
         this.setState({
+            ...this.state,
             showPosts: false,
             showImages: false,
             showUsers: !showUsers,
@@ -88,11 +95,33 @@ class ConnectedBlogScreen extends Component {
 
         const { showPosts } = this.state;
         this.setState({
+            ...this.state,
             showPosts: !showPosts,
             showImages: false,
             showUsers: false,
         })
 
+    }
+
+    handleSearch = (e) => {
+        this.setState({
+            ...this.state,
+            searchKeyword: e.target.value
+        })
+        console.log(this.state)
+    }
+
+    handleSubmit = (e) => {
+        let keyWord = new RegExp(this.state.searchKeyword, 'gi')
+        let filteredPosts = [...this.state.posts].filter(post => post.title.match(keyWord))
+        let filteredUsers = [...this.state.users].filter(user => user.user_name.match(keyWord))
+        this.setState({
+            ...this.state,
+            searched: true,
+            filteredPosts: filteredPosts,
+            filteredUsers: filteredUsers,
+        })
+        console.log(this.state)
     }
 
 
@@ -103,55 +132,64 @@ class ConnectedBlogScreen extends Component {
         return (
 
             <div id="blog_container" style={{ background: theme.low, color: theme.high }}>
-                <SearchBar />
+                <SearchBar handleSubmit={this.handleSubmit} handleSearch={this.handleSearch} />
+                {!this.state.searched &&
+                    <div>
+                        <div className="margin5">
+                            <p className="d-flex justify-content-center bold gray70 ">Weekly Post</p>
+                            {this.state.posts &&
+                                <WeeklyPost history={this.props.history} post={this.state.posts[0]} />
+                            }
+                        </div>
+                        <p className="d-flex justify-content-center bold gray70 ">Weekly Picture</p>
+                        <div className="margin5">
+                            {this.state.images &&
+                                <WeeklyPic history={this.props.history} image={this.state.images[3]} />
+                            }
+                        </div>
 
-                <div className="margin5">
-                    <p className="d-flex justify-content-center bold gray70 ">Weekly Post</p>
-                    {this.state.posts &&
-                        <WeeklyPost history={this.props.history} post={this.state.posts[0]} />
-                    }
-                </div>
-                <p className="d-flex justify-content-center bold gray70 ">Weekly Picture</p>
-                <div className="margin5">
-                    {this.state.images &&
-                        <WeeklyPic history={this.props.history} image={this.state.images[3]} />
-                    }
-                </div>
-
-                <div className="margin5">
-                    <p className="d-flex justify-content-center bold gray70">Popular spots</p>
-                    {   this.state.locations&& (this.state.locations.length=9) ?
-                        this.state.locations.map((location, i ) => { 
-                            return <PopularSpots history={this.props.history} location={location} key={i} />
-                        }) : <div className="d-flex justify-content-center">No spots yet</div>
-                    }
-                </div>
-
+                        <div className="margin5">
+                            <p className="d-flex justify-content-center bold gray70">Popular spots</p>
+                            {this.state.locations && (this.state.locations.length = 9) ?
+                                this.state.locations.map((location, i) => {
+                                    return <PopularSpots history={this.props.history} location={location} key={i} />
+                                }) : <div className="d-flex justify-content-center">No spots yet</div>
+                            }
+                        </div>
+                    </div>
+                }
                 <ButtonGroup className="d-flex justify-content-center">
-                    <Button onClick={this.filterPost} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}><h6>New Posts</h6></Button>
-                    <Button onClick={this.filterImg} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}><h6>New Pictures</h6></Button>
-                    <Button onClick={this.filterUser} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}><h6>Top Users</h6></Button>
+                    <Button onClick={this.filterPost} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}><h6>{this.state.searched ? 'Posts' : 'New Posts'}</h6></Button>
+                    {!this.state.searched &&<Button onClick={this.filterImg} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}><h6>New Pictures</h6></Button>}
+                    <Button onClick={this.filterUser} style={{ background: theme.low, color: theme.high, borderColor: theme.low }}><h6>{this.state.searched ? 'Users' : 'Top Users'}</h6></Button>
                 </ButtonGroup>
 
                 <div className="centerH margin5" >
-                    {this.state.posts && this.state.showPosts &&
+                    {this.state.posts && this.state.showPosts && !this.state.searched ?
                         this.state.posts.map((post, i) => {
                             return <BlogList history={this.props.history} posts={post} key={i} />
-                        })}
+                        }) : this.state.filteredPosts && this.state.showPosts ?
+                            this.state.filteredPosts.map((post, i) => {
+                                return <BlogList history={this.props.history} posts={post} key={i} />
+                            }) : null
+                    }
                 </div>
 
                 <div className="d-flex justify-content-center row">
-                    {this.state.images && this.state.showImages &&
+                    {this.state.images && this.state.showImages && !this.state.searched ?
                         this.state.images.map((img, i) => {
                             return <TopPics key={i} image={img} />
-                        })}
+                        }):null}
                 </div>
 
                 <div className="d-flex justify-content-center margin1xrem">
-                    {this.state.users && this.state.showUsers &&
+                    {this.state.users && this.state.showUsers && !this.state.searched ?
                         this.state.users.map((user, i) => {
                             return <TopUsers key={i} user={user} />
-                        })}
+                        }): this.state.filteredUsers && this.state.showUsers ?
+                            this.state.filteredUsers.map((user, i) => {
+                                return <TopUsers key={i} user={user}/>
+                            }) : null}
                 </div>
 
 
