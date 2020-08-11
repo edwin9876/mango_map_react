@@ -21,7 +21,7 @@ const ChatList = (props) => {
               >
                 <img
                   className='material-icons roundimg'
-                  src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRIMey7cyC1XcqtyFcJlNhz7yP4oT1kAahWPw&usqp=CAU'
+                  src='https://i.imgur.com/9TowUuJ.png'
                   alt='Avatar'
                 />
                 <h4 className='d-flex align-items-center'>
