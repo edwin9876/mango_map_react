@@ -105,10 +105,10 @@ class ProfileDetails extends Component {
                 {main_url && main_url.length >= 100 ? (
                   <img
                     src={`data:image/png;base64, ${main_url}`}
-                    id="profile_pic"
+                    id="profile_pic" className="sparklebg "
                   />
                 ) : (
-                  <img src={main_url} id="profile_pic" />
+                  <img src={main_url} id="profile_pic" className="sparklebg " />
                 )}
               </div>
               <h4 className=" bold justify-content-center d-flex">
