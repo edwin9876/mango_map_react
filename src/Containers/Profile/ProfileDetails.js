@@ -122,46 +122,46 @@ class ProfileDetails extends Component {
                 <ButtonGroup>
                   <Button
                     onClick={this.props.filterLoc}
-                    color="secondary"
-                    className="margin1 sqBorder"
+                    style={{background:theme.highlight3,border:theme.trans, color:theme.highlight2}}
+                    className="margin1 darkshadow sqBorder"
                   >
                     <h4 className="bold justify-content-center d-flex">
                       {locationsLength}
                     </h4>
-                    <p className="justify-content-center d-flex">Trips</p>
+                    <p className="justify-content-center d-flex  gray70">Trips</p>
                   </Button>
 
                   <Button
                     onClick={this.props.filterCha}
-                    color="secondary"
-                    className="margin1"
+                    style={{background:theme.highlight3,border:theme.trans, color:theme.highlight2}}
+                    className="margin1 darkshadow"
                   >
                     <h4 className="bold justify-content-center d-flex">
                       {chatroomsLength}
                     </h4>
-                    <p className="justify-content-center d-flex">Groups</p>
+                    <p className="justify-content-center d-flex  gray70">Groups</p>
                   </Button>
 
                   <Button
                     onClick={this.props.filterPos}
-                    color="secondary"
-                    className="margin1"
+                    style={{background:theme.highlight3,border:theme.trans, color:theme.highlight2}}
+                    className="margin1 darkshadow"
                   >
                     <h4 className="bold justify-content-center d-flex">
                       {postsLength}
                     </h4>
-                    <p className="justify-content-center d-flex">Posts</p>
+                    <p className="justify-content-center d-flex  gray70">Posts</p>
                   </Button>
 
                   <Button
                     onClick={this.props.filterFav}
-                    color="secondary"
-                    className="margin1 sqBorder"
+                    style={{background:theme.highlight3,border:theme.trans, color:theme.highlight2}}
+                    className="margin1 darkshadow sqBorder"
                   >
                     <h4 className="bold justify-content-center d-flex">
                       {favLength}
                     </h4>
-                    <p className="justify-content-center d-flex">Likes</p>
+                    <p className="justify-content-center d-flex gray70">Likes</p>
                   </Button>
                 </ButtonGroup>
               </div>
