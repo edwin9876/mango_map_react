@@ -198,7 +198,7 @@ class Chat extends Component {
               >
                 <img
                   className='material-icons roundimg'
-                  src='https://i.imgur.com/1jH2zcV.png'
+                  src='https://i.imgur.com/9TowUuJ.png'
                   alt='Avatar'
                 />
                 <h6 className='d-flex align-items-center'>{room.room_name}</h6>
