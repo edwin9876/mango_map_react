@@ -97,9 +97,10 @@ export class MapContainer extends Component {
         }
         axios
           .get(
-            `${process.env.REACT_APP_DEV_URL}image/public/${this.state.selectedPlace.locationId}`
+            `${process.env.REACT_APP_DEV_URL}image/public/${this.state.selectedPlace.id}`
           )
           .then((data) => {
+            console.log(data);
             this.setState({
               ...this.state,
               selectedPlaceImages: data.data,
@@ -174,8 +175,6 @@ export class MapContainer extends Component {
   render() {
     let locations;
     let selfDefinedMarkers;
-
-    console.log(this.props.zoom);
 
     this.props.zoom <= 13
       ? (locations = this.props.districts.map((district) => {

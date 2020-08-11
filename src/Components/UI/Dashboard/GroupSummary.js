@@ -2,6 +2,7 @@ import React from 'react';
 import { ThemeContext } from '../../../Contexts/Theme';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { fetchChatroom } from '../../../redux/actions/chatroom';
+import { connect } from 'react-redux';
 
 const GroupSummary = (props) => {
   console.log(props);
@@ -25,7 +26,6 @@ const GroupSummary = (props) => {
             <ListGroup>
               <ListGroupItem
                 onClick={handleClick}
-                tag='a'
                 style={{ backgroundColor: theme.mid, borderColor: theme.high }}
                 className='justify-content-between d-flex'
               >
@@ -55,4 +55,4 @@ const GroupSummary = (props) => {
   );
 };
 
-export default GroupSummary;
+export default connect(null, mapDispatchToProps)(GroupSummary);
