@@ -122,10 +122,10 @@ class ProfileDetails extends Component {
                 <ButtonGroup>
                   <Button
                     onClick={this.props.filterLoc}
-                    style={{background:theme.highlight3,border:theme.trans, color:theme.highlight2}}
+                    style={{background:theme.highlight3,border:theme.trans}}
                     className="margin1 darkshadow sqBorder"
                   >
-                    <h4 className="bold justify-content-center d-flex">
+                    <h4 className="bold justify-content-center d-flex gray70">
                       {locationsLength}
                     </h4>
                     <p className="justify-content-center d-flex  gray70">Trips</p>
@@ -136,7 +136,7 @@ class ProfileDetails extends Component {
                     style={{background:theme.highlight3,border:theme.trans, color:theme.highlight2}}
                     className="margin1 darkshadow"
                   >
-                    <h4 className="bold justify-content-center d-flex">
+                    <h4 className="bold justify-content-center d-flex gray70">
                       {chatroomsLength}
                     </h4>
                     <p className="justify-content-center d-flex  gray70">Groups</p>
@@ -147,7 +147,7 @@ class ProfileDetails extends Component {
                     style={{background:theme.highlight3,border:theme.trans, color:theme.highlight2}}
                     className="margin1 darkshadow"
                   >
-                    <h4 className="bold justify-content-center d-flex">
+                    <h4 className="bold justify-content-center d-flex gray70">
                       {postsLength}
                     </h4>
                     <p className="justify-content-center d-flex  gray70">Posts</p>
@@ -158,7 +158,7 @@ class ProfileDetails extends Component {
                     style={{background:theme.highlight3,border:theme.trans, color:theme.highlight2}}
                     className="margin1 darkshadow sqBorder"
                   >
-                    <h4 className="bold justify-content-center d-flex">
+                    <h4 className="bold justify-content-center d-flex gray70">
                       {favLength}
                     </h4>
                     <p className="justify-content-center d-flex gray70">Likes</p>
