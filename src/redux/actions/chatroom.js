@@ -36,7 +36,7 @@ export const fetchChatroomList = (userId) => {
   };
 };
 
-export const fetchChatroom = (payload) => {
+export const fetchChatroom = (payload, selectedPlace) => {
   console.log('[fetchChatroom action]');
   console.log(typeof payload);
   return async (dispatch) => {
@@ -58,11 +58,14 @@ export const fetchChatroom = (payload) => {
     mergedConversation.sort((a, b) => {
       return a.id - b.id || a.name.localeCompare(b.name);
     });
+    console.log(res.data);
 
     dispatch({
       type: FETCH_CHATROOM,
       payload: mergedConversation,
       roomId: res.data.id,
+      room_name: res.data.room_name,
+      selectedPlace: selectedPlace,
     });
   };
 };

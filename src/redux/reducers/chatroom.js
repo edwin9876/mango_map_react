@@ -62,8 +62,10 @@ const chatroomReducer = (state = initialChatroomState, action) => {
     case FETCH_CHATROOM:
       return {
         ...state,
+        roomname: action.room_name,
         currentRoomId: action.roomId,
         conversation: action.payload,
+        selectedPlace: action.selectedPlace,
       };
 
     case SET_MESSAGE:
