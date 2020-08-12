@@ -17,13 +17,13 @@ import {
   SEND_IMAGE,
   RECEIVE_MESSAGE,
   INITIALIZE_STATE,
-} from '../constants/actionTypes';
+} from "../constants/actionTypes";
 
-import axios from 'axios';
-require('dotenv').config();
+import axios from "axios";
+require("dotenv").config();
 
 export const fetchChatroomList = (userId) => {
-  console.log('[chatroom.js] action fetchChatroomList is accessed');
+  console.log("[chatroom.js] action fetchChatroomList is accessed");
   console.log(userId);
   return async (dispatch) => {
     let res = await axios(
@@ -34,14 +34,14 @@ export const fetchChatroomList = (userId) => {
   };
 };
 
-export const fetchChatroom = (payload) => {
-  console.log('[fetchChatroom action]');
+export const fetchChatroom = (payload, selectedPlace) => {
+  console.log("[fetchChatroom action]");
   console.log(typeof payload);
   return async (dispatch) => {
     let res = await axios(
       `${process.env.REACT_APP_DEV_URL}chatroom/${payload}`
     );
-    console.log('[fetchChatroom action axios call]');
+    console.log("[fetchChatroom action axios call]");
 
     let mergedConversation = [];
 
@@ -56,11 +56,14 @@ export const fetchChatroom = (payload) => {
     mergedConversation.sort((a, b) => {
       return a.id - b.id || a.name.localeCompare(b.name);
     });
+    console.log(res.data);
 
     dispatch({
       type: FETCH_CHATROOM,
       payload: mergedConversation,
       roomId: res.data.id,
+      room_name: res.data.room_name,
+      selectedPlace: selectedPlace,
     });
   };
 };
@@ -94,7 +97,7 @@ export const setRoomname = (roomname) => {
 };
 
 export const sendMessage = (message, roomId, userId, username) => {
-  console.log('[chatrooms.js action]', message, roomId);
+  console.log("[chatrooms.js action]", message, roomId);
   return async (dispatch) => {
     await axios
       .post(`${process.env.REACT_APP_DEV_URL}chatroom/record`, {
@@ -105,9 +108,9 @@ export const sendMessage = (message, roomId, userId, username) => {
       })
       .then((res) => {
         res.data[0].user_name
-          ? console.log('[Chatroom.js action', res.data[0].user_name)
+          ? console.log("[Chatroom.js action", res.data[0].user_name)
           : (res.data[0].user_name = username);
-        console.log('[chatrooms.js] action', res.data[0]);
+        console.log("[chatrooms.js] action", res.data[0]);
         dispatch({ type: SEND_MESSAGE, payload: res.data[0] });
       });
   };

@@ -4,7 +4,13 @@ import { Map, InfoWindow, GoogleApiWrapper, Marker } from "google-maps-react";
 import { connect } from "react-redux";
 import axios from "axios";
 import predefinedLocations from "./PredefinedLocations/LocationStorage";
-import { Button } from "reactstrap";
+import {
+  Button,
+  Dropdown,
+  DropdownMenu,
+  DropdownToggle,
+  DropdownItem,
+} from "reactstrap";
 
 import simple from "./mapStyle_simple";
 import {
@@ -14,6 +20,7 @@ import {
   saveLatLng,
   fetchLocation,
 } from "../../redux/actions/map";
+import { fetchChatroomList, fetchChatroom } from "../../redux/actions/chatroom";
 import { useReducedMotion } from "framer-motion";
 
 const mapStyles = {
@@ -43,14 +50,26 @@ export class MapContainer extends Component {
     selectedPlaceImages: [],
     // This must be stored in database
     selfDefinedMarkers: [],
+    dropdownOpen: false,
+    chatrooms: [],
   };
 
   componentDidMount() {
     this.props.fetchAllDistricts();
     this.props.fetchAllLocations();
-
-    // console.log(this.mapRefs);
-
+    if (user.id) {
+      console.log(user.id);
+      axios
+        .get(`${process.env.REACT_APP_DEV_URL}chatroom/all/${user.id}`)
+        .then((data) => {
+          console.log(data);
+          this.setState({
+            ...this.state,
+            chatrooms: [...data.data],
+          });
+        });
+    }
+    console.log(this.state);
     if (navigator && navigator.geolocation) {
       // console.log(this.props.google.maps.Map().panT);
       navigator.geolocation.getCurrentPosition((pos) => {
@@ -85,6 +104,7 @@ export class MapContainer extends Component {
     console.log(props);
     this.setState(
       {
+        ...this.state,
         selectedPlace: props,
         activeMarker: marker,
         showingInfoWindow: true,
@@ -113,6 +133,7 @@ export class MapContainer extends Component {
     if (this.state.showingInfoWindow) {
       this.setState(
         {
+          ...this.state,
           showingInfoWindow: false,
           activeMarker: null,
           selectedPlaceImages: null,
@@ -144,6 +165,8 @@ export class MapContainer extends Component {
     );
   };
 
+  markTripLocation = () => {};
+
   createLocation = (e) => {
     this.props.saveLatLng(this.state.selectedPlace.position);
     console.log(this.props);
@@ -151,14 +174,60 @@ export class MapContainer extends Component {
   };
 
   onInfoWindowOpen(props, e) {
+    // const {roomList} = this.props.chatroom
+    // this.setState({
+    //   room
+    // });
+
     const button = (
-      <div className="d-flex justify-content-center">
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          height: 100,
+          justifyContent: "space-around",
+        }}
+      >
         {!this.state.selectedPlace.id &&
         !this.state.selectedPlace.district &&
         user ? (
           <Button onClick={this.createLocation}>Create a new spot!</Button>
         ) : this.state.selectedPlace.location && user ? (
-          <Button onClick={this.createPost}>Add New Post, Picture</Button>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              height: 100,
+              justifyContent: "space-around",
+            }}
+          >
+            <Button onClick={this.createPost}>Add New Post, Picture</Button>
+            {/* <Button onClick={this.markTripLocation}>
+              Create a new trip for chatroom!
+            </Button> */}
+            <Button>
+              Create a new trip for chatroom:
+              <select
+                style={{ color: "black", marginLeft: 10 }}
+                onChange={this.toggle}
+              >
+                <option disabled selected value="">
+                  Select a Chatroom
+                </option>
+                {this.state.chatrooms.map((room) => {
+                  return (
+                    <option
+                      key={room.id}
+                      value={room.id}
+                      selected={this.state.selectedRoom === room.room_name}
+                    >
+                      {room.room_name}
+                    </option>
+                  );
+                })}
+              </select>
+            </Button>
+          </div>
         ) : null}
       </div>
     );
@@ -168,6 +237,13 @@ export class MapContainer extends Component {
     );
     console.log(this.state);
   }
+
+  toggle = (e) => {
+    let { name, id } = this.state.selectedPlace;
+    this.props.fetchChatroom(e.target.value, { name, id });
+    console.log(this.props);
+    this.props.history.push(`/chat`);
+  };
 
   render() {
     let locations;
@@ -317,6 +393,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchAllDistricts: () => dispatch(fetchAllDistricts()),
     fetchAllLocations: () => dispatch(fetchAllLocations()),
+    fetchChatroomList: (user_id) => dispatch(fetchChatroomList(user_id)),
+    fetchChatroom: (chatroom_id, selectedPlace) =>
+      dispatch(fetchChatroom(chatroom_id, selectedPlace)),
     changeZoomLevel: (zoomLevel) => dispatch(changeZoomLevel(zoomLevel)),
     saveLatLng: (lat_lng) => dispatch(saveLatLng(lat_lng)),
   };
