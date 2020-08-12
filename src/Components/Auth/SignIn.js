@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Toplogobox from '../UI/Layout/Toplogobox';
-import googleIC from '../../Icons/google_black.png';
-import instagramIC from '../../Icons/instagram_black.png';
 import { login, logout } from '../../redux/actions/user';
 import { ThemeContext } from '../../Contexts/Theme';
 import { Form, FormGroup, Label, Input, FormText } from 'reactstrap';
@@ -116,9 +114,10 @@ export class ConnetedSignIn extends Component {
             style={{ backgroundImage: `url(${theme.img})` }}
             className='login_icons'
           >
+          
             <img
               className='icons15 margin1 blur'
-              src={googleIC}
+              src="https://i.imgur.com/rve0yXl.png"
               alt='googleIC'
             />
           </div>
@@ -128,7 +127,7 @@ export class ConnetedSignIn extends Component {
           >
             <img
               className='icons15 margin1 blur'
-              src={instagramIC}
+              src="https://i.imgur.com/k4aOHAQ.png"
               alt='instagramIC'
             />
           </div>

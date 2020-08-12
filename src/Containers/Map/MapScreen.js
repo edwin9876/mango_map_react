@@ -1,7 +1,6 @@
 import React from 'react'
 import Map from './Map'
 import SearchBar from '../../Components/UI/Layout/SearchBar'
-import { connect } from 'react-redux';
 import { useHistory } from "react-router";
 
 const MapScreen = () => {
