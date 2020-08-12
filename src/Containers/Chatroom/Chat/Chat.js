@@ -9,6 +9,8 @@ import {
   sendMessage,
   receiveMessage,
   initializeState,
+  setGroupMapTrue,
+  setGroupMapFalse,
 } from '../../../redux/actions/chatroom';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
@@ -40,7 +42,7 @@ const Chat = (props) => {
   console.log(userInfo);
   props.initializeState(userInfo.user_name, userInfo.id);
 
-  useEffect(async () => {
+  useEffect(() => {
     console.log(socket, 'UseEffect');
 
     props.fetchChatroomList(userInfo.id);
@@ -63,27 +65,30 @@ const Chat = (props) => {
       );
     });
 
-    let chatroomList = await axios
-      .get(`${process.env.REACT_APP_DEV_URL}chatroom/all/${userInfo.id}`)
-      .then((response) => {
-        console.log(response);
-        return response.data.map((chatroom) => {
-          return chatroom.chatroom_id;
+    const asynFetchChatroom = async () => {
+      let chatroomList = await axios
+        .get(`${process.env.REACT_APP_DEV_URL}chatroom/all/${userInfo.id}`)
+        .then((response) => {
+          console.log(response);
+          return response.data.map((chatroom) => {
+            return chatroom.chatroom_id;
+          });
         });
+      socket.emit('new-user', {
+        name: props.username,
+        roomList: chatroomList,
       });
+    };
 
-    socket.emit('new-user', {
-      name: props.username,
-      roomList: chatroomList,
-    });
+    asynFetchChatroom();
 
     socket.on('user-connected', (name) => {
       console.log('Welcome to Mango Map, ' + name);
     });
 
     return () => {
-      this.socket.emit('disconnect');
-      this.socket.off();
+      socket.emit('disconnect');
+      socket.off();
     };
   }, []);
 
@@ -226,6 +231,9 @@ const Chat = (props) => {
               // borderColor: theme.low,
             }
           }
+          onClick={() => {
+            props.setGroupMapFalse();
+          }}
         >
           <p className='bold blur'>Messages</p>
         </Button>
@@ -237,7 +245,10 @@ const Chat = (props) => {
               // borderColor: theme.low,
             }
           }
-          onClick={() => {}}
+          onClick={() => {
+            props.setGroupMapTrue();
+            console.log(props.groupMap);
+          }}
         >
           <p className='bold blur'>Group Map</p>
         </Button>
@@ -307,7 +318,49 @@ const Chat = (props) => {
   );
 
   return props.currentRoomId ? (
-    displayedContent
+    props.groupMap ? (
+      <>
+        <ChatToolbar
+          roomname={props.roomname}
+          backToChatList={props.backToChatList}
+          currentRoomId={props.currentRoomId}
+        />{' '}
+        <ButtonGroup className='d-flex justify-content-center'>
+          <Button
+            style={
+              {
+                // background: theme.low,
+                // color: theme.high,
+                // borderColor: theme.low,
+              }
+            }
+            onClick={() => {
+              props.setGroupMapFalse();
+            }}
+          >
+            <p className='bold blur'>Messages</p>
+          </Button>
+          <Button
+            style={
+              {
+                // background: theme.low,
+                // color: theme.high,
+                // borderColor: theme.low,
+              }
+            }
+            onClick={() => {
+              props.setGroupMapTrue();
+              console.log(props.groupMap);
+            }}
+          >
+            <p className='bold blur'>Group Map</p>
+          </Button>
+        </ButtonGroup>{' '}
+        <p>This is a map</p>
+      </>
+    ) : (
+      displayedContent
+    )
   ) : (
     <>
       <div id='addChat'>
@@ -329,6 +382,7 @@ const mapStateToProps = (state) => {
     chatroomUserId: state.chatroom.chatroomUserId,
     roomList: state.chatroom.roomList,
     roomname: state.chatroom.roomname,
+    groupMap: state.chatroom.groupMap,
     currentRoomId: state.chatroom.currentRoomId,
     messages: state.chatroom.messages,
     conversation: state.chatroom.conversation,
@@ -342,6 +396,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchChatroomList: (userId) => dispatch(fetchChatroomList(userId)),
     fetchChatroom: (id) => dispatch(fetchChatroom(id)),
     setMessage: (event) => dispatch(setMessage(event)),
+    setGroupMapTrue: () => dispatch(setGroupMapTrue()),
+    setGroupMapFalse: () => dispatch(setGroupMapFalse()),
     setRoomname: (roomname) => dispatch(setRoomname(roomname)),
     sendMessage: (message, roomId, userId, username) =>
       dispatch(sendMessage(message, roomId, userId, username)),

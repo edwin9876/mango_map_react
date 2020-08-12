@@ -17,17 +17,20 @@ import {
   SEND_IMAGE,
   RECEIVE_MESSAGE,
   INITIALIZE_STATE,
-} from "../constants/actionTypes";
+  SET_GROUP_MAP_TRUE,
+  SET_GROUP_MAP_FALSE,
+} from '../constants/actionTypes';
 
 const initialChatroomState = {
-  userId: 1,
+  userId: null,
   // Should be set according to the currentRoomId
-  username: "Edwin123",
+  username: '',
   currentRoomId: null,
   roomList: [],
-  messages: [""],
+  messages: [''],
   conversation: [],
-  roomname: "",
+  roomname: '',
+  groupMap: false,
 };
 
 const chatroomReducer = (state = initialChatroomState, action) => {
@@ -42,6 +45,18 @@ const chatroomReducer = (state = initialChatroomState, action) => {
       return {
         ...state,
         roomList: action.payload,
+      };
+
+    case SET_GROUP_MAP_TRUE:
+      return {
+        ...state,
+        groupMap: true,
+      };
+
+    case SET_GROUP_MAP_FALSE:
+      return {
+        ...state,
+        groupMap: false,
       };
 
     case FETCH_CHATROOM:
@@ -68,7 +83,7 @@ const chatroomReducer = (state = initialChatroomState, action) => {
     case SEND_MESSAGE:
       return {
         ...state,
-        messages: [""],
+        messages: [''],
         conversation: [...state.conversation, { ...action.payload }],
       };
 
@@ -111,9 +126,10 @@ const chatroomReducer = (state = initialChatroomState, action) => {
     case BACK_TO_CHAT_LIST:
       return {
         ...state,
+        groupMap: false,
         currentRoomId: null,
         conversation: [],
-        messages: [""],
+        messages: [''],
       };
 
     default:
