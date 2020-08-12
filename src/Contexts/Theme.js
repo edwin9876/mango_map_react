@@ -7,8 +7,8 @@ export const ThemeContext = createContext();
 class ThemeContextProvider extends Component {
     state = {
         isLightTheme: true,
-        light: { high: '#555', mid: '#ddd', low: 'white', highlight: '#ccd637', trans: 'transparent', listcolor: 'light',  highlight2: '#FFA041' },
-        dark: { high: '#ddd', mid: '#333', low: '#555', highlight: '#ccd637', trans: 'transparent', listcolor: 'dark',  highlight2: '#FFA041' }
+        light: { high: '#555', mid: '#ddd', low: 'white', highlight: '#ccd637', trans: 'transparent', listcolor: 'light',  highlight2: '#FFA041' ,highlight3: '#ebf28d'},
+        dark: { high: '#ddd', mid: '#333', low: '#555', highlight: '#ccd637', trans: 'transparent', listcolor: 'dark',  highlight2: '#FFA041',highlight3: '#ebf28d' }
     }
 
     toggleTheme = (e) => {

@@ -25,7 +25,7 @@ const GroupSummary = (props) => {
             <ListGroup>
               <ListGroupItem
                 onClick={handleClick}
-                style={{ backgroundColor: theme.mid, borderColor: theme.high }}
+                style={{ backgroundColor: theme.mid, borderColor: theme.highlight }}
                 className='justify-content-between d-flex'
               >
                 <img
