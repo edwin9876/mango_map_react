@@ -12,7 +12,6 @@ import {
 } from '../../../redux/actions/chatroom';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
-import { css } from 'glamor';
 import ChatToolbar from '../../../Components/UI/Layout/ChatToolbar';
 import { backToChatList } from '../../../redux/actions/chatroom';
 import Input from '../../../Components/Chat/Input/Input';
@@ -88,10 +87,10 @@ const Chat = (props) => {
     };
   }, []);
 
-  const ROOT_CSS = css({
+  const ROOT_CSS = {
     height: '100%',
     width: '100%',
-  });
+  };
 
   const sendMessageToChatroom = (message, roomId, userId, username) => {
     console.log(message);

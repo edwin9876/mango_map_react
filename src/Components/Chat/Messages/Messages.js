@@ -11,7 +11,7 @@ const Messages = ({ conversation, username }) => {
     return username === message.user_name ? (
       <div className='container darker '>
         <img
-          src='https://i.imgur.com/1jH2zcV.png'
+          src='https://i.imgur.com/9TowUuJ.png'
           alt='Avatar'
           className='right roundimg'
         />
