@@ -29,7 +29,6 @@ const ChatRoomSummary = ({ currentRoomId, roomname }) => {
       <Button
         color='bright'
         onClick={() => getChatroomInfo(currentRoomId)}
-        style={{ marginBottom: '1rem' }}
       >
         <p className="bold">{roomname}</p>
       </Button>
