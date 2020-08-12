@@ -17,6 +17,8 @@ import {
   SEND_IMAGE,
   RECEIVE_MESSAGE,
   INITIALIZE_STATE,
+  SET_GROUP_MAP_TRUE,
+  SET_GROUP_MAP_FALSE,
 } from '../constants/actionTypes';
 
 import axios from 'axios';
@@ -71,6 +73,23 @@ export const initializeState = (username, userId) => {
       type: INITIALIZE_STATE,
       username: username,
       userId: userId,
+    });
+  };
+};
+
+export const setGroupMapTrue = () => {
+  console.log('Setting...');
+  return (dispatch) => {
+    dispatch({
+      type: SET_GROUP_MAP_TRUE,
+    });
+  };
+};
+
+export const setGroupMapFalse = () => {
+  return (dispatch) => {
+    dispatch({
+      type: SET_GROUP_MAP_FALSE,
     });
   };
 };
