@@ -18,6 +18,7 @@ import TripDetails from './Components/UI/Dashboard/TripDetails'
 import SignIn from './Components/Auth/SignIn';
 import SignUp from './Components/Auth/SignUp';
 import ChatRoomSummary from './Components/Chat/ChatRoomSummary'
+import CreateTrip from './Containers/Chatroom/CreateTrip'
 
 import ThemeContextProvider from './Contexts/Theme';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -49,6 +50,7 @@ class ConnectedApp extends Component {
               <Route path='/createpost' component={CreatePost} />
               <Route exact path='/blog/:id' component={BlogDetails} />
               <Route exact path='/chat' component={Chat} />
+              <Route exact path='/createtrip' component={CreateTrip}/>
               <Route exact path='/trip/:id' component={TripDetails}/>
               <Route exact path='/spot/:id' component={SpotDetails}/>
               <Route exact path='/test' component={ChatRoomSummary}/>

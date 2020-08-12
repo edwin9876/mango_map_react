@@ -18,18 +18,11 @@ import ChatToolbar from '../../../Components/UI/Layout/ChatToolbar';
 import { backToChatList } from '../../../redux/actions/chatroom';
 import Input from '../../../Components/Chat/Input/Input';
 import Messages from '../../../Components/Chat/Messages/Messages';
+import GroupMap from '../../../Components/Chat/GroupMap';
 import AddChat from '../../../Components/UI/Layout/AddChat';
 import { Button, ButtonGroup, ListGroup, ListGroupItem } from 'reactstrap';
 import { ThemeContext } from '../../../Contexts/Theme';
 import ChatroomSummary from '../../../Components/Chat/ChatRoomSummary';
-
-// import React from 'react';
-
-// const  = (props) => {
-
-// };
-
-//  export default ;
 
 const Chat = (props) => {
   let socket = io(process.env.REACT_APP_DEV_URL);
@@ -41,6 +34,8 @@ const Chat = (props) => {
   userInfo = JSON.parse(localStorage.getItem('user'));
   console.log(userInfo);
   props.initializeState(userInfo.user_name, userInfo.id);
+
+  
 
   useEffect(() => {
     console.log(socket, 'UseEffect');
@@ -214,6 +209,11 @@ const Chat = (props) => {
 
   // const { isLightTheme, light, dark } = this.context;
   // const theme = isLightTheme ? light : dark;
+  return(
+    <ThemeContext.Consumer>
+    {(context) => {
+      const { isLightTheme, light, dark } = context;
+      const theme = isLightTheme ? light : dark;
 
   let displayedContent = props.currentRoomId ? (
     <div>
@@ -225,10 +225,9 @@ const Chat = (props) => {
       <ButtonGroup className='d-flex justify-content-center'>
         <Button
           style={
-            {
-              // background: theme.low,
-              // color: theme.high,
-              // borderColor: theme.low,
+            {background: theme.low,
+              color: theme.high,
+              borderColor: theme.low,
             }
           }
           onClick={() => {
@@ -240,9 +239,9 @@ const Chat = (props) => {
         <Button
           style={
             {
-              // background: theme.low,
-              // color: theme.high,
-              // borderColor: theme.low,
+              background: theme.low,
+              color: theme.high,
+              borderColor: theme.low,
             }
           }
           onClick={() => {
@@ -291,19 +290,19 @@ const Chat = (props) => {
         >
           <ListGroup className=''>
             <ListGroupItem
-              // color={theme.listcolor}
+              color={theme.listcolor}
               style={
                 {
-                  // background: theme.mid,
-                  // color: theme.high,
-                  // borderColor: theme.highlight,
+                  background: theme.mid,
+                  color: theme.high,
+                  borderColor: theme.highlight,
                 }
               }
               className='justify-content-between d-flex'
             >
               <img
                 className='material-icons roundimg'
-                src='https://i.imgur.com/1jH2zcV.png'
+                src='https://i.imgur.com/9TowUuJ.png'
                 alt='Avatar'
               />
               <h6 className='d-flex align-items-center'>{room.room_name}</h6>
@@ -329,9 +328,9 @@ const Chat = (props) => {
           <Button
             style={
               {
-                // background: theme.low,
-                // color: theme.high,
-                // borderColor: theme.low,
+                background: theme.low,
+                color: theme.high,
+                borderColor: theme.low,
               }
             }
             onClick={() => {
@@ -343,9 +342,9 @@ const Chat = (props) => {
           <Button
             style={
               {
-                // background: theme.low,
-                // color: theme.high,
-                // borderColor: theme.low,
+                background: theme.low,
+                color: theme.high,
+                borderColor: theme.low,
               }
             }
             onClick={() => {
@@ -356,7 +355,7 @@ const Chat = (props) => {
             <p className='bold blur'>Group Map</p>
           </Button>
         </ButtonGroup>{' '}
-        <p>This is a map</p>
+      <GroupMap/>
       </>
     ) : (
       displayedContent
@@ -373,6 +372,9 @@ const Chat = (props) => {
       <div className='padding5'>{displayedContent}</div>
     </>
   );
+  }}
+  </ThemeContext.Consumer>
+    )
 };
 
 const mapStateToProps = (state) => {
