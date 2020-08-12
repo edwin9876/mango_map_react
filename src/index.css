@@ -7,18 +7,17 @@ body {
 }
 
 /* Colours */
-/* #8b8859 ,  #E1D100*/
-.white100{color:rgb(255, 255, 255)!important}
+.white100{color:#FFFFFF!important}
 .gray70{color:#858684;}
 .gray50{color:#ccd637;}
 .green{background-color: #ccd637 !important;}
-.bgdark{background-color:rgba(100, 98, 98, 0.658)!important}
+.bgdark{background-color:#646161!important}
 .highlight{color: #FFA041;}
-/* #d5d827 */
 .transparent{color: transparent;}
 .transparent-bg{background-color: transparent;}
 .active{filter: opacity(0.5);}
 .blur{filter: opacity(0.5);}
+.sparklebg{  box-shadow: 0px 0px 8px #fffccd73}
 
 /* Positions */
 
@@ -86,10 +85,11 @@ body {
 /* border */
 .rBorder{border-radius: 50px!important;}
 .smrBorder{border-radius: 10px;}
-.normalBorder{border: 1px rgba(128, 128, 128, 0.39) solid;}
+.normalBorder{border: 1px #818181 solid;}
 .sqBorder{border-radius: 0px!important;}
-.thinBorder{border: 1px, rgb(255, 255, 255), solid}
+.thinBorder{border: 1px, #ffffff, solid}
 .noBorder{ border: transparent !important;}
+.sparkle{  text-shadow: 0px 0px 1px #e4e4e4}
 
 button:focus {
     cursor: pointer;
@@ -173,6 +173,7 @@ padding-bottom: 10vh;
 #filter-btn{
     width: 28vw;
     height: 6vh;
+    /* box-shadow: 0px 0px 4px rgb(247, 247, 247); */
 }
 
 /* chat */
@@ -208,7 +209,6 @@ padding-bottom: 10vh;
 
 #profile_pic{
     border-radius: 50%;
-    border: 3px rgba(105, 105, 105, 0.205) solid;
     width:5rem;
     height:5rem;
 }
@@ -231,7 +231,7 @@ padding-bottom: 10vh;
 }
 .toolbar_icons {
     /* filter: drop-shadow(16px 16px 20px #ffffff) invert(45%); */
-    color: grey;
+    color:  #808080
 }
 
 

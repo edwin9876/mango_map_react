@@ -3,9 +3,7 @@ import { ThemeContext } from '../../../Contexts/Theme'
 import {
     Card, CardImg, CardBody,
     CardTitle, CardSubtitle, Button,
-    CardText
 } from 'reactstrap';
-
 
 const WeeklyPost = (props) => {
 
@@ -16,8 +14,8 @@ const WeeklyPost = (props) => {
             const theme = isLightTheme ? light : dark;
 
             return (
-                <div>
-                    <Card style={{ background: theme.low, borderColor: theme.high }}>
+                <div className="sparklebg">
+                    <Card style={{ background: theme.low, borderColor: theme.transparent}}>
                         <CardBody>
                             <CardImg top src={props.post.images[0].url} alt="Card image cap" className="postImg"/>
                             <CardTitle  className="d-flex justify-content-center">{props.post.title}</CardTitle>
