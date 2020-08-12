@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import axios from 'axios';
 import {
@@ -22,8 +22,6 @@ import { Button, ButtonGroup, ListGroup, ListGroupItem } from 'reactstrap';
 import { ThemeContext } from '../../../Contexts/Theme';
 import ChatroomSummary from '../../../Components/Chat/ChatRoomSummary';
 
-require('dotenv').config();
-
 // import React from 'react';
 
 // const  = (props) => {
@@ -32,47 +30,109 @@ require('dotenv').config();
 
 //  export default ;
 
-// const chat = (props) => {
+const Chat = (props) => {
+  let socket = io(process.env.REACT_APP_DEV_URL);
+  let userInfo;
+  let test = 'Test';
 
-class Chat extends Component {
-  static contextType = ThemeContext;
+  const [inputMessage, setInputMessage] = useState('');
 
-  constructor(props) {
-    super(props);
-    this.socket = io(process.env.REACT_APP_DEV_URL);
-    this.userInfo = JSON.parse(localStorage.getItem('user'));
-    this.props.initializeState(this.userInfo.user_name, this.userInfo.id);
+  userInfo = JSON.parse(localStorage.getItem('user'));
+  console.log(userInfo);
+  props.initializeState(userInfo.user_name, userInfo.id);
 
-    this.props.fetchChatroomList(this.userInfo.id);
+  useEffect(async () => {
+    console.log(socket, 'UseEffect');
 
-    this.socket.on('chat-message', ({ message, roomId, userId, username }) => {
-      if (roomId === this.props.currentRoomId) {
-        this.props.sendMessage(message, roomId, userId, username);
+    props.fetchChatroomList(userInfo.id);
+
+    socket.on('chat-message', ({ message, roomId, userId, username }) => {
+      console.log(message, roomId, props.currentRoomId);
+      if (roomId === props.currentRoomId) {
+        props.sendMessage(message, roomId, userId, username);
       }
     });
 
-    this.socket.on('join-chatroom', (data) => {
+    socket.on('join-chatroom', (data) => {
       console.log(data);
     });
 
-    this.socket.on('join-chatroom-user', (data) => {
-      this.props.receiveMessage(
+    socket.on('join-chatroom-user', (data) => {
+      props.receiveMessage(
         data.username,
         `${data.username} has joined the chatroom!`
       );
     });
-  }
 
-  ROOT_CSS = css({
+    let chatroomList = await axios
+      .get(`${process.env.REACT_APP_DEV_URL}chatroom/all/${userInfo.id}`)
+      .then((response) => {
+        console.log(response);
+        return response.data.map((chatroom) => {
+          return chatroom.chatroom_id;
+        });
+      });
+
+    socket.emit('new-user', {
+      name: props.username,
+      roomList: chatroomList,
+    });
+
+    socket.on('user-connected', (name) => {
+      console.log('Welcome to Mango Map, ' + name);
+    });
+
+    return () => {
+      this.socket.emit('disconnect');
+      this.socket.off();
+    };
+  }, []);
+
+  const ROOT_CSS = css({
     height: '100%',
     width: '100%',
   });
 
-  sendMessageToChatroom = (message, roomId, userId, username) => {
-    console.log('[Chats.js]', username);
-    this.socket.emit('chat-message', { message, roomId, userId, username });
-    this.props.sendMessage(message, roomId, userId, username);
+  const sendMessageToChatroom = (message, roomId, userId, username) => {
+    console.log(message);
+    socket.emit('chat-message', {
+      message,
+      roomId,
+      userId,
+      username,
+    });
+    props.sendMessage(message, roomId, userId, username);
+    setInputMessage('');
   };
+
+  // class Chat extends Component {
+  // static contextType = ThemeContext;
+
+  // constructor(props) {
+  // super(props);
+  // this.socket = io(process.env.REACT_APP_DEV_URL);
+  // this.userInfo = JSON.parse(localStorage.getItem('user'));
+  // this.props.initializeState(this.userInfo.user_name, this.userInfo.id);
+
+  // this.props.fetchChatroomList(this.userInfo.id);
+
+  // this.socket.on('chat-message', ({ message, roomId, userId, username }) => {
+  //   if (roomId === this.props.currentRoomId) {
+  //     this.props.sendMessage(message, roomId, userId, username);
+  //   }
+  // });
+
+  // this.socket.on('join-chatroom', (data) => {
+  //   console.log(data);
+  // });
+
+  //   this.socket.on('join-chatroom-user', (data) => {
+  //     this.props.receiveMessage(
+  //       data.username,
+  //       `${data.username} has joined the chatroom!`
+  //     );
+  //   });
+  // }
 
   // Alternative
   // async componentDidMount() {
@@ -83,183 +143,185 @@ class Chat extends Component {
   //     name: this.props.username,
   //     roomList: newRoomList,
 
-  async componentDidMount() {
-    let userInfo = JSON.parse(localStorage.getItem('user'));
-    this.props.initializeState(userInfo.user_name, userInfo.id);
+  // async componentDidMount() {
+  //   let userInfo = JSON.parse(localStorage.getItem('user'));
+  //   this.props.initializeState(userInfo.user_name, userInfo.id);
 
-    this.props.fetchChatroomList(userInfo.id);
-    let chatroomList = await axios
-      .get(`${process.env.REACT_APP_DEV_URL}chatroom/all/${userInfo.id}`)
-      .then((response) => {
-        console.log(response);
-        return response.data.map((chatroom) => {
-          return chatroom.chatroom_id;
-        });
-      });
+  //   this.props.fetchChatroomList(userInfo.id);
+  //   let chatroomList = await axios
+  //     .get(`${process.env.REACT_APP_DEV_URL}chatroom/all/${userInfo.id}`)
+  //     .then((response) => {
+  //       console.log(response);
+  //       return response.data.map((chatroom) => {
+  //         return chatroom.chatroom_id;
+  //       });
+  //     });
 
-    // this.socket.on('chat-message', ({ message, roomId, userId, username }) => {
-    //   console.log(message, roomId, userId, username);
-    //   if (roomId === this.props.currentRoomId) {
-    //     this.props.sendMessage(message, roomId, userId, username);
-    //   }
-    // });
+  // this.socket.on('chat-message', ({ message, roomId, userId, username }) => {
+  //   console.log(message, roomId, userId, username);
+  //   if (roomId === this.props.currentRoomId) {
+  //     this.props.sendMessage(message, roomId, userId, username);
+  //   }
+  // });
 
-    this.socket.on('join-chatroom', (data) => {
-      console.log(data);
-    });
+  // this.socket.on('join-chatroom', (data) => {
+  //   console.log(data);
+  // });
 
-    // this.socket.on("chat-image", )
+  // this.socket.on("chat-image", )
 
-    this.socket.emit('new-user', {
-      name: this.props.username,
-      roomList: chatroomList,
-    });
+  // this.socket.emit('new-user', {
+  //   name: this.props.username,
+  //   roomList: chatroomList,
+  // });
 
-    this.socket.on('user-connected', (name) => {
-      console.log('Welcome to Mango Map, ' + name);
-    });
-  }
+  // this.socket.on('user-connected', (name) => {
+  //   console.log('Welcome to Mango Map, ' + name);
+  // });
 
-  componentDidUpdate() {}
+  // componentDidUpdate() {}
 
-  componentWillUnmount() {
-    this.socket.emit('disconnect');
-    this.socket.off();
-  }
+  // componentWillUnmount() {
+  //   return () => {
+
+  //   this.socket.emit('disconnect');
+  //   this.socket.off()
+  //   }
+  // }
 
   // Sending the message to server
   // Will trigger the chat-message event in componentDidMount
-  sendMessageHandler = (event) => {
-    event.preventDefault();
-    console.log(this.state.messages);
-    this.socket.emit(
-      'send-chat-message',
-      { message: this.state.messages },
-      () => {
-        console.log('sendMessageHandler callback is invoked');
-        // Adding the new message just sent to the state
-        this.setConversationHandler({
-          userId: this.state.userId,
-          user: this.state.username,
-          message: this.state.messages,
-        });
+  // const sendMessageHandler = (event) => {
+  //   event.preventDefault();
+  //   console.log(state.messages);
+  //   socket.emit('send-chat-message', { message: inputMessage }, () => {
+  //     console.log('sendMessageHandler callback is invoked');
+  //     // Adding the new message just sent to the state
+  //     this.setConversationHandler({
+  //       userId: this.state.userId,
+  //       user: this.state.username,
+  //       message: this.state.messages,
+  //     });
 
-        // Clearing the input field
-        this.setState({ ...this.state, messages: [''] });
-      }
-    );
-  };
+  //     // Clearing the input field
+  //     setInputMessage('');
+  //   });
+  // };
 
-  render() {
-    const { isLightTheme, light, dark } = this.context;
-    const theme = isLightTheme ? light : dark;
+  // const { isLightTheme, light, dark } = this.context;
+  // const theme = isLightTheme ? light : dark;
 
-    let displayedContent = this.props.currentRoomId ? (
-      <div>
-        <ChatToolbar
-          roomname={this.props.roomname}
-          backToChatList={this.props.backToChatList}
-          currentRoomId={this.props.currentRoomId}
-        />{' '}
-        <ButtonGroup className='d-flex justify-content-center'>
-          <Button
-            style={{
-              background: theme.low,
-              color: theme.high,
-              borderColor: theme.low,
-            }}
-          >
-            <p className='bold blur'>Messages</p>
-          </Button>
-          <Button
-            style={{
-              background: theme.low,
-              color: theme.high,
-              borderColor: theme.low,
-            }}
-            onClick
-          >
-            <p className='bold blur'>Group Map</p>
-          </Button>
-        </ButtonGroup>
-        <ScrollToBottom className={this.ROOT_CSS + ' textBox'}>
-          <div className='margin5'>
-            <Messages
-              conversation={this.props.conversation}
-              username={this.props.username}
-              user={this.props.user}
-            />
-          </div>
-        </ScrollToBottom>
-        <div>
-          <Input
-            sendMessage={() =>
-              this.sendMessageToChatroom(
-                this.props.messages,
-                this.props.currentRoomId,
-                this.props.userId,
-                this.props.username
-              )
+  let displayedContent = props.currentRoomId ? (
+    <div>
+      <ChatToolbar
+        roomname={props.roomname}
+        backToChatList={props.backToChatList}
+        currentRoomId={props.currentRoomId}
+      />{' '}
+      <ButtonGroup className='d-flex justify-content-center'>
+        <Button
+          style={
+            {
+              // background: theme.low,
+              // color: theme.high,
+              // borderColor: theme.low,
             }
-            messages={this.props.messages}
-            setMessage={this.props.setMessage}
-          />{' '}
-        </div>
-      </div>
-    ) : (
-      // Display the list of chatrooms the user has
-      this.props.roomList.map((room) => {
-        return (
-          <div
-            className='chatroomListTesting paddingt1 margin1x'
-            key={room.chatroom_id}
-            onClick={() => {
-              this.props.fetchChatroom(room.chatroom_id);
-              this.props.setRoomname(room.room_name);
-            }}
-          >
-            <ListGroup className=''>
-              <ListGroupItem
-                color={theme.listcolor}
-                style={{
-                  background: theme.mid,
-                  color: theme.high,
-                  borderColor: theme.highlight,
-                }}
-                className='justify-content-between d-flex'
-              >
-                <img
-                  className='material-icons roundimg'
-                  src='https://i.imgur.com/1jH2zcV.png'
-                  alt='Avatar'
-                />
-                <h6 className='d-flex align-items-center'>{room.room_name}</h6>
-                <h6 className='d-flex align-items-center blur light'>
-                  {room.created_at.slice(0, 10)}
-                </h6>
-              </ListGroupItem>
-            </ListGroup>
-          </div>
-        );
-      })
-    );
-
-    return this.props.currentRoomId ? (
-      displayedContent
-    ) : (
-      <>
-        <div id='addChat'>
-          <AddChat
-            userId={this.props.userId}
-            fetchChatroomList={this.props.fetchChatroomList}
+          }
+        >
+          <p className='bold blur'>Messages</p>
+        </Button>
+        <Button
+          style={
+            {
+              // background: theme.low,
+              // color: theme.high,
+              // borderColor: theme.low,
+            }
+          }
+          onClick={() => {}}
+        >
+          <p className='bold blur'>Group Map</p>
+        </Button>
+      </ButtonGroup>
+      <ScrollToBottom className={ROOT_CSS + ' textBox'}>
+        <div className='margin5'>
+          <Messages
+            conversation={props.conversation}
+            username={props.username}
+            user={props.user}
           />
         </div>
+      </ScrollToBottom>
+      <div>
+        <Input
+          sendMessage={() =>
+            sendMessageToChatroom(
+              inputMessage,
+              props.currentRoomId,
+              props.userId,
+              props.username
+            )
+          }
+          messages={inputMessage}
+          setMessage={setInputMessage}
+        />{' '}
+      </div>
+    </div>
+  ) : (
+    // Display the list of chatrooms the user has
+    props.roomList.map((room) => {
+      return (
+        <div
+          className='chatroomListTesting paddingt1 margin1x'
+          key={room.chatroom_id}
+          onClick={() => {
+            props.fetchChatroom(room.chatroom_id);
+            props.setRoomname(room.room_name);
+          }}
+        >
+          <ListGroup className=''>
+            <ListGroupItem
+              // color={theme.listcolor}
+              style={
+                {
+                  // background: theme.mid,
+                  // color: theme.high,
+                  // borderColor: theme.highlight,
+                }
+              }
+              className='justify-content-between d-flex'
+            >
+              <img
+                className='material-icons roundimg'
+                src='https://i.imgur.com/1jH2zcV.png'
+                alt='Avatar'
+              />
+              <h6 className='d-flex align-items-center'>{room.room_name}</h6>
+              <h6 className='d-flex align-items-center blur light'>
+                {room.created_at.slice(0, 10)}
+              </h6>
+            </ListGroupItem>
+          </ListGroup>
+        </div>
+      );
+    })
+  );
 
-        <div className='padding5'>{displayedContent}</div>
-      </>
-    );
-  }
-}
+  return props.currentRoomId ? (
+    displayedContent
+  ) : (
+    <>
+      <div id='addChat'>
+        <AddChat
+          userId={props.userId}
+          fetchChatroomList={props.fetchChatroomList}
+        />
+      </div>
+
+      <div className='padding5'>{displayedContent}</div>
+    </>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
