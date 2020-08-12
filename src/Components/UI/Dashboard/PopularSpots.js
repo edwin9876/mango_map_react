@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { ThemeContext } from '../../../Contexts/Theme'
 import { Button, ButtonGroup} from 'reactstrap'
 
+
+
 class PopularSpots extends Component {
     static contextType = ThemeContext;
 
@@ -22,7 +24,8 @@ class PopularSpots extends Component {
 
         return (
             <ButtonGroup>
-                <Button style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} onClick={this.handleClick} outline size="sm" color="secondary" className="margin1xy overflow-auto" id="filter-btn">{this.props.location.en}</Button>
+                <Button  
+                style={{ background: theme.low, borderColor: theme.highlight, color: theme.high }} onClick={this.handleClick} outline size="sm" color="secondary" className="margin1xy overflow-auto" id="filter-btn">{this.props.location.en}</Button>
             </ButtonGroup>
         )
 

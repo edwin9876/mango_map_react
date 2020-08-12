@@ -16,8 +16,6 @@ import {
 } from "../../redux/actions/map";
 import { useReducedMotion } from "framer-motion";
 
-// require('dotenv').config();
-
 const mapStyles = {
   width: "100%",
   height: "100%",
@@ -101,6 +99,7 @@ export class MapContainer extends Component {
             `${process.env.REACT_APP_DEV_URL}image/public/${this.state.selectedPlace.id}`
           )
           .then((data) => {
+            console.log(data);
             this.setState({
               ...this.state,
               selectedPlaceImages: data.data,
@@ -127,10 +126,6 @@ export class MapContainer extends Component {
   };
 
   createMarker = (lat, lng) => {
-    // this.mapRefs.current.props.google.maps.Map.prototype.panTo({
-    //   lat: 22.5838475,
-    //   lng: 114.0552244,
-    // });
     this.setState(
       {
         ...this.state,
@@ -177,7 +172,6 @@ export class MapContainer extends Component {
   render() {
     let locations;
     let selfDefinedMarkers;
-    console.log(this.props.zoom);
 
     this.props.zoom <= 13
       ? (locations = this.props.districts.map((district) => {
@@ -186,7 +180,7 @@ export class MapContainer extends Component {
               icon={{
                 url: "./assets/icons/adventure.png",
                 anchor: new window.google.maps.Point(25, 25),
-                scaledSize: new window.google.maps.Size(50, 50),
+                scaledSize: new window.google.maps.Size(45, 45),
               }}
               key={district.id}
               id={district.id}

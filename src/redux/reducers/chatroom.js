@@ -22,7 +22,6 @@ import {
 const initialChatroomState = {
   userId: 1,
   // Should be set according to the currentRoomId
-  // username: 'Jacky123',
   username: 'Edwin123',
   currentRoomId: null,
   roomList: [],
@@ -32,8 +31,6 @@ const initialChatroomState = {
 };
 
 const chatroomReducer = (state = initialChatroomState, action) => {
-  console.log(action.username);
-  console.log(action.userId);
   switch (action.type) {
     case INITIALIZE_STATE:
       return {

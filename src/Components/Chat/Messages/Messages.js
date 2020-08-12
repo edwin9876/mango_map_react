@@ -4,15 +4,14 @@ import '../../../Containers/Chatroom/Chat/Chat.css';
 import './Messages.css';
 
 const Messages = ({ conversation, username }) => {
-
   let testing = conversation.map((message) => {
     let h = new Date(message.created_at).getHours();
     let m = new Date(message.created_at).getMinutes();
 
     return username === message.user_name ? (
-      <div class='container darker '>
+      <div className='container darker '>
         <img
-        src='https://i.imgur.com/1jH2zcV.png'
+          src='https://i.imgur.com/9TowUuJ.png'
           alt='Avatar'
           className='right roundimg'
         />
@@ -27,14 +26,14 @@ const Messages = ({ conversation, username }) => {
           <p>{message.body}</p>
         )}
 
-        <span class='time-left white100'>
+        <span className='time-left white100'>
           {h}:{m}
         </span>
       </div>
     ) : (
       <div className='container'>
         <img
-        src='https://i.imgur.com/XzYFfkF.png'
+          src='https://i.imgur.com/XzYFfkF.png'
           alt='Avatar'
           className='roundimg'
         />
@@ -45,10 +44,8 @@ const Messages = ({ conversation, username }) => {
             alt='chatroom upload'
             className='uploadedImage'
           />
-        ) 
-        
-        : (
-          <p >{message.body}</p>
+        ) : (
+          <p>{message.body}</p>
         )}{' '}
         <div className='time-right'>
           {h}:{m}
