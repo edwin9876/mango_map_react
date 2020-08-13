@@ -2,23 +2,23 @@ import React, { Component } from 'react';
 import {withRouter, BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import {connect} from 'react-redux'
 
-import Navbar from './Components/UI/Layout/Navbar';
+import Navbar from './components/UI/Layout/Navbar';
 import Home from './Containers/Map/MapScreen';
 import Blog from './Containers/Blog/BlogScreen';
-import Chat from './Containers/Chatroom/ChatScreen';
+import Chat from './components/Chatroom/ChatScreen';
 import Profile from './Containers/Profile/ProfileScreen';
 import EditProfile from './Containers/Profile/EditProfile'
 
-import SpotDetails from './Components/Map/SpotDetails';
-import MapDetails from './Components/Map/MapDetails';
+import SpotDetails from './components/Map/SpotDetails';
+import MapDetails from './components/Map/MapDetails';
 import CreatePost from './Containers/Blog/CreatePost';
 import BlogDetails from './Containers/Blog/BlogDetails';
 import NewLocation from './Containers/Blog/NewLocation';
-import TripDetails from './Components/UI/Dashboard/TripDetails'
-import SignIn from './Components/Auth/SignIn';
-import SignUp from './Components/Auth/SignUp';
-import ChatRoomSummary from './Components/Chat/ChatRoomSummary'
-import CreateTrip from './Containers/Chatroom/CreateTrip'
+import TripDetails from './components/UI/Dashboard/TripDetails'
+import SignIn from './components/Auth/SignIn';
+import SignUp from './components/Auth/SignUp';
+import ChatroomSummary from './components/Chatroom/Chat/ChatroomSummary'
+import CreateTrip from './components/Chatroom/CreateTrip'
 
 import ThemeContextProvider from './Contexts/Theme';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -53,7 +53,7 @@ class ConnectedApp extends Component {
               <Route exact path='/createtrip' component={CreateTrip}/>
               <Route exact path='/trip/:id' component={TripDetails}/>
               <Route exact path='/spot/:id' component={SpotDetails}/>
-              <Route exact path='/test' component={ChatRoomSummary}/>
+              <Route exact path='/test' component={ChatroomSummary}/>
 
 
               <Route

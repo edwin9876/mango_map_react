@@ -1,6 +1,6 @@
 import React from 'react'
 import Map from './Map'
-import SearchBar from '../../Components/UI/Layout/SearchBar'
+import SearchBar from '../../components/UI/Layout/SearchBar'
 import { useHistory } from "react-router";
 
 const MapScreen = () => {

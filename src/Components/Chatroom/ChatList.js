@@ -1,5 +1,5 @@
 import React from 'react';
-import { ThemeContext } from '../../../Contexts/Theme';
+import { ThemeContext } from '../../Contexts/Theme';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 
 const ChatList = (props) => {

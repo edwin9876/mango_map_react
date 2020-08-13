@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../../../Containers/Chatroom/Chat/Chat.css';
+import '../Chat.css';
 import './Messages.css';
 
 const Messages = ({ conversation, username }) => {

@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import Chat from './Chat/Chat';
-import Join from './Join/Join';
-
 import { ThemeContext } from '../../Contexts/Theme';
 
 class ChatScreen extends Component {
@@ -25,7 +22,7 @@ class ChatScreen extends Component {
             </div>
           </>
         ) : (
-          <Join />
+          null
         )}
       </div>
     );

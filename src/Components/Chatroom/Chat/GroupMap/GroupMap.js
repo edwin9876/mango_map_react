@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Map from '../../Containers/Map/IndiMap'
-import GroupTripSummary from './GroupTripSummary'
-import { ThemeContext } from '../../Contexts/Theme';
+import Map from '../../../../Containers/Map/IndiMap'
+import GroupTripSummary from './GroupTripSummary/GroupTripSummary'
+import { ThemeContext } from '../../../../Contexts/Theme';
 
 class GroupMap extends Component {
     static contextType = ThemeContext;

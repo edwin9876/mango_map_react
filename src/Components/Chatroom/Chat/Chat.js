@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import axios from 'axios';
-import {
-  fetchChatroomList,
-  fetchChatroom,
-  setMessage,
-  setRoomname,
-  sendMessage,
-  receiveMessage,
-  initializeState,
-  setGroupMapTrue,
-  setGroupMapFalse,
-} from '../../../redux/actions/chatroom';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
-import ChatToolbar from '../../../Components/UI/Layout/ChatToolbar';
-import { backToChatList } from '../../../redux/actions/chatroom';
-import Input from '../../../Components/Chat/Input/Input';
-import Messages from '../../../Components/Chat/Messages/Messages';
-import GroupMap from '../../../Components/Chat/GroupMap';
-import AddChat from '../../../Components/UI/Layout/AddChat';
 import { Button, ButtonGroup, ListGroup, ListGroupItem } from 'reactstrap';
+import ChatToolbar from '../../UI/Layout/ChatToolbar';
+import Input from './Input/Input';
+import Messages from './Messages/Messages';
+import GroupMap from './GroupMap/GroupMap';
+import AddChat from '../../UI/Layout/AddChat';
 import { ThemeContext } from '../../../Contexts/Theme';
-import ChatroomSummary from '../../../Components/Chat/ChatRoomSummary';
+import ChatroomSummary from './ChatroomSummary';
+import {backToChatList,
+                        fetchChatroomList,
+                        fetchChatroom,
+                        setMessage,
+                        setRoomname,
+                        sendMessage,
+                        receiveMessage,
+                        initializeState,
+                        setGroupMapTrue,
+                        setGroupMapFalse,
+                   } from '../../../redux/actions/chatroom';
 
 const Chat = (props) => {
   let socket = io(process.env.REACT_APP_DEV_URL);
@@ -104,111 +103,6 @@ const Chat = (props) => {
     setInputMessage('');
   };
 
-  // class Chat extends Component {
-  // static contextType = ThemeContext;
-
-  // constructor(props) {
-  // super(props);
-  // this.socket = io(process.env.REACT_APP_DEV_URL);
-  // this.userInfo = JSON.parse(localStorage.getItem('user'));
-  // this.props.initializeState(this.userInfo.user_name, this.userInfo.id);
-
-  // this.props.fetchChatroomList(this.userInfo.id);
-
-  // this.socket.on('chat-message', ({ message, roomId, userId, username }) => {
-  //   if (roomId === this.props.currentRoomId) {
-  //     this.props.sendMessage(message, roomId, userId, username);
-  //   }
-  // });
-
-  // this.socket.on('join-chatroom', (data) => {
-  //   console.log(data);
-  // });
-
-  //   this.socket.on('join-chatroom-user', (data) => {
-  //     this.props.receiveMessage(
-  //       data.username,
-  //       `${data.username} has joined the chatroom!`
-  //     );
-  //   });
-  // }
-
-  // Alternative
-  // async componentDidMount() {
-  //   let roomList = await this.props.fetchChatroomList(this.props.userId);
-  //   let newRoomList = roomList.map((room) => room.chatroom_id);
-
-  //   this.socket.emit('new-user', {
-  //     name: this.props.username,
-  //     roomList: newRoomList,
-
-  // async componentDidMount() {
-  //   let userInfo = JSON.parse(localStorage.getItem('user'));
-  //   this.props.initializeState(userInfo.user_name, userInfo.id);
-
-  //   this.props.fetchChatroomList(userInfo.id);
-  //   let chatroomList = await axios
-  //     .get(`${process.env.REACT_APP_DEV_URL}chatroom/all/${userInfo.id}`)
-  //     .then((response) => {
-  //       console.log(response);
-  //       return response.data.map((chatroom) => {
-  //         return chatroom.chatroom_id;
-  //       });
-  //     });
-
-  // this.socket.on('chat-message', ({ message, roomId, userId, username }) => {
-  //   console.log(message, roomId, userId, username);
-  //   if (roomId === this.props.currentRoomId) {
-  //     this.props.sendMessage(message, roomId, userId, username);
-  //   }
-  // });
-
-  // this.socket.on('join-chatroom', (data) => {
-  //   console.log(data);
-  // });
-
-  // this.socket.on("chat-image", )
-
-  // this.socket.emit('new-user', {
-  //   name: this.props.username,
-  //   roomList: chatroomList,
-  // });
-
-  // this.socket.on('user-connected', (name) => {
-  //   console.log('Welcome to Mango Map, ' + name);
-  // });
-
-  // componentDidUpdate() {}
-
-  // componentWillUnmount() {
-  //   return () => {
-
-  //   this.socket.emit('disconnect');
-  //   this.socket.off()
-  //   }
-  // }
-
-  // Sending the message to server
-  // Will trigger the chat-message event in componentDidMount
-  // const sendMessageHandler = (event) => {
-  //   event.preventDefault();
-  //   console.log(state.messages);
-  //   socket.emit('send-chat-message', { message: inputMessage }, () => {
-  //     console.log('sendMessageHandler callback is invoked');
-  //     // Adding the new message just sent to the state
-  //     this.setConversationHandler({
-  //       userId: this.state.userId,
-  //       user: this.state.username,
-  //       message: this.state.messages,
-  //     });
-
-  //     // Clearing the input field
-  //     setInputMessage('');
-  //   });
-  // };
-
-  // const { isLightTheme, light, dark } = this.context;
-  // const theme = isLightTheme ? light : dark;
   return(
     <ThemeContext.Consumer>
     {(context) => {

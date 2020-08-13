@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import { ThemeContext } from "../../Contexts/Theme";
-import ThemeToggle from "../../Components/UI/Layout/ThemeToggle";
+import ThemeToggle from "../../components/UI/Layout/ThemeToggle";
 import {
   Button,
   ButtonGroup,
@@ -9,7 +10,6 @@ import {
   DropdownToggle,
   DropdownItem,
 } from "reactstrap";
-import { withRouter } from "react-router-dom";
 
 class ProfileDetails extends Component {
   constructor(props) {

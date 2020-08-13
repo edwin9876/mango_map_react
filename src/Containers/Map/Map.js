@@ -57,7 +57,8 @@ export class MapContainer extends Component {
   componentDidMount() {
     this.props.fetchAllDistricts();
     this.props.fetchAllLocations();
-    if (user.id) {
+    if(user) {
+      if (user.id) {
       console.log(user.id);
       axios
         .get(`${process.env.REACT_APP_DEV_URL}chatroom/all/${user.id}`)
@@ -69,6 +70,7 @@ export class MapContainer extends Component {
           });
         });
     }
+  }
     console.log(this.state);
     if (navigator && navigator.geolocation) {
       // console.log(this.props.google.maps.Map().panT);

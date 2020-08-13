@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { sendImage } from '../../../../redux/actions/chatroom';
+import { sendImage } from '../../../../../redux/actions/chatroom';
 
 class UploadPhotos extends Component {
   state = {
