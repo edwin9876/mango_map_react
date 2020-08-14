@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ScrollToBottom from 'react-scroll-to-bottom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import {
   fetchChatroomList,
@@ -27,15 +28,20 @@ import ChatroomSummary from '../../../Components/Chat/ChatRoomSummary';
 const Chat = (props) => {
   let socket = io(process.env.REACT_APP_DEV_URL);
   let userInfo;
-  let test = 'Test';
+
+  const newObj = useHistory();
+
+  console.log(newObj);
+
+  const newProps = Object.assign({ ...props }, { history: newObj });
+
+  props = newProps;
 
   const [inputMessage, setInputMessage] = useState('');
 
   userInfo = JSON.parse(localStorage.getItem('user'));
   console.log(userInfo);
   props.initializeState(userInfo.user_name, userInfo.id);
-
-  
 
   useEffect(() => {
     console.log(socket, 'UseEffect');
@@ -209,172 +215,165 @@ const Chat = (props) => {
 
   // const { isLightTheme, light, dark } = this.context;
   // const theme = isLightTheme ? light : dark;
-  return(
+  return (
     <ThemeContext.Consumer>
-    {(context) => {
-      const { isLightTheme, light, dark } = context;
-      const theme = isLightTheme ? light : dark;
+      {(context) => {
+        const { isLightTheme, light, dark } = context;
+        const theme = isLightTheme ? light : dark;
 
-  let displayedContent = props.currentRoomId ? (
-    <div>
-      <ChatToolbar
-        roomname={props.roomname}
-        backToChatList={props.backToChatList}
-        currentRoomId={props.currentRoomId}
-      />{' '}
-      <ButtonGroup className='d-flex justify-content-center'>
-        <Button
-          style={
-            {background: theme.low,
-              color: theme.high,
-              borderColor: theme.low,
-            }
-          }
-          onClick={() => {
-            props.setGroupMapFalse();
-          }}
-        >
-          <p className='bold blur'>Messages</p>
-        </Button>
-        <Button
-          style={
-            {
-              background: theme.low,
-              color: theme.high,
-              borderColor: theme.low,
-            }
-          }
-          onClick={() => {
-            props.setGroupMapTrue();
-            console.log(props.groupMap);
-          }}
-        >
-          <p className='bold blur'>Group Map</p>
-        </Button>
-      </ButtonGroup>
-      <ScrollToBottom className={ROOT_CSS + ' textBox'}>
-        <div className='margin5'>
-          <Messages
-            conversation={props.conversation}
-            username={props.username}
-            user={props.user}
-          />
-        </div>
-      </ScrollToBottom>
-      <div>
-        <Input
-          sendMessage={() =>
-            sendMessageToChatroom(
-              inputMessage,
-              props.currentRoomId,
-              props.userId,
-              props.username
-            )
-          }
-          messages={inputMessage}
-          setMessage={setInputMessage}
-        />{' '}
-      </div>
-    </div>
-  ) : (
-    // Display the list of chatrooms the user has
-    props.roomList.map((room) => {
-      return (
-        <div
-          className='chatroomListTesting paddingt1 margin1x'
-          key={room.chatroom_id}
-          onClick={() => {
-            props.fetchChatroom(room.chatroom_id);
-            props.setRoomname(room.room_name);
-          }}
-        >
-          <ListGroup className=''>
-            <ListGroupItem
-              color={theme.listcolor}
-              style={
-                {
-                  background: theme.mid,
+        let displayedContent = props.currentRoomId ? (
+          <div>
+            <ChatToolbar
+              roomname={props.roomname}
+              backToChatList={props.backToChatList}
+              currentRoomId={props.currentRoomId}
+            />{' '}
+            <ButtonGroup className='d-flex justify-content-center'>
+              <Button
+                style={{
+                  background: theme.low,
                   color: theme.high,
-                  borderColor: theme.highlight,
+                  borderColor: theme.low,
+                }}
+                onClick={() => {
+                  props.setGroupMapFalse();
+                }}
+              >
+                <p className='bold blur'>Messages</p>
+              </Button>
+              <Button
+                style={{
+                  background: theme.low,
+                  color: theme.high,
+                  borderColor: theme.low,
+                }}
+                onClick={() => {
+                  props.setGroupMapTrue();
+                  console.log(props.groupMap);
+                }}
+              >
+                <p className='bold blur'>Group Map</p>
+              </Button>
+            </ButtonGroup>
+            <ScrollToBottom className={ROOT_CSS + ' textBox'}>
+              <div className='margin5'>
+                <Messages
+                  conversation={props.conversation}
+                  username={props.username}
+                  user={props.user}
+                />
+              </div>
+            </ScrollToBottom>
+            <div>
+              <Input
+                sendMessage={() =>
+                  sendMessageToChatroom(
+                    inputMessage,
+                    props.currentRoomId,
+                    props.userId,
+                    props.username
+                  )
                 }
-              }
-              className='justify-content-between d-flex'
-            >
-              <img
-                className='material-icons roundimg'
-                src='https://i.imgur.com/9TowUuJ.png'
-                alt='Avatar'
+                messages={inputMessage}
+                setMessage={setInputMessage}
+              />{' '}
+            </div>
+          </div>
+        ) : (
+          // Display the list of chatrooms the user has
+          props.roomList.map((room) => {
+            return (
+              <div
+                className='chatroomListTesting paddingt1 margin1x'
+                key={room.chatroom_id}
+                onClick={() => {
+                  props.fetchChatroom(room.chatroom_id);
+                  props.setRoomname(room.room_name);
+                }}
+              >
+                <ListGroup className=''>
+                  <ListGroupItem
+                    color={theme.listcolor}
+                    style={{
+                      background: theme.mid,
+                      color: theme.high,
+                      borderColor: theme.highlight,
+                    }}
+                    className='justify-content-between d-flex'
+                  >
+                    <img
+                      className='material-icons roundimg'
+                      src='https://i.imgur.com/9TowUuJ.png'
+                      alt='Avatar'
+                    />
+                    <h6 className='d-flex align-items-center'>
+                      {room.room_name}
+                    </h6>
+                    <h6 className='d-flex align-items-center blur light'>
+                      {room.created_at.slice(0, 10)}
+                    </h6>
+                  </ListGroupItem>
+                </ListGroup>
+              </div>
+            );
+          })
+        );
+
+        return props.currentRoomId ? (
+          props.groupMap ? (
+            <>
+              <ChatToolbar
+                roomname={props.roomname}
+                backToChatList={props.backToChatList}
+                currentRoomId={props.currentRoomId}
+              />{' '}
+              <ButtonGroup className='d-flex justify-content-center'>
+                <Button
+                  style={{
+                    background: theme.low,
+                    color: theme.high,
+                    borderColor: theme.low,
+                  }}
+                  onClick={() => {
+                    props.setGroupMapFalse();
+                  }}
+                >
+                  <p className='bold blur'>Messages</p>
+                </Button>
+                <Button
+                  style={{
+                    background: theme.low,
+                    color: theme.high,
+                    borderColor: theme.low,
+                  }}
+                  onClick={() => {
+                    props.setGroupMapTrue();
+                    console.log(props.groupMap);
+                  }}
+                >
+                  <p className='bold blur'>Group Map</p>
+                </Button>
+              </ButtonGroup>{' '}
+              <GroupMap />
+            </>
+          ) : (
+            displayedContent
+          )
+        ) : (
+          <>
+            <div id='addChat'>
+              <AddChat
+                userId={props.userId}
+                fetchChatroomList={props.fetchChatroomList}
               />
-              <h6 className='d-flex align-items-center'>{room.room_name}</h6>
-              <h6 className='d-flex align-items-center blur light'>
-                {room.created_at.slice(0, 10)}
-              </h6>
-            </ListGroupItem>
-          </ListGroup>
-        </div>
-      );
-    })
-  );
+            </div>
 
-  return props.currentRoomId ? (
-    props.groupMap ? (
-      <>
-        <ChatToolbar
-          roomname={props.roomname}
-          backToChatList={props.backToChatList}
-          currentRoomId={props.currentRoomId}
-        />{' '}
-        <ButtonGroup className='d-flex justify-content-center'>
-          <Button
-            style={
-              {
-                background: theme.low,
-                color: theme.high,
-                borderColor: theme.low,
-              }
-            }
-            onClick={() => {
-              props.setGroupMapFalse();
-            }}
-          >
-            <p className='bold blur'>Messages</p>
-          </Button>
-          <Button
-            style={
-              {
-                background: theme.low,
-                color: theme.high,
-                borderColor: theme.low,
-              }
-            }
-            onClick={() => {
-              props.setGroupMapTrue();
-              console.log(props.groupMap);
-            }}
-          >
-            <p className='bold blur'>Group Map</p>
-          </Button>
-        </ButtonGroup>{' '}
-      <GroupMap/>
-      </>
-    ) : (
-      displayedContent
-    )
-  ) : (
-    <>
-      <div id='addChat'>
-        <AddChat
-          userId={props.userId}
-          fetchChatroomList={props.fetchChatroomList}
-        />
-      </div>
-
-      <div className='padding5'>{displayedContent}</div>
-    </>
+            <div className='padding5'>{displayedContent}</div>
+          </>
+        );
+      }}
+    </ThemeContext.Consumer>
   );
-  }}
-  </ThemeContext.Consumer>
-    )
 };
 
 const mapStateToProps = (state) => {
