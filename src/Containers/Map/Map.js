@@ -57,7 +57,7 @@ export class MapContainer extends Component {
   componentDidMount() {
     this.props.fetchAllDistricts();
     this.props.fetchAllLocations();
-    if (user.id) {
+    if (user) {
       console.log(user.id);
       axios
         .get(`${process.env.REACT_APP_DEV_URL}chatroom/all/${user.id}`)
