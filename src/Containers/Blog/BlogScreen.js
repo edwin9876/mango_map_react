@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { ThemeContext } from "../../Contexts/Theme";
 
-import SearchBar from "../../Components/UI/Layout/SearchBar";
-import WeeklyPost from "../../Components/UI/Dashboard/WeeklyPost";
-import WeeklyPic from "../../Components/UI/Dashboard/WeeklyPic";
-import TopPics from "../../Components/UI/Dashboard/TopPics";
-import TopUsers from "../../Components/UI/Dashboard/TopUsers";
+import SearchBar from "../../components/UI/Layout/SearchBar";
+import WeeklyPost from "../../components/UI/Dashboard/WeeklyPost";
+import WeeklyPic from "../../components/UI/Dashboard/WeeklyPic";
+import TopPics from "../../components/UI/Dashboard/TopPics";
+import TopUsers from "../../components/UI/Dashboard/TopUsers";
 import BlogList from "./BlogList";
-import PopularSpots from "../../Components/UI/Dashboard/PopularSpots";
+import PopularSpots from "../../components/UI/Dashboard/PopularSpots";
 
-import { Button, ButtonGroup} from "reactstrap";
-import { motion } from 'framer-motion';
+import { Button, ButtonGroup } from "reactstrap";
+import { motion } from "framer-motion";
 
 // import { fetchPost} from '../../redux/actions/blog'
 import { fetchAllPost } from "../../redux/actions/blog";
@@ -130,9 +130,9 @@ class ConnectedBlogScreen extends Component {
     console.log(this.state);
     return (
       <motion.div
-        initial={{ x: -600}}
+        initial={{ x: -600 }}
         animate={{ x: 0 }}
-        transition={{ delay: 0.2, type: 'spring', stiffness: 80}}
+        transition={{ delay: 0.2, type: "spring", stiffness: 80 }}
         id="blog_container"
         style={{ background: theme.low, color: theme.high }}
       >

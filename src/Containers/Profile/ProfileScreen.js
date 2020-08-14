@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { ThemeContext } from '../../Contexts/Theme';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { ThemeContext } from "../../Contexts/Theme";
+import { connect } from "react-redux";
 
-import ProfileDetails from './ProfileDetails';
-import TripSummary from '../../Components/UI/Dashboard/TripSummary';
-import GroupSummary from '../../Components/UI/Dashboard/GroupSummary';
-import PostSummary from '../../Components/UI/Dashboard/PostSummary';
-import FavPostSummary from '../../Components/UI/Dashboard/FavPostSummary';
+import ProfileDetails from "./ProfileDetails";
+import TripSummary from "../../components/UI/Dashboard/TripSummary";
+import GroupSummary from "../../components/UI/Dashboard/GroupSummary";
+import PostSummary from "../../components/UI/Dashboard/PostSummary";
+import FavPostSummary from "../../components/UI/Dashboard/FavPostSummary";
 
-import { fetchUser } from '../../redux/actions/user';
+import { fetchUser } from "../../redux/actions/user";
 
 // will render signin component if user is not logged in. Still make the route to '/signin' for signin page though
 
@@ -100,7 +100,7 @@ class ConnectedProfileScreen extends Component {
 
     return (
       <div
-        id='profile_container'
+        id="profile_container"
         style={{ background: theme.low, color: theme.high }}
       >
         <ProfileDetails

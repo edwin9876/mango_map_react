@@ -69,6 +69,7 @@ export class MapContainer extends Component {
           });
         });
     }
+
     console.log(this.state);
     if (navigator && navigator.geolocation) {
       // console.log(this.props.google.maps.Map().panT);

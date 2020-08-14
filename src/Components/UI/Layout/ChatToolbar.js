@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import io from "socket.io-client";
+import axios from "axios";
 import {
   Button,
   Modal,
@@ -10,26 +10,26 @@ import {
   Input,
   Label,
   Form,
-} from 'reactstrap';
-import ChatRoomSummary from '../../Chat/ChatRoomSummary';
+} from "reactstrap";
+import ChatroomSummary from "../../Chatroom/Chat/ChatroomSummary";
 
-require('dotenv').config();
+require("dotenv").config();
 
 const ChatToolbar = ({ backToChatList, currentRoomId, roomname }, props) => {
   const { buttonLabel, className } = props;
   const [modal, setModal] = useState(false);
   const [unmountOnClose, setUnmountOnClose] = useState(true);
-  const [username, setUsername] = useState('');
-  const [options, setOptions] = useState('');
-  const [alreadyIn, setAlreadyIn] = useState({ color: 'red', display: 'none' });
+  const [username, setUsername] = useState("");
+  const [options, setOptions] = useState("");
+  const [alreadyIn, setAlreadyIn] = useState({ color: "red", display: "none" });
 
   const socket = io(process.env.REACT_APP_DEV_URL);
 
   const toggle = () => {
     // Clean up when user closes add user modal
-    setOptions('');
-    setUsername('');
-    setAlreadyIn({ ...alreadyIn, display: 'none' });
+    setOptions("");
+    setUsername("");
+    setAlreadyIn({ ...alreadyIn, display: "none" });
     setModal(!modal);
   };
   const changeUnmountOnClose = (e) => {
@@ -48,16 +48,16 @@ const ChatToolbar = ({ backToChatList, currentRoomId, roomname }, props) => {
           setOptions(
             <div
               key={response.data[0].id}
-              className='d-flex justify-content-between align-items-center normalBorder smrBorder padding1'
+              className="d-flex justify-content-between align-items-center normalBorder smrBorder padding1"
             >
               <img
-                className='icons20'
+                className="icons20"
                 src={response.data[0].profile_picture_url}
               />
               <p>
                 {response.data[0].user_name}
                 <br />
-                <span className='blur'>Desciptions</span>
+                <span className="blur">Desciptions</span>
               </p>
             </div>
           );
@@ -71,15 +71,15 @@ const ChatToolbar = ({ backToChatList, currentRoomId, roomname }, props) => {
   return (
     <div>
       <nav>
-        <div className='d-flex justify-content-between paddingt1 margin5x'>
-          <i className='material-icons gray50' onClick={backToChatList}>
+        <div className="d-flex justify-content-between paddingt1 margin5x">
+          <i className="material-icons gray50" onClick={backToChatList}>
             arrow_back
           </i>
-          <ChatRoomSummary roomname={roomname} currentRoomId={currentRoomId} />
+          <ChatroomSummary roomname={roomname} currentRoomId={currentRoomId} />
           <div>
             <Form inline onSubmit={(e) => e.preventDefault()}>
-              {' '}
-              <i className='material-icons gray70' onClick={toggle}>
+              {" "}
+              <i className="material-icons gray70" onClick={toggle}>
                 person_add{buttonLabel}
               </i>
             </Form>
@@ -92,24 +92,24 @@ const ChatToolbar = ({ backToChatList, currentRoomId, roomname }, props) => {
               <ModalHeader toggle={toggle}>Add friends to chat</ModalHeader>
               <ModalBody>
                 <Input
-                  type='textarea'
-                  placeholder='Find with username'
+                  type="textarea"
+                  placeholder="Find with username"
                   rows={1}
                   onChange={(event) => {
                     setUsername(event.target.value);
-                    setAlreadyIn({ ...alreadyIn, display: 'none' });
+                    setAlreadyIn({ ...alreadyIn, display: "none" });
                   }}
                 />
-                <Label for='exampleSelectMulti'>Search result</Label>
+                <Label for="exampleSelectMulti">Search result</Label>
                 {options}
 
                 <div style={alreadyIn}>
                   <p>This user is already in the chatroom</p>
                 </div>
               </ModalBody>
-              <ModalFooter className='d-flex justify-content-center'>
+              <ModalFooter className="d-flex justify-content-center">
                 <Button
-                  color='success'
+                  color="success"
                   onClick={() => {
                     if (options) {
                       axios
@@ -123,7 +123,7 @@ const ChatToolbar = ({ backToChatList, currentRoomId, roomname }, props) => {
                         )
                         .then((response) => {
                           if (response.data.length >= 1) {
-                            setAlreadyIn({ ...alreadyIn, display: 'block' });
+                            setAlreadyIn({ ...alreadyIn, display: "block" });
                           } else {
                             console.log(currentRoomId);
                             axios
@@ -135,8 +135,8 @@ const ChatToolbar = ({ backToChatList, currentRoomId, roomname }, props) => {
                                 }
                               )
                               .then((response) => {
-                                console.log('[ChatToolbar]', response.data[0]);
-                                socket.emit('add-chatroom-user', {
+                                console.log("[ChatToolbar]", response.data[0]);
+                                socket.emit("add-chatroom-user", {
                                   username: response.data[0].user_name,
                                 });
                                 toggle();
@@ -147,7 +147,7 @@ const ChatToolbar = ({ backToChatList, currentRoomId, roomname }, props) => {
                   }}
                 >
                   Add User
-                </Button>{' '}
+                </Button>{" "}
               </ModalFooter>
             </Modal>
           </div>
