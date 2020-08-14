@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { ThemeContext } from '../../Contexts/Theme';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { ThemeContext } from "../../Contexts/Theme";
+import { connect } from "react-redux";
 
-import ProfileDetails from './ProfileDetails';
-import TripSummary from '../../Components/UI/Dashboard/TripSummary';
-import GroupSummary from '../../Components/UI/Dashboard/GroupSummary';
-import PostSummary from '../../Components/UI/Dashboard/PostSummary';
-import FavPostSummary from '../../Components/UI/Dashboard/FavPostSummary';
+import ProfileDetails from "./ProfileDetails";
+import TripSummary from "../../Components/UI/Dashboard/TripSummary";
+import GroupSummary from "../../Components/UI/Dashboard/GroupSummary";
+import PostSummary from "../../Components/UI/Dashboard/PostSummary";
+import FavPostSummary from "../../Components/UI/Dashboard/FavPostSummary";
 
-import { fetchUser } from '../../redux/actions/user';
+import { fetchUser } from "../../redux/actions/user";
 
 // will render signin component if user is not logged in. Still make the route to '/signin' for signin page though
 
@@ -38,14 +38,10 @@ class ConnectedProfileScreen extends Component {
   async componentDidMount() {
     let { dispatch } = this.props;
     let user_id = parseInt(this.props.auth.user.id);
-    console.log(this.props);
-    console.log(user_id);
 
     await dispatch(fetchUser(user_id));
 
     if (this.props.user.user) {
-      console.log(this.props.user.user);
-
       this.setState({
         user: this.props.user.user,
         locations: this.props.user.user.locations,
@@ -53,7 +49,6 @@ class ConnectedProfileScreen extends Component {
         posts: this.props.user.user.userBlogs,
         favPosts: this.props.user.user.favBlogs,
       });
-      console.log(this.state);
     }
   }
 
@@ -100,7 +95,7 @@ class ConnectedProfileScreen extends Component {
 
     return (
       <div
-        id='profile_container'
+        id="profile_container"
         style={{ background: theme.low, color: theme.high }}
       >
         <ProfileDetails

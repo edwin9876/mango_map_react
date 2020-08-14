@@ -12,22 +12,21 @@ import {
   FETCH_ALL_LOCATIONS,
   CREATE_LOCATIONIMAGES,
   SAVE_LATLNG,
-} from '../constants/actionTypes';
+} from "../constants/actionTypes";
 
-import imgurHeader from '../helpers/imgurHeader';
+import imgurHeader from "../helpers/imgurHeader";
 
-import axios from 'axios';
+import axios from "axios";
 
-require('dotenv').config();
+require("dotenv").config();
 
 export function createLocationImages(images64, user_id, location_id) {
   return async (dispatch) => {
     let images_url = [];
-    console.log(images64);
 
     for (let img of images64) {
       let res = await axios.post(
-        'https://api.imgur.com/3/image',
+        "https://api.imgur.com/3/image",
         {
           image: img,
         },
@@ -37,7 +36,7 @@ export function createLocationImages(images64, user_id, location_id) {
       );
       images_url.push(res.data.data.link);
     }
-    console.log(images_url);
+
     let res = await axios.post(
       `${process.env.REACT_APP_DEV_URL}map/location/${user_id}/${location_id}/images`,
       {

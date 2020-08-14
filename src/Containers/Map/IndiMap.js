@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { Map, InfoWindow, GoogleApiWrapper, Marker } from "google-maps-react";
 import { connect } from "react-redux";
@@ -58,7 +58,7 @@ export class MapContainer extends Component {
   componentDidMount() {
     this.props.fetchAllDistricts();
     this.props.fetchAllLocations();
-    if (user.id) {
+    if (user) {
       console.log(user.id);
       axios
         .get(`${process.env.REACT_APP_DEV_URL}chatroom/all/${user.id}`)
@@ -81,11 +81,11 @@ export class MapContainer extends Component {
   changeTheme(mapProps, map) {
     map.setOptions.styles === simple
       ? map.setOptions({
-        styles: mapStyles,
-      })
+          styles: mapStyles,
+        })
       : map.setOptions({
-        styles: simple,
-      });
+          styles: simple,
+        });
   }
 
   onMarkerClick = (props, marker, e) => {
@@ -145,11 +145,10 @@ export class MapContainer extends Component {
   };
 
   createTrip = (e) => {
- 
     this.props.history.push("/createtrip");
   };
 
-  markTripLocation = () => { };
+  markTripLocation = () => {};
 
   createLocation = (e) => {
     this.props.saveLatLng(this.state.selectedPlace.position);
@@ -158,7 +157,6 @@ export class MapContainer extends Component {
   };
 
   onInfoWindowOpen(props, e) {
-
     const button = (
       <div
         style={{
@@ -169,22 +167,21 @@ export class MapContainer extends Component {
         }}
       >
         {!this.state.selectedPlace.id &&
-          !this.state.selectedPlace.district &&
-          user ? (
-            <Button history={this.props.history} onClick={this.createTrip}>New Trip</Button>
-          ) : this.state.selectedPlace.location && user ? (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                height: 100,
-                justifyContent: "space-around",
-              }}
-            >
-
-
-            </div>
-          ) : null}
+        !this.state.selectedPlace.district &&
+        user ? (
+          <Button history={this.props.history} onClick={this.createTrip}>
+            New Trip
+          </Button>
+        ) : this.state.selectedPlace.location && user ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              height: 100,
+              justifyContent: "space-around",
+            }}
+          ></div>
+        ) : null}
       </div>
     );
     ReactDOM.render(
@@ -205,7 +202,7 @@ export class MapContainer extends Component {
     let locations;
     let selfDefinedMarkers;
 
-    (locations = this.props.districts.map((location) => {
+    locations = this.props.districts.map((location) => {
       return (
         <Marker
           icon={{
@@ -221,8 +218,7 @@ export class MapContainer extends Component {
           location={true}
         />
       );
-    }))
-
+    });
 
     if (this.state.selfDefinedMarkers) {
       selfDefinedMarkers = this.state.selfDefinedMarkers.map((marker) => {
@@ -290,8 +286,7 @@ export class MapContainer extends Component {
               <h5 className="bold gray70 d-flex justify-content-center">
                 {this.state.selectedPlace.name}
               </h5>
-              <div className="d-flex justify-content-center">
-              </div>
+              <div className="d-flex justify-content-center"></div>
               <div id="iwc" />
             </div>
           </InfoWindow>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Button,
   Modal,
@@ -7,22 +7,21 @@ import {
   ModalFooter,
   Input,
   Form,
-} from 'reactstrap';
-import axios from 'axios';
+} from "reactstrap";
+import axios from "axios";
 
 const AddChat = (props) => {
-  console.log('[AddChat]', props);
   const { buttonLabel, className } = props;
 
   const [modal, setModal] = useState(false);
   const [unmountOnClose, setUnmountOnClose] = useState(true);
 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   const toggle = () => {
-    setTitle('');
-    setDescription('');
+    setTitle("");
+    setDescription("");
     setModal(!modal);
   };
 
@@ -45,8 +44,12 @@ const AddChat = (props) => {
     <div>
       <nav>
         <Form inline onSubmit={(e) => e.preventDefault()}>
-          {' '}
-          <i className="material-icons gray50 micons15" id="addchatIC" onClick={toggle}>
+          {" "}
+          <i
+            className="material-icons gray50 micons15"
+            id="addchatIC"
+            onClick={toggle}
+          >
             add_box{buttonLabel}
           </i>
         </Form>
@@ -59,30 +62,30 @@ const AddChat = (props) => {
           <ModalHeader toggle={toggle}>Create New Chat</ModalHeader>
           <ModalBody>
             <Input
-              type='textarea'
-              placeholder='Title'
+              type="textarea"
+              placeholder="Title"
               rows={1}
-              className='margin1vw'
+              className="margin1vw"
               onChange={(event) => {
                 setTitle(event.target.value);
               }}
             />
             <Input
-              type='textarea'
-              placeholder='Description'
+              type="textarea"
+              placeholder="Description"
               rows={2}
-              className='margin1vw'
+              className="margin1vw"
               onChange={(event) => {
                 setDescription(event.target.value);
               }}
             />
           </ModalBody>
-          <ModalFooter className='d-flex justify-content-center'>
+          <ModalFooter className="d-flex justify-content-center">
             <Button
-              color='success'
+              color="success"
               onClick={() => {
-                if (title === '' || description === '') {
-                  alert('Please put in title and description');
+                if (title === "" || description === "") {
+                  alert("Please put in title and description");
                   return;
                 }
                 createChatroom(title, description);
@@ -90,7 +93,7 @@ const AddChat = (props) => {
               }}
             >
               Add
-            </Button>{' '}
+            </Button>{" "}
           </ModalFooter>
         </Modal>
       </nav>

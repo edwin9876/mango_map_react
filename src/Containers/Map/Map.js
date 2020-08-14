@@ -57,21 +57,18 @@ export class MapContainer extends Component {
   componentDidMount() {
     this.props.fetchAllDistricts();
     this.props.fetchAllLocations();
-    if (user.id) {
-      console.log(user.id);
+    if (user) {
       axios
         .get(`${process.env.REACT_APP_DEV_URL}chatroom/all/${user.id}`)
         .then((data) => {
-          console.log(data);
           this.setState({
             ...this.state,
             chatrooms: [...data.data],
           });
         });
     }
-    console.log(this.state);
+
     if (navigator && navigator.geolocation) {
-      // console.log(this.props.google.maps.Map().panT);
       navigator.geolocation.getCurrentPosition((pos) => {
         const coords = pos.coords;
         this.setState({
@@ -101,7 +98,6 @@ export class MapContainer extends Component {
   }
 
   onMarkerClick = (props, marker, e) => {
-    console.log(props);
     this.setState(
       {
         ...this.state,
@@ -111,7 +107,6 @@ export class MapContainer extends Component {
       },
       () => {
         if (!this.state.selectedPlace.id) {
-          console.log("Return");
           return;
         }
         axios
@@ -119,7 +114,6 @@ export class MapContainer extends Component {
             `${process.env.REACT_APP_DEV_URL}image/public/${this.state.selectedPlace.id}`
           )
           .then((data) => {
-            console.log(data);
             this.setState({
               ...this.state,
               selectedPlaceImages: data.data,
@@ -139,9 +133,7 @@ export class MapContainer extends Component {
           selectedPlaceImages: null,
           selectedPlace: {},
         },
-        () => {
-          console.log(props);
-        }
+        () => {}
       );
     }
   };
@@ -152,14 +144,11 @@ export class MapContainer extends Component {
         ...this.state,
         selfDefinedMarkers: [...this.state.selfDefinedMarkers, { lat, lng }],
       },
-      () => {
-        console.log(this.state.selfDefinedMarkers);
-      }
+      () => {}
     );
   };
 
   createPost = (e) => {
-    console.log(this.state);
     this.props.history.push(
       `/createpost/${this.state.selectedPlace.name}/${this.state.selectedPlace.id}`
     );
@@ -169,7 +158,7 @@ export class MapContainer extends Component {
 
   createLocation = (e) => {
     this.props.saveLatLng(this.state.selectedPlace.position);
-    console.log(this.props);
+
     this.props.history.push("/createlocation");
   };
 
@@ -235,13 +224,12 @@ export class MapContainer extends Component {
       React.Children.only(button),
       document.getElementById("iwc")
     );
-    console.log(this.state);
   }
 
   toggle = (e) => {
     let { name, id } = this.state.selectedPlace;
     this.props.fetchChatroom(e.target.value, { name, id });
-    console.log(this.props);
+
     this.props.history.push(`/chat`);
   };
 
@@ -322,11 +310,10 @@ export class MapContainer extends Component {
           onZoomChanged={(google, map) => {
             this.props.changeZoomLevel(map.zoom);
           }}
-          onLoad={(map) => console.log(map)}
           onClick={(props, google, clickEvent) => {
             const lat = clickEvent.latLng.lat();
             const lng = clickEvent.latLng.lng();
-            console.log(google);
+
             this.createMarker(lat, lng);
           }}
           centerAroundCurrentLocation
