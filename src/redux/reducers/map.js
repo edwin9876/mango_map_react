@@ -12,7 +12,7 @@ import {
   SAVE_LATLNG,
   CREATE_LOCATION,
   INITIALIZE_STATE,
-} from '../constants/actionTypes';
+} from "../constants/actionTypes";
 
 const initialMapState = {
   districts: [],
@@ -21,7 +21,6 @@ const initialMapState = {
 };
 
 const mapReducer = (state = initialMapState, action) => {
-  console.log(action);
   switch (action.type) {
     case FETCH_ALL_DISTRICTS:
       return {
@@ -75,7 +74,7 @@ const mapReducer = (state = initialMapState, action) => {
     default:
       return {
         ...state,
-        districts: ['BUGGY'],
+        districts: ["BUGGY"],
       };
   }
 };

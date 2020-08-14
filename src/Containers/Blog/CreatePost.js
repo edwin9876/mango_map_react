@@ -10,7 +10,7 @@ import {
   ButtonGroup,
 } from "reactstrap";
 import { ThemeContext } from "../../Contexts/Theme";
-import SearchBar from "../../components/UI/Layout/SearchBar";
+import SearchBar from "../../Components/UI/Layout/SearchBar";
 import NewPost from "./NewPost";
 import NewPic from "./NewPic";
 import { connect } from "react-redux";

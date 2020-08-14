@@ -16,12 +16,12 @@ import {
   // REMOVE_FAVPOST,
   // CREATE_USERLOCATION,
   // REMOVE_USERLOCATION,
-} from '../constants/actionTypes';
+} from "../constants/actionTypes";
 
-import authHeader from '../helpers/authHeader';
-import axios from 'axios';
+import authHeader from "../helpers/authHeader";
+import axios from "axios";
 
-require('dotenv').config();
+require("dotenv").config();
 
 export function login(email, password) {
   return async (dispatch) => {
@@ -31,8 +31,8 @@ export function login(email, password) {
         `${process.env.REACT_APP_DEV_URL}auth/local-login`,
         { email: email, password: password }
       );
-      console.log(res.data);
-      localStorage.setItem('user', JSON.stringify(res.data));
+
+      localStorage.setItem("user", JSON.stringify(res.data));
 
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
     } catch (err) {
@@ -42,7 +42,7 @@ export function login(email, password) {
 }
 
 export function logout() {
-  localStorage.removeItem('user');
+  localStorage.removeItem("user");
   return { type: LOGOUT };
 }
 
@@ -54,7 +54,7 @@ export function signUp(userInfo) {
         `${process.env.REACT_APP_DEV_URL}auth/local-signup`,
         { ...userInfo }
       );
-      console.log(res.data);
+
       // localStorage.setItem('user', JSON.stringify(res.data.user))
 
       dispatch({ type: REGISTER_SUCCESS, payload: res.data.user });
@@ -73,14 +73,13 @@ export function fetchAllUser() {
 
 export function fetchUser(user_id) {
   return async (dispatch) => {
-    console.log(user_id);
     let res = await axios(
       `${process.env.REACT_APP_DEV_URL}user/one/${user_id}`,
       {
         headers: authHeader(),
       }
     );
-    console.log(res.data);
+
     dispatch({ type: FETCH_USER, payload: res.data });
   };
 }
@@ -93,7 +92,7 @@ export function fetchUserLocation(user_id, location_id) {
         headers: authHeader(),
       }
     );
-    console.log(res.data);
+
     dispatch({ type: FETCH_USERLOCATION, payload: res.data[0] });
   };
 }
@@ -109,7 +108,6 @@ export function createUser(payload) {
 }
 
 export function updateUser(payload) {
-  console.log(payload);
   return async (dispatch) => {
     let res = await axios.put(
       `${process.env.REACT_APP_DEV_URL}user/one/${payload.id}`,

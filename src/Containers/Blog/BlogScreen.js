@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { ThemeContext } from "../../Contexts/Theme";
 
-import SearchBar from "../../components/UI/Layout/SearchBar";
-import WeeklyPost from "../../components/UI/Dashboard/WeeklyPost";
-import WeeklyPic from "../../components/UI/Dashboard/WeeklyPic";
-import TopPics from "../../components/UI/Dashboard/TopPics";
-import TopUsers from "../../components/UI/Dashboard/TopUsers";
+import SearchBar from "../../Components/UI/Layout/SearchBar";
+import WeeklyPost from "../../Components/UI/Dashboard/WeeklyPost";
+import WeeklyPic from "../../Components/UI/Dashboard/WeeklyPic";
+import TopPics from "../../Components/UI/Dashboard/TopPics";
+import TopUsers from "../../Components/UI/Dashboard/TopUsers";
 import BlogList from "./BlogList";
-import PopularSpots from "../../components/UI/Dashboard/PopularSpots";
+import PopularSpots from "../../Components/UI/Dashboard/PopularSpots";
 
 import { Button, ButtonGroup } from "reactstrap";
 import { motion } from "framer-motion";
@@ -97,7 +97,6 @@ class ConnectedBlogScreen extends Component {
       ...this.state,
       searchKeyword: e.target.value,
     });
-    console.log(this.state);
   };
 
   handleSubmit = (e) => {
@@ -114,7 +113,6 @@ class ConnectedBlogScreen extends Component {
       filteredPosts: filteredPosts,
       filteredUsers: filteredUsers,
     });
-    console.log(this.state);
   };
 
   handleCancel = (e) => {
@@ -127,7 +125,7 @@ class ConnectedBlogScreen extends Component {
   render() {
     const { isLightTheme, light, dark } = this.context;
     const theme = isLightTheme ? light : dark;
-    console.log(this.state);
+
     return (
       <motion.div
         initial={{ x: -600 }}

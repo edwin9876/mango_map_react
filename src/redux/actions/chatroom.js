@@ -19,13 +19,13 @@ import {
   INITIALIZE_STATE,
   SET_GROUP_MAP_TRUE,
   SET_GROUP_MAP_FALSE,
-} from '../constants/actionTypes';
+} from "../constants/actionTypes";
 
-import axios from 'axios';
-require('dotenv').config();
+import axios from "axios";
+require("dotenv").config();
 
 export const fetchChatroomList = (userId) => {
-  console.log('[chatroom.js] action fetchChatroomList is accessed');
+  console.log("[chatroom.js] action fetchChatroomList is accessed");
   console.log(userId);
   return async (dispatch) => {
     let res = await axios(
@@ -37,13 +37,13 @@ export const fetchChatroomList = (userId) => {
 };
 
 export const fetchChatroom = (payload, selectedPlace) => {
-  console.log('[fetchChatroom action]');
+  console.log("[fetchChatroom action]");
   console.log(typeof payload);
   return async (dispatch) => {
     let res = await axios(
       `${process.env.REACT_APP_DEV_URL}chatroom/${payload}`
     );
-    console.log('[fetchChatroom action axios call]');
+    console.log("[fetchChatroom action axios call]");
 
     let mergedConversation = [];
 
@@ -81,7 +81,7 @@ export const initializeState = (username, userId) => {
 };
 
 export const setGroupMapTrue = () => {
-  console.log('Setting...');
+  console.log("Setting...");
   return (dispatch) => {
     dispatch({
       type: SET_GROUP_MAP_TRUE,
@@ -116,7 +116,7 @@ export const setRoomname = (roomname) => {
 };
 
 export const sendMessage = (message, roomId, userId, username) => {
-  console.log('[chatrooms.js action]', message, roomId);
+  console.log("[chatrooms.js action]", message, roomId);
   return async (dispatch) => {
     await axios
       .post(`${process.env.REACT_APP_DEV_URL}chatroom/record`, {
@@ -127,9 +127,9 @@ export const sendMessage = (message, roomId, userId, username) => {
       })
       .then((res) => {
         res.data[0].user_name
-          ? console.log('[Chatroom.js action', res.data[0].user_name)
+          ? console.log("[Chatroom.js action", res.data[0].user_name)
           : (res.data[0].user_name = username);
-        console.log('[chatrooms.js] action', res.data[0]);
+        console.log("[chatrooms.js] action", res.data[0]);
         dispatch({ type: SEND_MESSAGE, payload: res.data[0] });
       });
   };

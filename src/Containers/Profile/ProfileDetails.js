@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { ThemeContext } from "../../Contexts/Theme";
-import ThemeToggle from "../../components/UI/Layout/ThemeToggle";
+import ThemeToggle from "../../Components/UI/Layout/ThemeToggle";
 import {
   Button,
   ButtonGroup,
@@ -60,14 +60,12 @@ class ProfileDetails extends Component {
       main_url = this.props.user.profile_picture_url;
     }
 
-    console.log(main_url);
     // const numRows = membersToRender.length
     return (
       <ThemeContext.Consumer>
         {(context) => {
           const { isLightTheme, light, dark } = context;
           const theme = isLightTheme ? light : dark;
-          console.log(this.props.user);
 
           return (
             <div

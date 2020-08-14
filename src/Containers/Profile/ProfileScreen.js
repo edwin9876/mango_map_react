@@ -3,10 +3,10 @@ import { ThemeContext } from "../../Contexts/Theme";
 import { connect } from "react-redux";
 
 import ProfileDetails from "./ProfileDetails";
-import TripSummary from "../../components/UI/Dashboard/TripSummary";
-import GroupSummary from "../../components/UI/Dashboard/GroupSummary";
-import PostSummary from "../../components/UI/Dashboard/PostSummary";
-import FavPostSummary from "../../components/UI/Dashboard/FavPostSummary";
+import TripSummary from "../../Components/UI/Dashboard/TripSummary";
+import GroupSummary from "../../Components/UI/Dashboard/GroupSummary";
+import PostSummary from "../../Components/UI/Dashboard/PostSummary";
+import FavPostSummary from "../../Components/UI/Dashboard/FavPostSummary";
 
 import { fetchUser } from "../../redux/actions/user";
 
@@ -38,14 +38,10 @@ class ConnectedProfileScreen extends Component {
   async componentDidMount() {
     let { dispatch } = this.props;
     let user_id = parseInt(this.props.auth.user.id);
-    console.log(this.props);
-    console.log(user_id);
 
     await dispatch(fetchUser(user_id));
 
     if (this.props.user.user) {
-      console.log(this.props.user.user);
-
       this.setState({
         user: this.props.user.user,
         locations: this.props.user.user.locations,
@@ -53,7 +49,6 @@ class ConnectedProfileScreen extends Component {
         posts: this.props.user.user.userBlogs,
         favPosts: this.props.user.user.favBlogs,
       });
-      console.log(this.state);
     }
   }
 
