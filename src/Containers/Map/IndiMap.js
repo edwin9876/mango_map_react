@@ -66,7 +66,13 @@ const MapContainer = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log(selectedPlace);
+    if (selectedPlace.id) {
+      axios
+        .get(`${process.env.REACT_APP_DEV_URL}image/public/${selectedPlace.id}`)
+        .then((response) => {
+          setSelectedPlaceImages(response.data);
+        });
+    }
   }, [selectedPlace]);
 
   const _mapLoaded = (mapProps, map) => {
@@ -105,10 +111,20 @@ const MapContainer = (props) => {
   };
 
   const createTrip = (e) => {
-    console.log('Clicked');
     console.log(selectedPlace);
-    props.history.push(`/createtrip?${selectedPlace.name}`);
+
+    if (!selectedPlace.id) {
+      props.history.push(
+        `/createtrip?lat=${selectedPlace.position.lat}?lng=${selectedPlace.position.lng}`
+      );
+    } else {
+      props.history.push(`/createtrip?exist=${selectedPlace.name}`);
+    }
   };
+
+  useEffect(() => {
+    console.log(selectedPlace);
+  }, [selectedPlace]);
 
   const markTripLocation = () => {};
 
@@ -143,10 +159,10 @@ const MapContainer = (props) => {
         ) : null}
       </div>
     );
-    // ReactDOM.render(
-    //   React.Children.only(button),
-    //   document.getElementById('iwc')
-    // );
+    ReactDOM.render(
+      React.Children.only(button),
+      document.getElementById('iwc')
+    );
   };
 
   const toggle = (e) => {
@@ -157,6 +173,7 @@ const MapContainer = (props) => {
 
   let locations;
   let selfDefinedMarkersDisplay;
+  let trips;
 
   locations = props.locations.map((location) => {
     return (
@@ -190,6 +207,28 @@ const MapContainer = (props) => {
       );
     });
   }
+
+  console.log(props.trips);
+
+  if (props.trips) {
+    trips = props.trips.map((trip) => {
+      if (trip.lat) {
+        return (
+          <Marker
+            position={{
+              lat: trip.lat,
+              lng: trip.lng,
+            }}
+            onClick={onMarkerClick}
+            name={trip.trip_description}
+            description={trip.trip_description}
+          />
+        );
+      }
+    });
+  }
+
+  console.log(trips);
 
   return (
     <div>
@@ -227,6 +266,7 @@ const MapContainer = (props) => {
         />
         {selfDefinedMarkersDisplay}
         {locations}
+        {trips}
         <InfoWindow
           marker={activeMarker}
           visible={showInfoWindow}
@@ -240,11 +280,11 @@ const MapContainer = (props) => {
               {selectedPlace.name}
             </h5>
             <div className="d-flex justify-content-center">
-              <Button history={props.history} onClick={createTrip}>
+              {/* <Button history={props.history} onClick={createTrip}>
                 New Trip
-              </Button>
+              </Button> */}
             </div>
-            {/* <div id="iwc" /> */}
+            <div id="iwc" />
           </div>
         </InfoWindow>
       </Map>

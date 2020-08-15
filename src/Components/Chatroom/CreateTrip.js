@@ -1,20 +1,60 @@
 import React, { Component } from 'react';
-import { ThemeContext } from '../../Contexts/Theme';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import { ThemeContext } from '../../Contexts/Theme';
 
 class CreateTrip extends Component {
   static contextType = ThemeContext;
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      date: null,
+      description: null,
+    };
   }
 
-  handleChange = () => {};
+  componentDidMount() {}
 
-  handleSubmit = async () => {};
+  dateHandler = (event) => {
+    this.setState({ ...this.state, date: event.target.value });
+  };
+  descriptionHandler = (event) => {
+    this.setState({ ...this.state, description: event.target.value });
+  };
+
+  onSubmitHandler = async () => {
+    let lat, lng;
+    if (this.props.location.search) {
+      let queryString = this.props.location.search.split('?');
+      if (queryString[1].includes('lat') && queryString[2].includes('lng')) {
+        lat = queryString[1].split('=')[1];
+        lng = queryString[2].split('=')[1];
+      }
+      await axios
+        .post(`${process.env.REACT_APP_DEV_URL}chatroom/trips`, {
+          lat: lat,
+          lng: lng,
+          date: this.state.date,
+          description: this.state.description,
+          chatroomId: this.props.currentRoomId,
+        })
+        .then(() => {
+          alert('You have created a trip');
+          this.props.history.push('/chat');
+        });
+    }
+  };
 
   render() {
-    console.log(this.props);
+    let string = this.props.location.search.split('?')[1];
+    if (string.split('=')[0] === 'exist') {
+      string = string.split('=')[1];
+      string = string.split('%20');
+      string = string.join(' ');
+    } else {
+      string = 'A New Location';
+    }
 
     const { isLightTheme, light, dark } = this.context;
     const theme = isLightTheme ? light : dark;
@@ -35,17 +75,17 @@ class CreateTrip extends Component {
           <Label for="date" className="bold">
             Location
           </Label>
-          <p classNam="gray70">Lizard's back, New Territories</p>
+          <p classNam="gray70">{string}</p>
         </div>
         <Form
           id="createPost"
-          onSubmit={this.handleSubmit}
+          onSubmit={this.descriptionHandler}
           className="uploader margin5"
           encType="multipart/form-data"
         >
           <FormGroup>
             <Label for="date" className="bold">
-              Date and time
+              Date
             </Label>
             <Input
               style={{
@@ -53,10 +93,11 @@ class CreateTrip extends Component {
                 borderColor: theme.highlight,
                 color: theme.high,
               }}
-              onChange={this.handleChange}
-              type="text"
+              onChange={(event) => {
+                this.dateHandler(event);
+              }}
+              type="date"
               name="date"
-              placeholder="Date and time"
             />
           </FormGroup>
 
@@ -70,7 +111,10 @@ class CreateTrip extends Component {
                 borderColor: theme.highlight,
                 color: theme.high,
               }}
-              onChange={this.handleChange}
+              onChange={(event) => {
+                console.log(event.target.value);
+                this.descriptionHandler(event);
+              }}
               type="text"
               name="description"
               placeholder="Description"
@@ -81,8 +125,8 @@ class CreateTrip extends Component {
             <Button
               style={{ backgroundColor: theme.highlight }}
               className="btn margin5 noBorder"
-              type="submit"
               name="action"
+              onClick={this.onSubmitHandler}
             >
               Create Trip
             </Button>
@@ -93,4 +137,10 @@ class CreateTrip extends Component {
   }
 }
 
-export default CreateTrip;
+const mapStateToProps = (state) => {
+  return {
+    currentRoomId: state.chatroom.currentRoomId,
+  };
+};
+
+export default connect(mapStateToProps)(CreateTrip);

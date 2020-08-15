@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import Map from '../../../../Containers/Map/IndiMap';
 import GroupTripSummary from './GroupTripSummary/GroupTripSummary';
 import { ThemeContext } from '../../../../Contexts/Theme';
@@ -11,6 +12,17 @@ class GroupMap extends Component {
       trips: [],
     };
   }
+
+  componentDidMount() {
+    axios
+      .get(
+        `${process.env.REACT_APP_DEV_URL}chatroom/trips/${this.props.chatroomId}`
+      )
+      .then((response) => {
+        this.setState({ ...this.state, trips: response.data });
+      });
+  }
+
   render() {
     const { isLightTheme, light, dark } = this.context;
     const theme = isLightTheme ? light : dark;
@@ -18,13 +30,14 @@ class GroupMap extends Component {
     return (
       <div>
         <h5 className=" text-align-center gray70">
-          <span className="highlight">5 </span>Trips with Capstone
+          <span className="highlight">{this.state.trips.length} </span>Trips
+          with {this.props.roomname}
         </h5>
         <div id="minimap">
-          <Map />
+          <Map trips={this.state.trips} />
         </div>
         <h5 className="paddingt1 text-align-center gray70">Timeline</h5>
-        <GroupTripSummary />
+        <GroupTripSummary trips={this.state.trips} />
       </div>
     );
   }

@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import ScrollToBottom from "react-scroll-to-bottom";
-import axios from "axios";
-import { connect } from "react-redux";
-import io from "socket.io-client";
-import { Button, ButtonGroup, ListGroup, ListGroupItem } from "reactstrap";
-import ChatToolbar from "../../UI/Layout/ChatToolbar";
-import Input from "./Input/Input";
-import Messages from "./Messages/Messages";
-import GroupMap from "./GroupMap/GroupMap";
-import AddChat from "../../UI/Layout/AddChat";
-import { ThemeContext } from "../../../Contexts/Theme";
-import ChatroomSummary from "./ChatroomSummary";
+import React, { useState, useEffect } from 'react';
+import ScrollToBottom from 'react-scroll-to-bottom';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import io from 'socket.io-client';
+import { Button, ButtonGroup, ListGroup, ListGroupItem } from 'reactstrap';
+import ChatToolbar from '../../UI/Layout/ChatToolbar';
+import Input from './Input/Input';
+import Messages from './Messages/Messages';
+import GroupMap from './GroupMap/GroupMap';
+import AddChat from '../../UI/Layout/AddChat';
+import { ThemeContext } from '../../../Contexts/Theme';
+import ChatroomSummary from './ChatroomSummary';
 import {
   backToChatList,
   fetchChatroomList,
@@ -22,31 +22,31 @@ import {
   initializeState,
   setGroupMapTrue,
   setGroupMapFalse,
-} from "../../../redux/actions/chatroom";
+} from '../../../redux/actions/chatroom';
 
 const Chat = (props) => {
   let socket = io(process.env.REACT_APP_DEV_URL);
   let userInfo;
-  let test = "Test";
+  let test = 'Test';
 
-  const [inputMessage, setInputMessage] = useState("");
+  const [inputMessage, setInputMessage] = useState('');
 
-  userInfo = JSON.parse(localStorage.getItem("user"));
+  userInfo = JSON.parse(localStorage.getItem('user'));
 
   props.initializeState(userInfo.user_name, userInfo.id);
 
   useEffect(() => {
     props.fetchChatroomList(userInfo.id);
 
-    socket.on("chat-message", ({ message, roomId, userId, username }) => {
+    socket.on('chat-message', ({ message, roomId, userId, username }) => {
       if (roomId === props.currentRoomId) {
         props.sendMessage(message, roomId, userId, username);
       }
     });
 
-    socket.on("join-chatroom", (data) => {});
+    socket.on('join-chatroom', (data) => {});
 
-    socket.on("join-chatroom-user", (data) => {
+    socket.on('join-chatroom-user', (data) => {
       props.receiveMessage(
         data.username,
         `${data.username} has joined the chatroom!`
@@ -61,7 +61,7 @@ const Chat = (props) => {
             return chatroom.chatroom_id;
           });
         });
-      socket.emit("new-user", {
+      socket.emit('new-user', {
         name: props.username,
         roomList: chatroomList,
       });
@@ -69,28 +69,28 @@ const Chat = (props) => {
 
     asynFetchChatroom();
 
-    socket.on("user-connected", (name) => {});
+    socket.on('user-connected', (name) => {});
 
     return () => {
-      socket.emit("disconnect");
+      socket.emit('disconnect');
       socket.off();
     };
   }, []);
 
   const ROOT_CSS = {
-    height: "100%",
-    width: "100%",
+    height: '100%',
+    width: '100%',
   };
 
   const sendMessageToChatroom = (message, roomId, userId, username) => {
-    socket.emit("chat-message", {
+    socket.emit('chat-message', {
       message,
       roomId,
       userId,
       username,
     });
     props.sendMessage(message, roomId, userId, username);
-    setInputMessage("");
+    setInputMessage('');
   };
 
   return (
@@ -105,7 +105,7 @@ const Chat = (props) => {
               roomname={props.roomname}
               backToChatList={props.backToChatList}
               currentRoomId={props.currentRoomId}
-            />{" "}
+            />{' '}
             <ButtonGroup className="d-flex justify-content-center">
               <Button
                 style={{
@@ -132,7 +132,7 @@ const Chat = (props) => {
                 <p className="bold blur">Group Map</p>
               </Button>
             </ButtonGroup>
-            <ScrollToBottom className={ROOT_CSS + " textBox"}>
+            <ScrollToBottom className={ROOT_CSS + ' textBox'}>
               <div className="margin5">
                 <Messages
                   conversation={props.conversation}
@@ -153,7 +153,7 @@ const Chat = (props) => {
                 }
                 messages={inputMessage}
                 setMessage={setInputMessage}
-              />{" "}
+              />{' '}
             </div>
           </div>
         ) : (
@@ -203,7 +203,7 @@ const Chat = (props) => {
                 roomname={props.roomname}
                 backToChatList={props.backToChatList}
                 currentRoomId={props.currentRoomId}
-              />{" "}
+              />{' '}
               <ButtonGroup className="d-flex justify-content-center">
                 <Button
                   style={{
@@ -229,8 +229,11 @@ const Chat = (props) => {
                 >
                   <p className="bold blur">Group Map</p>
                 </Button>
-              </ButtonGroup>{" "}
-              <GroupMap />
+              </ButtonGroup>{' '}
+              <GroupMap
+                chatroomId={props.currentRoomId}
+                roomname={props.roomname}
+              />
             </>
           ) : (
             displayedContent
