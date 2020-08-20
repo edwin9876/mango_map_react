@@ -10,7 +10,8 @@ import TopUsers from "../../Components/UI/Dashboard/TopUsers";
 import BlogList from "./BlogList";
 import PopularSpots from "../../Components/UI/Dashboard/PopularSpots";
 
-import { Button, ButtonGroup, Tooltip } from "reactstrap";
+import { Button, ButtonGroup } from "reactstrap";
+import { motion } from "framer-motion";
 
 // import { fetchPost} from '../../redux/actions/blog'
 import { fetchAllPost } from "../../redux/actions/blog";
@@ -96,7 +97,6 @@ class ConnectedBlogScreen extends Component {
       ...this.state,
       searchKeyword: e.target.value,
     });
-    console.log(this.state);
   };
 
   handleSubmit = (e) => {
@@ -113,7 +113,6 @@ class ConnectedBlogScreen extends Component {
       filteredPosts: filteredPosts,
       filteredUsers: filteredUsers,
     });
-    console.log(this.state);
   };
 
   handleCancel = (e) => {
@@ -126,9 +125,12 @@ class ConnectedBlogScreen extends Component {
   render() {
     const { isLightTheme, light, dark } = this.context;
     const theme = isLightTheme ? light : dark;
-    console.log(this.state);
+
     return (
-      <div
+      <motion.div
+        initial={{ x: -600 }}
+        animate={{ x: 0 }}
+        transition={{ delay: 0.2, type: "spring", stiffness: 80 }}
         id="blog_container"
         style={{ background: theme.low, color: theme.high }}
       >
@@ -141,7 +143,7 @@ class ConnectedBlogScreen extends Component {
         {!this.state.searched && (
           <div>
             <div className="margin5">
-              <p className="d-flex justify-content-center bold gray70 ">
+              <p className="d-flex justify-content-center bold gray70">
                 Weekly Post
               </p>
               {this.state.posts && (
@@ -255,7 +257,7 @@ class ConnectedBlogScreen extends Component {
               })
             : null}
         </div>
-      </div>
+      </motion.div>
     );
   }
 }
