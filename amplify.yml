@@ -1,0 +1,18 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - yarn install
+    build:
+      commands:
+        - yarn run build:$REACT_APP_DEV_URL,
+        - yarn run build:$REACT_APP_IMGUR_CLIENT_ID
+        - yarn run build:$REACT_APP_GOOGLE_MAP_API
+  artifacts:
+    baseDirectory: build
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - node_modules/**/*
