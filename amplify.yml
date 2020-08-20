@@ -1,11 +1,4 @@
 version: 1
-env:
-  variables:
-      REACT_APP_DEV_URL:https://localhost:8000/
-
-REACT_APP_IMGUR_CLIENT_ID:c193a8bef20fb01
-
-REACT_APP_GOOGLE_MAP_API:AIzaSyAg-zxdwaWHeCd5QnJ-yBcy1_lvDttzCKk
 frontend:
   phases:
     preBuild:
