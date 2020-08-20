@@ -6,9 +6,7 @@ frontend:
         - yarn install
     build:
       commands:
-        - yarn run build:$REACT_APP_DEV_URL,
-        - yarn run build:$REACT_APP_IMGUR_CLIENT_ID
-        - yarn run build:$REACT_APP_GOOGLE_MAP_API
+        - yarn run build
   artifacts:
     baseDirectory: build
     files:
